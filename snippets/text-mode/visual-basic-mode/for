@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: For i = 0 To ...
+# key: for
+# --
+For ${1:i} = ${2:0} To ${3:0}
+    $0
+Next

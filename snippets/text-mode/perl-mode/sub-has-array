@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+#name : sub has_... { ...list_of }
+#key : sub
+#expand-env : ((yas/wrap-around-region nil))
+# --
+sub has_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} {
+    my ($self, \$$1) = @_;
+    if ( ! \$$1 || ! \$$1->isa("$4") ) {
+        ${5:return;}
+    }
+    my @ret = grep { \$_$6 eq \$$1$6 } @{\$${7:$1list}_of{ident $self}};
+    return $#ret >= 0 ? 1 : 0;
+}$0

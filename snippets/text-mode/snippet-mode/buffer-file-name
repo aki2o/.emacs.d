@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ${?: buffer-file-name}
+# key: ${?: buffer-file-name}
+# --
+\${$0:\`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))\`}

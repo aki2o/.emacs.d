@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rspec_expect
+# key: exp
+# --
+expect($1).to y_matcher$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : perl -ne 'print $_ if m{...}xms'
+#key : perl
+#expand-env : ((yas/wrap-around-region nil))
+# --
+perl -ne 'print $_ if m{ ${1:regex} }xms'$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rspec_describe "#..."
+# key: describe
+# --
+describe "#${1:method}" do
+  subject { ${2:tested}.__send__(:$1) }
+end

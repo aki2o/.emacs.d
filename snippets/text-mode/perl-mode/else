@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : else { \n }
+#key : else
+# --
+else {
+    $0
+}

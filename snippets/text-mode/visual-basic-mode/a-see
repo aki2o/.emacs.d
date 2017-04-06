@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : ' @see ...
+# key : @
+# expand-env : ((yas/wrap-around-region nil))
+# --
+' @see      ${1:classnm}${2:#}${3:funcnm}${4:
+@}$0

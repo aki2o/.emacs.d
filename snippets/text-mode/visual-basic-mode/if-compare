@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: If test = "" Then
+# key: if
+# --
+If ${1:`(~yas/get-register "var")`} ${2:=} ${3:""} Then
+    $0
+End If${1:$(~yas/set-register text "if")}

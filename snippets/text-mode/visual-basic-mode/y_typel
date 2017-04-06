@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: select type
+# key: y_typel
+# expand-env : ((yas/wrap-around-region nil))
+# --
+`(yas/choose-value '("String" "Integer" "Boolean" "Long" "Varient"))`$0

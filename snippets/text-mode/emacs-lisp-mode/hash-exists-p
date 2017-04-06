@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: hash-exists-p
+# --
+(defun ${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}${2:-}hash-exists-p (key table)
+  (let ((novalue (cl-gensym)))
+    (not (eq (gethash key table novalue) novalue))))$0

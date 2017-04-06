@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : sub ... { my $self = shift }
+#key : sub
+# --
+#
+sub $1 ${2:y_mmod$3 }{
+    my $self = shift;
+    $0
+}

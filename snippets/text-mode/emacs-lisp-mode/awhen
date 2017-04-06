@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: defmacro awhen
+# key: defmacro awhen
+# --
+(defmacro ${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}${2:-}awhen (test &rest body)
+  (declare (indent 1))
+  `(let ((it ,test)) (when it ,@body)))$0

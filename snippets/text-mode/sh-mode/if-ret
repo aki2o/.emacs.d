@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : if [ $? -? cond ]; then ...
+#key : if
+# --
+if [ $? -${1:$$(yas/choose-value '("eq" "ne" "gt" "ge" "lt" "le"))} ${2:0} ]; then
+    $0
+fi

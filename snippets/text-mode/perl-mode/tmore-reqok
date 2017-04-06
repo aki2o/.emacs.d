@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : require_ok( $module );
+#key : require_ok
+# --
+require_ok( "${1:module}" );$0

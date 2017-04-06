@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Private attr As ...
+# key: private
+# expand-env : ((yas/wrap-around-region nil))
+# --
+Private x${1:name} As $2${1:$(~yas/set-register text "attr")}${2:$(~yas/set-register text "attrtype")}$0

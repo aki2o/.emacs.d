@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : BEGIN { use_ok( $module ); }
+#key : BEGIN
+# --
+BEGIN { use_ok( "${1:module}" ); }$0

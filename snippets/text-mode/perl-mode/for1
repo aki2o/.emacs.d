@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : for my $i ( start..end ) { ... }
+#key : for
+# --
+${1:LOOPTITLE}:
+for my \$${2:i} ( ${3:0}..$4 ) {
+    $0
+}${1:$(~yas/set-register text "loop")}

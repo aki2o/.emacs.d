@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : my ($list1, $multi2, $plural3) = ...;
+#key : my
+#expand-env : ((yas/wrap-around-region nil))
+# --
+my (${1:varlist})${2: = ${3:@_}};$0

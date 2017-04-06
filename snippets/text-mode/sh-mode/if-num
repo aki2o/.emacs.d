@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : if [ tested -? cond ]; then ...
+#key : if
+# --
+if [ \$${1:`(~yas/get-register "var")`} -${2:$$(yas/choose-value '("eq" "ne" "gt" "ge" "lt" "le"))} ${3:0} ]; then
+    $0
+fi${1:$(~yas/set-register text "if")}

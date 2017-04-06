@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : elif [ tested -? cond ]; then ...
+#key : elif
+# --
+elif [ \$${1:`(~yas/get-register "if")`} -${2:$$(yas/choose-value '("eq" "ne" "gt" "ge" "lt" "le"))} ${3:0} ]; then
+    $0

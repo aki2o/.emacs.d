@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : plan tests => num;
+#key : plan
+# --
+plan tests => ${1:num};$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ElseIf test = "" then
+# key: ElseIf
+# --
+ElseIf ${1:`(~yas/get-register "if")`} ${2:=} ${3:""} Then
+    $0

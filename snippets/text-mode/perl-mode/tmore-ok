@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : ok( $got eq $expected, $test_name );
+#key : ok
+# --
+ok( ${1:expr}, "${2:testnm}" );$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @see ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+# @see      ${1:classnm}${2:#${3:methodnm}}$0

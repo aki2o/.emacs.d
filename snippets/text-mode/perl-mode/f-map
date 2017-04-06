@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : map { ... } @list
+#key : map
+#expand-env : ((yas/wrap-around-region nil))
+# --
+map { ${1:\$_} } $0

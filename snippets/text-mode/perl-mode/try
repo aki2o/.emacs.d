@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+#name : try { ... } otherwise { ... } ...
+#key : try
+# --
+try {
+    $0
+}
+otherwise {
+    my $e = shift;
+}${1:
+finally {
+}};

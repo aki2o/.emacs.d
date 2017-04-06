@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @desc ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+# @desc     ${1:#TODO}$0

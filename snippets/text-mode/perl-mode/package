@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+#name : package for concrete class
+#key : package
+#expand-env : ((yas/indent-line 'fixed) (yas/wrap-around-region nil))
+# --
+package ${1:`(replace-regexp-in-string "/" "::" (replace-regexp-in-string "^.*/lib/" "" (file-name-sans-extension buffer-file-name)))`};
+
+# @title    ${2:#TODO}
+#
+# @desc     ${3:#TODO}
+#
+# @synops   use $1;
+#           ${4:#TODO}
+#
+#
+# @encode   ${5:$$(yas/choose-value '("euc-jp" "ShiftJIS" "utf8"))}
+#
+# @author   aki-d  <mail@aki-docoro.net>
+#
+# @version
+#    0.01   `(format-time-string "%Y/%m/%d" (current-time))`   ${6:#TODO}
+#
+#$0

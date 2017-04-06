@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : throw Aki::Exception::String::Unexpected ...
+#key : throw
+#expand-env : ((yas/wrap-around-region nil))
+# --
+throw Aki::Exception::String::Unexpected "${1:strnm}", \$$1$0

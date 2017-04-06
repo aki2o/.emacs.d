@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : sub keys_... { ...h_of }
+#key : sub
+#expand-env : ((yas/wrap-around-region nil))
+# --
+sub keys_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} { my ($self) = @_; return keys %{\$${4:$1h}_of{ident $self}}; }$0

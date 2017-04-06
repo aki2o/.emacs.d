@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : ..._of{$ident}
+#key : of
+#expand-env : ((yas/indent-line 'fixed) (yas/wrap-around-region nil))
+# --
+of{$ident}$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : firstidx { ... } @list
+#key : firstidx
+#expand-env : ((yas/wrap-around-region nil))
+# --
+firstidx { ${1:\$_} } $0

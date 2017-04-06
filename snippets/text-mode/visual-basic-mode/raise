@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Err.Raise ... (trigger)
+# key: Err.Raise
+# expand-env : ((yas/wrap-around-region nil))
+# --
+Err.Raise ${1:errno}, "", "${2:reason}"$0

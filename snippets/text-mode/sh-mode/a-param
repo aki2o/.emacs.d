@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @param ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+# @param    y_type$1${2:!}  ${3:#TODO}$0

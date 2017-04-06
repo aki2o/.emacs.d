@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : like( $got, qr{expected}, $test_name );
+#key : like
+# --
+like( ${1:got}, qr{${2:expected}}, "${3:testnm}" );$0

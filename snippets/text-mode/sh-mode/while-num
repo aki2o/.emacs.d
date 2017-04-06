@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : while [ tested -? cond ]; do ...
+#key : while
+# --
+while [ \$${1:`(~yas/get-register "var")`} -${2:$$(yas/choose-value '("eq" "ne" "gt" "ge" "lt" "le"))} ${3:0} ]; do
+    $0
+    $1=\`expr \$$1 ${4:+} ${5:1}\`
+done

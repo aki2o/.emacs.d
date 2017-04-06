@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : select method modifier
+#key : y_mmod
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+`(yas/choose-value '(": RESTRICTED" ": PRIVATE" ": CUMULATIVE" ": CUMULATIVE(BASE FIRST)" ": NUMERIFY" ": STRINGIFY" ": BOOLIFY"))`$0

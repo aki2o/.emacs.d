@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+#name : #!/bin/bash ...
+#key : #!
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+#!/bin/bash
+
+# @title    ${1:#TODO}
+# @desc     ${2:#TODO}
+#
+# @synops   ${3:#TODO}
+#
+#
+# @author   aki-d
+#
+# @version
+#    0.01    `(format-time-string "%Y/%m/%d" (current-time))`   ${4:#TODO}
+#
+#
+$0

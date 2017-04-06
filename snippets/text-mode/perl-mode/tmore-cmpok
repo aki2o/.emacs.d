@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : cmp_ok( $got, $op, $expected, $test_name );
+#key : cmp_ok
+# --
+cmp_ok( \$${1:got}, ${2:op}, ${3:expected}, "${4:testnm}" );$0

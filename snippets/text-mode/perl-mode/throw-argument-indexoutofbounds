@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : throw Aki::Exception::Argument::IndexOutOfBounds ...
+#key : throw
+#expand-env : ((yas/wrap-around-region nil))
+# --
+throw Aki::Exception::Argument::IndexOutOfBounds \$${1:index}, ${2:min}, ${3:max} if \$$1 < $2 || \$$1 > $3;$0

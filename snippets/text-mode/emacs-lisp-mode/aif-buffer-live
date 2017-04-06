@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: defmacro aif buffer live
+# key: defmacro aif buffer live
+# --
+(defmacro ${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}${2:-}aif-buffer-live (buffnm then &rest else)
+  (declare (indent 2))
+   `(let ((it (when ,buffnm (get-buffer ,buffnm))))
+      (if (buffer-live-p it) ,then ,@else)))$0

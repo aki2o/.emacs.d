@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : foreach ... { \n }
+#key : foreach
+# --
+${1:LOOPTITLE}:
+foreach my \$${2:i} ( $3 ) {
+    $0
+}${1:$(~yas/set-register text "loop")}

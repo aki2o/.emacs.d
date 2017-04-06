@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : select option type
+#key : y_otype
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+`(yas/choose-value '("int" "str" "bool" "date" "double" "path" "long"))`$0

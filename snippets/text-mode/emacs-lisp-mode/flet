@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name : flet
+# key : flet
+# --
+ad-with-auto-activation-disabled
+(flet $0

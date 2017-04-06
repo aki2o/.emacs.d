@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : TODO: { ... }
+#key : TODO:
+# --
+TODO: {
+    local $TODO = \$${1:reason} if ${2:cond};
+    $0
+}

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : perl -pe 's{...}{...}xms'
+#key : perl
+#expand-env : ((yas/wrap-around-region nil))
+# --
+perl -pe 's{ ${1:regex} }{$2}xms'$0

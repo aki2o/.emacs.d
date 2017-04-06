@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : [ "tested" = "cond" ] && ... || ...
+#key : [
+#expand-env : ((yas/wrap-around-region nil))
+# --
+[ "\$${1:`(~yas/get-register "var")`}" ${2:!}= "$3" ]${4: && ${5:code}}${6: || ${7:code}}$0

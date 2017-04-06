@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : sub add_... { ... }
+#key : sub
+#expand-env : ((yas/wrap-around-region nil))
+# --
+sub add_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} { my ($self, \$$1) = @_; push @{\$${4:$1list}_of{ident $self}}, \$$1; }$0

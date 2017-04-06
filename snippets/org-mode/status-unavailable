@@ -1,0 +1,5 @@
+# -*- mode: snippet; coding: utf-8 -*-
+# name: yyyy/mm/dd Not yet available.
+# --
+${1:`(format-time-string "%Y/%m/%d")`} Not yet available.
+$0

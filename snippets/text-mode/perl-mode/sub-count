@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : sub count_... { ...list_of }
+#key : sub
+#expand-env : ((yas/wrap-around-region nil))
+# --
+sub count_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} { my ($self) = @_; return $#{\$${4:$1list}_of{ident $self}} + 1; }$0

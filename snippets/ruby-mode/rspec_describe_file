@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rspec_describe TestedObject, type: ...
+# key: describe
+# --
+describe `(replace-regexp-in-string "Spec\\.rb$" "" (replace-regexp-in-string "_" "" (capitalize (replace-regexp-in-string "/" "::" (replace-regexp-in-string "^.+/spec/.+?/" "" (buffer-file-name))))))`${1:, type: $2} do
+  $0
+end

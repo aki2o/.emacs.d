@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : TODO: { todo_skip ... }
+#key : TODO:
+# --
+TODO: {
+    todo_skip ${1:why}, ${2:num} if ${3:cond};
+    $0
+}

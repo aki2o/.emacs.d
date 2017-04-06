@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: (yaxception:$ ...
+# --
+(yaxception:\$
+(yaxception:try
+$0)
+(yaxception:catch 'error e
+(${1:`(file-name-sans-extension (file-name-nondirectory (buffer-file-name)))`}--show-message "Failed ${2:method} : %s" (yaxception:get-text e))
+($1--error "failed $2 : %s\n%s"
+(yaxception:get-text e)
+(yaxception:get-stack-trace-string e))))

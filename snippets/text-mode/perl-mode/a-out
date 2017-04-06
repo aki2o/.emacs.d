@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @stdout ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+# @stdout   ${1:#TODO}$0

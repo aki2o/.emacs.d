@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rspec_it { ... }
+# key: it
+# --
+it { exp$0 }

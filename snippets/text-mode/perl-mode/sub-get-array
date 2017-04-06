@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+#name : sub get_... { ...list_of }
+#key : sub
+#expand-env : ((yas/wrap-around-region nil))
+# --
+sub get_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} {
+    my ($self, $index) = @_;
+    if ( ! $index || $index !~ m{ ^\d+$ }xms ) {
+        ${4:return;}
+    }
+    if ( $index < 1 || $index > $#{\$${5:`(~yas/get-register "attr")`list}_of{ident $self}} + 1 ) {
+        ${6:return;}
+    }
+    return \$$5_of{ident $self}->[$index - 1];
+}$0

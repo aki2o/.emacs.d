@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Public Function ...
+# key: public
+# --
+Public Function ${1:name}($2) As $3
+    $0
+End Function${1:$(~yas/set-register text "func")}

@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+#name : sub set_... { ...h_of = ... }
+#key : sub
+#expand-env : ((yas/wrap-around-region nil))
+# --
+sub set_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} {
+    my ($self, \$${4:`(~yas/get-register "attr")`nm}, \$$1) = @_;
+    if ( ! \$$4 ) {
+        ${5:return;}
+    }
+    if ( ! \$$1 ) {
+        ${6:return;}
+    }
+    if ( ! \$$1->isa("$7") ) {
+        ${8:return;}
+    }
+    %{\$${9:$1h}_of{ident $self}}{\$$4} = \$$1;
+}$0

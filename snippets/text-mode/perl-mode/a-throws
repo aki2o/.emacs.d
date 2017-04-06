@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @throws ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas/wrap-around-region nil))
+# --
+# @throws   ${1:exclassnm}$0

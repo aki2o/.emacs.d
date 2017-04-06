@@ -34,16 +34,15 @@
 
 (add-to-list 'el-get-recipe-path (locate-user-emacs-file "recipes"))
 
-(bundle tarao/el-get-lock
-  (el-get-lock)
-  (el-get-lock-unlock 'el-get))
+(bundle! tarao/el-get-lock)
+(el-get-lock)
+(el-get-lock-unlock 'el-get)
 
 
 ;; load
 (bundle! use-package)
 (bundle! bind-key)
 (bundle! emacs-jp/init-loader)
-
 (init-loader-load (locate-user-emacs-file "conf"))
 
 (put 'downcase-region 'disabled nil)

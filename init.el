@@ -17,6 +17,7 @@
 (setq-default el-get-dir (concat user-emacs-directory "elisp/el-get/" emacs-version))
 (setq-default package-user-dir (concat user-emacs-directory "elisp/elpa/" emacs-version))
 (setq-default el-get-emacswiki-base-url "http://raw.github.com/emacsmirror/emacswiki.org/master/")
+(setq-default el-get-notify-type 'message)
 
 (when (and (~is-windows)
            (file-exists-p (concat exec-directory "install-info")))

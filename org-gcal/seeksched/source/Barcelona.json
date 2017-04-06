@@ -1,0 +1,10 @@
+{
+    "entries": [
+        {
+            "url": "http://www.goal.com/jp/fixtures/team/%E3%83%90%E3%83%AB%E3%82%BB%E3%83%AD%E3%83%8A/2017",
+            "module": "football",
+            "team": "バルセロナ",
+            "parser": "Goal"
+        }
+    ]
+}

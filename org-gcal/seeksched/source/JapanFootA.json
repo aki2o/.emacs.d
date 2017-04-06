@@ -1,0 +1,10 @@
+{
+    "entries": [
+        {
+            "url": "http://www.sanspo.com/soccer/japan/a/2014schedule.html",
+            "module": "football",
+            "team": "サッカー男子A代表",
+            "parser": "SanSpo"
+        }
+    ]
+}

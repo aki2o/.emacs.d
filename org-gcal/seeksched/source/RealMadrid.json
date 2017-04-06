@@ -1,0 +1,10 @@
+{
+    "entries": [
+        {
+            "url": "http://www.goal.com/jp/fixtures/team/%E3%83%AC%E3%82%A2%E3%83%AB%E3%83%9E%E3%83%89%E3%83%AA%E3%83%BC%E3%83%89/2016",
+            "module": "football",
+            "team": "レアル・マドリード",
+            "parser": "Goal"
+        }
+    ]
+}

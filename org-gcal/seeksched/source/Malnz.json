@@ -1,0 +1,10 @@
+{
+    "entries": [
+        {
+            "url": "http://www.goal.com/jp/fixtures/team/%E3%83%9E%E3%82%A4%E3%83%B3%E3%83%84/977",
+            "module": "football",
+            "team": "マインツ",
+            "parser": "Goal"
+        }
+    ]
+}

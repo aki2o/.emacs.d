@@ -1,0 +1,10 @@
+{
+    "entries": [
+        {
+            "url": "http://sportsnavi.yahoo.co.jp/sports/volley/japan/2014/schedule/85/",
+            "module": "volleyball",
+            "team": "全日本女子",
+            "parser": "SportsNavi"
+        }
+    ]
+}

@@ -1,3 +1,6 @@
+(unbind-key "M-m")
+(setq e2wm:prefix-key "M-m ")
+
 (bundle e2wm :depends (deferred))
 (bundle e2wm-sww)
 (use-package e2wm
@@ -8,9 +11,6 @@
           ("C-x C-S-b" . e2wm:dp-array))
 
   :init
-
-  (unbind-key "M-m")
-  (setq e2wm:prefix-key "M-m ")
 
   ;; フェイス
   (custom-set-faces

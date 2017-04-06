@@ -15,6 +15,7 @@
 
 !/snippets/
 
+!/el-get.lock
 !/recipes/
 
 !/gnus/

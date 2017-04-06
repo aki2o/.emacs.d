@@ -33,6 +33,10 @@
 
 (add-to-list 'el-get-recipe-path (locate-user-emacs-file "recipes"))
 
+(bundle tarao/el-get-lock
+  (el-get-lock)
+  (el-get-lock-unlock 'el-get))
+
 
 ;; load
 (bundle! use-package)

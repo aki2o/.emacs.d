@@ -56,7 +56,7 @@
   )
 
 
-(bundle rubikitch/viewer :checkout "56dc19cfdf8361b35772b8800f298367dbfb3b51")
+(bundle rubikitch/viewer)
 (use-package viewer
   :config
   

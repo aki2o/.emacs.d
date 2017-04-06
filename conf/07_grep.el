@@ -59,7 +59,7 @@
 
 (bundle ag)
 (bundle wgrep)
-(bundle mhayashi1120/Emacs-wgrep :name wgrep-helm :checkout "f8099401c2c7007cdb9c3e4fc1eafb5329f72031")
+(bundle mhayashi1120/Emacs-wgrep :name wgrep-helm)
 (bundle wgrep-ag)
 (use-package ag
   :bind* (("M-s a" . ~ag)
@@ -111,7 +111,7 @@
   )
 
 
-(bundle yasuyk/helm-git-grep :checkout "9e602f79ea58fe12c6a48ce3c2f749b817ef8c86")
+(bundle helm-git-grep)
 (use-package helm-git-grep
   :bind* (("M-s h g" . helm-git-grep))
   )

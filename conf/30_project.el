@@ -119,7 +119,7 @@
   (define-key projectile-command-map (kbd "s C") '~projectile-counsel-ag-with-directory-select))
 
 
-(bundle bbatsov/helm-projectile :checkout "2544343b4214511988fa1b652474d7984008f807")
+(bundle helm-projectile)
 (use-package helm-projectile
   :config
   ;; (setq projectile-completion-system 'helm)

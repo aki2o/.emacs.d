@@ -318,9 +318,9 @@
 ;;;;;;;;;;
 ;; Helm
 
-(bundle emacs-helm/helm :checkout "02b381d72884e84f6734215ffe4c813dada7cff7")
-(bundle emacs-jp/helm-migemo :checkout "fb1e956175c04b2cbfb57d2b697343ee82b03c27")
-(bundle emacs-helm/helm-descbinds :checkout "b9220d3c263777d1a99b1cc7b0de64790c4d5366")
+(bundle helm)
+(bundle helm-migemo)
+(bundle helm-descbinds)
 
 (require 'helm)
 

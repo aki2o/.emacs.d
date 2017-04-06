@@ -1,5 +1,6 @@
 (setq el-get-lock-package-versions
-      '((direx :checksum "365a90c251a4675e708b42c68fa36923ec2b2896")
+      '((robe :checksum "572a1573353b6e17748582a3d724f4caf97261e3")
+        (direx :checksum "365a90c251a4675e708b42c68fa36923ec2b2896")
         (anything-config :checksum "e3edc9b406a8faca3d4a5527c9bd8aa66aba5a96")
         (php-completion :checksum "c022e9a2f3c54d97ff060bc6453167b8322a0228")
         (anything :checksum "e3a76ff2b070f2125024dbc529510d688a442947")

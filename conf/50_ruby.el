@@ -93,7 +93,7 @@
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on t))
 
 
-(bundle robe)
+(bundle aki2o/robe :branch "feature-not-merged")
 (bundle aki2o/emacs-docker-robe :name docker-robe)
 (use-package robe
   :defer t
@@ -237,6 +237,9 @@
   :init
   
   (add-hook 'projectile-mode-hook 'projectile-rails-on)
+  (when projectile-mode
+    (projectile-mode)
+    (projectile-mode))
 
   :config
   

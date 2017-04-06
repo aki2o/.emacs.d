@@ -1,0 +1,14 @@
+;;; public entries -*- mode: plstore -*- 
+(("Project[8] - title" :bts-id "10" :bts-name "title" :bts-project "8" :filtered-books nil :clear-books " Clear Cache " :target title :book-filter none :date-filter none)
+ ("Project[6] - open" :bts-id "9" :bts-name "open" :bts-project "6" :lbl-include-type select :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state open :relate-type limit :relates
+  (assigned created mentioned subscribed))
+ ("Project[1] - new" :bts-id "1" :bts-name "new" :bts-project "1" :lbl-include-type select :lbl-include "" :lbl-exclude-type all :state open :relate-type unlimit)
+ ("Project[5] - all" :bts-id "8" :bts-name "all" :bts-project "5" :lbl-include-type select :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state all :relate-type limit :relates
+  (assigned created mentioned subscribed))
+ ("Project[4] - all" :bts-id "7" :bts-name "all" :bts-project "4" :lbl-include-type select :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state all :relate-type limit :relates
+  (assigned created mentioned subscribed))
+ ("Project[3] - test" :bts-id "6" :bts-name "test" :bts-project "3" :lbl-include-type select :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state open :relate-type unlimit)
+ ("Project[2] - test" :bts-id "5" :bts-name "test" :bts-project "2" :lbl-include-type select :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state closed :relate-type unlimit)
+ ("Project[1] - closed" :bts-id "4" :bts-name "closed" :bts-project "1" :lbl-include-type select :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state closed :relate-type unlimit)
+ ("Project[1] - main" :bts-id "2" :bts-name "main" :bts-project "1" :lbl-include-type select :lbl-include "bug | help wanted | question" :lbl-exclude-type select :lbl-exclude "" :state open :relate-type unlimit)
+ ("Project[1] - other" :bts-id "3" :bts-name "other" :bts-project "1" :lbl-include-type all :lbl-exclude-type select :lbl-exclude "bug | help wanted | question" :state open :relate-type unlimit))

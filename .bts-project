@@ -1,0 +1,26 @@
+;;; public entries -*- mode: plstore -*- 
+(("mine [geeknote]" :secret-passwd t :bts-id "8" :bts-name "mine" :bts-system "geeknote" :account "ootsuhiroaki")
+ ("plsense [github]" :secret-token t :bts-id "7" :bts-name "plsense" :bts-system "github" :account "aki2o" :target all :repos nil)
+ ("related [github]" :secret-token t :bts-id "6" :bts-name "related" :bts-system "github" :account "aki2o" :target choice :repos
+  ((:type user :owner "kiwanami" :name "emacs-window-manager")))
+ ("joined [github]" :secret-token t :bts-id "5" :bts-name "joined" :bts-system "github" :account "aki2o" :target other :repos nil)
+ ("auto-complete [github]" :secret-token t :bts-id "4" :bts-name "auto-complete" :bts-system "github" :account "aki2o" :target choice :repos
+  ((:type user :owner "auto-complete" :name "auto-complete")
+   (:type user :owner "auto-complete" :name "popup-el")))
+ ("CodeMirror [github]" :secret-token t :bts-id "3" :bts-name "CodeMirror" :bts-system "github" :account "aki2o" :target choice :repos
+  ((:type user :owner "codemirror" :name "CodeMirror")))
+ ("TSS [github]" :secret-token t :bts-id "2" :bts-name "TSS" :bts-system "github" :account "aki2o" :target choice :repos
+  ((:type user :owner "borisyankov" :name "DefinitelyTyped")))
+ ("myrepo [github]" :secret-token t :bts-id "1" :bts-name "myrepo" :bts-system "github" :account "aki2o" :target own :repos nil))
+;;; secret entries
+"-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.11 (GNU/Linux)
+
+jA0EAwMCZTKsEdgjRlpgyb3trtUGu/nvV0HhvgFuv10XAuv96tWPL6+c/iNUioSU
+FMYDHZoBQ51l/zBcrLQA/CFa8yi411rAp4dv9/k7/GrT1ETqI59Yf2L0d/MaBrvu
+LABx0Wcn0ImtBMKMY+RK2hyi1Yf8jTGIzjVOZQXTFRT2ykZMwMntq9En38nLgT1o
+oWR2DE3gOFUMjZYPfDEfGfaYnIEIXydXP8ECiJKhpXu7BA8VySdEPcQqAfPI9u/u
++OGqX/1aC6FPIUO2uAU=
+=VEjF
+-----END PGP MESSAGE-----
+"

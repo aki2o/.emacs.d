@@ -1,0 +1,15 @@
+;;; public entries -*- mode: plstore -*- 
+(("771192665d638e4245ca14c8a98677d4" :secret-access-token t :secret-refresh-token t :secret-access-response t))
+;;; secret entries
+"-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+jA0EAwMCnju1fnf5rirjycBCcrnFep5JvPRJrz1iOtpyKlKnXkpElJA3Ya+6UeyM
+IPDtolWTzHmVzj1YQTSZUwRVbPr+aN/mVSDK4AMZTX8dG6yVFkQNZG2tgx8QHQfW
+DE86mDiu2wa5WVa6PcFqJn0gZyaqQJ+TvNEdZVwVTKnnlQhoC1+NB/icT3KDDDLD
+GGf8FFWzUVHP9g6a1M9g5YldlMg8yeOCocdghIA702fgTtzmbAJvipy9zrhLBcRw
+aRukJU2hagS9foOi6VNgdiEZnQjrfYEV9q0O2fRtMyGwg9RhZMOHlIWfuD9iwuLY
+CAjiAysZRsFbP+vG4y8XUNfchKr+1QXE/a3YUshgIUwaw0fO
+=bSXp
+-----END PGP MESSAGE-----
+"

@@ -1,0 +1,20 @@
+;;; public entries -*- mode: plstore -*- 
+(("org-gcal" :app "org-gcal" :secret-id t :secret-secret t)
+ ("aki-docoro.redmine" :app "my-redmine" :secret-user t :secret-passwd t :secret-aki-key t)
+ ("slack.mf" :app "slack.mf" :secret-id t :secret-secret t :secret-token t)
+ ("esa.mf" :app "esa.mf" :secret-token t))
+;;; secret entries
+"-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+jA0EAwMCAHlHfJBaq1PiycCujb0lV33aTiqYCCplnRiwxGldrl1RV6RZGEI8/89O
+C0ZIuKsehchD6WTuPIhWpLnGY3OVkz2EgHo1Se3nXHKpSvgpePxiwbhAES0OC7J6
+eTYCle3r6vKExiHR2qLRVQgGfYoGfXfJ7vuhp48oTD+FFzoOQFA4pLoRq6jP2jtl
+ES+X+grK+TPsIjpPkehoallP+YGjkcjD/+zuNDd3+bd4dStz6vWs1QT9nWh88knv
+CpWNgFNapX9+N5/NlF2xjI72AZ0gr/FYABeDgpzd2uTuUmkeepGsZ1C1hqZ3y5Fg
+UCNQwRnCdRPmAYXm1ZrvgfwZYZwIP1h/OSADsR9swJe8a/6q3Zxh9IwZUnzPU4Vr
+7QIsAmv3QdzFQ0qAugm56N1z/9J0NhAne+7Oi/AtTsPLPDcTgXJCh8y/775+4S9n
+ENv3LF0WC8XxyrYvussfTdG660UixRiwPF9Xntfj9yzF5LyOOKGb2qM7v7UU7f1l
+=AAC7
+-----END PGP MESSAGE-----
+"

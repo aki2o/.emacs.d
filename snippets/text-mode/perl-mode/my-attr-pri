@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : my %..._of :ATTR();
 #key : my
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 #
-my %${1:attrnm}_of${2: :ATTR( :default(${3:undef}) )};${1:$(~yas/set-register text "attr")}$0
+my %${1:attrnm}_of${2: :ATTR( :default(${3:undef}) )};${1:$(~yas-set-register text "attr")}$0

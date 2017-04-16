@@ -2,6 +2,6 @@
 #name : if ( tested == cond ) { \n }
 #key : if
 # --
-if ( ${1:\$`(~yas/get-register "var")`} y_test$2 ${3:cond} ) {
+if ( ${1:\$`(~yas-get-register "var")`} y_test$2 ${3:cond} ) {
     $0
-}${1:$(~yas/set-register text "if")}
+}${1:$(~yas-set-register text "if")}

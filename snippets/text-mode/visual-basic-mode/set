@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
 # name: Public Sub set...
 # key: public
-# expand-env : ((yas/wrap-around-region nil))
+# expand-env : ((yas-wrap-around-region nil))
 # --
-Public Sub set${1:`(~yas/get-register "attr")`$(capitalize text)}(ByVal ${1:$(downcase text)} As ${2:`(~yas/get-register "attrtype")`})
+Public Sub set${1:`(~yas-get-register "attr")`$(capitalize text)}(ByVal ${1:$(downcase text)} As ${2:`(~yas-get-register "attrtype")`})
     ${3:Set }x${1:$(downcase text)} = ${1:$(downcase text)}
 End Sub$0

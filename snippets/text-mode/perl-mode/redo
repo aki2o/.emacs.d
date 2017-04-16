@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 #name : redo
 #key : redo
-#expand-env : ((yas/indent-line 'fixed) (yas/wrap-around-region nil))
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
 # --
-redo ${1:`(~yas/get-register "loop")`}$0
+redo ${1:`(~yas-get-register "loop")`}$0

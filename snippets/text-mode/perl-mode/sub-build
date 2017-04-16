@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : sub BUILD ...
 #key : sub
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 sub BUILD {
     my ($class, $ident, $arg_ref) = @_;

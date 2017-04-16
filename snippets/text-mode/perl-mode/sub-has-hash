@@ -1,10 +1,10 @@
 # -*- mode: snippet -*-
 #name : sub has_... { ...h_of }
 #key : sub
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
-sub has_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} {
-    my ($self, \$${4:`(~yas/get-register "attr")`nm}) = @_;
+sub has_${1:`(~yas-get-register "attr")`}${2: y_mmod$3} {
+    my ($self, \$${4:`(~yas-get-register "attr")`nm}) = @_;
     if ( ! \$$4 ) {
         ${5:return;}
     }

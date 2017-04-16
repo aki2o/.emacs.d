@@ -2,4 +2,4 @@
 #name : if ( tested ) { ... }
 #key : if
 # --
-if ( ${1:! }${2:defined }${3:\$`(~yas/get-register "var")`} ) { $0 }${3:$(~yas/set-register text "if")}
+if ( ${1:! }${2:defined }${3:\$`(~yas-get-register "var")`} ) { $0 }${3:$(~yas-set-register text "if")}

@@ -1,4 +1,4 @@
 # -*- mode: snippet -*-
 # name: coding: ...
 # --
-coding: ${1:`(yas/choose-value "sjis" "euc-jp" "utf-8")`};$0
+coding: ${1:`(yas-choose-value "sjis" "euc-jp" "utf-8")`};$0

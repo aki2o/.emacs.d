@@ -2,6 +2,6 @@
 # name: If test Then
 # key: if
 # --
-If ${1:Not }${2:`(~yas/get-register "var")`} Then
+If ${1:Not }${2:`(~yas-get-register "var")`} Then
     $0
-End If${2:$(~yas/set-register text "if")}
+End If${2:$(~yas-set-register text "if")}

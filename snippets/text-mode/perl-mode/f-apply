@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 #name : apply { ... } @list
 #key : apply
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 apply { ${1:\$_} } $0

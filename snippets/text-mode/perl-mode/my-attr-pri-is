@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : my %..._is :ATTR();
 #key : my
-#expand-env : ((yas/indent-line 'fixed) (yas/wrap-around-region nil))
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
 # --
 # @attr     obj<Aki::Data::Boolean>  ${3:#TODO}
-my %${1:attrnm}_is :ATTR( :default(${2:undef}) );${1:$(~yas/set-register text "attr")}$0
+my %${1:attrnm}_is :ATTR( :default(${2:undef}) );${1:$(~yas-set-register text "attr")}$0

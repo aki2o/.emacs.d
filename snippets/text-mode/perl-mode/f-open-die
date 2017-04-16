@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : open $fh or die ...
 #key : open
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 open my \$${1:fh}, '${2:<}', "${3:filepath}" or die "${4:Can't open $3 : \$!}";
 $0

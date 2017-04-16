@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: ReDim x()
 # key: redim
-# expand-env : ((yas/wrap-around-region nil))
+# expand-env : ((yas-wrap-around-region nil))
 # --
-ReDim ${1:`(~yas/get-register "var")`}(${2:0})$0
+ReDim ${1:`(~yas-get-register "var")`}(${2:0})$0

@@ -2,7 +2,7 @@
 #name : #!perl package ...
 #key : #!perl
 #condition : 'force-in-comment
-#expand-env : ((yas/indent-line 'fixed) (yas/wrap-around-region nil))
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
 # --
 #!perl
 

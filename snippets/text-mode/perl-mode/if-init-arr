@@ -2,4 +2,4 @@
 #name : if ( ! defined @arr ) { @arr = (); }
 #key : if
 # --
-if ( ! defined @${1:`(~yas/get-register "var")`} ) { @$1 = ${2:()}; }$0
+if ( ! defined @${1:`(~yas-get-register "var")`} ) { @$1 = ${2:()}; }$0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 #name : logger->...( ... )
 #key : logger
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
-logger->${1:$$(yas/choose-value '("fatal" "error" "warn" "info" "debug" "trace" "die"))}("${2:message}")$0
+logger->${1:$$(yas-choose-value '("fatal" "error" "warn" "info" "debug" "trace" "die"))}("${2:message}")$0

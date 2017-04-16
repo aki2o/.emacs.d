@@ -2,7 +2,7 @@
 #name : #!/bin/bash ...
 #key : #!
 #condition : 'force-in-comment
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 #!/bin/bash
 

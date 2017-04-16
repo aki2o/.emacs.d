@@ -5,4 +5,4 @@
 ${1:LOOPTITLE}:
 while ( ${2:! }${3:cond} ) {
     $0
-}${1:$(~yas/set-register text "loop")}
+}${1:$(~yas-set-register text "loop")}

@@ -2,6 +2,6 @@
 #name : elsif ( tested ... cond ) { \n }
 #key : elsif
 # --
-elsif ( ${1:`(~yas/get-register "if")`} y_test$2 ${3:cond} ) {
+elsif ( ${1:`(~yas-get-register "if")`} y_test$2 ${3:cond} ) {
     $0
 }

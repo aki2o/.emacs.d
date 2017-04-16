@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : ...) ... ;;
 #key : y_case
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 "${1:case}") ${2:code} ;;
 ${3:y_case}$0

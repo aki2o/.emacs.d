@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : open $fh or croak ...
 #key : open
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 open my \$${1:fh}, '${2:<}', "${3:filepath}" or croak "Can't open [$3]. \$!";
 $0

@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
 #name : sub set_... { ..._of = ... }
 #key : sub
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
-sub set_${1:`(~yas/get-register "attr")`}${2: y_mmod$3} {
+sub set_${1:`(~yas-get-register "attr")`}${2: y_mmod$3} {
     my ($self, \$$1) = @_;
     if ( ! \$$1 || ! \$$1->isa("$4") ) {
         ${5:return;}

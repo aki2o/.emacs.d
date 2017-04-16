@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 #name : close $fh or croak ...
 #key : close
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
-close \$${1:fh} or croak "Can't close [${2:`(~yas/get-register "file")`}]. \$!";$0
+close \$${1:fh} or croak "Can't close [${2:`(~yas-get-register "file")`}]. \$!";$0

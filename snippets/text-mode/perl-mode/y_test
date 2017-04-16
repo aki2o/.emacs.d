@@ -2,4 +2,4 @@
 #name : select test operator
 #key : y_test
 # --
-`(yas/choose-value '("==" "!=" "<" ">" "<=" ">=" "eq" "ne" "gt" "ge" "lt" "le"))`$0
+`(yas-choose-value '("==" "!=" "<" ">" "<=" ">=" "eq" "ne" "gt" "ge" "lt" "le"))`$0

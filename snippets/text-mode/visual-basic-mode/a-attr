@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name : ' @attr ...
 # key : @
-# expand-env : ((yas/wrap-around-region nil))
+# expand-env : ((yas-wrap-around-region nil))
 # --
 ' @attr     ${1:#TODO}${2:
 @}$0

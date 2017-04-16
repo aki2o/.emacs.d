@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rspec_with_arg
 # key: y_with_arg
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
-`(~yas/choose-value 'rspec-mock-args)`$0
+`(~yas-choose-value 'rspec-mock-args)`$0

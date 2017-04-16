@@ -5,4 +5,4 @@
 ${1:LOOPTITLE}:
 for my \$${2:i} ( ${3:0}..$4 ) {
     $0
-}${1:$(~yas/set-register text "loop")}
+}${1:$(~yas-set-register text "loop")}

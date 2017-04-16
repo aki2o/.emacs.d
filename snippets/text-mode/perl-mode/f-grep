@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 #name : grep { ... } @list
 #key : grep
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 grep { ${1:\$_} } $0

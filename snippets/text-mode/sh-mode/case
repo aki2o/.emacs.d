@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
 #name : case tested in ...
 #key : case
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
-case "\$${1:`(~yas/get-register "var")`}" in
+case "\$${1:`(~yas-get-register "var")`}" in
     y_case$0
     *)
 esac

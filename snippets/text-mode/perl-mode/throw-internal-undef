@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 #name : throw Aki::Exception::Internal::Undefined ...
 #key : throw
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
-throw Aki::Exception::Internal::Undefined "${1:`(~yas/get-register "var")`}" if !${2: defined} \$$1;$0
+throw Aki::Exception::Internal::Undefined "${1:`(~yas-get-register "var")`}" if !${2: defined} \$$1;$0

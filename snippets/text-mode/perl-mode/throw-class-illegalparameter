@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 #name : throw Aki::Exception::Class::IllegalParameter ...
 #key : throw
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 throw Aki::Exception::Class::IllegalParameter "${1:name}", \$arg_ref->{$1};$0

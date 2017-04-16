@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name : ' @synops ...
 # key : @
-# expand-env : ((yas/wrap-around-region nil))
+# expand-env : ((yas-wrap-around-region nil))
 # --
 ' @synops   ${1:#TODO}${2:
 @}$0

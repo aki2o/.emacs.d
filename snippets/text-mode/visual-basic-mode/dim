@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Dim x As ...
 # key: dim
-# expand-env : ((yas/wrap-around-region nil))
+# expand-env : ((yas-wrap-around-region nil))
 # --
-Dim ${1:name} As $2${1:$(~yas/set-register text "var")}$0
+Dim ${1:name} As $2${1:$(~yas-set-register text "var")}$0

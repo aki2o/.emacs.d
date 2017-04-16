@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: define argument
 # key: y_arg
-# expand-env : ((yas/wrap-around-region nil))
+# expand-env : ((yas-wrap-around-region nil))
 # --
-${1:Optional }${2:$$(yas/choose-value '("byval" "byref"))}$0
+${1:Optional }${2:$$(yas-choose-value '("byval" "byref"))}$0

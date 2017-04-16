@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : package for concrete class
 #key : package
-#expand-env : ((yas/indent-line 'fixed) (yas/wrap-around-region nil))
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
 # --
 package ${1:`(replace-regexp-in-string "/" "::" (replace-regexp-in-string "^.*/lib/" "" (file-name-sans-extension buffer-file-name)))`};
 
@@ -13,7 +13,7 @@ package ${1:`(replace-regexp-in-string "/" "::" (replace-regexp-in-string "^.*/l
 #           ${4:#TODO}
 #
 #
-# @encode   ${5:$$(yas/choose-value '("euc-jp" "ShiftJIS" "utf8"))}
+# @encode   ${5:$$(yas-choose-value '("euc-jp" "ShiftJIS" "utf8"))}
 #
 # @author   aki-d  <mail@aki-docoro.net>
 #

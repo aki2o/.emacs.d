@@ -4,4 +4,4 @@
 # --
 Private Sub ${1:name}($2)
     $0
-End Sub${1:$(~yas/set-register text "func")}
+End Sub${1:$(~yas-set-register text "func")}

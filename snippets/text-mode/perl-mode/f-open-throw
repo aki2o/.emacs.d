@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : open $fh or throw Aki::Exception::IO::Open ...
 #key : open
-#expand-env : ((yas/wrap-around-region nil))
+#expand-env : ((yas-wrap-around-region nil))
 # --
 open my \$${1:fh}, '${2:<}', "${3:filepath}" or throw Aki::Exception::IO::Open "$3", \$!;
 $0

@@ -1,4 +1,4 @@
 # -*- mode: snippet -*-
 # name: allow|expect to receive() { ... }
 # --
-`(~yas/choose-value 'rspec-mocks)`($1).to receive${2:_message_chain}(:$3)${4:.with(y_with_arg$5)} { $0 }
+`(~yas-choose-value 'rspec-mocks)`($1).to receive${2:_message_chain}(:$3)${4:.with(y_with_arg$5)} { $0 }

@@ -2,4 +2,4 @@
 #name : eval " ... ";
 #key : eval
 # --
-eval "`yas/selected-text`$1";$0
+eval "`yas-selected-text`$1";$0

@@ -22,7 +22,7 @@ before_install:
 script:
   make
 notifications:
-  on_success: ${1:`(yas/choose-value "change" "always")`}
-  on_failure: ${2:`(yas/choose-value "change" "always")`}
+  on_success: ${1:`(yas-choose-value "change" "always")`}
+  on_failure: ${2:`(yas-choose-value "change" "always")`}
 
 $0

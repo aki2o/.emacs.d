@@ -204,7 +204,7 @@
             ("C-x i h v" . counsel-describe-variable))
 
 ;; (global-set-key [remap execute-extended-command] 'counsel-M-x)
-(global-set-key [remap find-file]                'counsel-find-file)
+;; (global-set-key [remap find-file]                'counsel-find-file)
 ;; (global-set-key [remap yank-pop]                 'counsel-yank-pop)
 ;; (global-set-key (kbd "M-i")                      'counsel-imenu)
 
@@ -324,9 +324,12 @@
 
 (require 'helm)
 
+(setq helm-split-window-in-side-p t)
+
 (global-unset-key (kbd "C-x h"))
 
 (custom-set-variables '(helm-command-prefix-key "C-x h"))
+
 (require 'helm-config)
 (require 'helm-files)
 (require 'helm-migemo)
@@ -349,7 +352,7 @@
 (global-set-key [remap switch-to-buffer]         'helm-buffers-list)
 (global-set-key [remap yank-pop]                 'helm-show-kill-ring)
 ;; (global-set-key [remap apropos-command]          'helm-apropos)
-;; (global-set-key (kbd "C-x C-f")                  'helm-find-files)
+(global-set-key (kbd "C-x C-f")                  'helm-find-files)
 (global-set-key (kbd "C-x f")                    'helm-recentf)
 (global-set-key (kbd "M-i")                      'helm-semantic-or-imenu) ; helm-imenu
 (global-set-key (kbd "C-M-/")                    'helm-all-mark-rings)
@@ -455,6 +458,10 @@
 (define-key helm-find-files-map (kbd "C-S-c p") 'helm-ff-run-print-file)
 (define-key helm-find-files-map (kbd "C-S-h")   'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "C-S-l")   'helm-execute-persistent-action)
+
+(define-key helm-read-file-map (kbd "C-l")   nil)
+(define-key helm-read-file-map (kbd "C-S-h") 'helm-find-files-up-one-level)
+(define-key helm-read-file-map (kbd "C-S-l") 'helm-execute-persistent-action)
 
 ;; Migemoを使うコマンド
 (helm-migemize-command helm-find-files)

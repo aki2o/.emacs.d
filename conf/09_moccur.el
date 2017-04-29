@@ -1,4 +1,3 @@
-;; http://www.bookshelf.jp/soft/meadow_50.html#SEC751
 (bundle color-moccur)
 (bundle moccur-edit)
 (use-package color-moccur
@@ -231,7 +230,7 @@
 ;;   )
 
 
-(bundle anything-c-moccur :type http :url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
+;; (bundle anything-c-moccur :type http :url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
 (use-package anything-c-moccur
   
   :bind* (("M-s h o" . anything-c-moccur-occur-by-moccur)

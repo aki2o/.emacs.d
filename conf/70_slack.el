@@ -1,4 +1,4 @@
-(bundle slack :depends (gntp lui))
+(bundle slack :depends (oauth2 lui websocket gntp))
 (use-package slack
   :commands (slack-start)
 

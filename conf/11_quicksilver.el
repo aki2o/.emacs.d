@@ -323,17 +323,19 @@
 (bundle helm-descbinds)
 
 (require 'helm)
-
-(setq helm-split-window-in-side-p t)
-
-(global-unset-key (kbd "C-x h"))
-
-(custom-set-variables '(helm-command-prefix-key "C-x h"))
-
 (require 'helm-config)
 (require 'helm-files)
 (require 'helm-migemo)
-  
+
+(global-unset-key (kbd "C-x h"))
+
+(custom-set-variables
+ '(helm-command-prefix-key "C-x h")
+ '(helm-split-window-in-side-p t)
+ '(helm-ff-candidate-number-limit 500)
+ '(helm-ff-newfile-prompt-p nil)
+ '(helm-file-name-case-fold-search t))
+
 (bind-keys :map helm-command-map
            ("?" . helm-help)
            ("f" . helm-find-files)
@@ -352,7 +354,9 @@
 (global-set-key [remap switch-to-buffer]         'helm-buffers-list)
 (global-set-key [remap yank-pop]                 'helm-show-kill-ring)
 ;; (global-set-key [remap apropos-command]          'helm-apropos)
-(global-set-key (kbd "C-x C-f")                  'helm-find-files)
+;; 有効にしなくても、勝手に置き換わる
+;; さらに、これを有効にすると、大文字を含むファイル名を新規作成できなくなる
+;; (global-set-key (kbd "C-x C-f")                  'helm-find-files)
 (global-set-key (kbd "C-x f")                    'helm-recentf)
 (global-set-key (kbd "M-i")                      'helm-semantic-or-imenu) ; helm-imenu
 (global-set-key (kbd "C-M-/")                    'helm-all-mark-rings)

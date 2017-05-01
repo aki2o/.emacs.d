@@ -230,7 +230,7 @@
 ;;   )
 
 
-;; (bundle anything-c-moccur :type http :url "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
+(bundle aki2o/anything-c-moccur)
 (use-package anything-c-moccur
   
   :bind* (("M-s h o" . anything-c-moccur-occur-by-moccur)

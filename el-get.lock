@@ -133,7 +133,7 @@
         (e2wm-sww :checksum "1063f9854bd34db5ac771cd1036cecc89834729d")
         (e2wm-pkgex4pl :checksum "7ea994450727190c4f3cb46cb429ba41b692ecc0")
         (e2wm-edbi :checksum "6f50aaf4bde75255221f2292c7a4ad3fa9d918c0")
-        (e2wm-direx :checksum "f319625b56c44e601af7c17fc6dbb88e5d70ebae")
+        (e2wm-direx :checksum "b47f19d15436cc28233a812a1150689f61d11046")
         (e2wm :checksum "4353d3394c77a49f8f0291c239858c8c5e877549")
         (docker-robe :checksum "48c2bf947c366dac1eca78951419c3e8d82b3ffe")
         (direx-grep :checksum "1109a512a80b2673a70b18b8568514049017faad")

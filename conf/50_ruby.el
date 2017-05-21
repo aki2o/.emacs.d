@@ -88,6 +88,7 @@
   :init
   (setq inf-ruby-default-implementation "pry")
   (setq inf-ruby-eval-binding "Pry.toplevel_binding")
+  (setq inf-ruby-console-environment "development")
   (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode t)
   :config
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on t))

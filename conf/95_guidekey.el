@@ -16,7 +16,7 @@
           "M-s" "M-s h" "M-s c"
           "M-b" "M-b p" "M-b q"
           "M-v" "M-v g" "M-v b" "M-v c"
-          "M-u" "M-u i" "M-u k" "M-u p" "M-u t"
+          "M-u"
           "M-/"
           "C-M-p"))
   (guide-key-mode 1)

@@ -10,6 +10,12 @@
 (bundle diminish)
 
 
+(bundle hydra)
+(use-package hydra
+  :config
+  (setq hydra-lv nil))
+
+
 ;; Function
 
 ;; 指定されたモードのauto-mode-alistに定義されているキーのリスト
@@ -49,6 +55,12 @@
     (kill-new path)
     (message path)))
 
+(defun ~kill-ring-save-file-name ()
+  (interactive)
+  (let ((path (~get-active-window-file)))
+    (kill-new (file-name-nondirectory path))
+    (message path)))
+
 (defun ~print-file-path ()
   (interactive)
   (message (~get-active-window-file)))
@@ -76,15 +88,31 @@
                (message "Quit")
                (throw 'end-flag t)))))))
 
+(defhydra ~hydra-insert (:exit t)
+  "insert"
+  ("d" ~insert-date "date")
+  ("f" ~insert-file-name "filename")
+  ("p" ~insert-programmatic-ident-from-file-name "objectname"))
+
+(defhydra ~hydra-kill (:exit t)
+  "kill"
+  ("p" ~kill-ring-save-file-path "path")
+  ("f" ~kill-ring-save-file-name "filename"))
+
+(defhydra ~hydra-echo (:exit t)
+  "echo"
+  ("p" ~print-file-path "path")
+  ("f" ~print-face-at-point "face"))
+
+(defhydra ~hydra-text ()
+  "text"
+  ("S" text-scale-increase "scale-inc")
+  ("s" text-scale-decrease "scale-dec"))
 
 (unbind-key "M-u")
-(bind-keys* ("M-u i d" . ~insert-date)
-            ("M-u i f" . ~insert-file-name)
-            ("M-u i p" . ~insert-programmatic-ident-from-file-name)
-            ("M-u k f" . ~kill-ring-save-file-path)
-            ("M-u p f" . ~print-file-path)
-            ("M-u p F" . ~print-face-at-point)
-            ("M-u w"   . ~window-resizer)
-            ("M-u t s" . text-scale-decrease)
-            ("M-u t S" . text-scale-increase))
+(bind-keys* ("M-u i" . ~hydra-insert/body)
+            ("M-u k" . ~hydra-kill/body)
+            ("M-u p" . ~hydra-echo/body)
+            ("M-u w" . ~window-resizer)
+            ("M-u t" . ~hydra-text/body))
 

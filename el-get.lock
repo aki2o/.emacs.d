@@ -1,5 +1,12 @@
 (setq el-get-lock-package-versions
-      '((descbinds-anything :checksum "2b07a3f1ccb9eabacf35a55dacccd6d11f55f9a4")
+      '((hydra :checksum "38ce88a9c3be11b0431080078095159b2211ca7a")
+        (realgud :checksum "a1130df3ada34e76675324a8c25823b420b20239")
+        (loc-changes :checksum "4d1dcdf7631c23b1259ad4f72bf9686cf95fb46c")
+        (list-utils :checksum "acf18aca1131a90f8d673974673e3c5d8fdc6a86")
+        (load-relative :checksum "738896e3da491b35399178ed2c6bc92cc728d119")
+        (test-simple :checksum "b3b69f52207d3a8111421ad7ab9ed82abbe85316")
+        (google-c-style :checksum "e1157c50a795c6d54c6aa36ff0352d173d067957")
+        (descbinds-anything :checksum "2b07a3f1ccb9eabacf35a55dacccd6d11f55f9a4")
         (anything-complete :checksum "60d8a45ac1432b69643e5c0f43f673a3e1252991")
         (robe :checksum "572a1573353b6e17748582a3d724f4caf97261e3")
         (direx :checksum "365a90c251a4675e708b42c68fa36923ec2b2896")

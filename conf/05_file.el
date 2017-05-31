@@ -1,5 +1,3 @@
-(global-set-key (kbd "C-x F") 'find-file-at-point)
-
 ;; 様子見
 ;; (setq confirm-nonexistent-file-or-buffer nil)
 

@@ -10,5 +10,3 @@
     (insert-kbd-macro symbol)
     (basic-save-buffer)))
 
-(global-set-key (kbd "C-x C-k s") '~kmacro-save)
-

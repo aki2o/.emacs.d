@@ -336,16 +336,10 @@
            ("B" . helm-bookmark)
            ("l" . helm-locate-library))
 
-(global-set-key [remap execute-extended-command] 'helm-M-x)
-(global-set-key [remap switch-to-buffer]         'helm-buffers-list)
-(global-set-key [remap yank-pop]                 'helm-show-kill-ring)
 ;; (global-set-key [remap apropos-command]          'helm-apropos)
 ;; 有効にしなくても、勝手に置き換わる
 ;; さらに、これを有効にすると、大文字を含むファイル名を新規作成できなくなる
 ;; (global-set-key (kbd "C-x C-f")                  'helm-find-files)
-(global-set-key (kbd "C-x f")                    'helm-recentf)
-(global-set-key (kbd "M-i")                      'helm-semantic-or-imenu) ; helm-imenu
-(global-set-key (kbd "C-M-/")                    'helm-all-mark-rings)
 
 (require 'helm-descbinds) ; replace from descbinds-anything
 (helm-descbinds-install)  ; (descbinds-anything-install)

@@ -13,6 +13,3 @@
   (insert-register clipboard-register)
   (message "Paste from register"))
 
-(global-set-key (kbd "M-y") '~register-paste)
-
-

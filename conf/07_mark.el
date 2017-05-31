@@ -5,5 +5,3 @@
   (interactive)
   (push-mark nil t nil))
 
-(global-set-key (kbd "C-S-SPC") '~set-mark-only)
-

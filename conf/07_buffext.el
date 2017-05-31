@@ -13,8 +13,6 @@
     (other-window 1)
     (ibuffer))
 
-  (global-set-key [remap list-buffers] '~ibuffer-other-window)
-
   (define-key ibuffer-mode-map (kbd "C-k") nil) ; キーバインドを変更しない
   (define-key ibuffer-mode-map (kbd "M-s") nil) ; グローバルマップを使う
 

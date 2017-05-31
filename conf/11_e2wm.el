@@ -179,7 +179,7 @@
 
 
 (use-package e2wm-transcribe
-  :defer t
+  :commands (e2wm-transcribe:dp)
   
   :config
   

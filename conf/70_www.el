@@ -83,9 +83,6 @@
 (bundle k1LoW/anything-hatena-bookmark)
 (use-package anything-hatena-bookmark
   
-  :bind* (("C-x a h" . anything-hatena-bookmark)
-          ("C-x a H" . anything-hatena-bookmark-get-dump))
-  
   :init
   
   (setq anything-hatena-bookmark-requires-pattern 0)

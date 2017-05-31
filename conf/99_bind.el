@@ -63,7 +63,7 @@
     (:key "C-x C-b"   :cmd switch-to-buffer :jack t)
     (:key "C-x b"     :cmd list-buffers     :jack t)
     ;; ファイル
-    (:key "C-x f"   :cmd find-file-at-point :jack t)
+    ;; (:key "C-x f"   :cmd find-file-at-point :jack t)
     (:key "C-x C-d" :cmd dired :jack t)
     ;; (:key "C-x d"   :cmd ffap-list-directory)
     ;; (:key "C-x d"   :cmd dired-at-point)
@@ -662,10 +662,10 @@ _R_: reload
  (kbd "C-x a")
  (defhydra ~hydra-anything (:exit t :help nil :idle ~hydra-help-delay)
    "
-_x_: M-x        _B_: bm              _r_: resume
-_f_: find file  _q_: replace string  _?_: help
-_F_: for files
-_a_: apropos
+_x_: M-x        _B_: bm                    _r_: resume
+_f_: find file  _q_: replace string        _?_: help
+_F_: for files  _h_: hatena bookmark
+_a_: apropos    _H_: hatena bookmark dump
 _b_: buffers
 _k_: kill ring
 _i_: imenu
@@ -681,6 +681,8 @@ _m_: mark ring
    ("m" anything-all-mark-rings)
    ("B" anything-bm-list)
    ("q" anything-replace-string)
+   ("h" anything-hatena-bookmark)
+   ("H" anything-hatena-bookmark-get-dump)
    ("r" anything-resume)
    ("?" anything-help)))
 

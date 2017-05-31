@@ -1,6 +1,3 @@
-(unbind-key "M-v")
-(bind-keys* ("M-v m" . ~vc-minor-mode))
-
 (defun ~vc-minor-mode ()
   (interactive)
   (let ((file (expand-file-name (buffer-file-name))))
@@ -35,34 +32,16 @@
 
 (bundle git-gutter)
 (use-package git-gutter
-  :bind* (("M-v g t" . git-gutter:toggle)
-          ("M-v g s" . git-gutter:popup-hunk)
-          ("M-v g p" . git-gutter:previous-hunk)
-          ("M-v g n" . git-gutter:next-hunk)
-          ("M-v g S" . git-gutter:stage-hunk)
-          ("M-v g r" . git-gutter:revert-hunk))
-
   :init
-
   (custom-set-variables
    '(git-gutter:lighter " GG")
    '(git-gutter:hide-gutter t)
-   '(git-gutter:diff-option "-w"))
-
-  :config
-
-  (use-package smartrep
-    :config
-    (smartrep-define-key
-        global-map "M-v g" '(("p" . 'git-gutter:previous-hunk)
-                             ("n" . 'git-gutter:next-hunk))))
-  )
+   '(git-gutter:diff-option "-w")))
 
 
 (bundle github-browse-file)
 (use-package github-browse-file
-  :bind* (("M-v b f" . github-browse-file)
-          ("M-v b b" . github-browse-file-blame))
+  :defer t
   
   :config
   (setq github-browse-file-show-line-at-point t))
@@ -73,15 +52,10 @@
   :defer t)
 
 
-(use-package counsel
-  :bind* (("M-v c l" . counsel-git-log)))
-
-
 ;; e2wm
 (use-package e2wm-vcs
-  :bind* (("C-x p S" . e2wm:dp-svn)
-          ("C-x p g" . e2wm:dp-magit))
-
+  :defer t
+  
   :config
   
   ;; svn

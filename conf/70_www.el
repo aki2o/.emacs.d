@@ -74,13 +74,6 @@
           if srcs
           return (funcall (car e) :sources srcs))))
 
-(unbind-key "M-/")
-(bind-keys* ("M-/ g" . ~browse-url)
-            ("M-/ b" . ~browse-bookmark)
-            ("M-/ s" . ~eww-search-manualy)
-            ("M-/ S" . ~eww-search)
-            ("M-/ @" . browse-url-at-point))
-
 
 (bundle sha1-el :url "http://stuff.mit.edu/afs/sipb/contrib/emacs/packages/flim-1.14.7/sha1-el.el")
 (use-package sha1-el

@@ -10,8 +10,8 @@
 
 (bundle kiwanami/emacs-edbi :name e2wm-edbi)
 (use-package e2wm-edbi
-  :bind* (("C-x p d" . e2wm:dp-edbi))
-
+  :defer t
+  
   :config
 
   (setq e2wm:c-edbi-recipe

@@ -1,13 +1,6 @@
 (bundle color-moccur)
 (bundle moccur-edit)
 (use-package color-moccur
-  
-  :bind* (("M-s l" . ~moccur-grep)
-          ("M-s r" . ~moccur-grep-find)
-          ("M-s L" . ~dmoccur)
-          ("M-s R" . ~dmoccur-recursive)
-          ("M-s b" . moccur))
-
   :commands (dired-do-moccur Buffer-menu-moccur)
   
   :init
@@ -232,12 +225,6 @@
 
 (bundle aki2o/anything-c-moccur)
 (use-package anything-c-moccur
-  
-  :bind* (("M-s h o" . anything-c-moccur-occur-by-moccur)
-          ("M-s h b" . anything-c-moccur-buffer-list)
-          ("M-s h d" . anything-c-moccur-dmoccur)
-          ("M-s h r" . anything-c-moccur-resume))
-
   :commands (anything-c-moccur-dired-do-moccur-by-moccur
              anything-c-moccur-from-isearch)
   

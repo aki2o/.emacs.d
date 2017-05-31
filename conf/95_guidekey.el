@@ -7,17 +7,11 @@
   (setq guide-key/idle-delay 1.0)
   (setq guide-key/guide-key-sequence
         '("<f1>" "C-x RET" "C-x ESC" "C-x 4" "C-x 5" "C-x 6"
-          "C-x n" "C-x r" "C-x v" "C-x i"
-          "C-x x" "C-x t" "C-x y" "C-x a" "C-x h" "C-x p"
+          "C-x n" "C-x r" "C-x v"
+          "C-x h"
           "C-x C-t" "C-x C-k" "C-x C-r"
           "C-o" "C-c" "C-S-c"
-          "M-y" "M-c" "M-o" "M-n" "M-m" "M-@"
-          "M-p" "M-p s" "M-p r" "M-p r !" "M-p r g"
-          "M-s" "M-s h" "M-s c"
-          "M-b" "M-b p" "M-b q"
-          "M-v" "M-v g" "M-v b" "M-v c"
-          "M-u"
-          "M-/"
+          "M-m"
           "C-M-p"))
   (guide-key-mode 1)
 

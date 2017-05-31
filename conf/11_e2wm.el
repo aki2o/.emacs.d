@@ -4,12 +4,6 @@
 (bundle e2wm :depends (deferred))
 (bundle e2wm-sww)
 (use-package e2wm
-  :bind* (("C-x p a"   . e2wm:pst-change-command)
-          ("C-x p c"   . e2wm:dp-code)
-          ("C-x p T"   . e2wm:dp-two)
-          ("C-x p D"   . e2wm:dp-doc)
-          ("C-x C-S-b" . e2wm:dp-array))
-
   :init
 
   ;; フェイス
@@ -185,7 +179,7 @@
 
 
 (use-package e2wm-transcribe
-  :bind* (("C-x p t" . e2wm-transcribe:dp))
+  :defer t
   
   :config
   
@@ -248,8 +242,10 @@
 
 (bundle e2wm-term)
 (use-package e2wm-term
-  :bind* (("C-x p e" . e2wm-term:dp))
+  :defer t
+  
   :config
+  
   (setq e2wm-term:default-backend 'shell)
   (setq e2wm-term:help-window-default-hide t)
   (setq e2wm-term:help-guess-command t)

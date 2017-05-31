@@ -1,14 +1,5 @@
 (bundle yasnippet)
 (use-package yasnippet
-  :bind* (("C-x y t" . yas-minor-mode)
-          ("C-x y f" . yas-visit-snippet-file)
-          ("C-x y i" . yas-insert-snippet)
-          ("C-x y n" . yas-new-snippet)
-          ("C-x y R" . yas-reload-all)
-          ("C-x y r" . yas-register-oneshot-snippet)
-          ("C-x y e" . yas-expand-oneshot-snippet)
-          ("C-x y E" . ~yas-expand-oneshot-snippet-with-region))
-  
   :commands (yas-load-directory)
   
   :mode (("/\\.emacs\\.d/snippets/" . snippet-mode))

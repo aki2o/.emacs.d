@@ -30,7 +30,7 @@
               ("M-RET" . meghanada-local-variable)
               ("C->"   . meghanada-jump-declaration)
               ("C-<"   . meghanada-back-jump)
-              ("M-z"   . hydra-meghanada/body))
+              ("M-z"   . ~hydra-meghanada/body))
   
   :init
 
@@ -49,7 +49,7 @@
 
   (add-hook 'java-mode-hook '~meghanada-setup t)
 
-  (defhydra hydra-meghanada (:hint nil :exit t)
+  (defhydra ~hydra-meghanada (:hint nil :exit t :idle ~hydra-help-delay)
     "
 ^Edit^                           ^Tast or Task^
 ^^^^^^-------------------------------------------------------
@@ -58,8 +58,6 @@ _c_: meghanada-compile-project   _t_: meghanada-run-task
 _o_: meghanada-optimize-import   _j_: meghanada-run-junit-test-case
 _s_: meghanada-switch-test-case  _J_: meghanada-run-junit-class
 _v_: meghanada-local-variable    _r_: meghanada-run-junit-recent
-_g_: magit-status
-_l_: helm-ls-git-ls
 _q_: exit
 "
     ("f" meghanada-compile-file)
@@ -70,16 +68,12 @@ _q_: exit
     ("s" meghanada-switch-test-case)
     ("v" meghanada-local-variable)
 
-    ("g" magit-status)
-    ("l" helm-ls-git-ls)
-
     ("t" meghanada-run-task)
     ("j" meghanada-run-junit-test-case)
     ("J" meghanada-run-junit-class)
     ("r" meghanada-run-junit-recent)
 
-    ("q" exit)
-    ("z" nil "leave"))
+    ("q" nil))
   
   :config
 

@@ -244,7 +244,6 @@
 
   :config
   
-  (define-key projectile-command-map (kbd "r") 'projectile-rails-command-map)
   (~projectile-switchable-project-commandize projectile-rails-find-controller)
   (~projectile-switchable-project-commandize projectile-rails-find-model)
   (~projectile-switchable-project-commandize projectile-rails-find-view)
@@ -254,6 +253,18 @@
   (~projectile-switchable-project-commandize projectile-rails-find-fixture)
   (~projectile-switchable-project-commandize projectile-rails-find-stylesheet)
   (~projectile-switchable-project-commandize projectile-rails-find-javascript)
+  (~projectile-switchable-project-commandize projectile-rails-find-locale)
+  (~projectile-switchable-project-commandize projectile-rails-find-initializer)
+  (~projectile-switchable-project-commandize projectile-rails-find-job)
+  (~projectile-switchable-project-commandize projectile-rails-find-migration)
+  (~projectile-switchable-project-commandize projectile-rails-find-environment)
+  (~projectile-switchable-project-commandize projectile-rails-find-serializer)
+  (~projectile-switchable-project-commandize projectile-rails-find-lib)
+  (~projectile-switchable-project-commandize projectile-rails-find-feature)
+  (~projectile-switchable-project-commandize projectile-rails-find-log)
+  (~projectile-switchable-project-commandize projectile-rails-find-layout)
+  (~projectile-switchable-project-commandize projectile-rails-find-rake-task)
+  (~projectile-switchable-project-commandize projectile-rails-find-validator)
 
   (defun ~projectile-rails-ag-current-partial-view ()
     (interactive)
@@ -274,8 +285,6 @@
              (ag-regexp (format "['\"]%s['\"]" view-name) default-directory))
             (t
              (projectile-ag (replace-regexp-in-string re "" (concat view-dir view-name)))))))
-
-  (define-key projectile-command-map (kbd "s r v") '~projectile-rails-ag-current-partial-view)
 
   )
 

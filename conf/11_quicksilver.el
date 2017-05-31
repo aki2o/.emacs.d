@@ -189,20 +189,6 @@
 (bundle counsel)
 (require 'counsel)
 
-(global-unset-key (kbd "C-x i"))
-(bind-keys* ("C-x i x" .   counsel-M-x)
-            ("C-x i f" .   counsel-find-file)
-            ("C-x i i" .   counsel-imenu)
-            ("C-x i y" .   counsel-yank-pop)
-            ("C-x i b" .   counsel-descbinds)
-            ("C-x i g" .   counsel-git-grep)
-            ("C-x i a" .   counsel-ag)
-            ("C-x i r" .   ivy-resume)
-            ("C-x i l" .   counsel-load-library)
-            ("C-x i L" .   counsel-locate)
-            ("C-x i h f" . counsel-describe-function)
-            ("C-x i h v" . counsel-describe-variable))
-
 ;; (global-set-key [remap execute-extended-command] 'counsel-M-x)
 ;; (global-set-key [remap find-file]                'counsel-find-file)
 ;; (global-set-key [remap yank-pop]                 'counsel-yank-pop)
@@ -567,22 +553,6 @@
 (use-package anything-grep)
 
 
-;; abbrevのキーバインドをanything用に空ける
-(dolist (s '("C-a" "'" "+" "-" "e" "g" "l" "n" "p" "i g" "i l"))
-  (global-unset-key (kbd (concat "C-x a" s))))
-
-(bind-keys* ("C-x a ?" . anything-help)
-            ("C-x a x" . anything-execute-anything-command)
-            ("C-x a f" . anything-find-files)
-            ("C-x a F" . anything-for-files)
-            ("C-x a a" . anything-apropos)
-            ("C-x a b" . anything-buffers-list)
-            ("C-x a k" . anything-show-kill-ring)
-            ("C-x a i" . anything-imenu)
-            ("C-x a m" . anything-all-mark-rings)
-            ("C-x a r" . anything-resume)
-            ("C-x a B" . anything-bm-list))
-
 ;; (global-set-key [remap find-file]        'anything-find-file)
 ;; (global-set-key (kbd "C-x f")            'anything-recentf)
 ;; (global-set-key [remap switch-to-buffer] 'anything-buffers-list)
@@ -768,5 +738,5 @@
 
 (bundle k1LoW/anything-replace-string)
 (use-package anything-replace-string
-  :bind* (("C-x a q" . anything-replace-string)))
+  :defer t)
 

@@ -10,12 +10,7 @@
 (bundle diminish)
 
 
-(bundle hydra)
-(use-package hydra
-  :config
-  (setq hydra-lv nil))
-
-
+;;;;;;;;;;;;;;
 ;; Function
 
 ;; 指定されたモードのauto-mode-alistに定義されているキーのリスト
@@ -33,9 +28,68 @@
         (error "Not in file buffer.")
       (expand-file-name path))))
 
+(defun ~case-invoke (func)
+  (let* ((startpt (if (region-active-p)
+                      (region-beginning)
+                    (save-excursion (forward-word 1) (backward-word 1) (point))))
+         (endpt (if (region-active-p)
+                    (region-end)
+                  (save-excursion (forward-word 1) (point))))
+         (rep (funcall func (buffer-substring startpt endpt))))
+    (save-excursion
+      (kill-region startpt endpt)
+      (goto-char startpt)
+      (insert rep))))
 
+
+;;;;;;;;;;;;;
 ;; Command
 
+;; scroll
+(defun ~scroll-left ()
+  (interactive)
+  (scroll-left 10 t))
+
+(defun ~scroll-right ()
+  (interactive)
+  (scroll-right 10 t))
+
+(defun ~scroll-other-window ()
+  (interactive)
+  (scroll-other-window 10))
+
+(defun ~scroll-other-window-down ()
+  (interactive)
+  (scroll-other-window-down 10))
+
+(defun ~scroll-other-window-left ()
+  (interactive)
+  (other-window 1) (scroll-left 10 t) (other-window -1))
+
+(defun ~scroll-other-window-right ()
+  (interactive)
+  (other-window 1) (scroll-right 10 t) (other-window -1))
+
+;; split window
+(defun ~split-window-horizontally-and-select ()
+  (interactive)
+  (split-window-horizontally) (other-window 1))
+
+(defun ~split-window-vertically-and-select ()
+  (interactive)
+  (split-window-vertically) (other-window 1))
+
+;; edit
+(defun ~next-line-with-insert ()
+  (interactive)
+  (end-of-line)
+  (newline-and-indent))
+
+(defun ~backward-kill-line ()
+  (interactive)
+  (kill-region (point-at-bol) (point)))
+
+;; insert
 (defun ~insert-date ()
   (interactive)
   (insert (format-time-string "%Y-%m-%dT%R:%S+09:00" (current-time))))
@@ -49,6 +103,7 @@
   (insert (s-upper-camel-case
            (file-name-sans-extension (file-name-nondirectory (~get-active-window-file))))))
 
+;; kill
 (defun ~kill-ring-save-file-path ()
   (interactive)
   (let ((path (~get-active-window-file)))
@@ -61,14 +116,40 @@
     (kill-new (file-name-nondirectory path))
     (message path)))
 
-(defun ~print-file-path ()
+;; echo
+(defun ~echo-file-path ()
   (interactive)
   (message (~get-active-window-file)))
 
-(defun ~print-face-at-point ()
+(defun ~echo-face-at-point ()
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
 
+;; case
+(defun ~case-upper ()
+  (interactive)
+  (call-interactively
+   (if (region-active-p) 'upcase-region 'upcase-word)))
+
+(defun ~case-lower ()
+  (interactive)
+  (call-interactively
+   (if (region-active-p) 'downcase-region 'downcase-word)))
+
+(defun ~case-capitalize ()
+  (interactive)
+  (call-interactively
+   (if (region-active-p) 'capitalize-region 'capitalize-word)))
+
+(defun ~case-capitalize-from-snake ()
+  (interactive)
+  (~case-invoke 's-upper-camel-case))
+
+(defun ~case-snake ()
+  (interactive)
+  (~case-invoke 's-snake-case))
+
+;; window
 (defun ~window-resizer ()
   (interactive)
   (let ((dx (if (= (nth 0 (window-edges)) 0) 1 -1))
@@ -87,32 +168,4 @@
                ;; otherwise
                (message "Quit")
                (throw 'end-flag t)))))))
-
-(defhydra ~hydra-insert (:exit t)
-  "insert"
-  ("d" ~insert-date "date")
-  ("f" ~insert-file-name "filename")
-  ("p" ~insert-programmatic-ident-from-file-name "objectname"))
-
-(defhydra ~hydra-kill (:exit t)
-  "kill"
-  ("p" ~kill-ring-save-file-path "path")
-  ("f" ~kill-ring-save-file-name "filename"))
-
-(defhydra ~hydra-echo (:exit t)
-  "echo"
-  ("p" ~print-file-path "path")
-  ("f" ~print-face-at-point "face"))
-
-(defhydra ~hydra-text ()
-  "text"
-  ("S" text-scale-increase "scale-inc")
-  ("s" text-scale-decrease "scale-dec"))
-
-(unbind-key "M-u")
-(bind-keys* ("M-u i" . ~hydra-insert/body)
-            ("M-u k" . ~hydra-kill/body)
-            ("M-u p" . ~hydra-echo/body)
-            ("M-u w" . ~window-resizer)
-            ("M-u t" . ~hydra-text/body))
 

@@ -13,7 +13,6 @@
   (global-set-key (kbd "M-j")   'owdriver-do-scroll-up)
   (global-set-key (kbd "M-k")   'owdriver-do-scroll-down)
   (global-set-key (kbd "M-l")   'owdriver-do-scroll-left)
-  (global-set-key (kbd "M-s o") 'owdriver-do-isearch-forward)
   
   (use-package pophint
     :defer t

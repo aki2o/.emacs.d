@@ -108,8 +108,8 @@
 
 
 (use-package e2wm-slack
-  :bind* (("C-x p s" . e2wm-slack:dp))
-
+  :defer t
+  
   :config
 
   (e2wm-slack--log-enable-logging)

@@ -2,10 +2,6 @@
 (bundle grep-a-lot)
 (bundle emacswiki:grep-edit)
 (use-package grep
-  :bind* (("M-s l" . lgrep)
-          ("M-s r" . rgrep)
-          ("M-s G" . ~grep-by-git))
-
   :init
   
   (setq grep-host-defaults-alist nil) ; これはおまじないだと思ってください
@@ -62,9 +58,8 @@
 (bundle mhayashi1120/Emacs-wgrep :name wgrep-helm)
 (bundle wgrep-ag)
 (use-package ag
-  :bind* (("M-s a" . ~ag)
-          ("M-s A" . pophint-config:thing-do-~ag-with-toggle-effect))
-
+  :defer t
+  
   :config
   
   (custom-set-variables
@@ -91,9 +86,6 @@
 
 (bundle helm-ag)
 (use-package helm-ag
-  :bind* (("M-s h a" . ~helm-ag)
-          ("M-s h A" . pophint-config:thing-do-~helm-ag-with-toggle-effect))
-
   :init
 
   (setq helm-ag-insert-at-point 'pophint)
@@ -113,14 +105,10 @@
 
 (bundle helm-git-grep)
 (use-package helm-git-grep
-  :bind* (("M-s h g" . helm-git-grep))
-  )
+  :defer t)
 
 
 (use-package counsel
-  :bind* (("M-s c a" . ~counsel-ag)
-          ("M-s c g" . ~counsel-git-grep))
-
   :init
 
   (defun ~counsel-initial-input ()
@@ -144,10 +132,7 @@
 
 (bundle swiper)
 (use-package swiper
-  :bind* (("M-s I" . ~swiper))
-
   :init
-
   (defun ~swiper ()
     (interactive)
     (swiper (~counsel-initial-input))))

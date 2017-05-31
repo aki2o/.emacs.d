@@ -1,9 +1,6 @@
 (bundle! projectile)
 
-;; なんか効かないっぽい
-;; (setq projectile-keymap-prefix "M-p")
-(projectile-global-mode)
-(define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+(setq projectile-keymap-prefix nil)
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'helm)
 (setq projectile-cache-file (concat user-emacs-directory ".projectile.cache"))
@@ -17,6 +14,8 @@
       do (add-to-list 'projectile-project-root-files-top-down-recurring e t))
 (loop for e in '("blib")
       do (add-to-list 'projectile-globally-ignored-directories e t))
+
+(projectile-global-mode)
 
 ;; ;; プロジェクトルート探索方法
 ;; (setq projectile-project-root-files-functions '(~projectile-root-bottom-up))
@@ -63,27 +62,31 @@
 
 (defvar ~projectile-switch-project-processing nil)
 (defmacro ~projectile-switchable-project-commandize (command)
-  `(defadvice ,command (around ~projectile-switch-project activate)
-     (if (and (not ~projectile-switch-project-processing)
-              (interactive-p)
-              current-prefix-arg)
-         (let ((projectile-switch-project-action (lambda ()
-                                                   (let ((current-prefix-arg nil))
-                                                     (call-interactively ',command))))
-               (~projectile-switch-project-processing t))
-           (projectile-switch-project))
-       ad-do-it)))
+  `(progn
+     (defun ,(intern (format "%s--in-other-project" command)) ()
+       (interactive)
+       (let ((projectile-switch-project-action (lambda ()
+                                                 (call-interactively ',command)))
+             (~projectile-switch-project-processing t))
+         (projectile-switch-project)))
+     (defadvice ,command (around ~projectile-switch-project activate)
+       (if (and (not ~projectile-switch-project-processing)
+                (interactive-p)
+                current-prefix-arg)
+           (let ((current-prefix-arg nil))
+             (call-interactively ',(intern (format "%s--in-other-project" command))))
+         ad-do-it))))
 
 (~projectile-switchable-project-commandize projectile-find-file)
 (~projectile-switchable-project-commandize projectile-find-dir)
+(~projectile-switchable-project-commandize ~projectile-find-root-dir)
 (~projectile-switchable-project-commandize projectile-switch-to-buffer)
-(~projectile-switchable-project-commandize projectile-invalidate-cache)
 (~projectile-switchable-project-commandize projectile-kill-buffers)
+(~projectile-switchable-project-commandize projectile-invalidate-cache)
 (~projectile-switchable-project-commandize projectile-ag)
+(~projectile-switchable-project-commandize ~projectile-ag-with-directory-select)
 (~projectile-switchable-project-commandize projectile-multi-occur)
 (~projectile-switchable-project-commandize projectile-find-test-file)
-(~projectile-switchable-project-commandize ~projectile-find-root-dir)
-(~projectile-switchable-project-commandize ~projectile-ag-with-directory-select)
 
 
 (defadvice uniquify-rename-buffer (before ~try-put-projectile-project (item newname))
@@ -114,9 +117,7 @@
   
   (~projectile-switchable-project-commandize ~projectile-counsel-ag)
   (~projectile-switchable-project-commandize ~projectile-counsel-ag-with-directory-select)
-  
-  (define-key projectile-command-map (kbd "s c") '~projectile-counsel-ag)
-  (define-key projectile-command-map (kbd "s C") '~projectile-counsel-ag-with-directory-select))
+  )
 
 
 (bundle helm-projectile)
@@ -129,16 +130,7 @@
   ;; (~projectile-switchable-project-commandize helm-projectile-find-dir)
   ;; (~projectile-switchable-project-commandize helm-projectile-switch-to-buffer)
   (~projectile-switchable-project-commandize helm-projectile-ag)
-
-  (define-key projectile-command-map (kbd "s h") 'helm-projectile-ag))
-
-
-;; Keymap
-(define-key projectile-command-map (kbd "^")   '~projectile-find-root-dir)
-(define-key projectile-command-map (kbd "R")   'projectile-replace)
-(define-key projectile-command-map (kbd "s s") nil)
-(define-key projectile-command-map (kbd "s a") 'projectile-ag)
-(define-key projectile-command-map (kbd "s A") '~projectile-ag-with-directory-select)
+  )
 
 
 ;; For p-r

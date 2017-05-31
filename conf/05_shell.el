@@ -140,9 +140,37 @@
 
 (bundle emacswiki:background)
 (use-package background
-  :bind* (("C-x x b" . background)))
+  :commands (background))
 
 
 ;; (bundle multi-term)
 ;; (bundle multi-shell)
+
+
+(defun ~shell-command-on-region-each-line (start end command-format)
+  (interactive (let (string)
+                 (unless (mark)
+                   (error "The mark is not set now, so there is no region"))
+                 (setq string (read-shell-command "Shell command format using %s: "))
+                 (list (region-beginning) (region-end) string)))
+  (dolist (line (split-string (buffer-substring-no-properties start end) "\n"))
+    (let* ((arg (s-trim line))
+           (cmd (format command-format arg)))
+      (when (not (string= arg ""))
+        (message "Invoke shell command : %s" cmd)
+        (shell-command cmd)))))
+
+(defun ~shell-command-on-region-with-replace (start end command)
+  (interactive (let (string)
+                 (unless (mark)
+                   (error "The mark is not set now, so there is no region"))
+                 (setq string (read-shell-command "Shell command: "))
+                 (list (region-beginning) (region-end) string)))
+  (shell-command-on-region start end command nil t))
+
+(defun ~shell-command-insert-result (command)
+  (interactive (let (string)
+                 (setq string (read-shell-command "Shell command: "))
+                 (list string)))
+  (insert (shell-command-to-string command)))
 

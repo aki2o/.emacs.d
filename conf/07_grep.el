@@ -2,6 +2,8 @@
 (bundle grep-a-lot)
 (bundle emacswiki:grep-edit)
 (use-package grep
+  :commands (~grep-by-git)
+  
   :init
   
   (setq grep-host-defaults-alist nil) ; これはおまじないだと思ってください
@@ -58,7 +60,7 @@
 (bundle mhayashi1120/Emacs-wgrep :name wgrep-helm)
 (bundle wgrep-ag)
 (use-package ag
-  :defer t
+  :commands (~ag pophint-config:thing-do-~ag-with-toggle-effect)
   
   :config
   
@@ -86,6 +88,8 @@
 
 (bundle helm-ag)
 (use-package helm-ag
+  :commands (~helm-ag pophint-config:thing-do-~helm-ag-with-toggle-effect)
+  
   :init
 
   (setq helm-ag-insert-at-point 'pophint)
@@ -109,6 +113,8 @@
 
 
 (use-package counsel
+  :commands (~counsel-ag ~counsel-git-grep)
+  
   :init
 
   (defun ~counsel-initial-input ()
@@ -132,6 +138,8 @@
 
 (bundle swiper)
 (use-package swiper
+  :commands (~swiper)
+  
   :init
   (defun ~swiper ()
     (interactive)

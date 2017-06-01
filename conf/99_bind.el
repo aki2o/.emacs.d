@@ -4,6 +4,7 @@
 (defvar ~custom-key-plists
   `(
     (:key "M-x" :cmd helm-M-x :jack t)
+    ;; (:key "M-x" :cmd counsel-M-x :jack t)
     ;; 移動
     (:key "C-h"     :cmd backward-char          :jack t)
     (:key "C-j"     :cmd next-line              :jack t)
@@ -20,9 +21,8 @@
     (:key "C-{"     :cmd beginning-of-buffer    :jack t)
     (:key "C-}"     :cmd end-of-buffer          :jack t)
     (:key "M-i"     :cmd helm-semantic-or-imenu :jack t) ; helm-imenu
+    ;; (:key "M-i"     :cmd counsel-imenu          :jack t)
     (:key "C-M-/"   :cmd helm-all-mark-rings    :jack t)
-    ;; 検索
-    (:key "C-S-s" :cmd isearch-backward :jack t)
     ;; ウィンドウ
     (:key "C-z"   :cmd delete-window        :jack t)
     (:key "C-S-z" :cmd delete-other-windows :jack t)
@@ -35,6 +35,7 @@
     (:key "M-k"   :cmd owdriver-do-inertias-down          :jack t)
     (:key "M-l"   :cmd owdriver-do-scroll-left            :jack t)
     (:key "H-i"   :cmd owdriver-do-helm-semantic-or-imenu :jack t)
+    ;; (:key "H-i"   :cmd owdriver-do-counsel-imenu          :jack t)
     ;; 編集
     (:key "C-S-m"   :cmd ~next-line-with-insert        :jack t :kind edit)
     (:key "C-d"     :cmd backward-delete-char-untabify :jack t :kind edit)
@@ -46,6 +47,8 @@
     (:key "C-w"     :cmd kill-ring-save                :jack t :kind edit)
     (:key "C-S-w"   :cmd kill-region                   :jack t :kind edit)
     (:key "C-S-y"   :cmd helm-show-kill-ring           :jack t :kind edit)
+    ;; (:key "C-S-y"   :cmd counsel-yank-pop              :jack t :kind edit)
+    ;; (:key "C-S-y"   :cmd anything-show-kill-ring       :jack t :kind edit)
     (:key "C-?"     :cmd redo                          :jack t :kind edit)
     (:key "C-r"     :cmd query-replace                 :jack t :kind edit)
     (:key "C-S-r"   :cmd query-replace-regexp          :jack t :kind edit)
@@ -58,6 +61,25 @@
     (:key "C-S-i"   :cmd toggle-input-method           :jack t :kind edit)
     (:key "C-x i"   :cmd indent-region                 :jack t :kind edit)
     (:key "C-S-SPC" :cmd ~set-mark-only                :jack t :kint edit)
+    ;; 検索
+    (:key "C-S-s" :cmd isearch-backward :jack t)
+    ;; ファイル
+    ;; helm は有効にしなくても、勝手に置き換わる
+    ;; (:key "C-x C-f" :cmd helm-find-files    :jack t)
+    ;; (:key "C-x C-f" :cmd counsel-find-file  :jack t)
+    ;; (:key "C-x C-f" :cmd anything-find-file  :jack t)
+    (:key "C-x f"   :cmd helm-recentf       :jack t)
+    ;; (:key "C-x f"   :cmd anything-recentf   :jack t)
+    (:key "C-x F"   :cmd find-file-at-point :jack t)
+    (:key "C-x C-d" :cmd dired              :jack t)
+    ;; (:key "C-x d"   :cmd ffap-list-directory)
+    ;; (:key "C-x d"   :cmd dired-at-point)
+    ;; (:key "M-f"     :cmd follow-delete-other-windows-and-split)
+    ;; バッファ
+    (:key "C-x C-S-f" :cmd revert-buffer         :jack t)
+    (:key "C-x C-b"   :cmd helm-buffers-list     :jack t)
+    ;; (:key "C-x C-b"   :cmd anything-buffers-list :jack t)
+    (:key "C-x b"     :cmd ~ibuffer-other-window :jack t)
     ;; 行ジャンプ
     (:key "C-x j" :cmd goto-line :jack t)
     ;; マクロ
@@ -68,22 +90,15 @@
     ;; タグジャンプ
     (:key "C-<"     :cmd pop-tag-mark)
     (:key "C->"     :cmd find-tag)
-    ;; バッファ
-    (:key "C-x C-S-f" :cmd revert-buffer         :jack t)
-    (:key "C-x C-b"   :cmd helm-buffers-list     :jack t)
-    (:key "C-x b"     :cmd ~ibuffer-other-window :jack t)
-    ;; ファイル
-    (:key "C-x f"   :cmd helm-recentf       :jack t)
-    (:key "C-x F"   :cmd find-file-at-point :jack t)
-    (:key "C-x C-d" :cmd dired              :jack t)
-    ;; (:key "C-x d"   :cmd ffap-list-directory)
-    ;; (:key "C-x d"   :cmd dired-at-point)
-    ;; (:key "M-f"     :cmd follow-delete-other-windows-and-split)
     ;; register
-    (:key "M-y" :cmd ~register-paste :jack t)
+    ;; (:key "M-y" :cmd ~register-paste :jack t)
     ;; エラー移動
     (:key "C-b"   :cmd next-error     :jack t)
     (:key "C-S-b" :cmd previous-error :jack t)
+    ;; emacsclient
+    ;; (:key "C-x C-z" :cmd server-edit :jack t)
+    ;; help
+    ;; (:key "<f1> a" :cmd helm-apropos)
     ))
 
 (dolist (e ~custom-key-plists)
@@ -322,21 +337,15 @@ _t_: regenerate tag    _s_: switch
 
 (defhydra ~hydra-projectile-rails-find-misc (:exit t :hint nil)
   "
-_m_: find migration    _M_: find migration in other project    _C-m_: find current migration
-_e_: find environment  _E_: find environment in other project
-_s_: find serializer   _S_: find serializer in other project   _C-s_: find current serializer
-_l_: find lib          _L_: find lib in other project
-_f_: find feature      _F_: find feature in other project
-_o_: find log          _O_: find log in other project
-_y_: find layout       _Y_: find layout in other project
-_t_: find rake task    _T_: find rake task in other project
-_v_: find validator    _V_: find validator in other project
-
-_g_: find gemfile
-_r_: find routes
-_d_: find schema
-_D_: find seeds
-_h_: find spec helper
+_g_: find gemfile      _m_: find migration    _M_: find migration in other project    _C-m_: find current migration
+_r_: find routes       _e_: find environment  _E_: find environment in other project
+_d_: find schema       _s_: find serializer   _S_: find serializer in other project   _C-s_: find current serializer
+_D_: find seeds        _l_: find lib          _L_: find lib in other project
+_h_: find spec helper  _f_: find feature      _F_: find feature in other project
+                       _o_: find log          _O_: find log in other project
+                       _y_: find layout       _Y_: find layout in other project
+                       _t_: find rake task    _T_: find rake task in other project
+                       _v_: find validator    _V_: find validator in other project
 "
   ("m"   projectile-rails-find-migration)
   ("M"   projectile-rails-find-migration--in-other-project)
@@ -375,12 +384,9 @@ _h_: find spec helper
 
 (defhydra ~hydra-projectile-rails-manage (:exit t :hint nil)
   "
-_c_: console    _e_: extract region
-_s_: server
-_r_: rake
-_g_: generate
-_d_: destroy
-_b_: dbconsole
+_c_: console  _g_: generate   _e_: extract region
+_s_: server   _d_: destroy
+_r_: rake     _b_: dbconsole
 "
   ("c" projectile-rails-console)
   ("s" projectile-rails-server)
@@ -392,23 +398,15 @@ _b_: dbconsole
 
 (defhydra ~hydra-projectile-rails (:exit t :hint nil :idle ~hydra-help-delay)
   "
-_c_: find controller   _C_:   find controller in other project   _C-c_: find current controller
-_m_: find model        _M_:   find modle in other project        _C-m_: find current model
-_v_: find view         _V_:   find view in other project         _C-v_: find current view
-_j_: find javascript   _J_:   find javascript in other project   _C-j_: find current javascript
-_s_: find stylesheet   _S_:   find stylesheet in other project   _C-s_: find current stylesheet
-_h_: find helper       _H_:   find helper in other project       _C-h_: find current helper
-_p_: find spec         _P_:   find spec in other project         _C-p_: find current spec
-_t_: find test         _T_:   find test in other project         _C-t_: find current test
-_u_: find fixture      _U_:   find fixture in other project      _C-u_: find current fixture
-_@_: find mailer       _C-@_: find mailer in other project
-_a_: find locale       _A_:   find locale in other project
-_i_: find initializer  _I_:   find initializer in other project
-_b_: find job          _B_:   find job in other project
-
-_>_: goto file at point
-_._: hydra find misc
-_x_: hydra manage
+_c_: find controller  _C_: find controller in other project  _C-c_: find current controller  _@_: find mailer       _C-@_: find mailer in other project
+_m_: find model       _M_: find modle in other project       _C-m_: find current model       _a_: find locale       _A_:   find locale in other project
+_v_: find view        _V_: find view in other project        _C-v_: find current view        _i_: find initializer  _I_:   find initializer in other project
+_j_: find javascript  _J_: find javascript in other project  _C-j_: find current javascript  _b_: find job          _B_:   find job in other project
+_s_: find stylesheet  _S_: find stylesheet in other project  _C-s_: find current stylesheet
+_h_: find helper      _H_: find helper in other project      _C-h_: find current helper
+_p_: find spec        _P_: find spec in other project        _C-p_: find current spec        _>_: goto file at point
+_t_: find test        _T_: find test in other project        _C-t_: find current test        _._: hydra find misc
+_u_: find fixture     _U_: find fixture in other project     _C-u_: find current fixture     _x_: hydra manage
 "
   ("c"   projectile-rails-find-controller)
   ("C"   projectile-rails-find-controller--in-other-project)
@@ -470,8 +468,7 @@ _x_: hydra manage
 _f_: find file   _d_: find dir   _b_: switch buffer  _t_: find test
 _F_: hydra file  _D_: hydra dir  _B_: hydra buffer   _T_: hydra test
 
-_s_: hydra searc  _m_: hydra manage  _r_: hydra rails
-_x_: hydra shell
+_s_: hydra search  _m_: hydra manage  _r_: hydra rails  _x_: hydra shell
 
 _j_: tag jump            _v_: version control
 _z_: cache current file  _V_: browse dirty

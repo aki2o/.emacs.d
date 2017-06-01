@@ -189,11 +189,6 @@
 (bundle counsel)
 (require 'counsel)
 
-;; (global-set-key [remap execute-extended-command] 'counsel-M-x)
-;; (global-set-key [remap find-file]                'counsel-find-file)
-;; (global-set-key [remap yank-pop]                 'counsel-yank-pop)
-;; (global-set-key (kbd "M-i")                      'counsel-imenu)
-
 (setq counsel-git-grep-map
       (let ((map (make-sparse-keymap)))
         (define-key map (kbd "C-p")     'counsel-git-grep-recenter)
@@ -335,11 +330,6 @@
            ("r" . helm-resume)
            ("B" . helm-bookmark)
            ("l" . helm-locate-library))
-
-;; (global-set-key [remap apropos-command]          'helm-apropos)
-;; 有効にしなくても、勝手に置き換わる
-;; さらに、これを有効にすると、大文字を含むファイル名を新規作成できなくなる
-;; (global-set-key (kbd "C-x C-f")                  'helm-find-files)
 
 (require 'helm-descbinds) ; replace from descbinds-anything
 (helm-descbinds-install)  ; (descbinds-anything-install)
@@ -547,11 +537,6 @@
 (use-package anything-grep)
 
 
-;; (global-set-key [remap find-file]        'anything-find-file)
-;; (global-set-key (kbd "C-x f")            'anything-recentf)
-;; (global-set-key [remap switch-to-buffer] 'anything-buffers-list)
-;; (global-set-key [remap yank-pop]         'anything-show-kill-ring)
-
 ;; face
 (custom-set-faces
  '(anything-ff-file ((t (:inherit default))))
@@ -732,5 +717,5 @@
 
 (bundle k1LoW/anything-replace-string)
 (use-package anything-replace-string
-  :defer t)
+  :commands (anything-replace-string))
 

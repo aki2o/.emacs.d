@@ -17,8 +17,7 @@
   ;; (use-package counsel
   ;;   :defer t
   ;;   :init
-  ;;   (owdriver-define-command counsel-imenu t)
-  ;;   (global-set-key (kbd "H-i") 'owdriver-do-counsel-imenu))
+  ;;   (owdriver-define-command counsel-imenu t))
   
   (use-package helm
     :defer t

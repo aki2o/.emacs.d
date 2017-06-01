@@ -1,6 +1,13 @@
 (bundle yasnippet)
 (use-package yasnippet
-  :commands (yas-load-directory)
+  :commands (yas-visit-snippet-file
+             yas-insert-snippet
+             yas-new-snippet
+             yas-reload-all
+             yas-load-directory
+             yas-register-oneshot-snippet
+             yas-expand-oneshot-snippet
+             ~yas-expand-oneshot-snippet-with-region)
   
   :mode (("/\\.emacs\\.d/snippets/" . snippet-mode))
   

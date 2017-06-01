@@ -1,7 +1,8 @@
 (bundle color-moccur)
 (bundle moccur-edit)
 (use-package color-moccur
-  :commands (dired-do-moccur Buffer-menu-moccur)
+  :commands (~moccur-grep ~moccur-grep-find ~dmoccur ~dmoccur-recursive
+                          moccur dired-do-moccur Buffer-menu-moccur)
   
   :init
 
@@ -225,7 +226,11 @@
 
 (bundle aki2o/anything-c-moccur)
 (use-package anything-c-moccur
-  :commands (anything-c-moccur-dired-do-moccur-by-moccur
+  :commands (anything-c-moccur-occur-by-moccur
+             anything-c-moccur-buffer-list
+             anything-c-moccur-dmoccur
+             anything-c-moccur-resume
+             anything-c-moccur-dired-do-moccur-by-moccur
              anything-c-moccur-from-isearch)
   
   :init

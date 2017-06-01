@@ -312,7 +312,7 @@ _C_: ag by counsel in other project
   "
 _x_: run in root    _s_: open shell
 _a_: async in root  _e_: open eshell
-                    _t_: oepn term
+                  _t_: oepn term
 "
   ("x" projectile-run-shell-command-in-root)
   ("a" projectile-run-async-shell-command-in-root)
@@ -325,7 +325,7 @@ _a_: async in root  _e_: open eshell
 _i_: invalidate cache  _c_: compile
 _r_: replace           _x_: run
 _t_: regenerate tag    _s_: switch
-                       _S_: switch open project
+                     _S_: switch open project
 "
   ("i" projectile-invalidate-cache)
   ("r" projectile-replace)
@@ -338,10 +338,10 @@ _t_: regenerate tag    _s_: switch
 (defhydra ~hydra-projectile-rails-find-misc (:exit t :hint nil)
   "
 _m_: find migration    _M_: find migration in other project    _C-m_: find current migration   _g_: find gemfile
-_e_: find environment  _E_: find environment in other project                                  _r_: find routes
+_e_: find environment  _E_: find environment in other project                                _r_: find routes
 _s_: find serializer   _S_: find serializer in other project   _C-s_: find current serializer  _d_: find schema
-_l_: find lib          _L_: find lib in other project                                          _D_: find seeds
-_f_: find feature      _F_: find feature in other project                                      _h_: find spec helper
+_l_: find lib          _L_: find lib in other project                                        _D_: find seeds
+_f_: find feature      _F_: find feature in other project                                    _h_: find spec helper
 _o_: find log          _O_: find log in other project
 _y_: find layout       _Y_: find layout in other project
 _t_: find rake task    _T_: find rake task in other project

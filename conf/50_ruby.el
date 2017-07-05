@@ -119,6 +119,8 @@
   (define-key robe-mode-map (kbd "C-\"") 'robe-doc)
   (define-key robe-mode-map (kbd "C->")  'robe-jump)
 
+  (defun robe-eldoc ()) ;; 重いので、やらない
+  
   (use-package docker-robe
     :config
     (docker-robe:activate))
@@ -233,10 +235,13 @@
 
 
 (bundle projectile-rails)
+(bundle aki2o/emacs-docker-projectile-rails :name docker-projectile-rails :depends (docker))
 (use-package projectile-rails
   :defer t
   :init
-  
+
+  (setq rake-completion-system 'helm)
+
   (add-hook 'projectile-mode-hook 'projectile-rails-on)
   (when projectile-mode
     (projectile-mode)
@@ -286,6 +291,15 @@
             (t
              (projectile-ag (replace-regexp-in-string re "" (concat view-dir view-name)))))))
 
+  (use-package docker-projectile-rails
+    :config
+    (docker-projectile-rails:activate))
+
+  ;; p-r
+
+  (defun rake--root ()
+    (directory-file-name (file-truename (locate-dominating-file default-directory "Rakefile"))))
+  
   )
 
 

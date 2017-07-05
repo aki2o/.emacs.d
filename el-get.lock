@@ -1,5 +1,10 @@
 (setq el-get-lock-package-versions
-      '((hydra :checksum "38ce88a9c3be11b0431080078095159b2211ca7a")
+      '((docker-projectile-rails :checksum "ea64bce2582daddafecbff668d2b25a853c53985")
+        (dockerfile-mode :checksum "3c6bc90360a2df53caad1721ee4c8285e2e22369")
+        (docker :checksum "d3bdb09af10c7aa466b25e0c65a3d21fdf44514e")
+        (docker-tramp :checksum "8e2b671eff7a81af43b76d9dfcf94ddaa8333a23")
+        (tablist :checksum "c834a84efb6efa32497efe1e73160fade741b836")
+        (hydra :checksum "38ce88a9c3be11b0431080078095159b2211ca7a")
         (realgud :checksum "a1130df3ada34e76675324a8c25823b420b20239")
         (loc-changes :checksum "4d1dcdf7631c23b1259ad4f72bf9686cf95fb46c")
         (list-utils :checksum "acf18aca1131a90f8d673974673e3c5d8fdc6a86")

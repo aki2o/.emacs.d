@@ -35,7 +35,10 @@
 
   (use-package go-direx)
 
-  (use-package go-projectile)
+  (use-package go-projectile
+    :config
+
+    (defun go-projectile-set-local-keys ()))
   
   )
 

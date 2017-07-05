@@ -35,9 +35,10 @@
     ;; 文字コード
     ;; Cygwin環境では環境変数LANGに合わせるっぽ。
     (cond ((~is-windows) (set-buffer-process-coding-system 'utf-8-dos 'utf-8-unix))
+          ((~is-mac)     (set-buffer-process-coding-system 'utf-8-nfd-unix 'utf-8-nfd-unix))
           (t             (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)))
     (pcomplete-shell-setup))
-  
+
   ;; パスワード入力時はミニバッファで伏字表示
   (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt nil)
   

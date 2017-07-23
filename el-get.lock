@@ -1,5 +1,7 @@
 (setq el-get-lock-package-versions
-      '((docker-projectile-rails :checksum "ea64bce2582daddafecbff668d2b25a853c53985")
+      '((esa-direx :checksum "ede9e3f1dd52953e38e0edf75a97838d69460171")
+        (esa-cui :checksum "7c82c72c5ea497049a3b8eec3064f35751241805")
+        (docker-projectile-rails :checksum "9d0b86648e813afa87973712ecb50b58bfe0ad5c")
         (dockerfile-mode :checksum "3c6bc90360a2df53caad1721ee4c8285e2e22369")
         (docker :checksum "d3bdb09af10c7aa466b25e0c65a3d21fdf44514e")
         (docker-tramp :checksum "8e2b671eff7a81af43b76d9dfcf94ddaa8333a23")
@@ -147,7 +149,7 @@
         (e2wm-edbi :checksum "6f50aaf4bde75255221f2292c7a4ad3fa9d918c0")
         (e2wm-direx :checksum "b47f19d15436cc28233a812a1150689f61d11046")
         (e2wm :checksum "4353d3394c77a49f8f0291c239858c8c5e877549")
-        (docker-robe :checksum "f716cde89dd8af96a5d206fff849c19fa6920822")
+        (docker-robe :checksum "49a70f30d2d01f99f3ebda2677788adbeaffb025")
         (direx-grep :checksum "1109a512a80b2673a70b18b8568514049017faad")
         (deferred :checksum "7f2bb81e75db895c99611a7a9fbde7c239b757ba")
         (dropdown-list :checksum "2948c12cd880e9874057d96c108139afcd63c672")

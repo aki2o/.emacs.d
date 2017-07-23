@@ -135,6 +135,12 @@
 
 ;; For p-r
 
+;; ディレクトリなかったら、エラーじゃなくて空リスト返して欲しい
+(defadvice projectile-dir-files (around ~check-exists activate)
+  (if (file-directory-p (ad-get-arg 0))
+      ad-do-it
+    (setq ad-return-value nil)))
+
 (defun projectile-project-root (&optional ignore-cache)
   "Retrieves the root directory of a project if available.
 The current directory is assumed to be the project's root otherwise."

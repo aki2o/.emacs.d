@@ -1,6 +1,7 @@
 (setq el-get-lock-package-versions
-      '((esa-direx :checksum "ede9e3f1dd52953e38e0edf75a97838d69460171")
-        (esa-cui :checksum "7c82c72c5ea497049a3b8eec3064f35751241805")
+      '((dash-at-point :checksum "ed872b4fcbe02ef1a5bac0337afe19a7a747f34c")
+        (esal :checksum "3f38c59a3acbd79d5964dacd6ca2c68440a4460c")
+        (esa-direx :checksum "ede9e3f1dd52953e38e0edf75a97838d69460171")
         (docker-projectile-rails :checksum "9d0b86648e813afa87973712ecb50b58bfe0ad5c")
         (dockerfile-mode :checksum "3c6bc90360a2df53caad1721ee4c8285e2e22369")
         (docker :checksum "d3bdb09af10c7aa466b25e0c65a3d21fdf44514e")

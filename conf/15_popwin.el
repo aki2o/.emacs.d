@@ -84,6 +84,7 @@
   (push '(log4e-mode :position bottom :height 0.8 :noselect t) popwin:special-display-config)
   (push '(bbdb-:mode :position right :width 0.4) popwin:special-display-config)
   (push '(direx:direx-mode :position left :width 0.2 :dedicated t) popwin:special-display-config)
+  (push '(esa-direx:mode :position left :width 0.2 :dedicated t) popwin:special-display-config)
   (push '("\\*PlSense DirEX\\[R\\]" :regexp t :position bottom :height 0.4 :dedicated t) popwin:special-display-config)
   (push '("\\*tramp/" :regexp t :position bottom :height 0.4 :noselect t) popwin:special-display-config)
 

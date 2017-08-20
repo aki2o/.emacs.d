@@ -88,10 +88,6 @@
 ;; 反対側のウィンドウにいけるように
 (setq windmove-wrap-around t)
 
-;; 透明度
-(set-frame-parameter nil 'alpha '(85 . 40))
-;(add-to-list 'default-frame-alist '(alpha . 85))
-
 ;; ミニバッファで入力を取り消しても履歴を残す
 (defadvice abort-recursive-edit (before minibuffer-save activate)
   (when (eq (selected-window) (active-minibuffer-window))
@@ -100,19 +96,7 @@
 ;; yでyesの代わりとする
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; 初期フレーム
-;; (setq initial-frame-alist
-;;       (append (cond ((~is-mac)
-;;                      '((width . 179)
-;;                        (height . 48)
-;;                        (top . 35)
-;;                        (left . 1)))
-;;                     (t
-;;                      '((width . 207)
-;;                        (height . 55)
-;;                        (top . 42)
-;;                        (left . 0))))
-;;               initial-frame-alist))
+;; フレーム
 ;; (setq default-frame-alist
 ;;       (append (list
 ;;                '(width . 207)
@@ -121,9 +105,10 @@
 ;;                '(left . 0)
 ;;                )
 ;;               default-frame-alist))
-
-;; スクリーンの最大化
-(set-frame-parameter nil 'fullscreen 'maximized)
+(add-to-list 'default-frame-alist '(alpha . (85 . 40))) ;; 透明度
+(add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; スクリーンの最大化
+(add-to-list 'default-frame-alist '(cursor-type . hbar))
+(add-to-list 'default-frame-alist '(cursor-color . "white"))
 
 ;; 現在位置のファイルやURLを開く
 ;(ffap-bindings)
@@ -147,8 +132,7 @@
 
 ;;; カーソル
 ;; (set-cursor-type 'hbar)
-(add-to-list 'default-frame-alist '(cursor-type . hbar))
-(set-cursor-color "white")
+;; (set-cursor-color "white")
 ;(blink-cursor-mode 0)
 
 ;;; マウスを消す設定
@@ -165,7 +149,3 @@
 
 ;; ミニバッファのサイズ変更するか
 (setq resize-mini-windows t)
-
-;; ;; 全画面表示
-;; (set-frame-parameter nil 'fullscreen 'fullboth)
-

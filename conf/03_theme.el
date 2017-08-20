@@ -1,19 +1,26 @@
-;; light
-;; (load-theme 'tango t)
+(defun ~setup-theme ()
+  ;; light
+  ;; (load-theme 'tango t)
 
-;; dark
-;; (load-theme 'wombat t)
-;; (load-theme 'misterioso t)
-;; (load-theme 'tango-dark t)
+  ;; dark
+  ;; (load-theme 'wombat t)
+  ;; (load-theme 'misterioso t)
+  ;; (load-theme 'tango-dark t)
 
+  (load-theme 'deeper-blue t)
+  (custom-theme-set-faces 'deeper-blue
+                          '(default                ((t (:foreground "gray90"))))
+                          '(font-lock-comment-face ((t (:foreground "DarkSeaGreen4"))))
+                          '(mode-line-buffer-id    ((t (:foreground "gray80" :bold nil))))
+                          '(mode-line              ((t (:foreground "black" :background "DeepSkyBlue4"))))
+                          '(mode-line-inactive     ((t (:foreground "gray50" :background "gray15"))))
+                          '(cursor                 ((t (:background "white")))))
+  )
 
-(load-theme 'deeper-blue t)
-(custom-theme-set-faces 'deeper-blue
- '(default                ((t (:foreground "gray90"))))
- '(font-lock-comment-face ((t (:foreground "DarkSeaGreen4"))))
- '(mode-line-buffer-id    ((t (:foreground "gray80" :bold nil))))
- '(mode-line              ((t (:foreground "black" :background "DeepSkyBlue4"))))
- '(mode-line-inactive     ((t (:foreground "gray50" :background "gray15")))))
+(~setup-theme)
+
+(defadvice new-frame (after ~setup-theme activate)
+  (~setup-theme))
 
 
 (bundle powerline)

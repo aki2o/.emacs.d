@@ -1,4 +1,5 @@
 (bundle persp-mode)
+(bundle aki2o/e2wm-perspb)
 (use-package persp-mode
   :bind* (("C-b" . persp-switch-to-buffer))
   
@@ -15,32 +16,6 @@
 
   :config
 
-  ;; 自動でバッファをパースペクティブに追加してくれないので、自前実装
-  
-  (defvar ~persp-exclude-buffer-regexps
-    '("\\`*init log*"
-      "\\`*Messages*"
-      "\\`*scratch*"
-      "\\`*Compile-Log*"
-      "\\`*magit[:-]"
-      "\\`*[Hh]elm "
-      "\\`*anything "))
-
-  (defun ~persp-add-buffer (buf)
-    (when (loop with name = (buffer-name (get-buffer buf))
-                for regexp in ~persp-exclude-buffer-regexps
-                if (string-match regexp name)
-                return nil
-                finally return t)
-      (persp-add-buffer buf)))
-  
-  (defadvice display-buffer (before ~persp-mode:add activate)
-    (~persp-add-buffer (ad-get-arg 0)))
-
-  (defadvice set-window-buffer (before ~persp-mode:add activate)
-    (~persp-add-buffer (ad-get-arg 1)))
-
-  
   ;; パースペクティブ選択で、関係ないhistoryのリストが出てきてウザイので無効にする
   
   (defun ~persp-interactive-completion-function (prompt collection &optional predicate require-match initial hist default inherit-input-method)
@@ -99,7 +74,10 @@
     :defer t
     :config
 
-    (use-package e2wm-perspb)
+    (use-package e2wm-perspb
+      :config
+      (~persp-switch-to-current-branch))
+    (use-package e2wm-perspb-rails)
     
     ;; パースペクティブに対応したpstに切り替わるようにする
     

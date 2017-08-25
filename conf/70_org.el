@@ -105,7 +105,7 @@
              (value (org-element-property :value src-block)))
         (format "```%s\n%s```" lang value))))
 
-  (dolist (b org-export--registered-backends)
+  (dolist (b org-export-registered-backends)
     (when (eq (org-export-backend-name b) 'md)
       (let* ((tr-alist (org-export-backend-transcoders b))
              (src (assq 'src-block tr-alist))

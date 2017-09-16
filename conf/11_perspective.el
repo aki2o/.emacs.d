@@ -12,6 +12,13 @@
   (setq persp-auto-save-opt 0)            ; 自動でファイルへの保存はさせない
   (setq persp-auto-resume-time 0)         ; 起動時に自動で復元はさせない
 
+  ;; p-r
+
+  ;; buffer-name が nil の場合があり、 string-prefix-p がエラーになる対処
+  (setq persp-common-buffer-filter-functions
+        (list #'(lambda (b) (or (and (buffer-name b) (string-prefix-p " " (buffer-name b)))
+                                (eq (buffer-local-value 'major-mode b) 'helm-major-mode)))))
+  
   (persp-mode 1)
 
   :config
@@ -44,7 +51,6 @@
 
   (define-key persp-key-map (kbd "s") '~persp-switch-to-current-branch)
   (define-key persp-key-map (kbd "S") 'persp-frame-switch)
-
 
   ;; persp-auto-save-opt以外では、パースペクティブの状態保存をしないようなので、
   ;; パースペクティブが終了するタイミングでメモリ上に保存するようにする
@@ -151,7 +157,8 @@
     
     (defun ~persp-helm-buffer-list ()
       (delete-if 'persp-buffer-filtered-out-p
-                 (mapcar 'buffer-name (persp-buffer-list-restricted))))
+                 (mapcar 'buffer-name
+                         (remove-if-not 'buffer-live-p (persp-buffer-list-restricted)))))
 
     (defun persp-switch-to-buffer (buffer-or-name &optional norecord force-same-window)
       (interactive (list

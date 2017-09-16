@@ -12,6 +12,6 @@
   )
 
 
-(~tags-be-find-tag-command find-function)
-(~tags-be-find-tag-command find-variable)
+;; (~tags-be-find-tag-command find-function)
+;; (~tags-be-find-tag-command find-variable)
 

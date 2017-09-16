@@ -1,5 +1,8 @@
 ;;; public entries -*- mode: plstore -*- 
-(("mine [geeknote]" :secret-passwd t :bts-id "8" :bts-name "mine" :bts-system "geeknote" :account "ootsuhiroaki")
+(("mf [github]" :secret-token t :bts-id "9" :bts-name "mf" :bts-system "github" :account "aki2o" :target choice :repos
+  ((:type org :owner "moneyforward" :name "pa_web")
+   (:type org :owner "moneyforward" :name "my_web")))
+ ("mine [geeknote]" :secret-passwd t :bts-id "8" :bts-name "mine" :bts-system "geeknote" :account "ootsuhiroaki")
  ("plsense [github]" :secret-token t :bts-id "7" :bts-name "plsense" :bts-system "github" :account "aki2o" :target all :repos nil)
  ("related [github]" :secret-token t :bts-id "6" :bts-name "related" :bts-system "github" :account "aki2o" :target choice :repos
   ((:type user :owner "kiwanami" :name "emacs-window-manager")))
@@ -14,13 +17,14 @@
  ("myrepo [github]" :secret-token t :bts-id "1" :bts-name "myrepo" :bts-system "github" :account "aki2o" :target own :repos nil))
 ;;; secret entries
 "-----BEGIN PGP MESSAGE-----
-Version: GnuPG v1.4.11 (GNU/Linux)
+Comment: GPGTools - https://gpgtools.org
 
-jA0EAwMCZTKsEdgjRlpgyb3trtUGu/nvV0HhvgFuv10XAuv96tWPL6+c/iNUioSU
-FMYDHZoBQ51l/zBcrLQA/CFa8yi411rAp4dv9/k7/GrT1ETqI59Yf2L0d/MaBrvu
-LABx0Wcn0ImtBMKMY+RK2hyi1Yf8jTGIzjVOZQXTFRT2ykZMwMntq9En38nLgT1o
-oWR2DE3gOFUMjZYPfDEfGfaYnIEIXydXP8ECiJKhpXu7BA8VySdEPcQqAfPI9u/u
-+OGqX/1aC6FPIUO2uAU=
-=VEjF
+jA0EAwMCChMEvgpHJvHkycAjujsT4NLLAl7bAl7qSyp0CaBKuG2t/hren5zN1Cat
+MBho1WOOd4Hyi2myZMmAitYxiPBIoP31gCoWHzXj2xDr8ufS62zfiUpP9o8xLiQx
+vdG+E4w904RqYBqqcen6nwLz2rJ/1+YBowCWbACy1neeaAQ7wG6g09hevbt/oCiB
+LcfiEzq5Wyez8zivwCKHUN+rQvGAeKThMkjiGlx/3zUmRntsElRGlE9qfGOKnpyg
+wnPN4N9SiRw8M0VcmENuPSEU1TqZ+DBnaFdSkrJgkL3A1aTO8aM767TJuxeOyP9u
+f7TtOVo=
+=DSIY
 -----END PGP MESSAGE-----
 "

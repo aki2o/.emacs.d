@@ -1,5 +1,8 @@
 ;;; public entries -*- mode: plstore -*- 
-(("Project[8] - title" :bts-id "10" :bts-name "title" :bts-project "8" :filtered-books nil :clear-books " Clear Cache " :target title :book-filter none :date-filter none)
+(("Project[9] - assigned" :bts-id "11" :bts-name "assigned" :bts-project "9" :relates
+  (assigned)
+  :lbl-include-type all :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state open :relate-type limit)
+ ("Project[8] - title" :bts-id "10" :bts-name "title" :bts-project "8" :filtered-books nil :clear-books " Clear Cache " :target title :book-filter none :date-filter none)
  ("Project[6] - open" :bts-id "9" :bts-name "open" :bts-project "6" :lbl-include-type select :lbl-include "" :lbl-exclude-type select :lbl-exclude "" :state open :relate-type limit :relates
   (assigned created mentioned subscribed))
  ("Project[1] - new" :bts-id "1" :bts-name "new" :bts-project "1" :lbl-include-type select :lbl-include "" :lbl-exclude-type all :state open :relate-type unlimit)

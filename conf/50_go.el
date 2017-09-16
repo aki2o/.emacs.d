@@ -6,18 +6,27 @@
 (bundle go-autocomplete)
 (bundle company-go)
 (use-package go-mode
+  :init
+
+  (setq gofmt-command "goimports") ; go get golang.org/x/tools/cmd/goimports
+
   :config
 
   (defun ~go-setup-mode ()
-    )
+    (add-hook 'before-save-hook 'gofmt-before-save t t))
+  
   (add-hook 'go-mode-hook '~go-setup-mode t)
 
-  (define-key go-mode-map (kbd "C-'") 'godoc)
+  (defun ~godoc ()
+    (interactive)
+    (godoc (completing-read "Query: " (go-packages))))
+  
+  (define-key go-mode-map (kbd "C-'") '~godoc)
   (define-key go-mode-map (kbd "C->") 'godef-jump-other-window)
 
   (use-package pophint-config
     :config
-    (pophint-config:set-tag-jump-command godef-jump))
+    (pophint-config:set-tag-jump-command godef-jump-other-window))
 
   (use-package color-moccur
     :init
@@ -33,7 +42,9 @@
     :init
     (add-hook 'go-mode-hook 'go-eldoc-setup t))
 
-  (use-package go-direx)
+  (use-package go-direx
+    :init
+    (define-key go-mode-map (kbd "C-c C-j") 'go-direx-pop-to-buffer))
 
   (use-package go-projectile
     :config

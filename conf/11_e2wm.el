@@ -107,12 +107,10 @@
     (declare (indent 0))
     `(defadvice ,command (after ~e2wm:window-update activate)
        (when (e2wm:managed-p)
-         (let ((pt (point)))
-           (with-selected-window (get-buffer-window)
-             (goto-char pt)
-             (recenter)))
-         ;; (redraw-display)
-         )))
+         (dolist (wnd (window-list))
+           (let ((pt (with-current-buffer (window-buffer wnd)
+                       (point))))
+             (set-window-point wnd pt))))))
 
   (~e2wm:window-update-ize find-function)
   (~e2wm:window-update-ize find-variable)
@@ -121,6 +119,7 @@
   (~e2wm:window-update-ize helm-git-grep-persistent-action)
   (~e2wm:window-update-ize ivy-call)
   (~e2wm:window-update-ize robe-jump)
+  (~e2wm:window-update-ize godef-jump)
 
   
   ;; コマンド

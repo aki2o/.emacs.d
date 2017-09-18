@@ -69,7 +69,7 @@
              ("M-."   . nil)
              ("M-RET" . tern-ac-complete))
   
-  ;; (~tags-be-find-tag-command tern-show-definition)
+  (~tags-be-find-tag-command tern-show-definition)
 
   ;; (add-to-list 'tern-command "--no-port-file" t)
 

@@ -127,7 +127,7 @@
   
   (use-package pophint-config
     :config
-    (pophint-config:set-tag-jump-command robe-jump))
+    (pophint-config:set-tag-jump-command robe-jump :point-arg-index 0))
 
   (defadvice robe-complete-thing (after ~robe-reduce-thing activate)
     (setq ad-return-value

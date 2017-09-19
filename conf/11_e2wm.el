@@ -102,6 +102,7 @@
     (when ~e2wm:delay-handled-buffer
       (setq e2wm:prev-selected-buffer nil)))
 
+  
   ;; e2wm有効な場合に画面更新がされない機能のための対処
   (defmacro ~e2wm:window-update-ize (command)
     (declare (indent 0))
@@ -110,16 +111,47 @@
          (dolist (wnd (window-list))
            (let ((pt (with-current-buffer (window-buffer wnd)
                        (point))))
-             (set-window-point wnd pt))))))
+             (when (not (= (window-point wnd) pt))
+               (set-window-point wnd pt)))))))
 
   (~e2wm:window-update-ize find-function)
   (~e2wm:window-update-ize find-variable)
   (~e2wm:window-update-ize pop-tag-mark)
-  (~e2wm:window-update-ize helm-ag--persistent-action)
+  (~e2wm:window-update-ize helm-ag--find-file-action)
   (~e2wm:window-update-ize helm-git-grep-persistent-action)
   (~e2wm:window-update-ize ivy-call)
   (~e2wm:window-update-ize robe-jump)
   (~e2wm:window-update-ize godef-jump)
+
+
+  ;; タグジャンプとかでハイライトさせたい
+  (defvar ~e2wm:highlight-current-line-overlay nil)
+  
+  (defmacro ~e2wm:highlight-current-line-after (command wname)
+    (declare (indent 0))
+    `(defadvice ,command (after ~e2wm:highlight-current-line activate)
+       (when (e2wm:managed-p)
+         (e2wm:aif (wlf:get-window (e2wm:pst-get-wm) ',wname)
+             (with-selected-window it
+               (let ((start (point-at-bol))
+                     (end (1+ (point-at-eol))))
+                 (if (not ~e2wm:highlight-current-line-overlay)
+                     (setq ~e2wm:highlight-current-line-overlay (make-overlay start end))
+                   (move-overlay ~e2wm:highlight-current-line-overlay start end))
+                 (overlay-put ~e2wm:highlight-current-line-overlay 'face 'highlight)
+                 (run-with-idle-timer
+                  0.5
+                  nil
+                  '(lambda ()
+                     (when ~e2wm:highlight-current-line-overlay
+                       (delete-overlay ~e2wm:highlight-current-line-overlay)
+                       (setq ~e2wm:highlight-current-line-overlay nil))))))))))
+
+  (~e2wm:highlight-current-line-after find-function right)
+  (~e2wm:highlight-current-line-after find-variable right)
+  (~e2wm:highlight-current-line-after helm-ag--action-find-file right)
+  (~e2wm:highlight-current-line-after robe-jump right)
+  (~e2wm:highlight-current-line-after godef-jump right)
 
   
   ;; コマンド

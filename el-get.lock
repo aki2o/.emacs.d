@@ -123,7 +123,7 @@
         (guide-key :checksum "9236d287a7272e307fb941237390a96037c8c0a2")
         (google-translate :checksum "52d34c96b400b1b933c727933279f79256951b19")
         (go-projectile :checksum "4c449eae696d4e3a15078c336c98ea779da227ab")
-        (go-mode :checksum "35f6826e435c3004dabf134d0f2ae2f31ea7b6a2")
+        (go-mode :checksum "99b06da201afb91e8db0c525c0f3c3590fd92fa6")
         (go-eldoc :checksum "cbbd2ea1e94a36004432a9ac61414cb5a95a39bd")
         (go-autocomplete :checksum "1ed1baa46aeda2ce7de181161d4e2d369a740ce1")
         (git-gutter :checksum "00c05264af046b5ce248e5b0bc42f117d9c27a09")

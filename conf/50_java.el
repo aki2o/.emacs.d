@@ -105,3 +105,9 @@ _q_: exit
   
   (add-hook 'scala-mode-hook '~scala-mode-setup t))
 
+
+(bundle kotlin-mode)
+(bundle flycheck-kotlin)
+(use-package kotlin-mode
+  :config
+  (use-package flycheck-kotlin))

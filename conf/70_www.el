@@ -11,7 +11,8 @@
         "http://www.haloscan.com"
         "http://sitemeter.com"
         "http://www.hmv.co.jp"
-        "https://www.facebook.com/"))
+        "https://www.facebook.com/"
+        "https://mf.esa.io/"))
 
 (setq browse-url-browser-function
       `((,(concat "^" (regexp-opt ~browse-external-url-list)) . ~browse-url-externally)
@@ -21,7 +22,7 @@
 (when (~is-windows)
   (setq browse-url-generic-program (w32-short-file-name "C:/Program Files/Mozilla Firefox/firefox.exe")))
 
-(defun ~browse-url-externally (url)
+(defun ~browse-url-externally (url &rest args)
   (interactive (browse-url-interactive-arg "URL: "))
   (cond ((~is-windows)
          ;; For Windows

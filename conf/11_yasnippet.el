@@ -93,9 +93,9 @@
     (yas-choose-value (symbol-value (intern (format "~yas-%s" sym)))))
 
   (defvar ~yas-rspec-matchers
-    '("eq " "eql " "equal " "include " "cover " "match()" "start_with " "end_with "
+    '("eq " "eql " "equal " "include " "cover " "match " "start_with " "end_with "
       "throw_symbol()" "raise_error()" "receive"
-      "be " "be_a_kind_of " "be_an_instance_of " "be_truthy" "be_falsey" "be_nil"
+      "be " "be_a_kind_of " "be_a " "be_truthy" "be_falsey" "be_nil" "be_present" "be_empty"
       "be > " "be >= " "be < " "be <= " "be_" "have_"))
   
   (defvar ~yas-rspec-mocks

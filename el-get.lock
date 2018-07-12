@@ -1,5 +1,6 @@
 (setq el-get-lock-package-versions
-      '((terraform-mode :checksum "6973d1acaba2835dfdf174f5a5e27de6366002e1")
+      '((protobuf-mode :checksum "dc27d96872b2992c7bbce151b627a0bfbd83e85d")
+        (terraform-mode :checksum "6973d1acaba2835dfdf174f5a5e27de6366002e1")
         (hcl-mode :checksum "0f2c5ec7e7bcf77c8548e8cac8721ea935ca1b5e")
         (e2wm-perspb :checksum "3033be724cc9606337c7fc22d32a41b6d2fbeb2f")
         (dash-at-point :checksum "ed872b4fcbe02ef1a5bac0337afe19a7a747f34c")

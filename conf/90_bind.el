@@ -117,8 +117,9 @@
 
 (defhydra ~hydra-kill (:exit t)
   "kill"
-  ("p" ~kill-ring-save-file-path "path")
-  ("f" ~kill-ring-save-file-name "filename"))
+  ("f" ~kill-ring-save-file-path "path")
+  ("n" ~kill-ring-save-file-name "filename")
+  ("p" ~kill-ring-save-file-path-in-project "path in project"))
 
 (defhydra ~hydra-echo (:exit t)
   "echo"

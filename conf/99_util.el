@@ -116,6 +116,13 @@
     (kill-new (file-name-nondirectory path))
     (message path)))
 
+(defun ~kill-ring-save-file-path-in-project ()
+  (interactive)
+  (let* ((re (rx bos (eval (projectile-project-root))))
+         (path (replace-regexp-in-string re "" (~get-active-window-file))))
+    (kill-new path)
+    (message path)))
+
 ;; echo
 (defun ~echo-file-path ()
   (interactive)

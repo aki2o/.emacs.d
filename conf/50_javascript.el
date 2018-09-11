@@ -47,6 +47,11 @@
   :init
   (mmask-regist-extension-with-icase 'json-mode "json")
   (mmask-regist-name 'json-mode ".tern-project")
+
+  :config
+  (defun ~json-setup-mode ()
+    (setq js-indent-level 2))
+  (add-hook 'json-mode-hook '~json-setup-mode t)
   )
 
 

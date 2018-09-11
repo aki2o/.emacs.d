@@ -21,8 +21,11 @@
         if (eq k modesym)
         collect v))
 
+(defun ~get-active-window-buffer ()
+  (window-buffer (nth 0 (window-list nil 'neither))))
+
 (defun ~get-active-window-file ()
-  (let* ((buf (window-buffer (nth 0 (window-list nil 'neither))))
+  (let* ((buf (~get-active-window-buffer))
          (path (buffer-file-name buf)))
     (if (not path)
         (error "Not in file buffer.")
@@ -118,7 +121,9 @@
 
 (defun ~kill-ring-save-file-path-in-project ()
   (interactive)
-  (let* ((re (rx bos (eval (projectile-project-root))))
+  (let* ((root-path (with-current-buffer (~get-active-window-buffer)
+                      (projectile-project-root)))
+         (re (rx-to-string `(and bos ,root-path)))
          (path (replace-regexp-in-string re "" (~get-active-window-file))))
     (kill-new path)
     (message path)))

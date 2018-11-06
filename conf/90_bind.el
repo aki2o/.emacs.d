@@ -555,8 +555,8 @@ _R_: reload
    ("i" yas-insert-snippet)
    ("n" yas-new-snippet)
    ("R" yas-reload-all)
-   ("r" yas-register-oneshot-snippet)
-   ("e" yas-expand-oneshot-snippet)
+   ("r" ~yas-register-oneshot-snippet)
+   ("e" ~yas-expand-oneshot-snippet)
    ("E" ~yas-expand-oneshot-snippet-with-region)
    ("t" yas-minor-mode)))
 
@@ -646,6 +646,21 @@ _R_: reload
    ("b" pop-tag-mark "pop")
    ("s" tags-search "search")
    ("r" tags-query-replace "query replace")))
+
+
+;;;;;;;;;;;;
+;; Abbrev
+
+(global-unset-key (kbd "M-a"))
+(global-set-key
+ (kbd "M-a")
+ (defhydra ~hydra-abbrev (:exit t :idle ~hydra-help-delay)
+   "abbrev"
+   ("e" edit-abbrevs "edit abbrev table")
+   ("t" global-abbrev-mode "toggle abbrev activate")
+   ("m" define-global-abbrev "add global abbrev")
+   ("M" define-mode-abbrev "add local abbrev")
+   ("a" ~add-typo-resolve "add typo")))
 
 
 ;;;;;;;;;;

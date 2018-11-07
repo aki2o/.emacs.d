@@ -1,4 +1,5 @@
-(bundle! projectile)
+;; Emacs 25.1 にあげるまでは v0.14.0 を指定
+(bundle! projectile :checkout "19fb9fa6590e1dc49afc3c8c5bd69cff6cf743a7")
 
 (setq projectile-keymap-prefix nil)
 (setq projectile-enable-caching t)
@@ -14,6 +15,11 @@
       do (add-to-list 'projectile-project-root-files-top-down-recurring e t))
 (loop for e in '("blib")
       do (add-to-list 'projectile-globally-ignored-directories e t))
+
+;; よくわからないけど、動いてないから、常に有効にするので、再定義してみてる
+(define-globalized-minor-mode projectile-global-mode
+  projectile-mode
+  (lambda () (projectile-mode 1)))
 
 (projectile-global-mode)
 

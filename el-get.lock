@@ -83,7 +83,7 @@
         (rake :checksum "e680f1a8f2591af7c80cad188340601b101b5ddc")
         (python-environment :checksum "401006584e32864a10c69d29f14414828909362e")
         (projectile-rails :checksum "af0f826f2e1b1aad4e31e089e5fc7b5937e82359")
-        (projectile :checksum "aa74ae12bbb73581a9f2d0e868720f9b69aa2017")
+        (projectile :checksum "19fb9fa6590e1dc49afc3c8c5bd69cff6cf743a7")
         (powerline :checksum "67538e4dbc2f1d2f270142481eb0b0d24e8cde36")
         (popwin :checksum "95dea14c60019d6cccf9a3b33e0dec4e1f22c304")
         (pophint :checksum "5d1db7c0b92862ba2cc5f3566b25840b8ce3ba59")

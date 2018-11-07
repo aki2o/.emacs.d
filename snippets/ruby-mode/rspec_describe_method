@@ -3,5 +3,5 @@
 # key: describe
 # --
 describe "#${1:method}" do
-  subject { ${2:tested}.__send__(:$1) }
+  subject { ${2:tested}.$1$0 }
 end

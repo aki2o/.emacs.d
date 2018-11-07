@@ -5,9 +5,8 @@
              yas-new-snippet
              yas-reload-all
              yas-load-directory
-             yas-register-oneshot-snippet
-             yas-expand-oneshot-snippet
-             ~yas-expand-oneshot-snippet-with-region)
+             ~yas-register-oneshot-snippet
+             ~yas-expand-oneshot-snippet)
   
   :mode (("/\\.emacs\\.d/snippets/" . snippet-mode))
   
@@ -65,19 +64,16 @@
           (t
            "")))
 
-  (defun ~yas-expand-oneshot-snippet-with-region (start end)
+  (defvar ~yas-oneshot-snippet nil)
+  (defun ~yas-register-oneshot-snippet (start end)
     (interactive "r")
-    (loop with buf = (buffer-substring-no-properties start end)
-          with lf = (read-string "Line End (\\n): " nil '() "\n")
-          with delim = (read-string "Variable Separator Regexp (\\s-+): " nil '() "\\s-+")
-          with marker = (set-marker (make-marker) end)
-          initially (delete-region start end)
-          for line in (reverse (split-string buf lf))
-          do (yas-expand-snippet yas-oneshot-snippet start)
-          do (loop for v in (split-string line delim)
-                   do (progn (insert v)
-                             (yas-next-field)))
-          do (goto-char marker)))
+    (setq ~yas-oneshot-snippet (buffer-substring-no-properties start end))
+    (delete-region start end)
+    (message "%s" (substitute-command-keys "Press \\[~yas-expand-oneshot-snippet] to expand.")))
+
+  (defun ~yas-expand-oneshot-snippet ()
+    (interactive)
+    (yas-expand-snippet ~yas-oneshot-snippet (point) (point) nil))
 
   ;; ;; 展開後インデントする
   ;; (defun ~yas-indent-snippet ()

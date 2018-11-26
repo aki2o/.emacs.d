@@ -53,7 +53,8 @@
 
   (use-package ruby-end
     :config
-    (unbind-key (read-kbd-macro ruby-end-expand-ret-key) ruby-end-mode-map))
+    (unbind-key (read-kbd-macro ruby-end-expand-ret-key) ruby-end-mode-map)
+    (add-hook 'ruby-mode-hook 'ruby-end-mode t))
 
   (use-package flycheck
     :init

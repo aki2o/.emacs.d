@@ -124,7 +124,8 @@
 (defhydra ~hydra-echo (:exit t)
   "echo"
   ("p" ~echo-file-path "path")
-  ("f" ~echo-face-at-point "face"))
+  ("f" ~echo-face-at-point "face")
+  ("g" ~echo-git-diff-file-path-list "git diff path list"))
 
 (defhydra ~hydra-text ()
   "text"

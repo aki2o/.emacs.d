@@ -20,15 +20,35 @@
 
   :config
   
-  (defun ~ruby-setup-mode ()
-    ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
-    (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
-    (electric-indent-local-mode 0))
-  (add-hook 'ruby-mode-hook '~ruby-setup-mode t)
-
   (defun ~ruby-mode-set-encoding ()
     (interactive)
     (ruby-mode-set-encoding))
+
+  (defun ~ruby-rubocop-apply (&rest path)
+    (let ((cmd (format "bundle exec rubocop -a %s" (mapconcat 'shell-quote-argument path " "))))
+      (if (~docker-context-p (current-buffer))
+          (docker-run:exec 'shell-command (format "/bin/bash -l -c '%s'" cmd))
+        (shell-command cmd))))
+
+  (defun ~ruby-rubocop-apply-to-current ()
+    (interactive)
+    (let* ((root-path (projectile-project-root))
+           (re (rx-to-string `(and bos ,root-path)))
+           (filepath (expand-file-name (buffer-file-name)))
+           (path (replace-regexp-in-string re "" filepath)))
+      (~ruby-rubocop-apply path)))
+
+  (defun ~ruby-rubocop-apply-to-diff-files ()
+    (interactive)
+    (apply '~ruby-rubocop-apply (~git-diff-path-list (current-buffer))))
+
+  (defun ~ruby-setup-mode ()
+    ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
+    (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
+    (define-key ruby-mode-map (kbd "M-/") '~ruby-rubocop-apply-to-current)
+    (define-key ruby-mode-map (kbd "C-M-/") '~ruby-rubocop-apply-to-diff-files)
+    (electric-indent-local-mode 0))
+  (add-hook 'ruby-mode-hook '~ruby-setup-mode t)
 
   ;; 閉じ括弧のインデントをイイ感じにする
   (defadvice ruby-indent-line (after ~unindent-closing-paren activate)

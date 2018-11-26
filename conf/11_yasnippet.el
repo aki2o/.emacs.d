@@ -90,9 +90,10 @@
 
   (defvar ~yas-rspec-matchers
     '("eq " "eql " "equal " "include " "cover " "match " "start_with " "end_with "
+      "be " "be_a_kind_of " "be_a " "be_truthy" "be_falsey" "be_nil" "be_present" "be_empty" "be_added()"
+      "be > " "be >= " "be < " "be <= " "be_" "have_"
       "throw_symbol()" "raise_error()" "receive"
-      "be " "be_a_kind_of " "be_a " "be_truthy" "be_falsey" "be_nil" "be_present" "be_empty"
-      "be > " "be >= " "be < " "be <= " "be_" "have_"))
+      "belong_to" "change {}.from().to()"))
   
   (defvar ~yas-rspec-mocks
     '("allow" "expect" "allow_any_instance_of" "expect_any_instance_of"))

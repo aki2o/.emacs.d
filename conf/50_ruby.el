@@ -94,7 +94,6 @@
     (add-hook 'ruby-mode-hook '~ruby-setup-flex-autopair t))
 
   (use-package color-moccur
-
     :init
     (defun ~ruby-setup-color-moccur ()
       (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode)))

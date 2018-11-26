@@ -44,6 +44,13 @@
       (goto-char startpt)
       (insert rep))))
 
+(defun ~git-diff-path-list (buf)
+  (-remove
+   (lambda (e) (= (length e) 0))
+   (split-string
+    (with-current-buffer buf (shell-command-to-string "git diff --name-only"))
+    "\n")))
+
 
 ;;;;;;;;;;;;;
 ;; Command
@@ -136,6 +143,10 @@
 (defun ~echo-face-at-point ()
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
+
+(defun ~echo-git-diff-file-path-list ()
+  (interactive)
+  (message (mapconcat 'identity (~git-diff-path-list (current-buffer)) "\n")))
 
 ;; case
 (defun ~case-upper ()

@@ -48,7 +48,7 @@
   (-remove
    (lambda (e) (= (length e) 0))
    (split-string
-    (with-current-buffer buf (shell-command-to-string "git diff --name-only"))
+    (with-current-buffer buf (shell-command-to-string "git diff HEAD --name-only"))
     "\n")))
 
 

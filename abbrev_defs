@@ -132,14 +132,20 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("approvied" "approved" nil 1)
+    ("assocation" "association" nil 1)
+    ("befoer" "before" nil 1)
     ("conext" "context" nil 1)
     ("configuratin" "configuration" nil 1)
     ("contetn" "content" nil 1)
     ("contianer" "container" nil 1)
     ("declration" "declaration" nil 1)
+    ("destory" "destroy" nil 3)
     ("eargings" "earnings" nil 1)
     ("emial" "email" nil 2)
-    ("employement" "employment" nil 1)
+    ("emloyee" "employee" nil 1)
+    ("emloyees" "employees" nil 1)
+    ("employement" "employment" nil 2)
+    ("employmnet" "employment" nil 1)
     ("emplyt" "empty" nil 1)
     ("empoyee" "employee" nil 6)
     ("instanct" "instance" nil 1)
@@ -148,6 +154,8 @@
     ("numnber" "number" nil 1)
     ("passowrd" "password" nil 3)
     ("peirod" "period" nil 1)
+    ("persisited" "persisted" nil 1)
+    ("reqeust" "request" nil 1)
     ("resouce" "resource" nil 0)
     ("resouces" "resources" nil 1)
     ("schefule" "schedule" nil 1)
@@ -323,9 +331,7 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'sql-mode-abbrev-table '())
 
 (define-abbrev-table 'tablist-mode-abbrev-table '())
 
@@ -337,7 +343,13 @@
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
+(define-abbrev-table 'tide-project-errors-mode-abbrev-table '())
+
+(define-abbrev-table 'tide-references-mode-abbrev-table '())
+
 (define-abbrev-table 'twittering-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'typescript-mode-abbrev-table '())
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
 

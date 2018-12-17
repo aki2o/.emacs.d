@@ -73,6 +73,8 @@
 
 (define-abbrev-table 'css-mode-abbrev-table '())
 
+(define-abbrev-table 'csv-mode-abbrev-table '())
+
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
@@ -131,14 +133,17 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("Wofkflow" "Workflow" nil 1)
     ("approvied" "approved" nil 1)
     ("assocation" "association" nil 1)
     ("befoer" "before" nil 1)
+    ("concerte" "concrete" nil 1)
     ("conext" "context" nil 1)
     ("configuratin" "configuration" nil 1)
     ("contetn" "content" nil 1)
     ("contianer" "container" nil 1)
     ("declration" "declaration" nil 1)
+    ("descroy" "destroy" nil 1)
     ("destory" "destroy" nil 3)
     ("eargings" "earnings" nil 1)
     ("emial" "email" nil 2)
@@ -150,19 +155,30 @@
     ("empoyee" "employee" nil 6)
     ("instanct" "instance" nil 1)
     ("invalide" "invalid" nil 1)
+    ("meesage" "message" nil 1)
     ("minites" "minutes" nil 1)
+    ("nubmer" "number" nil 1)
     ("numnber" "number" nil 1)
+    ("paramegerized" "parameterized" nil 1)
     ("passowrd" "password" nil 3)
     ("peirod" "period" nil 1)
     ("persisited" "persisted" nil 1)
-    ("reqeust" "request" nil 1)
+    ("reqeust" "request" nil 3)
+    ("requestd" "requested" nil 1)
+    ("requet" "request" nil 1)
     ("resouce" "resource" nil 0)
     ("resouces" "resources" nil 1)
     ("schefule" "schedule" nil 1)
     ("sequecne" "sequence" nil 1)
     ("shear" "share" nil 1)
     ("talbe" "table" nil 2)
+    ("taransaction" "transaction" nil 1)
+    ("tiem" "time" nil 1)
+    ("undersocre" "underscore" nil 1)
     ("uniquness" "uniqueness" nil 1)
+    ("wofkflow" "workflow" nil 2)
+    ("workfklow" "workflow" nil 2)
+    ("workfkow" "workflow" nil 1)
     ("yeta" "year_end_tax_adjustment" nil 4)
    ))
 

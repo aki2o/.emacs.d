@@ -24,12 +24,9 @@
           (isearch-repeat-forward)))
     ad-do-it))
 
-(cond ((~is-mac)
-       ;; [migemo]isearch のとき IME を英数モードにする
-       (add-hook 'isearch-mode-hook 'mac-change-language-to-us t))
-      ((~is-windows)
-       ;; isearch 時はオフに
-       (add-hook 'isearch-mode-hook 'ibus-disable t)))
+
+(bundle iRi-E/mozc-el-extensions :name mozc-el-extensions)
+(use-package mozc-isearch)
 
 
 (bundle highlight-symbol)
@@ -37,5 +34,3 @@
   :bind* (("<f3>" . highlight-symbol-mode))
   :config
   (defun highlight-symbol-count ()))
-
-

@@ -64,7 +64,8 @@
 (use-package log4e
   :defer t
   :init
-  (define-key emacs-lisp-mode-map (kbd "C-\\") 'log4e:insert-start-log-quickly))
+  ;; (define-key emacs-lisp-mode-map (kbd "C-\\") 'log4e:insert-start-log-quickly)
+  )
 
 
 (use-package pophint-config

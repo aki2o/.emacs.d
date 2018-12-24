@@ -1,24 +1,14 @@
-(cond ((~is-windows)
-       (add-to-list 'default-frame-alist '(font . "Osaka－等幅-12"))
-       (when window-system
-         (set-default-font "Osaka－等幅-12")
-         (set-fontset-font (frame-parameter nil 'font)
-                           'japanese-jisx0208
-                           '("Osaka-UI" . "unicode-bmp"))))
-      ((~is-mac)
-       (add-to-list 'default-frame-alist '(font . "Osaka－等幅-13"))
-       (when window-system
-         (set-default-font "Osaka－等幅-13")
-         (set-fontset-font (frame-parameter nil 'font)
-                           'japanese-jisx0208
-                           '("Osaka-UI" . "unicode-bmp"))))
-      (t
-       ;; (add-to-list 'default-frame-alist '(font . "ricty-12"))
-       (add-to-list 'default-frame-alist '(font . "Osaka－等幅-12"))
-       (when window-system
-         (set-default-font "Osaka－等幅-12")
-         (set-fontset-font (frame-parameter nil 'font)
-                           'japanese-jisx0208
-                           '("Osaka-UI" . "unicode-bmp"))))
-      )
+(let* ((asciifont "Monaco")
+       (jpfont "Monaco")
+       (height 130)
+       (fontspec (font-spec :family asciifont))
+       (jp-fontspec (font-spec :family jpfont)))
+  (set-face-attribute 'default nil :family asciifont :height height)
+  (set-fontset-font nil 'japanese-jisx0213.2004-1 jp-fontspec)
+  (set-fontset-font nil 'japanese-jisx0213-2 jp-fontspec)
+  (set-fontset-font nil 'katakana-jisx0201 jp-fontspec)
+  (set-fontset-font nil '(#x0080 . #x024F) fontspec) 
+  (set-fontset-font nil '(#x0370 . #x03FF) fontspec))
 
+;; 記号をデフォルトのフォントにしない。(for Emacs 25.2)
+(setq use-default-font-for-symbols nil)

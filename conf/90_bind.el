@@ -64,8 +64,7 @@
     ;; 検索
     (:key "C-S-s" :cmd isearch-backward :jack t)
     ;; ファイル
-    ;; helm は有効にしなくても、勝手に置き換わる
-    ;; (:key "C-x C-f" :cmd helm-find-files    :jack t)
+    (:key "C-x C-f" :cmd helm-find-files    :jack t)
     ;; (:key "C-x C-f" :cmd counsel-find-file  :jack t)
     ;; (:key "C-x C-f" :cmd anything-find-file  :jack t)
     (:key "C-x f"   :cmd helm-recentf       :jack t)

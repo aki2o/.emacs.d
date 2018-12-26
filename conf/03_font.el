@@ -1,6 +1,6 @@
 (let* ((asciifont "Monaco")
        (jpfont "Monaco")
-       (height 130)
+       (height 120)
        (fontspec (font-spec :family asciifont))
        (jp-fontspec (font-spec :family jpfont)))
   (set-face-attribute 'default nil :family asciifont :height height)

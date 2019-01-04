@@ -5,6 +5,8 @@
 ;; (set-terminal-coding-system 'euc-japan)
 (set-buffer-file-coding-system 'utf-8-unix)
 
+(setenv "LC_ALL" "ja_JP.UTF-8")
+
 (defun ~activate-input-method ()
   (interactive)
   (when (not current-input-method)

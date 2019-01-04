@@ -63,6 +63,11 @@
  '(git-gutter:diff-option "-w")
  '(git-gutter:hide-gutter t)
  '(git-gutter:lighter " GG")
+ '(helm-command-prefix-key "C-x h")
+ '(helm-ff-candidate-number-limit 500)
+ '(helm-ff-newfile-prompt-p nil)
+ '(helm-file-name-case-fold-search t)
+ '(helm-split-window-inside-p t)
  '(mozc-leim-title "[あ]")
  '(package-selected-packages
    (quote
@@ -87,6 +92,9 @@
  '(e2wm:face-item ((t :height 0.8 :inherit variable-pitch :foreground "DarkSlateBlue")))
  '(e2wm:face-subtitle ((((class color) (background light)) (:foreground "Gray10" :height 0.8 :inherit variable-pitch)) (((class color) (background dark)) (:foreground "Gray90" :height 0.8 :inherit variable-pitch)) (t :height 0.8 :inherit variable-pitch)))
  '(guide-key-tip/pos-tip-face ((t (:foreground "white" :background "black"))))
+ '(helm-ff-directory ((t (:inherit dired-directory))))
+ '(helm-ff-file ((t (:inherit default))))
+ '(helm-selection ((t (:background "DarkGreen" :underline t))))
  '(ivy-current-match ((t (:background "ForestGreen" :distant-foreground "black"))))
  '(pophint:match-face ((t (:background "dark slate gray" :foreground "white"))))
  '(pophint:pos-tip-face ((t (:background "black" :foreground "white"))))

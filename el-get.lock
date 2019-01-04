@@ -60,7 +60,7 @@
         (sql-indent :checksum "7d5641dd68135e7070f5026c44e518266c663434")
         (rspec-mode :checksum "bcae3ec163c62c059eacc8765b01d4cead70ca33")
         (slim-mode :checksum "3636d18ab1c8b316eea71c4732eb44743e2ded87")
-        (docker-projectile-rails :checksum "9d0b86648e813afa87973712ecb50b58bfe0ad5c")
+        (docker-projectile-rails :checksum "6b3e4933fcb63d2dd92c977cdbd061cb11993b1f")
         (docker :checksum "eae8586b65289bc0e6a556d1aeb633663bdcd029")
         (magit :checksum "9ebf76ffc924951460979c724b0d51d229b08d24")
         (ghub :checksum "db15d00d01b8bd9187079a0b538d878d241743a8")

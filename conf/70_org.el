@@ -55,8 +55,6 @@
     :config
     (setq org-link-travis/user-name "aki2o"))
 
-  (use-package org-gcal)
-
   (use-package smartrep
     :defer t
     :config
@@ -119,6 +117,7 @@
 (bundle org-gcal)
 (use-package org-gcal
   :defer t
+  :after org
   :init
   (defvar ~org-gcal-directory (concat user-emacs-directory "org-gcal/"))
   (defvar ~org-gcal-main-schedule-file (concat ~org-gcal-directory "main.org"))

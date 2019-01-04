@@ -1,6 +1,10 @@
 ;;-*-coding: utf-8;-*-
 (define-abbrev-table 'Buffer-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'Custom-mode-abbrev-table '())
+
+(define-abbrev-table 'Info-edit-mode-abbrev-table '())
+
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
 (define-abbrev-table 'ag-mode-abbrev-table '())
@@ -81,6 +85,8 @@
 
 (define-abbrev-table 'direx:direx-mode-abbrev-table '())
 
+(define-abbrev-table 'docker-container-mode-abbrev-table '())
+
 (define-abbrev-table 'docker-containers-mode-abbrev-table '())
 
 (define-abbrev-table 'dockerfile-mode-abbrev-table '())
@@ -101,6 +107,8 @@
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
+(define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
+
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
@@ -117,6 +125,8 @@
 
 (define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
 
+(define-abbrev-table 'eww-buffers-mode-abbrev-table '())
+
 (define-abbrev-table 'eww-history-mode-abbrev-table '())
 
 (define-abbrev-table 'eww-mode-abbrev-table '())
@@ -129,6 +139,8 @@
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
 
+(define-abbrev-table 'git-commit-elisp-text-mode-abbrev-table '())
+
 (define-abbrev-table 'gitignore-mode-abbrev-table '())
 
 (define-abbrev-table 'global-abbrev-table
@@ -136,6 +148,7 @@
     ("Wofkflow" "Workflow" nil 1)
     ("approvied" "approved" nil 1)
     ("assocation" "association" nil 1)
+    ("attenadnae" "attendance" nil 4)
     ("befoer" "before" nil 1)
     ("concerte" "concrete" nil 1)
     ("conext" "context" nil 1)
@@ -201,6 +214,8 @@
 
 (define-abbrev-table 'helm-grep-mode-abbrev-table '())
 
+(define-abbrev-table 'helm-major-mode-abbrev-table '())
+
 (define-abbrev-table 'helm-moccur-mode-abbrev-table '())
 
 (define-abbrev-table 'help-mode-abbrev-table '())
@@ -217,6 +232,8 @@
 
 (define-abbrev-table 'inf-ruby-mode-abbrev-table '())
 
+(define-abbrev-table 'inferior-python-mode-abbrev-table '())
+
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
@@ -224,6 +241,8 @@
 (define-abbrev-table 'java-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -321,6 +340,12 @@
 
 (define-abbrev-table 'projectile-rails-server-mode-abbrev-table '())
 
+(define-abbrev-table 'python-mode-abbrev-table '())
+
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'rake-compilation-mode-abbrev-table '())
 
 (define-abbrev-table 'realgud:info-mode-abbrev-table '())
@@ -372,11 +397,17 @@
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
 
+(define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
+(define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
 

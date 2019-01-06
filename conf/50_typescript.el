@@ -7,11 +7,10 @@
   :defer t
   
   :init
-  
   (mmask-regist-extension-with-icase 'typescript-mode "ts")
+  (setq typescript-indent-level 2)
 
   :config
-
   (add-hook 'typescript-mode-hook '~typescript-mode-setup t)
   (defun ~typescript-mode-setup ()
     ;; color-moccur

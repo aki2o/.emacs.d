@@ -5,8 +5,6 @@
 (bundle e2wm-sww)
 (use-package e2wm
   :init
-
-  ;; フェイス
   (custom-set-faces
    '(e2wm:face-subtitle ((((class color) (background light))
                           (:foreground "Gray10" :height 0.8 :inherit variable-pitch))
@@ -19,7 +17,6 @@
    )
 
   :config
-
   ;; e2wm:add-keymap がエラーになるので、一旦コメントアウト
   ;; (use-package e2wm-config)
   (use-package e2wm-sww)
@@ -213,7 +210,6 @@
   :commands (e2wm-transcribe:dp)
   
   :config
-  
   (setq e2wm:c-transcribe-recipe
         '(- (:upper-size-ratio 0.55)
             (| (:left-size-ratio 0.45)
@@ -274,9 +270,7 @@
 (bundle e2wm-term)
 (use-package e2wm-term
   :defer t
-  
   :config
-  
   (setq e2wm-term:default-backend 'shell)
   (setq e2wm-term:help-window-default-hide t)
   (setq e2wm-term:help-guess-command t)

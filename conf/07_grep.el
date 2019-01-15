@@ -5,7 +5,6 @@
   :commands (~grep-by-git)
   
   :init
-  
   (setq grep-host-defaults-alist nil) ; これはおまじないだと思ってください
   (setq grep-template "grep <C> -n <R> <F> <N>")
   (setq grep-find-template "find . <X> -type f <F> -print0 | xargs -0 -e grep <C> -n <R> <N>")
@@ -14,7 +13,6 @@
   ;; (setq grep-find-template "find . <X> -type f <F> -print0 | xargs -0 -e lgrep -Ks -Os <C> -n <R> <N>")
 
   :config
-  
   ;; el-getのトラブルで調査した際、なくてもOKっぽかったのでコメントアウト
   ;; ;; shell-quote-argumentの問題回避
   ;; (defadvice shell-quote-argument (around shell-quote-argument-for-win activate)
@@ -63,7 +61,6 @@
   :commands (~ag pophint-config:thing-do-~ag-with-toggle-effect)
   
   :config
-  
   (custom-set-variables
    '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
    '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
@@ -78,11 +75,6 @@
     (add-hook 'ag-mode-hook 'wgrep-ag-setup t)
     (bind-keys :map ag-mode-map
                ("r" . wgrep-change-to-wgrep-mode)))
-
-  (use-package pophint-config
-    :config
-    (pophint-config:set-thing-at-point-function ag/dwim-at-point)
-    (pophint-config:thing-def-command-with-toggle-effect ~ag))
   )
 
 
@@ -91,19 +83,12 @@
   :commands (~helm-ag pophint-config:thing-do-~helm-ag-with-toggle-effect)
   
   :init
-
   (setq helm-ag-insert-at-point 'pophint)
   
   :config
-
   (defun ~helm-ag (directory)
     (interactive (list (read-directory-name "Directory: ")))
     (helm-ag directory))
-
-  (use-package pophint-config
-    :config
-    (pophint-config:set-thing-at-point-function helm-ag--insert-thing-at-point)
-    (pophint-config:thing-def-command-with-toggle-effect ~helm-ag))
   )
 
 
@@ -116,7 +101,6 @@
   :commands (~counsel-ag ~counsel-git-grep)
   
   :init
-
   (defun ~counsel-initial-input ()
     (thing-at-point 'word))
   
@@ -127,12 +111,6 @@
   (defun ~counsel-git-grep ()
     (interactive)
     (counsel-git-grep nil (~counsel-initial-input)))
-
-  :config
-  
-  (use-package pophint-config
-    :config
-    (pophint-config:set-thing-at-point-function ~counsel-initial-input))
   )
 
 

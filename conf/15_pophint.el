@@ -1,8 +1,7 @@
-(bundle pophint :autoloads nil)
+(bundle pophint)
 (use-package pophint-config
 
   :init
-
   (custom-set-faces
    '(pophint:tip-face     ((t (:background "HotPink4" :foreground "white" :bold t))))
    '(pophint:match-face   ((t (:background "dark slate gray" :foreground "white"))))
@@ -22,7 +21,6 @@
                                           ("Sym"      . "s")))
 
   :config
-
   (defun ~pophint:do-other-windows ()
     (interactive)
     (let ((currbuf (current-buffer)))
@@ -74,25 +72,6 @@
   (pophint-config:set-isearch-yank-region-command migemo-isearch-yank-line)
 
   
-  ;; 11_e2wm.elでカスタマイズしたので変更
-  (pophint:defsource
-    :name "e2wm-history2"
-    :description "Entry in history list2 plugin of e2wm."
-    :source '((dedicated . e2wm)
-              (regexp . "^... +\\([^ ]+\\)")
-              (requires . 1)
-              (highlight . nil)
-              (activebufferp . (lambda (b)
-                                 (and (e2wm:managed-p)
-                                      (eq (buffer-local-value 'major-mode b)
-                                          'e2wm:def-plugin-history-list2-mode))))
-              (action . (lambda (hint)
-                          (select-window (pophint:hint-window hint))
-                          (goto-char (pophint:hint-startpt hint))
-                          (e2wm:def-plugin-history-list2-select-command)
-                          (e2wm:pst-window-select-main)))))
-  
-
   ;; For p-r
 
   (defun popup-delete (popup)
@@ -116,10 +95,24 @@
   )
 
 
-(use-package owdriver
+(use-package ag
   :defer t
   :config
-  (owdriver-define-command pophint:do t (pophint:do :not-switch-window t)))
+  (pophint-config:set-thing-at-point-function ag/dwim-at-point)
+  (pophint-config:thing-def-command-with-toggle-effect ~ag))
+
+
+(use-package helm-ag
+  :defer t
+  :config
+  (pophint-config:set-thing-at-point-function helm-ag--insert-thing-at-point)
+  (pophint-config:thing-def-command-with-toggle-effect ~helm-ag))
+
+
+(use-package counsel
+  :defer t
+  :config
+  (pophint-config:set-thing-at-point-function ~counsel-initial-input))
 
 
 (use-package e2wm
@@ -129,5 +122,24 @@
    e2wm:pst-minor-mode-keymap
    '(("prefix ;" . pophint:do-situationally-e2wm)
      ("M-;"      . pophint:do-situationally-e2wm)
-     ) e2wm:prefix-key))
+     ) e2wm:prefix-key)
+
+  ;; 11_e2wm.elでカスタマイズしたので変更
+  (pophint:defsource
+    :name "e2wm-history2"
+    :description "Entry in history list2 plugin of e2wm."
+    :source '((dedicated . e2wm)
+              (regexp . "^... +\\([^ ]+\\)")
+              (requires . 1)
+              (highlight . nil)
+              (activebufferp . (lambda (b)
+                                 (and (e2wm:managed-p)
+                                      (eq (buffer-local-value 'major-mode b)
+                                          'e2wm:def-plugin-history-list2-mode))))
+              (action . (lambda (hint)
+                          (select-window (pophint:hint-window hint))
+                          (goto-char (pophint:hint-startpt hint))
+                          (e2wm:def-plugin-history-list2-select-command)
+                          (e2wm:pst-window-select-main)))))
+  )
 

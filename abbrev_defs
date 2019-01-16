@@ -148,6 +148,7 @@
     ("Wofkflow" "Workflow" nil 1)
     ("approvied" "approved" nil 1)
     ("assocation" "association" nil 1)
+    ("attednance" "attendance" nil 1)
     ("attenadnae" "attendance" nil 4)
     ("attnedance" "attendance" nil 1)
     ("befoer" "before" nil 1)

@@ -92,10 +92,17 @@
         (~helm-modify-keymap-finished nil))
     ad-do-it))
 
+(defun ~helm-multi-occur-to-helm-candidates ()
+  (interactive)
+  (let ((f (lambda (buffers)
+             (let ((query (read-string "Regexp: ")))
+               (multi-occur buffers query)))))
+    (with-helm-alive-p
+      (helm-run-after-exit f (helm-marked-candidates)))))
+
 (define-key helm-buffer-map (kbd "C-o")     'helm-buffer-switch-other-window)
 (define-key helm-buffer-map (kbd "C-S-c s") 'helm-buffer-run-grep)
 (define-key helm-buffer-map (kbd "C-S-c S") 'helm-buffer-run-zgrep)
-(define-key helm-buffer-map (kbd "C-S-c o") 'helm-buffer-switch-other-window)
 (define-key helm-buffer-map (kbd "C-S-c e") 'helm-buffer-run-ediff)
 (define-key helm-buffer-map (kbd "C-S-c E") 'helm-buffer-run-ediff-merge)
 (define-key helm-buffer-map (kbd "C-S-c u") 'helm-buffer-revert-persistent)
@@ -104,6 +111,8 @@
 (define-key helm-buffer-map (kbd "C-S-c m") 'helm-toggle-all-marks)
 (define-key helm-buffer-map (kbd "C-S-c a") 'helm-mark-all)
 (define-key helm-buffer-map (kbd "C-S-c t") 'helm-buffers-toggle-show-hidden-buffers)
+(define-key helm-buffer-map (kbd "C-S-c o") 'helm-buffers-run-multi-occur)
+(define-key helm-buffer-map (kbd "C-S-c O") '~helm-multi-occur-to-helm-candidates)
 
 (define-key helm-generic-files-map (kbd "C-o")     'helm-ff-run-switch-other-window)
 (define-key helm-generic-files-map (kbd "C-S-c s") 'helm-ff-run-grep)

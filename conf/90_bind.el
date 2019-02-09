@@ -157,16 +157,24 @@
 ;;;;;;;;;;;;
 ;; Search
 
-(defhydra ~hydra-grep (:exit t :idle ~hydra-help-delay)
-  "grep"
-  ("l" lgrep "lgrep")
-  ("r" rgrep "rgrep"))
+(defhydra ~hydra-isearch (:exit t :idle ~hydra-help-delay)
+  "isearch"
+   ("w" isearch-forward-word "word")
+   ("s" isearch-forward-symbol "symbol")
+   ("r" isearch-forward-regexp "regexp")
+   ("R" isearch-backward-regexp "regexp to backward"))
 
-(defhydra ~hydra-git-grep (:exit t :idle ~hydra-help-delay)
-  "git grep"
-  ("g" ~grep-by-git "normal")
-  ("h" helm-git-grep "by helm")
-  ("c" ~counsel-git-grep "by counsel"))
+(defhydra ~hydra-grep (:exit t :idle ~hydra-help-delay)
+  "
+_l_: lgrep _g_: git grep
+_r_: rgrep _h_: git grep by helm
+             _c_: git grep by counsel
+"
+  ("l" lgrep)
+  ("r" rgrep)
+  ("g" ~grep-by-git)
+  ("h" helm-git-grep)
+  ("c" ~counsel-git-grep))
 
 (defhydra ~hydra-ag (:exit t :idle ~hydra-help-delay)
   "ag"
@@ -176,47 +184,52 @@
   ("H" pophint-config:thing-do-~helm-ag-with-toggle-effect "by helm without hint")
   ("c" ~counsel-ag "by counsel"))
 
+(defhydra ~hydra-rg (:exit t :idle ~hydra-help-delay)
+  "rg"
+  ("r" rg "normal")
+  ("l" rg-literal "non-regexp")
+  ("d" rg-dwim "dwim")
+  ("p" rg-project "project"))
+
 (defhydra ~hydra-moccur (:exit t :idle ~hydra-help-delay)
   "
-_b_: moccur             _o_: occur
-_g_: grep               _B_: buffer
-_G_: grep find          _f_: dmoccur
-_d_: dmoccur            _r_: resume
-_D_: dmoccur recursive
+_m_: moccur            _o_: occur by anything
+_g_: grep              _b_: buffer by anything
+_f_: grep find         _k_: dmoccur by anything
+_d_: dmoccur recursive _R_: resume anything
+_D_: dmoccur
 "
-  ("b" moccur)
+  ("m" moccur)
   ("g" ~moccur-grep)
-  ("G" ~moccur-grep-find)
-  ("d" ~dmoccur)
-  ("D" ~dmoccur-recursive)
+  ("f" ~moccur-grep-find)
+  ("d" ~dmoccur-recursive)
+  ("D" ~dmoccur)
   ("o" anything-c-moccur-occur-by-moccur)
-  ("B" anything-c-moccur-buffer-list)
-  ("f" anything-c-moccur-dmoccur)
-  ("r" anything-c-moccur-resume))
+  ("b" anything-c-moccur-buffer-list)
+  ("k" anything-c-moccur-dmoccur)
+  ("R" anything-c-moccur-resume))
 
 (global-unset-key (kbd "M-s"))
 (global-set-key
  (kbd "M-s")
  (defhydra ~hydra-search (:hint nil :exit t :idle ~hydra-help-delay)
    "
-_w_: forward word     _f_: find          _g_: hydra git grep  _I_: swiper
-_s_: forward symbol   _i_: with hint     _G_: hydra grep
-_r_: forward regexp   _W_: with www      _m_: hydra moccur
-_R_: backward regexp  _o_: other window  _a_: hydra ag
+_I_: hydra isearch _i_: by hint
+_g_: hydra grep    _o_: other window
+_m_: hydra moccur  _f_: find name
+_a_: hydra ag      _w_: by www
+_r_: hydra rg      _s_: swiper
 "
-   ("w" isearch-forward-word)
-   ("s" isearch-forward-symbol)
-   ("r" isearch-forward-regexp)
-   ("R" isearch-backward-regexp)
-   ("f" find-name-dired)
-   ("i" pophint:do-flexibly-isearch)
-   ("W" pophint:do-flexibly-search)
-   ("o" owdriver-do-isearch-forward)
-   ("g" ~hydra-git-grep/body)
-   ("G" ~hydra-grep/body)
+   ("I" ~hydra-isearch/body)
+   ("g" ~hydra-grep/body)
    ("m" ~hydra-moccur/body)
    ("a" ~hydra-ag/body)
-   ("I" ~swiper)))
+   ("r" ~hydra-rg/body)
+   ("i" pophint:do-flexibly-isearch)
+   ("o" owdriver-do-isearch-forward)
+   ("f" find-name-dired)
+   ("w" pophint:do-flexibly-search)
+   ("s" ~swiper)))
 
 
 ;;;;;;;;;;;;;

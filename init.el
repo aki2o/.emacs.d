@@ -60,6 +60,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ag-highlight-search t)
+ '(ag-reuse-buffers (quote nil))
+ '(ag-reuse-window (quote nil))
  '(git-gutter:diff-option "-w")
  '(git-gutter:hide-gutter t)
  '(git-gutter:lighter " GG")
@@ -71,7 +74,7 @@
  '(mozc-leim-title "[あ]")
  '(package-selected-packages
    (quote
-    (vue-mode dash-functional git-commit ivy org oauth2 gitignore-mode github-browse-file csv-mode company)))
+    (helm-rg rg vue-mode dash-functional git-commit ivy org oauth2 gitignore-mode github-browse-file csv-mode company)))
  '(rspec-use-rake-when-possible nil)
  '(terraform-indent-level 2))
 (custom-set-faces

@@ -136,6 +136,7 @@
   ;; (~projectile-switchable-project-commandize helm-projectile-find-dir)
   ;; (~projectile-switchable-project-commandize helm-projectile-switch-to-buffer)
   (~projectile-switchable-project-commandize helm-projectile-ag)
+  (~projectile-switchable-project-commandize helm-projectile-rg)
   )
 
 

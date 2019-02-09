@@ -77,6 +77,10 @@
                ("r" . wgrep-change-to-wgrep-mode)))
   )
 
+(bundle rg)
+(use-package rg
+  :defer t)
+
 
 (bundle helm-ag)
 (use-package helm-ag
@@ -90,6 +94,11 @@
     (interactive (list (read-directory-name "Directory: ")))
     (helm-ag directory))
   )
+
+
+(bundle helm-rg)
+(use-package helm-rg
+  :defer t)
 
 
 (bundle helm-git-grep)

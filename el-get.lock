@@ -1,5 +1,7 @@
 (setq el-get-lock-package-versions
-      '((diminish :checksum "73669b69e5f9a0c9261c5b53624329d0e24d1ed8")
+      '((ssass-mode :checksum "da82ebb2aa7e4999c23547270d2b0b2cd9311a47")
+        (vue-html-mode :checksum "1514939804bad558584feeb6298b38d22eadf64e")
+        (diminish :checksum "73669b69e5f9a0c9261c5b53624329d0e24d1ed8")
         (mag-menu :checksum "9b9277021cd09fb1dba64b1d2a00705d20914bd6")
         (chumpy-windows :checksum "6bdb51e9a346907d60a9625f6180bddd06be6674")
         (dropdown-list :checksum "2948c12cd880e9874057d96c108139afcd63c672")

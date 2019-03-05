@@ -1,3 +1,5 @@
+(use-package dockerfile-mode)
+
 (use-package docker-tramp-compat
   :init
   (setq docker-tramp-use-names t))

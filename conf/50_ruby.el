@@ -358,7 +358,48 @@ Returns a hash table with keys being short names (choices) and values being rela
 (use-package rspec-mode
   :defer t
   :init
-  (custom-set-variables '(rspec-use-rake-flag nil)))
+  (custom-set-variables '(rspec-use-rake-flag nil))
+
+  :config
+  ;; controller -> request_spec or controller_spec をよしなにする
+  (defadvice rspec-spec-file-for (after ~rspec-selectize activate)
+    (let* ((spec-root (rspec-spec-directory (ad-get-arg 0)))
+           (controller-spec-root (concat spec-root "/controllers")))
+      (when (and
+             (< (length controller-spec-root) (length ad-return-value))
+             (equal
+              controller-spec-root
+              (substring ad-return-value 0 (length controller-spec-root))))
+        (let* ((spec-relative-path (substring ad-return-value (length controller-spec-root)))
+               (request-spec-path (concat spec-root "/requests" spec-relative-path)))
+          (cond ((or (and (file-exists-p ad-return-value)
+                          (file-exists-p request-spec-path))
+                     (and (not (file-exists-p ad-return-value))
+                          (not (file-exists-p request-spec-path))))
+                 (setq ad-return-value
+                       (completing-read "Select: " (list ad-return-value request-spec-path) nil t)))
+                ((file-exists-p request-spec-path)
+                 (setq ad-return-value request-spec-path)))))))
+
+  ;; request_spec -> controller ができない対応
+  (defadvice rspec-target-file-for (after ~rspec-adjust-contoller activate)
+    (when (not ad-return-value)
+      (let* ((spec-path (ad-get-arg 0))
+             (spec-root (rspec-spec-directory spec-path))
+             (request-spec-root (concat spec-root "/requests")))
+        (when (and
+               (< (length request-spec-root) (length spec-path))
+               (equal
+                request-spec-root
+                (substring spec-path 0 (length request-spec-root))))
+          (setq ad-return-value
+                (concat (rspec-project-root spec-path)
+                        "/app/controllers"
+                        (replace-regexp-in-string
+                         "_spec\\.rb\\'"
+                         ".rb"
+                         (substring spec-path (length request-spec-root)))))))))
+  )
 
 
 ;; ;; gem install rcodetools

@@ -154,6 +154,7 @@
     ("attnedance" "attendance" nil 1)
     ("atttendance" "attendance" nil 1)
     ("befoer" "before" nil 1)
+    ("bofore" "before" nil 1)
     ("chnage" "change" nil 1)
     ("closuer" "closure" nil 6)
     ("closuers" "closures" nil 1)

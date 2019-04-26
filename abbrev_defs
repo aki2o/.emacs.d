@@ -139,6 +139,8 @@
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
 
+(define-abbrev-table 'gfm-view-mode-abbrev-table '())
+
 (define-abbrev-table 'git-commit-elisp-text-mode-abbrev-table '())
 
 (define-abbrev-table 'gitignore-mode-abbrev-table '())
@@ -164,6 +166,7 @@
     ("configuratin" "configuration" nil 1)
     ("contetn" "content" nil 2)
     ("contianer" "container" nil 1)
+    ("craete" "create" nil 1)
     ("deafult" "default" nil 1)
     ("declration" "declaration" nil 1)
     ("defaluts" "defaults" nil 1)
@@ -186,8 +189,10 @@
     ("intialize" "initialize" nil 1)
     ("invalide" "invalid" nil 2)
     ("isntance" "instance" nil 2)
+    ("mbmer" "member" nil 1)
     ("meesage" "message" nil 1)
     ("minites" "minutes" nil 1)
+    ("naem" "name" nil 1)
     ("nubmer" "number" nil 1)
     ("numnber" "number" nil 1)
     ("offce" "office" nil 1)
@@ -198,9 +203,10 @@
     ("peirod" "period" nil 1)
     ("pendign" "pending" nil 1)
     ("persisited" "persisted" nil 5)
-    ("positin" "position" nil 1)
+    ("positin" "position" nil 2)
+    ("queeu" "queue" nil 1)
     ("realod" "reload" nil 2)
-    ("relaod" "reload" nil 1)
+    ("relaod" "reload" nil 2)
     ("reocrd" "record" nil 1)
     ("reqeust" "request" nil 4)
     ("reqeusted" "requested" nil 1)
@@ -216,7 +222,7 @@
     ("talbe" "table" nil 3)
     ("taransaction" "transaction" nil 1)
     ("tiem" "time" nil 1)
-    ("tomoroow" "tomorrow" nil 7)
+    ("tomoroow" "tomorrow" nil 8)
     ("undersocre" "underscore" nil 4)
     ("uniquness" "uniqueness" nil 1)
     ("wofkflow" "workflow" nil 2)
@@ -235,6 +241,8 @@
 (define-abbrev-table 'grep-mode-abbrev-table '())
 
 (define-abbrev-table 'gud-mode-abbrev-table '())
+
+(define-abbrev-table 'haml-mode-abbrev-table '())
 
 (define-abbrev-table 'hcl-mode-abbrev-table '())
 
@@ -333,6 +341,8 @@
 (define-abbrev-table 'makefile-mode-abbrev-table '())
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
+
+(define-abbrev-table 'markdown-view-mode-abbrev-table '())
 
 (define-abbrev-table 'message-mode-abbrev-table '())
 

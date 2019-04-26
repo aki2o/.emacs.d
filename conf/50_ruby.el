@@ -349,11 +349,6 @@ Returns a hash table with keys being short names (choices) and values being rela
   )
 
 
-(bundle slim-mode)
-(use-package slim-mode
-  :defer t)
-
-
 (bundle rspec-mode)
 (use-package rspec-mode
   :defer t

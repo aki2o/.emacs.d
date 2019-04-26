@@ -77,3 +77,12 @@
   (add-to-list 'rng-schema-locating-files (concat user-emacs-directory "schema/schemas.xml"))
   (require 'genrnc))
 
+
+(bundle slim-mode)
+(use-package slim-mode
+  :defer t)
+
+
+(bundle haml-mode)
+(use-package haml-mode
+  :defer t)

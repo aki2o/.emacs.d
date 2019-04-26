@@ -17,7 +17,7 @@
 (setq browse-url-browser-function
       `((,(concat "^" (regexp-opt ~browse-external-url-list)) . ~browse-url-externally)
         ("^dict://"                                           . browse-url-default-browser)
-        ("."                                                  . ~browse-url)))
+        ("."                                                  . ~browse-url-externally)))
 
 (when (~is-windows)
   (setq browse-url-generic-program (w32-short-file-name "C:/Program Files/Mozilla Firefox/firefox.exe")))
@@ -51,11 +51,13 @@
   (cond ((and external-p
               (y-or-n-p "Open External Browser?"))
          (~browse-url-externally url))
-        ((and (>= emacs-major-version 24)
-              (>= emacs-minor-version 4))
+        ((or (> emacs-major-version 24)
+             (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
          (eww-browse-url url))
+        ((functionp w3m-browse-url)
+         (w3m-browse-url url))
         (t
-         (w3m-browse-url url))))
+         (~browse-url-externally url))))
 
 (defun ~browse-bookmark ()
   (interactive)

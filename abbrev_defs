@@ -173,6 +173,7 @@
     ("defualt" "default" nil 2)
     ("descroy" "destroy" nil 1)
     ("destory" "destroy" nil 8)
+    ("doucment" "document" nil 1)
     ("eargings" "earnings" nil 1)
     ("emial" "email" nil 2)
     ("emloyee" "employee" nil 1)
@@ -223,7 +224,7 @@
     ("taransaction" "transaction" nil 1)
     ("tiem" "time" nil 1)
     ("tomoroow" "tomorrow" nil 8)
-    ("undersocre" "underscore" nil 4)
+    ("undersocre" "underscore" nil 9)
     ("uniquness" "uniqueness" nil 1)
     ("wofkflow" "workflow" nil 2)
     ("workfklow" "workflow" nil 7)
@@ -388,6 +389,8 @@
 
 (define-abbrev-table 'realgud:info-mode-abbrev-table '())
 
+(define-abbrev-table 'rjsx-mode-abbrev-table '())
+
 (define-abbrev-table 'rspec-compilation-mode-abbrev-table '())
 
 (define-abbrev-table 'ruby-mode-abbrev-table
@@ -413,7 +416,9 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table '())
+(define-abbrev-table 'sql-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'ssass-mode-abbrev-table '())
 

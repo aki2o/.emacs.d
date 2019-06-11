@@ -1,5 +1,6 @@
 (setq el-get-lock-package-versions
-      '((haml-mode :checksum "bf5b6c11b1206759d2b28af48765e04882dd1fc4")
+      '((rjsx-mode :checksum "03dd8d1683501e81b58674d64c3032b7b718402c")
+        (haml-mode :checksum "bf5b6c11b1206759d2b28af48765e04882dd1fc4")
         (ssass-mode :checksum "da82ebb2aa7e4999c23547270d2b0b2cd9311a47")
         (vue-html-mode :checksum "1514939804bad558584feeb6298b38d22eadf64e")
         (diminish :checksum "73669b69e5f9a0c9261c5b53624329d0e24d1ed8")

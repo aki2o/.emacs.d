@@ -1,17 +1,28 @@
 ;;; -*- lexical-binding: t -*-
+(bundle rjsx-mode)
+(use-package rjsx-mode
+  :init
+  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("containers\\/.*\\.js\\'" . rjsx-mode))
+
+  :config
+  (add-hook 'rjsx-mode-hook '~rjsx-mode-setup t)
+  (defun ~rjsx-mode-setup ()
+    (setq indent-tabs-mode nil)
+    (setq js-indent-level 2)
+    (setq js2-strict-missing-semi-warning nil) ;;行末のセミコロンの警告はオフ
+    )
+  )
+
 (bundle js2-mode)
 (use-package js2-mode
-  :defer t
-
   :init
-  
   (mmask-regist-extension-with-icase 'js2-mode "js" "jse" "gs" "js.erb")
 
   :config
-
   (add-hook 'js2-mode-hook '~js2-mode-setup t)
   (defun ~js2-mode-setup ()
-    (setq tab-width 4)
+    (setq js-indent-level 2)
     ;; color-moccur
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'js2-mode)))
 

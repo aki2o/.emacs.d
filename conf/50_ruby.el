@@ -41,7 +41,7 @@
   (defun ~ruby-rubocop-apply-to-diff-files ()
     (interactive)
     (apply '~ruby-rubocop-apply (~git-diff-path-list (current-buffer))))
-
+  
   (defun ~ruby-setup-mode ()
     ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
     (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
@@ -99,6 +99,15 @@
       (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode)))
     (add-hook 'ruby-mode-hook '~ruby-setup-color-moccur t))
 
+  (defalias '~ruby-syntax-propertize-function
+    (syntax-propertize-rules
+     ;; 文字列2重展開があるとシンタックスハイライトがおかしくなるので、 ruby-expression-expansion-re を修正したやつを追加
+     ("\\(?:[^\\]\\|\\=\\)\\(\\\\\\\\\\)*\\(#{[^{^}]*#{[^}]*}[^}]*}\\)\\|\\(#\\({[^}\n\\\\]*\\(\\\\.[^}\n\\\\]*\\)*}\\|\\(\\$\\|@\\|@@\\)\\(\\w\\|_\\)+\\|\\$[^a-zA-Z \n]\\)\\)"
+      (0 (ignore (ruby-syntax-propertize-expansion))))))
+
+  (defun ~ruby-fix-syntax-propertize ()
+    (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function))
+  (add-hook 'ruby-mode-hook '~ruby-fix-syntax-propertize t)
   )
 
 

@@ -153,9 +153,10 @@
     ("atetndance" "attendance" nil 1)
     ("attednance" "attendance" nil 3)
     ("attenadnae" "attendance" nil 4)
+    ("attirbute" "attribute" nil 1)
     ("attnedance" "attendance" nil 1)
     ("atttendance" "attendance" nil 1)
-    ("befoer" "before" nil 1)
+    ("befoer" "before" nil 2)
     ("bofore" "before" nil 1)
     ("chnage" "change" nil 1)
     ("closuer" "closure" nil 6)
@@ -176,6 +177,7 @@
     ("documetn" "document" nil 2)
     ("doucment" "document" nil 1)
     ("eargings" "earnings" nil 1)
+    ("ecnrypted" "encrypted" nil 1)
     ("emial" "email" nil 2)
     ("emloyee" "employee" nil 1)
     ("emloyees" "employees" nil 1)
@@ -186,6 +188,7 @@
     ("emplyt" "empty" nil 1)
     ("empoyee" "employee" nil 7)
     ("empoyment" "employment" nil 3)
+    ("frist" "first" nil 1)
     ("insatnce" "instance" nil 1)
     ("instanct" "instance" nil 1)
     ("inteerval" "interval" nil 2)
@@ -211,14 +214,14 @@
     ("quantitiy" "quantity" nil 11)
     ("queeu" "queue" nil 1)
     ("realod" "reload" nil 2)
-    ("relaod" "reload" nil 2)
+    ("relaod" "reload" nil 5)
     ("reocrd" "record" nil 1)
     ("reqeust" "request" nil 4)
     ("reqeusted" "requested" nil 1)
     ("requestd" "requested" nil 1)
     ("requet" "request" nil 1)
     ("resouce" "resource" nil 0)
-    ("resouces" "resources" nil 1)
+    ("resouces" "resources" nil 2)
     ("resutl" "result" nil 1)
     ("revetion" "revision" nil 2)
     ("schefule" "schedule" nil 1)
@@ -420,9 +423,7 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'sql-mode-abbrev-table '())
 
 (define-abbrev-table 'ssass-mode-abbrev-table '())
 

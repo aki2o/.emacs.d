@@ -188,6 +188,7 @@
     ("emplyt" "empty" nil 1)
     ("empoyee" "employee" nil 7)
     ("empoyment" "employment" nil 3)
+    ("fixtrue" "fixture" nil 1)
     ("frist" "first" nil 1)
     ("insatnce" "instance" nil 1)
     ("instanct" "instance" nil 1)
@@ -355,6 +356,8 @@
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'nxml-mode-abbrev-table '())
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(

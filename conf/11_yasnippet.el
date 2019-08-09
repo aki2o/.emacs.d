@@ -92,7 +92,7 @@
     '("eq " "eql " "equal " "include " "cover " "match " "start_with " "end_with " "contain_exactly()"
       "be " "be_a_kind_of " "be_a " "be_truthy" "be_falsey" "be_nil" "be_present" "be_empty" "be_added()"
       "be > " "be >= " "be < " "be <= " "be_"
-      "have_attributes" "have_received" "have_been_enqueued" "have_enqueued_job" "have_http_status" "redirect_to" "an_object_having_attributes"
+      "have_attributes()" "have_received()" "have_been_enqueued" "have_enqueued_job().with()" "have_http_status" "redirect_to" "an_object_having_attributes"
       "throw_symbol()" "raise_error()" "receive" "change {}.from().to()"
       "belong_to" "have_one().dependent()" "have_many().dependent()"
       "validate_presence_of()" "validate_absence_of()" "validate_uniqueness_of()" "validate_numericality_of()" "validate_inclusion_of().in_array()"))

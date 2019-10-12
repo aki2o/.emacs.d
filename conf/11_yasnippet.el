@@ -95,7 +95,10 @@
       "have_attributes()" "have_received()" "have_been_enqueued" "have_enqueued_job().with()" "have_http_status" "redirect_to" "an_object_having_attributes"
       "throw_symbol()" "raise_error()" "receive" "change {}.from().to()"
       "belong_to" "have_one().dependent()" "have_many().dependent()"
-      "validate_presence_of()" "validate_absence_of()" "validate_uniqueness_of()" "validate_numericality_of()" "validate_inclusion_of().in_array()"))
+      "validate_presence_of()" "validate_absence_of()" "validate_uniqueness_of()"
+      "validate_numericality_of().is_greater_than_or_equal_to().is_less_than_or_equal_to().only_integer"
+      "validate_length_of().is_at_least().is_at_most().is_equal_to()"
+      "validate_inclusion_of().in_array()"))
   
   (defvar ~yas-rspec-mocks
     '("allow" "expect" "allow_any_instance_of" "expect_any_instance_of"))

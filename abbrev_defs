@@ -147,6 +147,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("Validaitons" "Validations" nil 1)
     ("Wofkflow" "Workflow" nil 1)
     ("approvied" "approved" nil 1)
     ("assocation" "association" nil 1)

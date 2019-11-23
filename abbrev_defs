@@ -197,15 +197,15 @@
     ("fixtrue" "fixture" nil 1)
     ("frist" "first" nil 1)
     ("insatnce" "instance" nil 1)
-    ("instanct" "instance" nil 1)
+    ("instanct" "instance" nil 2)
     ("inteerval" "interval" nil 2)
     ("inteval" "interval" nil 1)
-    ("intialize" "initialize" nil 2)
+    ("intialize" "initialize" nil 3)
     ("invalide" "invalid" nil 2)
     ("isntance" "instance" nil 2)
-    ("jounral" "journal" nil 15)
+    ("jounral" "journal" nil 19)
     ("jounrals" "journals" nil 4)
-    ("jouranl" "journal" nil 9)
+    ("jouranl" "journal" nil 11)
     ("mbmer" "member" nil 1)
     ("meesage" "message" nil 1)
     ("minites" "minutes" nil 1)
@@ -213,13 +213,14 @@
     ("nubmer" "number" nil 1)
     ("numnber" "number" nil 1)
     ("offce" "office" nil 1)
+    ("offcie" "office" nil 2)
     ("offie" "office" nil 1)
     ("ofice" "office" nil 3)
     ("paramegerized" "parameterized" nil 1)
     ("passowrd" "password" nil 3)
     ("peirod" "period" nil 1)
     ("pendign" "pending" nil 1)
-    ("persisited" "persisted" nil 7)
+    ("persisited" "persisted" nil 8)
     ("positin" "position" nil 2)
     ("quantitiy" "quantity" nil 11)
     ("queeu" "queue" nil 1)
@@ -438,9 +439,7 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'sql-mode-abbrev-table '())
 
 (define-abbrev-table 'ssass-mode-abbrev-table '())
 

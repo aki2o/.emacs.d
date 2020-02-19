@@ -2,8 +2,7 @@
 (bundle rjsx-mode)
 (use-package rjsx-mode
   :init
-  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("containers\\/.*\\.js\\'" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '(".*\\.js\\'" . rjsx-mode))
 
   :config
   (add-hook 'rjsx-mode-hook '~rjsx-mode-setup t)
@@ -74,7 +73,7 @@
 
   :init
   
-  (dolist (h '(js2-mode-hook nxml-mode-hook web-mode-hook))
+  (dolist (h '(rjsx-mode-hook js2-mode-hook nxml-mode-hook web-mode-hook))
     (add-hook h '(lambda () (tern-mode 1)) t))
 
   :config

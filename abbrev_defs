@@ -239,6 +239,7 @@
     ("schefule" "schedule" nil 1)
     ("sequecne" "sequence" nil 1)
     ("shear" "share" nil 1)
+    ("suepr" "super" nil 2)
     ("talbe" "table" nil 4)
     ("taransaction" "transaction" nil 1)
     ("tiem" "time" nil 1)
@@ -439,7 +440,9 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table '())
+(define-abbrev-table 'sql-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'ssass-mode-abbrev-table '())
 

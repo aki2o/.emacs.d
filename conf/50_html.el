@@ -1,4 +1,3 @@
-;; (bundle web-mode)
 (bundle auto-complete-nxml)
 (use-package nxml-mode
   :defer t

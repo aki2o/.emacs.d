@@ -209,7 +209,7 @@
     ("mbmer" "member" nil 1)
     ("meesage" "message" nil 1)
     ("minites" "minutes" nil 1)
-    ("naem" "name" nil 1)
+    ("naem" "name" nil 2)
     ("nubmer" "number" nil 1)
     ("numnber" "number" nil 1)
     ("offce" "office" nil 1)
@@ -248,6 +248,7 @@
     ("transaciton" "transaction" nil 3)
     ("undersocre" "underscore" nil 10)
     ("uniquness" "uniqueness" nil 3)
+    ("unsigend" "unsigned" nil 1)
     ("wofkflow" "workflow" nil 2)
     ("workfklow" "workflow" nil 7)
     ("workfkow" "workflow" nil 1)
@@ -479,6 +480,8 @@
 (define-abbrev-table 'vue-html-mode-abbrev-table '())
 
 (define-abbrev-table 'vue-mode-abbrev-table '())
+
+(define-abbrev-table 'web-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 

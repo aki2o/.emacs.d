@@ -90,7 +90,7 @@
 
   (defvar ~yas-rspec-matchers
     '("eq " "eql " "equal " "include " "cover " "match " "start_with " "end_with " "contain_exactly()"
-      "be " "be_a_kind_of " "be_a " "be_truthy" "be_falsey" "be_nil" "be_present" "be_empty" "be_added()"
+      "be " "be_a_kind_of " "be_a " "be_truthy" "be_falsey" "be_nil" "be_present" "be_empty" "be_added()" "be_of_kind()"
       "be > " "be >= " "be < " "be <= " "be_"
       "have_attributes()" "have_received()" "have_been_enqueued" "have_enqueued_job().with()" "have_http_status" "redirect_to" "an_object_having_attributes"
       "throw_symbol()" "raise_error()" "receive" "change {}.from().to()"

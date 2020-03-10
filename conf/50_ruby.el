@@ -375,7 +375,8 @@ Returns a hash table with keys being short names (choices) and values being rela
               controller-spec-root
               (substring ad-return-value 0 (length controller-spec-root))))
         (let* ((spec-relative-path (substring ad-return-value (length controller-spec-root)))
-               (request-spec-path (concat spec-root "/requests" spec-relative-path)))
+               (request-spec-relative-path (replace-regexp-in-string "_controller_spec\\.rb\\'" "_spec.rb" spec-relative-path))
+               (request-spec-path (concat spec-root "/requests" request-spec-relative-path)))
           (cond ((or (and (file-exists-p ad-return-value)
                           (file-exists-p request-spec-path))
                      (and (not (file-exists-p ad-return-value))
@@ -401,7 +402,7 @@ Returns a hash table with keys being short names (choices) and values being rela
                         "/app/controllers"
                         (replace-regexp-in-string
                          "_spec\\.rb\\'"
-                         ".rb"
+                         "_controller.rb"
                          (substring spec-path (length request-spec-root)))))))))
   )
 

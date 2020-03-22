@@ -1,17 +1,9 @@
 (bundle auto-complete)
-(bundle emacswiki:popup-pos-tip)
 (use-package auto-complete
-  :commands (global-auto-complete-mode)
-  
   :init
-  (global-auto-complete-mode 1)
+  (global-auto-complete-mode 0)
   
   :config
-  
-  (use-package auto-complete-config
-    :config
-    (ac-config-default))
-
   (ac-set-trigger-key "C-SPC") ;; 文字入力や削除時のみ補完開始するキー定義
   (setq ac-disable-faces nil) ;; コメントやリテラルでも自動補完
   (setq ac-use-menu-map t) ;; 補完メニュー表示時に特別なキーマップ（ac-menu-map）を有効にするかどうか
@@ -77,43 +69,49 @@
         (cond ((functionp v) (funcall v))
               ((symbolp v)   (add-to-list 'ac-sources v t))
               ((listp v)     (setq ac-sources (append ac-sources v))))
-        (auto-complete-mode 1))))
+        (auto-complete-mode 1)))))
 
-  ;; (use-package popup-pos-tip
-  ;;   :init
-  ;;   (defadvice popup-tip (around popup-pos-tip-wrapper (string &rest args) activate)
-  ;;     (if (eq window-system 'x)
-  ;;         (apply 'popup-pos-tip string args)
-  ;;       ad-do-it)))
+(bundle emacswiki:popup-pos-tip)
+;; (use-package popup-pos-tip
+;;   :after (auto-complete-mode)
+;;   :init
+;;   (defadvice popup-tip (around popup-pos-tip-wrapper (string &rest args) activate)
+;;     (if (eq window-system 'x)
+;;         (apply 'popup-pos-tip string args)
+;;       ad-do-it)))
 
-  )
+(use-package auto-complete-config
+  :after (auto-complete-mode)
+  :hook ((emacs-lisp-mode . ac-emacs-lisp-mode-setup)
+         (c-mode-common . ac-cc-mode-setup)
+         (ruby-mode . ac-ruby-mode-setup)
+         (css-mode . ac-css-mode-setup)
+         (auto-complete-mode . ac-common-setup))
+  :config
+  (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers)))
 
 
 (bundle company)
-(bundle company-quickhelp)
-(bundle company-statistics)
 (use-package company
   :bind (("C-M-i" . company-complete))
+
+  :custom ((company-idle-delay 0.2)
+           (company-tooltip-limit 20)
+           (company-minimum-prefix-length 4)
+           (company-selection-wrap-around t)
+           (company-transformers '(company-sort-by-backend-importance)))
   
   :init
-  (setq company-idle-delay 0.2)
-  (setq company-tooltip-limit 20)
-  (setq company-minimum-prefix-length 4)
-  (setq company-selection-wrap-around t)
-  (setq company-transformers '(company-sort-by-backend-importance))
-
-  ;; (global-company-mode 1)
+  (global-company-mode 1)
   
   :config
-  
   (custom-set-faces
-   '(company-tooltip                  ((t (:foreground "black" :background "lightgrey"))))
-   '(company-tooltip-common           ((t (:foreground "black" :background "lightgrey"))))
-   '(company-tooltip-common-selection ((t (:foreground "white" :background "steelblue"))))
-   '(company-tooltip-selection        ((t (:foreground "black" :background "steelblue"))))
-   '(company-preview-common           ((t (:foreground "lightgrey" :background nil :underline t))))
-   '(company-scrollbar-fg             ((t (:background "orange"))))
-   '(company-scrollbar-bg             ((t (:background "gray40")))))
+   '(company-tooltip                  ((t (:foreground "black" :background "lightgray"))))
+   '(company-tooltip-common           ((t (:foreground "darkred" :background "lightgray"))))
+   '(company-tooltip-selection        ((t (:foreground "white" :background "steelblue"))))
+   '(company-tooltip-common-selection ((t (:foreground "darkred" :background "steelblue"))))
+   '(company-scrollbar-fg             ((t (:background "slate gray"))))
+   '(company-scrollbar-bg             ((t (:background "gray")))))
 
   (bind-keys :map company-active-map
              ("M-n"  . nil)
@@ -131,23 +129,6 @@
              ("C-j" . company-select-next)
              ("C-k" . company-select-previous))
   
-  (use-package company-quickhelp
-    :config
-
-    (setq company-quickhelp-delay nil)
-
-    ;; company-quickhelp-mode-map なくなったぽい
-    ;; (bind-keys :map company-quickhelp-mode-map
-    ;;            ("M-h" . nil)
-    ;;            ("C-'" . company-quickhelp-manual-begin))
-
-    (company-quickhelp-mode 1))
-
-  ;; エラーになるので一旦コメントアウト
-  ;; (use-package company-statistics
-  ;;   :config
-  ;;   (add-to-list 'company-transformers 'company-sort-by-statistics))
- 
   ;; override by company-complete
   (defun ~company-prior-setup ()
     (local-set-key (kbd "C-M-i") 'company-complete))
@@ -157,7 +138,37 @@
   (dolist (mode ~company-prior-modes)
     (let ((hook (intern-soft (format "%s-hook" mode))))
       (when hook
-        (add-hook hook '~company-prior-setup t))))
-  
-  )
+        (add-hook hook '~company-prior-setup t)))))
 
+(bundle company-quickhelp)
+(use-package company-quickhelp
+  :after (company)
+  :custom ((company-quickhelp-delay 2))
+  
+  :config
+  ;; company-quickhelp-mode-map なくなったぽい
+  ;; (bind-keys :map company-quickhelp-mode-map
+  ;;            ("M-h" . nil)
+  ;;            ("C-'" . company-quickhelp-manual-begin))
+  (company-quickhelp-mode 1))
+
+;; エラーになってしまうのでコメントアウトしてる
+;; (bundle company-statistics)
+;; (use-package company-statistics
+;;   :after (company)
+;;   :config
+;;   (add-to-list 'company-transformers 'company-sort-by-statistics))
+
+(bundle company-box)
+(use-package company-box
+  :after (company all-the-icons)
+  :custom ((company-box-icons-alist 'company-box-icons-all-the-icons)
+           (company-box-doc-delay 2)
+           (company-box-doc-frame-parameters '((foreground-color . "black")
+                                               (internal-border-width . 10))))
+  :hook (company-mode . company-box-mode)
+
+  :config
+  (custom-set-faces
+   '(company-box-candidate ((t (:foreground "black"))))
+   '(company-box-scrollbar ((t (:background "slate gray"))))))

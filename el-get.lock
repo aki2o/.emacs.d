@@ -1,5 +1,11 @@
 (setq el-get-lock-package-versions
-      '((org-gcal :checksum "6821e349673e9ba8d7ae7b84789f931889273dc0")
+      '((company-lsp :checksum "b93abde5bbc870170d2a2f5aa309be8a9618daf9")
+        (lsp-ui :checksum "207bc8d61abff7c3024f8a484f63bc60bc4ad58b")
+        (lsp-mode :checksum "5c8addac9d57dff268d2f6e825522fd5353e5e3e")
+        (spinner :checksum "d15e7a7b6395be69acda9d6464acc81d3e2ad07d")
+        (all-the-icons :checksum "1416f37984486a44c6c0cbe0a2c985e82f965b6b")
+        (memoize :checksum "51b075935ca7070f62fae1d69fe0ff7d8fa56fdd")
+        (org-gcal :checksum "6821e349673e9ba8d7ae7b84789f931889273dc0")
         (realgud :checksum "94f283593304c2f673cb4940900197d9cb099faa")
         (loc-changes :checksum "4d1dcdf7631c23b1259ad4f72bf9686cf95fb46c")
         (list-utils :checksum "acf18aca1131a90f8d673974673e3c5d8fdc6a86")

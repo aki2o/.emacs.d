@@ -1,5 +1,4 @@
-;; Emacs 25.1 にあげるまでは v0.14.0 を指定
-(bundle! projectile :checkout "19fb9fa6590e1dc49afc3c8c5bd69cff6cf743a7")
+(bundle! projectile)
 
 (setq projectile-keymap-prefix nil)
 (setq projectile-enable-caching t)

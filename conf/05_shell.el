@@ -117,28 +117,6 @@
   :commands ansi-color-for-comint-mode-on)
 
 
-(bundle exec-path-from-shell)
-(use-package exec-path-from-shell
-  :config
-  
-  (dolist (v '("PERL5LIB" "NODE_PATH"))
-    (add-to-list 'exec-path-from-shell-variables v))
-  
-  (when (~is-windows)
-    (defadvice exec-path-from-shell-setenv (around fix-for-cygwin activate)
-      (cond ((string= "PATH" (ad-get-arg 0))
-             (setq eshell-path-env (ad-get-arg 1))
-             (setq exec-path (loop for p in (split-string (ad-get-arg 1) ":")
-                                   if (not (string= p ""))
-                                   collect (substitute-in-file-name (directory-file-name p))))
-             (when (file-directory-p (concat (getenv "HOME") "\\bin"))
-               (setenv "PATH" (concat (getenv "HOME") "\\bin;" (getenv "PATH")))))
-            (t
-             ad-do-it))))
-  
-  (exec-path-from-shell-initialize))
-
-
 (bundle emacswiki:background)
 (use-package background
   :commands (background))

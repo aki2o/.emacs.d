@@ -1,3 +1,7 @@
+;; http://blog.daich.org/2015/03/27/el-get-flycheck/
+(let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+  (setenv "PATH" path-from-shell)
+  (setq exec-path (split-string path-from-shell path-separator)))
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,

@@ -114,20 +114,19 @@
   )
 
 
-;; Emacs 26 以降じゃないと使えなくなった
-;; (bundle org-gcal)
-;; (use-package org-gcal
-;;   :defer t
-;;   :after org
-;;   :init
-;;   (defvar ~org-gcal-directory (concat user-emacs-directory "org-gcal/"))
-;;   (defvar ~org-gcal-main-schedule-file (concat ~org-gcal-directory "main.org"))
-;;   (setq org-gcal-file-alist `(("ootsuhiroaki@gmail.com" . ,~org-gcal-main-schedule-file)))
-;;   (setq cfw:org-capture-template `("c"
-;;                                    "calfw2org"
-;;                                    entry
-;;                                    (file ,~org-gcal-main-schedule-file)
-;;                                    "*  %?\n %(cfw:org-capture-day)")))
+(bundle org-gcal)
+(use-package org-gcal
+  :defer t
+  :after org
+  :init
+  (defvar ~org-gcal-directory (concat user-emacs-directory "org-gcal/"))
+  (defvar ~org-gcal-main-schedule-file (concat ~org-gcal-directory "main.org"))
+  (setq org-gcal-file-alist `(("ootsuhiroaki@gmail.com" . ,~org-gcal-main-schedule-file)))
+  (setq cfw:org-capture-template `("c"
+                                   "calfw2org"
+                                   entry
+                                   (file ,~org-gcal-main-schedule-file)
+                                   "*  %?\n %(cfw:org-capture-day)")))
 
 
 (use-package calfw-org

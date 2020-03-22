@@ -24,9 +24,7 @@
 
 
 (bundle meghanada)
-;;cl-lib.elc failed to define function cl-old-struct-compat-mode
-;; とエラーが出るようになったので一旦コメントアウト
-;; (bundle realgud)
+(bundle realgud)
 (use-package meghanada
   :bind (:map meghanada-mode-map
               ("M-RET" . meghanada-local-variable)

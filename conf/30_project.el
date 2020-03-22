@@ -103,10 +103,10 @@
       (ad-set-arg 1 (format "%s - %s" newname project-root)))))
 
 
-(use-package pophint-config
+(use-package pophint
   :config
-  (pophint-config:set-thing-at-point-function projectile-symbol-at-point)
-  (pophint-config:thing-def-command-with-toggle-effect projectile-ag))
+  (pophint-thing:advice-thing-at-point-function projectile-symbol-at-point)
+  (pophint-thing:defcommand-noadvice projectile-ag))
 
 
 (bundle counsel-projectile)

@@ -118,7 +118,7 @@
 
   (defun ~eww-search-manualy ()
     (interactive)
-    (let ((pophint-config:thing-at-point-effect-enabled nil))
+    (let ((pophint-thing:enable-on-thing-at-point nil))
       (call-interactively '~eww-search)))
   
   (defun ~eww-search (query)
@@ -161,9 +161,9 @@
               ("B" . eww-add-bookmark)
               ("E" . eww-browse-with-external-browser))
 
-  (use-package pophint-config
+  (use-package pophint
     :config
-    (pophint-config:set-thing-at-point-function ~eww-search-initial-input))
+    (pophint-thing:advice-thing-at-point-function ~eww-search-initial-input))
   
   )
 

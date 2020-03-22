@@ -58,7 +58,7 @@
 (bundle mhayashi1120/Emacs-wgrep :name wgrep-helm)
 (bundle wgrep-ag)
 (use-package ag
-  :commands (~ag pophint-config:thing-do-~ag-with-toggle-effect)
+  :commands (~ag pophint-thing:just-~ag)
   
   :config
   (custom-set-variables
@@ -84,7 +84,7 @@
 
 (bundle helm-ag)
 (use-package helm-ag
-  :commands (~helm-ag pophint-config:thing-do-~helm-ag-with-toggle-effect)
+  :commands (~helm-ag pophint-thing:just-~helm-ag)
   
   :init
   (setq helm-ag-insert-at-point 'pophint)

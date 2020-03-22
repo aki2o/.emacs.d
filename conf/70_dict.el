@@ -79,8 +79,8 @@
 
   (bind-key* "M-t" '~dict-search)
 
-  (use-package pophint-config
+  (use-package pophint
     :config
-    (pophint-config:set-thing-at-point-function ~dict-search-initial-input))
+    (pophint-thing:advice-thing-at-point-function ~dict-search-initial-input))
   )
 

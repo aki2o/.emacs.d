@@ -1,24 +1,28 @@
 (bundle pophint)
-(use-package pophint-config
-
+(use-package pophint
+  :custom ((pophint:popup-chars "hjklyuiopnmgfdatre;")
+           (pophint:popup-max-tips 1000)
+           (pophint:switch-direction-p nil)
+           (pophint:select-source-method 'use-popup-char)
+           ;; (pophint:select-source-chars "tregfdbvc")
+           (pophint:switch-source-selectors '(("Quoted"   . "q")
+                                              ("Url/Path" . "u")
+                                              ("Cmt"      . "c")
+                                              ("Line"     . "l")
+                                              ("Sym"      . "s")))
+           (pophint-region:kill-ring-save-p nil)
+           (pophint-mark:yank-immediately-on-marking-p nil)
+           (pophint-isearch:start-on-isearch-exit-p nil)
+           (pophint-yank:relayout-on-start-rangeyank-p nil)
+           (pophint-eww:use-new-tab t)
+           (pophint-w3m:use-new-tab t)
+           (pophint-e2wm:array-quit-immediately t))
+  
   :init
   (custom-set-faces
    '(pophint:tip-face     ((t (:background "HotPink4" :foreground "white" :bold t))))
    '(pophint:match-face   ((t (:background "dark slate gray" :foreground "white"))))
    '(pophint:pos-tip-face ((t (:background "black" :foreground "white")))))
-
-  (setq pophint:popup-chars "hjklyuiopnmgfdatre;")
-  (setq pophint-config:effect-default-activated t)
-  (setq pophint-config:run-defcommand-exhaustively-after-load nil)
-  (setq pophint:popup-max-tips 1000)
-  (setq pophint:switch-direction-p nil)
-  (setq pophint:select-source-method 'use-popup-char)
-  ;; (setq pophint:select-source-chars "tregfdbvc")
-  (setq pophint:switch-source-selectors '(("Quoted"   . "q")
-                                          ("Url/Path" . "u")
-                                          ("Cmt"      . "c")
-                                          ("Line"     . "l")
-                                          ("Sym"      . "s")))
 
   :config
   (defun ~pophint:do-other-windows ()
@@ -37,10 +41,10 @@
               ("M-;"   . pophint:redo)
               ("M-y"   . pophint:do-flexibly-yank)
               ("C-M-y" . pophint:do-rangeyank)
-              ("C-M-h" . pophint-config:backward-region)
-              ("C-M-l" . pophint-config:forward-region)
-              ("H-f"   . pophint-config:kill-region)
-              ("H-d"   . pophint-config:backward-kill-region))
+              ("C-M-h" . pophint-region:backward)
+              ("C-M-l" . pophint-region:forward)
+              ("H-f"   . pophint-region:kill)
+              ("H-d"   . pophint-region:backward-kill))
 
   (define-key dired-mode-map (kbd ";") 'pophint:do-dired-node)
 
@@ -56,22 +60,47 @@
             '(lambda () (local-set-key (kbd ";") 'pophint:do-widget))
             t)
 
-  (pophint-config:set-automatically-when-marking t)
-  (pophint-config:set-yank-immediately-when-marking nil)
-  (pophint-config:set-automatically-when-isearch nil)
-  (pophint-config:set-do-when-other-window t)
-  (pophint-config:set-relayout-when-rangeyank-start nil)
-  (pophint-config:set-eww-use-new-tab t)
-  (pophint-config:set-w3m-use-new-tab t)
-  (pophint-config:set-goto-immediately-when-e2wm-array t)
-  (pophint-config:set-automatically-when-e2wm-array t)
-  (pophint-config:set-kill-region-kill-ring-save nil)
-  ;; (pophint-config:set-mark-direction 'forward)
-  (pophint-config:set-tag-jump-command find-tag)
-  (pophint-config:set-isearch-yank-region-command isearch-yank-line)
-  (pophint-config:set-isearch-yank-region-command migemo-isearch-yank-line)
+  (pophint-tags:advice-command find-tag)
+  (pophint-isearch:replace-to-yank-region isearch-yank-line)
+  (pophint-isearch:replace-to-yank-region migemo-isearch-yank-line)
 
-  
+  (with-eval-after-load 'ag
+    (pophint-thing:advice-thing-at-point-function ag/dwim-at-point)
+    (pophint-thing:defcommand-noadvice ~ag))
+
+  (with-eval-after-load 'helm-ag
+    (pophint-thing:advice-thing-at-point-function helm-ag--insert-thing-at-point)
+    (pophint-thing:defcommand-noadvice ~helm-ag))
+
+  (with-eval-after-load 'counsel
+    (pophint-thing:advice-thing-at-point-function ~counsel-initial-input))
+
+  (with-eval-after-load 'e2wm
+    (e2wm:add-keymap
+     e2wm:pst-minor-mode-keymap
+     '(("prefix ;" . pophint:do-situationally-e2wm)
+       ("M-;"      . pophint:do-situationally-e2wm)
+       ) e2wm:prefix-key)
+
+    ;; 11_e2wm.elでカスタマイズしたので変更
+    (pophint:defsource
+      :name "e2wm-history2"
+      :description "Entry in history list2 plugin of e2wm."
+      :source '((dedicated . e2wm)
+                (regexp . "^... +\\([^ ]+\\)")
+                (requires . 1)
+                (highlight . nil)
+                (activebufferp . (lambda (b)
+                                   (and (e2wm:managed-p)
+                                        (eq (buffer-local-value 'major-mode b)
+                                            'e2wm:def-plugin-history-list2-mode))))
+                (action . (lambda (hint)
+                            (select-window (pophint:hint-window hint))
+                            (goto-char (pophint:hint-startpt hint))
+                            (e2wm:def-plugin-history-list2-select-command)
+                            (e2wm:pst-window-select-main))))))
+
+
   ;; For p-r
 
   (defun popup-delete (popup)
@@ -90,56 +119,4 @@
               (if (and (char-before)
                        (= (char-before) ?\n))
                   (delete-char -1)))))))
-    nil)
-
-  )
-
-
-(use-package ag
-  :defer t
-  :config
-  (pophint-config:set-thing-at-point-function ag/dwim-at-point)
-  (pophint-config:thing-def-command-with-toggle-effect ~ag))
-
-
-(use-package helm-ag
-  :defer t
-  :config
-  (pophint-config:set-thing-at-point-function helm-ag--insert-thing-at-point)
-  (pophint-config:thing-def-command-with-toggle-effect ~helm-ag))
-
-
-(use-package counsel
-  :defer t
-  :config
-  (pophint-config:set-thing-at-point-function ~counsel-initial-input))
-
-
-(use-package e2wm
-  :defer t
-  :config
-  (e2wm:add-keymap
-   e2wm:pst-minor-mode-keymap
-   '(("prefix ;" . pophint:do-situationally-e2wm)
-     ("M-;"      . pophint:do-situationally-e2wm)
-     ) e2wm:prefix-key)
-
-  ;; 11_e2wm.elでカスタマイズしたので変更
-  (pophint:defsource
-    :name "e2wm-history2"
-    :description "Entry in history list2 plugin of e2wm."
-    :source '((dedicated . e2wm)
-              (regexp . "^... +\\([^ ]+\\)")
-              (requires . 1)
-              (highlight . nil)
-              (activebufferp . (lambda (b)
-                                 (and (e2wm:managed-p)
-                                      (eq (buffer-local-value 'major-mode b)
-                                          'e2wm:def-plugin-history-list2-mode))))
-              (action . (lambda (hint)
-                          (select-window (pophint:hint-window hint))
-                          (goto-char (pophint:hint-startpt hint))
-                          (e2wm:def-plugin-history-list2-select-command)
-                          (e2wm:pst-window-select-main)))))
-  )
-
+    nil))

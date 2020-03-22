@@ -9,7 +9,7 @@
   (owdriver-add-keymap "M-l" 'owdriver-do-scroll-left)
 
   
-  (use-package pophint-config
+  (use-package pophint
     :defer t
     :init
     (owdriver-define-command pophint:do-flexibly t)

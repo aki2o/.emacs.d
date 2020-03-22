@@ -64,10 +64,10 @@
                              ("C-p" . (lambda ()
                                         (outline-previous-visible-heading 1))))))
 
-  (use-package pophint-config
+  (use-package pophint
     :defer t
     :config
-    (pophint-config:set-tag-jump-command org-open-at-point))
+    (pophint-tags:advice-command org-open-at-point))
 
   )
 

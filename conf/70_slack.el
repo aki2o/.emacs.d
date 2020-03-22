@@ -122,13 +122,13 @@
     (direx-slack-room--log-enable-logging)
     (direx-slack-room:set-update-room-automatically t))
 
-  (use-package pophint-config
+  (use-package pophint
     :config
     ;; slack.elがフリーズするのでrun-with-idle-timerを使うようにしておく
     (pophint:defsource :name "direx-node"
                        :description "Node on DireX."
                        :source '((shown . "Node")
-                                 (regexp . pophint-config:direx-node-regexp)
+                                 (regexp . pophint-direx:node-regexp)
                                  (requires . 1)
                                  (highlight . nil)
                                  (dedicated . (e2wm))

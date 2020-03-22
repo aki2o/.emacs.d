@@ -79,9 +79,9 @@ _q_: exit
 
   (use-package realgud)
   
-  (use-package pophint-config
+  (use-package pophint
     :config
-    (pophint-config:set-tag-jump-command meghanada-jump-declaration))
+    (pophint-tags:advice-command meghanada-jump-declaration))
   
   )
 

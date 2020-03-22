@@ -1,6 +1,7 @@
 (unbind-key "M-m")
 (setq e2wm:prefix-key "M-m ")
 
+(bundle pophint)
 (bundle e2wm :depends (deferred))
 (bundle e2wm-sww)
 (use-package e2wm

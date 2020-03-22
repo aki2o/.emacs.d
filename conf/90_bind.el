@@ -179,9 +179,9 @@ _r_: rgrep _h_: git grep by helm
 (defhydra ~hydra-ag (:exit t :idle ~hydra-help-delay)
   "ag"
   ("a" ~ag "normal")
-  ("A" pophint-config:thing-do-~ag-with-toggle-effect "normal without hint")
+  ("A" pophint-thing:just-~ag "normal without hint")
   ("h" ~helm-ag "by helm")
-  ("H" pophint-config:thing-do-~helm-ag-with-toggle-effect "by helm without hint")
+  ("H" pophint-thing:just-~helm-ag "by helm without hint")
   ("c" ~counsel-ag "by counsel"))
 
 (defhydra ~hydra-rg (:exit t :idle ~hydra-help-delay)

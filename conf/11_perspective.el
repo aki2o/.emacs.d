@@ -1,5 +1,5 @@
 (bundle persp-mode)
-(bundle aki2o/e2wm-perspb)
+(bundle aki2o/e2wm-perspb :depends (deferred))
 (use-package persp-mode
   :bind* (("C-b" . persp-switch-to-buffer))
   

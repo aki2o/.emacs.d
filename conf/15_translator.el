@@ -54,9 +54,9 @@
 
   (require 'google-translate-default-ui)
 
-  (use-package pophint-config
+  (use-package pophint
     :config
-    (pophint-config:set-thing-at-point-function ~google-translate-thing-at-point))
+    (pophint-thing:advice-thing-at-point-function ~google-translate-thing-at-point))
   
   )
 

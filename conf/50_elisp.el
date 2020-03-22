@@ -68,8 +68,8 @@
   )
 
 
-(use-package pophint-config
+(use-package pophint
   :defer t
   :config
-  (pophint-config:set-tag-jump-command ~find-tag-elisp))
+  (pophint-tags:advice-command ~find-tag-elisp))
 

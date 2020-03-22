@@ -45,10 +45,10 @@
 ;;   (setq tss-implement-definition-key "C-c i")
 ;;   (tss-config-default)
 
-;;   (use-package pophint-config
+;;   (use-package pophint
 ;;     :defer t
 ;;     :config
-;;     (pophint-config:set-tag-jump-command tss-jump-to-definition)))
+;;     (pophint-tags:advice-command tss-jump-to-definition)))
 
 
 (bundle web-mode)

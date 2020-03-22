@@ -98,10 +98,10 @@
   ;;   :config
   ;;   (tern-ac-setup))
   
-  (use-package pophint-config
+  (use-package pophint
     :defer t
     :config
-    (pophint-config:set-tag-jump-command tern-find-definition))
+    (pophint-tags:advice-command tern-find-definition))
 
   )
 

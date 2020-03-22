@@ -94,10 +94,10 @@
     ;; (setq plsense-plcmp-candidate-foreground-color nil)
     (plsense-config-default)
     
-    (use-package pophint-config
+    (use-package pophint
       :defer t
       :config
-      (pophint-config:set-tag-jump-command plsense-jump-to-definition)))
+      (pophint-tags:advice-command plsense-jump-to-definition)))
   
   (use-package plsense-direx
     :functions (cperl-mode)

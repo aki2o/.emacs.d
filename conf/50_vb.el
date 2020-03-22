@@ -35,10 +35,10 @@
              (vbasense-load-project)))
     (vbasense-config-default))
   
-  (use-package pophint-config
+  (use-package pophint
     :defer t
     :config
-    (pophint-config:set-tag-jump-command vbasense-jump-to-definition))
+    (pophint-tags:advice-command vbasense-jump-to-definition))
 
   )
 

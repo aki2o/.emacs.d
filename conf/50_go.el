@@ -24,9 +24,9 @@
   (define-key go-mode-map (kbd "C-'") '~godoc)
   (define-key go-mode-map (kbd "C->") 'godef-jump-other-window)
 
-  (use-package pophint-config
+  (use-package pophint
     :config
-    (pophint-config:set-tag-jump-command godef-jump-other-window :point-arg-index 0))
+    (pophint-tags:advice-command godef-jump-other-window :point-arg-index 0))
 
   (use-package color-moccur
     :init

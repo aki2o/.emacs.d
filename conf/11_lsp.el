@@ -1,5 +1,4 @@
 (bundle lsp-mode)
-;; (bundle spinner)
 (use-package lsp-mode
   :custom ((lsp-keymap-prefix "H-l")
            (lsp-inhibit-message t)
@@ -64,4 +63,8 @@
 
 (bundle helm-lsp)
 (use-package helm-lsp
-  :after (lsp-mode helm))
+  :after (lsp-mode helm)
+  :hook (lsp-mode . ~helm-lsp-setup)
+  :config
+  (defun ~helm-lsp-setup ()
+    (local-set-key (kbd "C-M-.") 'helm-lsp-workspace-symbol)))

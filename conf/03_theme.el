@@ -23,6 +23,11 @@
   (~setup-theme))
 
 
+(bundle all-the-icons)
+(use-package all-the-icons
+  :custom (all-the-icons-scale-factor 1.0))
+
+
 (bundle powerline)
 (use-package powerline
 

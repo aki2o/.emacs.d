@@ -19,7 +19,7 @@
   )
 
 
-(bundle lcomp :url "http://www.geocities.co.jp/SiliconValley-Oakland/7673/lisp/lcomp.el")
+(bundle emacswiki:lcomp)
 (use-package lcomp
   :config
   (lcomp-install))

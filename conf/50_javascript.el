@@ -67,7 +67,7 @@
 
 (bundle tern)
 (bundle tern-auto-complete)
-(bundle company-tern)
+(bundle elpa:company-tern)
 (use-package tern
   :commands (tern-mode)
 

@@ -1,5 +1,5 @@
 (bundle go-mode)
-(bundle go-rename)
+(bundle elpa:go-rename)
 (bundle go-eldoc)
 (bundle go-projectile)
 (bundle go-direx)

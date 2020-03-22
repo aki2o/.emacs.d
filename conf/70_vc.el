@@ -20,7 +20,7 @@
 (setenv "GIT_PAGER" "")
 
 
-(bundle magit)
+(bundle magit :depends (ghub))
 (bundle magit-popup)
 (use-package magit
   :defer t

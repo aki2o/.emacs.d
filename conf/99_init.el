@@ -97,18 +97,10 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; フレーム
-;; (setq default-frame-alist
-;;       (append (list
-;;                '(width . 207)
-;;                '(height . 55)
-;;                '(top . 42)
-;;                '(left . 0)
-;;                )
-;;               default-frame-alist))
-(add-to-list 'default-frame-alist '(alpha . (85 . 40))) ;; 透明度
-(add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; スクリーンの最大化
-(add-to-list 'default-frame-alist '(cursor-type . hbar))
-(add-to-list 'default-frame-alist '(cursor-color . "white"))
+(set-frame-parameter (selected-frame) 'alpha '(85 . 40)) ;; 透明度
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(set-frame-parameter (selected-frame) 'cursor-type 'hbar)
+(set-frame-parameter (selected-frame) 'cursor-color "white")
 
 ;; 現在位置のファイルやURLを開く
 ;(ffap-bindings)

@@ -83,6 +83,8 @@
         (kill-buffer buffname))
       (with-current-buffer (lsp-ui-doc--make-buffer-name)
         (setq cursor-type 'hbar)
+        (setq buffer-read-only t)
+        (set-buffer-modified-p nil)
         (rename-buffer buffname)
         (pop-to-buffer (current-buffer)))))
 

@@ -27,7 +27,7 @@
   ;; ドキュメント的に扱いたいバッファ
   (setq ~e2wm:regexp-doc-buff
         (rx-to-string `(and bos "*" (or "Help" "info" "eww" "w3m" "Woman " "Man "
-                                        "perldoc " "plsense help"))))
+                                        "perldoc " "plsense help" "~lsp-ui-doc "))))
   (setq e2wm:c-document-buffer-p
         (lambda (buf)
           (string-match ~e2wm:regexp-doc-buff (buffer-name buf))))

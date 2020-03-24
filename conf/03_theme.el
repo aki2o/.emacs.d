@@ -26,7 +26,9 @@
 (bundle all-the-icons)
 ;; 初期インストール時に (all-the-icons-install-fonts) をやる必要があるっぽい
 (use-package all-the-icons
-  :custom (inhibit-compacting-font-caches t))
+  :custom ((inhibit-compacting-font-caches t)
+           (all-the-icons-scale-factor 1.1)
+           (all-the-icons-default-adjust -0.1)))
 
 
 (bundle doom-modeline)

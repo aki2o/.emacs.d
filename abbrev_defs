@@ -193,6 +193,7 @@
     ("empoyee" "employee" nil 7)
     ("empoyment" "employment" nil 3)
     ("exicse" "excise" nil 2)
+    ("expamples" "examples" nil 2)
     ("fiedls" "fields" nil 1)
     ("fixtrue" "fixture" nil 1)
     ("frist" "first" nil 1)
@@ -247,7 +248,7 @@
     ("talbe" "table" nil 4)
     ("taransaction" "transaction" nil 1)
     ("tiem" "time" nil 1)
-    ("tomoroow" "tomorrow" nil 11)
+    ("tomoroow" "tomorrow" nil 13)
     ("transacito" "transaction" nil 0)
     ("transaciton" "transaction" nil 3)
     ("undersocre" "underscore" nil 10)
@@ -445,9 +446,7 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'sql-mode-abbrev-table '())
 
 (define-abbrev-table 'ssass-mode-abbrev-table '())
 

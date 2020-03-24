@@ -151,7 +151,7 @@
         (anything-show-completion :checksum "4eb19d914ee4f9e716a1f1abf8235d5930e9d539")
         (anything-obsolete :checksum "1c773aab57cdc9d372eeaf214083f5e2e115e139")
         (anything-menu :checksum "1f9cd5f24196cfbdd4146dcfd1ef7427c0c4bc92")
-        (e2wm-perspb :checksum "3db172b2c8aa25b21430e730e464e7f5bf75011c")
+        (e2wm-perspb :checksum "ed26ba0d37350c58395d8bcf83b4af5d18976969")
         (e2wm-term :checksum "74362d6271e736272df32ea807c5a22e4df54a50")
         (e2wm-sww :checksum "1063f9854bd34db5ac771cd1036cecc89834729d")
         (e2wm :checksum "4353d3394c77a49f8f0291c239858c8c5e877549")

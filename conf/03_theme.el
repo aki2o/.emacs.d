@@ -27,13 +27,13 @@
 ;; 初期インストール時に (all-the-icons-install-fonts) をやる必要があるっぽい
 (use-package all-the-icons
   :custom ((inhibit-compacting-font-caches t)
-           (all-the-icons-scale-factor 1.1)
-           (all-the-icons-default-adjust -0.1)))
+           (all-the-icons-scale-factor 1.2)
+           (all-the-icons-default-adjust -0.2)))
 
 
 (bundle doom-modeline)
 (use-package doom-modeline
-  :custom ((doom-modeline-height 10)
+  :custom ((doom-modeline-height 1)
            (doom-modeline-bar-width 3)
            (doom-modeline-project-detection 'projectile)
            (doom-modeline-buffer-file-name-style 'relative-to-project)

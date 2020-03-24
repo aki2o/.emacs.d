@@ -1,10 +1,4 @@
 (bundle go-mode)
-(bundle elpa:go-rename)
-(bundle go-eldoc)
-(bundle go-projectile)
-(bundle go-direx)
-(bundle go-autocomplete)
-(bundle company-go)
 (use-package go-mode
   :custom (gofmt-command "goimports") ; go get golang.org/x/tools/cmd/goimports
   :config
@@ -33,11 +27,6 @@
 
   (use-package lsp-mode
     :hook (go-mode . lsp))
-
-  (use-package go-projectile
-    :config
-
-    (defun go-projectile-set-local-keys ()))
 
   ;; p-r
 

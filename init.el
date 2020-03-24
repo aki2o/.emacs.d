@@ -73,6 +73,6 @@
  '(mozc-leim-title "[あ]")
  '(package-selected-packages
    (quote
-    (company-box go-rename helm-rg rg vue-mode dash-functional git-commit ivy org oauth2 gitignore-mode github-browse-file csv-mode company)))
+    (dap-mode helm-lsp company-box helm-rg rg vue-mode dash-functional git-commit ivy org oauth2 gitignore-mode github-browse-file csv-mode company)))
  '(rspec-use-rake-when-possible nil)
  '(terraform-indent-level 2))

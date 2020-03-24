@@ -97,7 +97,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; フレーム
-(set-frame-parameter (selected-frame) 'alpha '(85 . 85)) ;; 透明度
+(set-frame-parameter (selected-frame) 'alpha '(85 . 60)) ;; 透明度
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (set-frame-parameter (selected-frame) 'cursor-type 'hbar)
 (set-frame-parameter (selected-frame) 'cursor-color "white")

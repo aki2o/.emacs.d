@@ -12,7 +12,7 @@
                           '(default                ((t (:foreground "gray90"))))
                           '(font-lock-comment-face ((t (:foreground "DarkSeaGreen4"))))
                           '(mode-line-buffer-id    ((t (:foreground "gray80" :bold nil))))
-                          '(mode-line              ((t (:foreground "black" :background "DeepSkyBlue4"))))
+                          '(mode-line              ((t (:foreground "powder blue" :background "DeepSkyBlue4"))))
                           '(mode-line-inactive     ((t (:foreground "gray50" :background "gray15"))))
                           '(cursor                 ((t (:background "white")))))
   )
@@ -25,13 +25,25 @@
 
 (bundle all-the-icons)
 (use-package all-the-icons
-  :custom (all-the-icons-scale-factor 1.0))
+  :custom (inhibit-compacting-font-caches t))
 
 
 (bundle doom-modeline)
 (use-package doom-modeline
+  :custom ((doom-modeline-height 10)
+           (doom-modeline-bar-width 3)
+           (doom-modeline-project-detection 'projectile)
+           (doom-modeline-buffer-file-name-style 'relative-to-project)
+           (doom-modeline-vcs-max-length 16)
+           (doom-modeline-buffer-encoding t)
+           (doom-modeline-persp-name nil))
   :init
-  (doom-modeline-mode 1))
+  (doom-modeline-mode 1)
+  :config
+  (custom-set-faces
+   '(doom-modeline-buffer-path ((t (:foreground "light pink" :bold))))
+   '(doom-modeline-buffer-file ((t (:foreground "white"))))
+   '(doom-modeline-buffer-major-mode ((t (:foreground "white" :bold))))))
 
 
 (defface ~minor-mode-special-info
@@ -87,4 +99,3 @@
                      (length (memq (car b) mode-indexes))))))))
 
 (add-hook 'after-change-major-mode-hook '~setup-mode-line)
-

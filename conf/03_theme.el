@@ -44,9 +44,9 @@
   (doom-modeline-mode 1)
   :config
   (custom-set-faces
-   '(doom-modeline-buffer-path ((t (:foreground "light pink" :bold))))
+   '(doom-modeline-buffer-path ((t (:foreground "light pink" :bold t))))
    '(doom-modeline-buffer-file ((t (:foreground "white"))))
-   '(doom-modeline-buffer-major-mode ((t (:foreground "white" :bold))))))
+   '(doom-modeline-buffer-major-mode ((t (:foreground "white" :bold t))))))
 
 
 (defface ~minor-mode-special-info

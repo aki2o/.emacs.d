@@ -266,6 +266,11 @@ Returns a hash table with keys being short names (choices) and values being rela
   )
 
 
+(bundle yard-mode)
+(use-package yard-mode
+  :hook (ruby-mode . yard-mode))
+
+
 (defun ~ruby-rails-show-routes (keyword)
   (interactive
    (list (read-string "Query: ")))

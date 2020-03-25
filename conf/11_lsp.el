@@ -1,6 +1,8 @@
 (bundle lsp-mode)
 (use-package lsp-mode
   :custom ((lsp-keymap-prefix "H-l")
+           (lsp-signature-render-documentation nil)
+           (lsp-signature-auto-activate nil)
            (lsp-inhibit-message t)
            (lsp-message-project-root-warning t)
            (lsp-print-io nil)

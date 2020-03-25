@@ -18,6 +18,7 @@
 (use-package lsp-ui
   :after (lsp-mode)
   :custom ((lsp-ui-sideline-enable nil)
+           (lsp-ui-flycheck-live-reporting nil)
            (lsp-ui-peek-enable nil)
            (lsp-ui-doc-enable t)
            (lsp-ui-doc-delay nil)

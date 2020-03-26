@@ -19,7 +19,7 @@
         (chumpy-windows :checksum "6bdb51e9a346907d60a9625f6180bddd06be6674")
         (dropdown-list :checksum "2948c12cd880e9874057d96c108139afcd63c672")
         (hexrgb :checksum "4df05209b01ef386b2846841ed8652ba4832ad2a")
-        (owdriver :checksum "d934f182bafe29aa16c173440eff3fef08b0ec10")
+        (owdriver :checksum "a243051365eb7ac0d1845c8b468b90510998f66e")
         (smartrep :checksum "f0ff5a6d7b8603603598ae3045c98b011e58d86e")
         (guide-key-tip :checksum "02c5d4b0b65f3e91be5a47f0ff1ae5e86e00c64e")
         (guide-key :checksum "8f8b839f42edd53af13d588254f07727108ae312")

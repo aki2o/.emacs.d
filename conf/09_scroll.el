@@ -12,5 +12,6 @@
   (define-key view-mode-map [remap ~view-scroll-up] 'inertias-up)
   (define-key view-mode-map [remap ~view-scroll-down] 'inertias-down)
 
-  )
-
+  :config
+  ;; undefined function follow-mode とエラーになってしまうので、 require してみてる
+  (require 'follow))

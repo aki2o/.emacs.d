@@ -68,6 +68,7 @@
 
 ;;; Code:
 (eval-when-compile (require 'cl))
+(require 'viassh nil t)
 
 (defgroup docker-run nil
   "Support to execute on docker container."
@@ -132,7 +133,8 @@
         (assoc-default container-name container-id-alist))))
 
 (defun docker-run::call-docker-command (func cmd)
-  (if (not (executable-find "docker"))
+  (if (and (not (executable-find "docker"))
+           (not (viassh-p)))
       (error "Not found 'docker' command. You sure docker has been installed.")
     (funcall func (format "docker %s" cmd))))
 

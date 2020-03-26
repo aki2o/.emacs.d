@@ -23,7 +23,7 @@
   (defun ~ruby-rubocop-apply (&rest path)
     (let ((cmd (format "bundle exec rubocop -a %s" (mapconcat 'shell-quote-argument path " "))))
       (if (~docker-context-p (current-buffer))
-          (viassh (docker-run:exec 'shell-command (format "/bin/bash -l -c '%s'" cmd)))
+          (docker-run:exec-viassh 'shell-command (format "/bin/bash -l -c '%s'" cmd))
         (shell-command cmd))))
 
   (defun ~ruby-rubocop-apply-to-current ()

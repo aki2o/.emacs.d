@@ -152,11 +152,20 @@
     (docker-run::call-docker-command func (format "exec -t %s %s" container cmd))))
 
 ;;;###autoload
+(defun docker-run:exec-viassh (func cmd)
+  (viassh (docker-run:exec func cmd)))
+
+;;;###autoload
 (defun docker-run:configure-current-project ()
   (interactive)
   (let* ((docker-run:project-root (docker-run::project-root-on (current-buffer)))
          (container (docker-run::select-container :use-cache nil)))
     (docker-run::store-project-cache :container container)))
+
+;;;###autoload
+(defun docker-run:configure-current-project-viassh ()
+  (interactive)
+  (viassh (docker-run:configure-current-project)))
 
 
 (provide 'docker-run)

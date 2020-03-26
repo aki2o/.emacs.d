@@ -1,3 +1,21 @@
+;; カラーシーケンスなどの制御コードは除去する
+(defun ~shell-command-output-untext-code (s)
+  (let* ((s (replace-regexp-in-string "\r" "" s))
+         (s (replace-regexp-in-string "\x1B\\[\\([0-9][0-9]?\\(;[0-9][0-9]?\\)?\\)?[m|K]" "" s)))
+    s))
+
+(defadvice shell-command (after ~drop-untext-code activate)
+  (let ((buf (or (ad-get-arg 1) (get-buffer "*Shell Command Output*"))))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (let ((s (~shell-command-output-untext-code (buffer-string))))
+          (erase-buffer)
+          (insert s))))))
+
+(defadvice shell-command-to-string (after ~drop-untext-code activate)
+  (setq ad-return-value (~shell-command-output-without-untext-code ad-return-value)))
+
+
 (bundle readline-complete)
 (bundle company-shell)
 (bundle shell-command)
@@ -152,4 +170,3 @@
                  (setq string (read-shell-command "Shell command: "))
                  (list string)))
   (insert (shell-command-to-string command)))
-

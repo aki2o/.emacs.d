@@ -1,5 +1,5 @@
 ;; カラーシーケンスなどの制御コードは除去する
-(defun ~shell-command-output-untext-code (s)
+(defun ~shell-command-output-without-untext-code (s)
   (let* ((s (replace-regexp-in-string "\r" "" s))
          (s (replace-regexp-in-string "\x1B\\[\\([0-9][0-9]?\\(;[0-9][0-9]?\\)?\\)?[m|K]" "" s)))
     s))
@@ -8,7 +8,7 @@
   (let ((buf (or (ad-get-arg 1) (get-buffer "*Shell Command Output*"))))
     (when (buffer-live-p buf)
       (with-current-buffer buf
-        (let ((s (~shell-command-output-untext-code (buffer-string))))
+        (let ((s (~shell-command-output-without-untext-code (buffer-string))))
           (erase-buffer)
           (insert s))))))
 

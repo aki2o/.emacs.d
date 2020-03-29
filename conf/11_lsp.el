@@ -103,7 +103,7 @@
 (bundle company-lsp)
 (use-package company-lsp
   :after (lsp-mode company)
-  :init (push 'company-lsp company-backends)
+  :init (add-to-list 'company-backends 'company-lsp)
   :custom ((company-lsp-cache-candidates 'auto)
            (company-lsp-async nil)
            (company-lsp-enable-snippet nil) ; lsp-enable-snippet とセットで設定する必要がある

@@ -10,7 +10,8 @@
            (lsp-print-performance nil)
            (lsp-auto-guess-root t)
            (lsp-document-sync-method 'incremental)
-           (lsp-response-timeout 5))
+           (lsp-response-timeout 5)
+           (lsp-enable-snippet nil))
   ;; :hook (lsp-mode . lsp-enable-which-key-integration)
   )
 
@@ -47,7 +48,7 @@
     (local-set-key (kbd "C-M->") 'xref-find-references)
     (local-set-key (kbd "C-'") '~lsp-ui-doc-show)
     (local-set-key (kbd "C-\"") 'lsp-ui-doc-focus-frame)
-    (local-set-key (kbd "C-M-\"") '~lsp-ui-doc-dump-on-my-frame))
+    (local-set-key (kbd "C-M-'") '~lsp-ui-doc-dump-on-my-frame))
 
   (defun ~lsp-ui-doc-frame-setup (frame window)
     (with-selected-window window
@@ -105,8 +106,8 @@
   :init (push 'company-lsp company-backends)
   :custom ((company-lsp-cache-candidates 'auto)
            (company-lsp-async nil)
-           (company-lsp-enable-snippet nil)
-           (company-lsp-enable-recompletion t)))
+           (company-lsp-enable-snippet nil) ; lsp-enable-snippet とセットで設定する必要がある
+           (company-lsp-enable-recompletion nil)))
 
 (bundle helm-lsp)
 (use-package helm-lsp

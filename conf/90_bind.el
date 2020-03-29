@@ -22,7 +22,7 @@
     (:key "C-}"     :cmd end-of-buffer          :jack t)
     (:key "M-i"     :cmd helm-semantic-or-imenu :jack t) ; helm-imenu
     ;; (:key "M-i"     :cmd counsel-imenu          :jack t)
-    (:key "C-M-'"   :cmd helm-all-mark-rings    :jack t)
+    (:key "M->"     :cmd helm-all-mark-rings    :jack t)
     ;; ウィンドウ
     (:key "C-z"   :cmd delete-window        :jack t)
     (:key "C-S-z" :cmd delete-other-windows :jack t)
@@ -577,9 +577,9 @@ _R_: reload
 ;;;;;;;;;;;;;;
 ;; Browsing
 
-(global-unset-key (kbd "M-'"))
+(global-unset-key (kbd "C-M-\""))
 (global-set-key
- (kbd "M-'")
+ (kbd "C-M-\"")
  (defhydra ~hydra-browse (:exit t)
    "browse"
    ("g" ~browse-url "url")

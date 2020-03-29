@@ -1,10 +1,8 @@
 (bundle persp-mode)
-(bundle aki2o/e2wm-perspb :depends (deferred))
 (use-package persp-mode
   :bind* (("C-b" . persp-switch-to-buffer))
   
   :init
-  
   (setq persp-keymap-prefix (kbd "C-M-p"))
   (setq persp-save-dir (expand-file-name ".persp-confs/" user-emacs-directory))
   
@@ -22,18 +20,14 @@
   (persp-mode 1)
 
   :config
-
   ;; パースペクティブ選択で、関係ないhistoryのリストが出てきてウザイので無効にする
-  
   (defun ~persp-interactive-completion-function (prompt collection &optional predicate require-match initial hist default inherit-input-method)
     (let ((empty-list '()))
       (completing-read prompt collection predicate require-match nil 'empty-list default)))
 
   (setq persp-interactive-completion-function '~persp-interactive-completion-function)
 
-  
   ;; Gitで現在のブランチのパースペクティブを自動で用意して切り替えられるようにする
-  
   (defun ~persp-switch-to-current-branch ()
     (interactive)
     (let* ((persp-name (ignore-errors (persp-name (get-current-persp))))
@@ -63,9 +57,7 @@
   
   (add-to-list 'persp-before-deactivate-functions '~persp-save-state t)
 
-
   ;; 全バッファ除去がないっぽいので定義
-  
   (defun ~persp-remove-all-buffers ()
     (interactive)
     (let ((currbuf (current-buffer)))
@@ -76,17 +68,8 @@
   (define-key persp-key-map (kbd "K") '~persp-remove-all-buffers)
   
   
-  (use-package e2wm
-    :defer t
-    :config
-
-    (use-package e2wm-perspb
-      :config
-      (~persp-switch-to-current-branch))
-    (use-package e2wm-perspb-rails)
-    
+  (with-eval-after-load 'e2wm
     ;; パースペクティブに対応したpstに切り替わるようにする
-    
     (defun ~persp-save-e2wm-pst (frame-or-window)
       (let ((persp (case frame-or-window
                      (frame  (get-frame-persp))
@@ -103,48 +86,11 @@
         (when (e2wm:$pst-p pst)
           (e2wm:pst-change (e2wm:$pst-name pst)))))
 
-    (add-to-list 'persp-activated-functions '~persp-load-e2wm-pst t)
-    
-    )
-
+    (add-to-list 'persp-activated-functions '~persp-load-e2wm-pst t))
   
-  (use-package magit
-    :defer t
-    :config
 
-    ;; ブランチを切り替えたタイミングで、パースペクティブも切り替わるようにする
-    
-    (defadvice magit-checkout (after ~persp-switch activate)
-      (ignore-errors (~persp-switch-to-current-branch)))
-    
-    (defadvice magit-branch (after ~persp-switch activate)
-      (ignore-errors (~persp-switch-to-current-branch)))
-
-
-    ;; パースペクティブにブランチで編集したファイルを追加する
-    
-    (defun ~persp-add-git-diff-files (branch)
-      (interactive
-       (list (completing-read "Base: " (magit-list-local-branch-names) nil t nil '())))
-      (loop with root = (projectile-project-root)
-            for f in (split-string (shell-command-to-string (format "git diff --name-only %s" branch)) "\n")
-            for path = (concat root f)
-            if (file-regular-p path)
-            do (progn
-                 (persp-add-buffer (find-file-noselect path))
-                 (message "added perspective entry : %s" f))))
-    
-    (define-key persp-key-map (kbd "i") '~persp-add-git-diff-files)
-    
-    )
-
-
-  (use-package helm-buffers
-    :defer t
-    :config
-
+  (with-eval-after-load 'helm-buffers
     ;; バッファリストにhelmを使う
-    
     (defclass ~persp-helm-source-buffers (helm-source-buffers)
       ((buffer-list
         :initarg :buffer-list
@@ -168,8 +114,37 @@
                           :buffer "*persp buffers*"
                           :keymap helm-buffer-map
                           :truncate-lines t)))
-      (switch-to-buffer buffer-or-name norecord force-same-window))
+      (switch-to-buffer buffer-or-name norecord force-same-window))))
+
+
+(bundle aki2o/e2wm-perspb :depends (deferred))
+(use-package e2wm-perspb
+  :after persp-mode
+  :config
+  (~persp-switch-to-current-branch)
+
+  (with-eval-after-load 'magit
+    ;; ブランチを切り替えたタイミングで、パースペクティブも切り替わるようにする
+    (defadvice magit-checkout (after ~persp-switch activate)
+      (ignore-errors (~persp-switch-to-current-branch)))
     
-    )
-  
-  )
+    (defadvice magit-branch (after ~persp-switch activate)
+      (ignore-errors (~persp-switch-to-current-branch)))
+
+    ;; パースペクティブにブランチで編集したファイルを追加する
+    (defun ~persp-add-git-diff-files (branch)
+      (interactive
+       (list (completing-read "Base: " (magit-list-local-branch-names) nil t nil '())))
+      (loop with root = (projectile-project-root)
+            for f in (split-string (shell-command-to-string (format "git diff --name-only %s" branch)) "\n")
+            for path = (concat root f)
+            if (file-regular-p path)
+            do (progn
+                 (persp-add-buffer (find-file-noselect path))
+                 (message "added perspective entry : %s" f))))
+
+    (define-key persp-key-map (kbd "i") '~persp-add-git-diff-files))
+  (require 'magit nil t))
+
+(use-package e2wm-perspb-rails
+  :after e2wm-perspb)

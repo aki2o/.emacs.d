@@ -99,7 +99,8 @@
            (company-tooltip-limit 20)
            (company-minimum-prefix-length 4)
            (company-selection-wrap-around t)
-           (company-transformers '(company-sort-by-backend-importance)))
+           (company-transformers '(company-sort-by-backend-importance))
+           (completion-ignore-case t))
   
   :init
   (global-company-mode 1)
@@ -138,12 +139,95 @@
   (dolist (mode ~company-prior-modes)
     (let ((hook (intern-soft (format "%s-hook" mode))))
       (when hook
-        (add-hook hook '~company-prior-setup t)))))
+        (add-hook hook '~company-prior-setup t))))
+
+  (add-to-list 'company-backends '~company-words-in-same-mode-buffers t)
+
+  (defun ~company-words-in-same-mode-buffers (command &optional arg &rest ignored)
+    (interactive (list 'interactive))
+    (cl-case command
+      (interactive (company-begin-backend '~company-words-in-same-mode-buffers))
+      (init (~company-update-word-index))
+      (prefix (company-grab-symbol))
+      (candidates (cons :async `(lambda (callback) (funcall callback (~company-word-candidates ,arg ,(point))))))
+      (annotation "W")))
+
+  (defvar ~company-word-index nil)
+  (defun ~company-update-word-index ()
+    (dolist (buffer (buffer-list))
+      (when (not (eq buffer (current-buffer)))
+        (with-current-buffer buffer
+          (unless (local-variable-p '~company-word-index)
+            (make-local-variable '~company-word-index))
+          (if (null ~company-word-index)
+              (setq ~company-word-index (cons nil nil)))
+          (when (and (not (car ~company-word-index))
+                     (< (buffer-size) 1048576))
+            (setq ~company-word-index
+                  (cons t
+                        (split-string (buffer-substring-no-properties (point-min) (point-max))
+                                      "\\(?:^\\|\\_>\\).*?\\(?:\\_<\\|$\\)"))))))))
+
+  (defvar ~company-candidates-limit nil)
+  (defun ~company-word-candidates (prefix point)
+    (cl-loop initially (~company-incremental-update-word-index prefix point)
+             for buffer in (buffer-list)
+             if (and (or (not (integerp ~company-candidates-limit))
+                         (< (length candidates) ~company-candidates-limit))
+                     (derived-mode-p (buffer-local-value 'major-mode buffer)))
+             append (all-completions
+                     prefix
+                     (and (local-variable-p '~company-word-index buffer)
+                          (cdr (buffer-local-value '~company-word-index buffer))))
+             into candidates
+             finally return (delete-dups candidates)))
+
+  (defun ~company-incremental-update-word-index (prefix point)
+    (unless (local-variable-p '~company-word-index)
+      (make-local-variable '~company-word-index))
+    (if (null ~company-word-index)
+        (setq ~company-word-index (cons nil nil)))
+    ;; Mark incomplete
+    (if (car ~company-word-index)
+        (setcar ~company-word-index nil))
+    (let ((index (cdr ~company-word-index))
+          (words (~company-candidate-words-in-buffer
+                  point
+                  prefix
+                  (or (and (integerp ~company-candidates-limit) ~company-candidates-limit) 10))))
+      (dolist (word words)
+        (unless (member word index)
+          (push word index)
+          (setcdr ~company-word-index index)))))
+
+  (defun ~company-candidate-words-in-buffer (point prefix limit)
+    (let ((i 0)
+          candidate
+          candidates
+          (regexp (concat "\\_<" (regexp-quote prefix) "\\(\\sw\\|\\s_\\)+\\_>")))
+      (save-excursion
+        ;; Search backward
+        (goto-char point)
+        (while (and (or (not (integerp limit)) (< i limit))
+                    (re-search-backward regexp nil t))
+          (setq candidate (match-string-no-properties 0))
+          (unless (member candidate candidates)
+            (push candidate candidates)
+            (cl-incf i)))
+        ;; Search backward
+        (goto-char (+ point (length prefix)))
+        (while (and (or (not (integerp limit)) (< i limit))
+                    (re-search-forward regexp nil t))
+          (setq candidate (match-string-no-properties 0))
+          (unless (member candidate candidates)
+            (push candidate candidates)
+            (cl-incf i)))
+        (nreverse candidates)))))
 
 (bundle company-quickhelp)
 (use-package company-quickhelp
   :after (company)
-  :custom ((company-quickhelp-delay 2))
+  :custom ((company-quickhelp-delay 1.5))
   
   :config
   ;; company-quickhelp-mode-map なくなったぽい
@@ -163,7 +247,7 @@
 (use-package company-box
   :after (company all-the-icons)
   :custom ((company-box-icons-alist 'company-box-icons-all-the-icons)
-           (company-box-doc-delay 2)
+           (company-box-doc-delay 1.5)
            (company-box-doc-frame-parameters '((foreground-color . "black")
                                                (internal-border-width . 10))))
   :hook (company-mode . company-box-mode)

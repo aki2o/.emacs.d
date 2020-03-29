@@ -32,7 +32,8 @@
 
 (bundle git-gutter)
 (use-package git-gutter
-  :init
+  :defer t
+  :config
   (custom-set-variables
    '(git-gutter:lighter " GG")
    '(git-gutter:hide-gutter t)
@@ -42,7 +43,6 @@
 (bundle github-browse-file)
 (use-package github-browse-file
   :defer t
-  
   :config
   (setq github-browse-file-show-line-at-point t))
 

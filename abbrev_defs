@@ -39,11 +39,15 @@
 
 (define-abbrev-table 'conf-colon-mode-abbrev-table '())
 
+(define-abbrev-table 'conf-desktop-mode-abbrev-table '())
+
 (define-abbrev-table 'conf-javaprop-mode-abbrev-table '())
 
 (define-abbrev-table 'conf-ppd-mode-abbrev-table '())
 
 (define-abbrev-table 'conf-space-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-toml-mode-abbrev-table '())
 
 (define-abbrev-table 'conf-unix-mode-abbrev-table '())
 
@@ -119,6 +123,12 @@
 
 (define-abbrev-table 'emojify-list-mode-abbrev-table '())
 
+(define-abbrev-table 'epa-info-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-list-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-mode-abbrev-table '())
+
 (define-abbrev-table 'esa-direx:mode-abbrev-table '())
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
@@ -132,6 +142,10 @@
 (define-abbrev-table 'eww-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
+
+(define-abbrev-table 'flycheck-error-message-mode-abbrev-table '())
+
+(define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
@@ -163,6 +177,7 @@
     ("chnage" "change" nil 1)
     ("closuer" "closure" nil 6)
     ("closuers" "closures" nil 1)
+    ("comapny" "company" nil 1)
     ("commnet" "comment" nil 1)
     ("concerte" "concrete" nil 1)
     ("conext" "context" nil 1)
@@ -261,6 +276,8 @@
     ("yeta" "year_end_tax_adjustment" nil 4)
    ))
 
+(define-abbrev-table 'go-dot-mod-mode-abbrev-table '())
+
 (define-abbrev-table 'go-guru-output-mode-abbrev-table '())
 
 (define-abbrev-table 'go-mode-abbrev-table '())
@@ -324,6 +341,18 @@
 (define-abbrev-table 'log-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'log4e-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-browser-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-log-io-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-rust-analyzer-status-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-rust-analyzer-syntax-tree-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-ui-flycheck-list-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-ui-imenu-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-cherry-mode-abbrev-table '())
 

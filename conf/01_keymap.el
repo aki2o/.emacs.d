@@ -21,7 +21,7 @@
 
 (add-hook 'find-file-hook '~keyjack-mode)
 (add-hook 'shell-mode-hook '~keyjack-mode)
-(global-set-key (kbd "<f11>") '~keyjack-mode)
+(global-set-key (kbd "C-x C-j") '~keyjack-mode)
 
 
 (bundle hydra)

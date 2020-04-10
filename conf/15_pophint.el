@@ -10,7 +10,6 @@
                                               ("Cmt"      . "c")
                                               ("Line"     . "l")
                                               ("Sym"      . "s")))
-           (pophint-region:kill-ring-save-p nil)
            (pophint-mark:yank-immediately-on-marking-p nil)
            (pophint-isearch:start-on-isearch-exit-p nil)
            (pophint-yank:relayout-on-start-rangeyank-p nil)
@@ -25,26 +24,25 @@
    '(pophint:pos-tip-face ((t (:background "black" :foreground "white")))))
 
   :config
-  (defun ~pophint:do-other-windows ()
+  (defun ~pophint:forward ()
     (interactive)
-    (let ((currbuf (current-buffer)))
-      (pophint:do :source `((activebufferp . (lambda (b) (not (eql b currbuf))))
-                            ,@pophint--default-source)
-                  :allwindow t)))
+    (pophint:do :direction 'forward))
+
+  (defun ~pophint:backward ()
+    (interactive)
+    (pophint:do :direction 'backward))
   
   (pophint:set-allwindow-command pophint:do-flexibly)
   (pophint:set-allwindow-command pophint:do-rangeyank)
 
-  (bind-keys* ("C-;"   . pophint:do)
-              ("C-:"   . ~pophint:do-other-windows)
-              ("C-M-;" . pophint:do-interactively)
-              ("M-;"   . pophint:redo)
-              ("M-y"   . pophint:do-flexibly-yank)
-              ("C-M-y" . pophint:do-rangeyank)
-              ("C-M-h" . pophint-region:backward)
-              ("C-M-l" . pophint-region:forward)
-              ("H-f"   . pophint-region:kill)
-              ("H-d"   . pophint-region:backward-kill))
+  ;; (bind-keys* ("M-y"   . pophint:do-flexibly-yank)
+  ;;             ("C-M-y" . pophint:do-rangeyank)
+  ;;             ("C-M-h" . pophint-region:backward)
+  ;;             ("C-M-l" . pophint-region:forward)
+  ;;             ("H-f"   . pophint-region:delete)
+  ;;             ("H-d"   . pophint-region:backward-delete))
+  ;;             ("C-H-f" . pophint-region:kill)
+  ;;             ("C-H-d" . pophint-region:backward-kill))
 
   (define-key dired-mode-map (kbd ";") 'pophint:do-dired-node)
 

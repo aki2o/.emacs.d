@@ -2,9 +2,6 @@
   :config
   
   (setq view-read-only t)
-  
-  (bind-keys* ("M-r" . toggle-read-only)
-              ("M-R" . ~view-toggle-next-activate))
 
   (defvar ~view-next-activate nil)
   (defun ~view-toggle-next-activate ()

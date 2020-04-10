@@ -3,8 +3,6 @@
 ;; (setq cua-enable-cua-keys nil) ; C-cやC-vの乗っ取りを阻止
 ;; (setq cua-highlight-region-shift-only nil)
 
-(bind-key* "C-x C-SPC" 'cua-rectangle-mark-mode)
-
 (unbind-key "C-x C-r")
 (bind-keys* ("C-x C-r a" . cua-align-rectangle)
             ("C-x C-r b" . cua-blank-rectangle)

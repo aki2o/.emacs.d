@@ -5,10 +5,7 @@
   (setq owdriver-prefix-key "C-o")
   (owdriver-config-default)
 
-  (owdriver-add-keymap "M-h" 'owdriver-do-scroll-right)
-  (owdriver-add-keymap "M-l" 'owdriver-do-scroll-left)
 
-  
   (use-package pophint
     :defer t
     :init
@@ -33,10 +30,6 @@
     :init
     (owdriver-define-command seq-beginning-of-line t)
     (owdriver-define-command seq-recenter t))
-
-  
-  (use-package inertial-scroll
-    :defer t)
 
   
   (owdriver-mode 1)

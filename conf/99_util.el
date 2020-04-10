@@ -55,6 +55,16 @@
 ;;;;;;;;;;;;;
 ;; Command
 
+;; move
+(defun ~end-of-block ()
+  (interactive)
+  (backward-up-list)
+  (forward-sexp))
+
+(defun ~beginning-of-block ()
+  (interactive)
+  (backward-up-list))
+
 ;; scroll
 (defun ~scroll-left ()
   (interactive)

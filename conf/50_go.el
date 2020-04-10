@@ -8,16 +8,16 @@
   
   (add-hook 'go-mode-hook '~go-setup-mode t)
 
-  (defun ~godoc ()
-    (interactive)
-    (godoc (completing-read "Query: " (go-packages))))
+  ;; (defun ~godoc ()
+  ;;   (interactive)
+  ;;   (godoc (completing-read "Query: " (go-packages))))
   
-  (define-key go-mode-map (kbd "C-'") '~godoc)
-  (define-key go-mode-map (kbd "C->") 'godef-jump-other-window)
+  ;; (define-key go-mode-map (kbd "C-'") '~godoc)
+  ;; (define-key go-mode-map (kbd "C->") 'godef-jump-other-window)
 
-  (use-package pophint
-    :config
-    (pophint-tags:advice-command godef-jump-other-window :point-arg-index 0))
+  ;; (use-package pophint
+  ;;   :config
+  ;;   (pophint-tags:advice-command godef-jump-other-window :point-arg-index 0))
 
   (use-package color-moccur
     :init

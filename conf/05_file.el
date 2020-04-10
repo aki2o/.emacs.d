@@ -49,8 +49,6 @@
                        (concat "/sudo::" file))))
     (find-alternate-file tramp-path)))
 
-(bind-key* "C-x C-S-r" '~revert-buffer-with-sudo)
-
 
 (use-package tramp
   :defer t

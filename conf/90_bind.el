@@ -5,28 +5,37 @@
   `(
     (:key "M-x" :cmd helm-M-x :jack t)
     ;; 移動
-    (:key "C-h"     :cmd backward-char           :jack t)
-    (:key "C-l"     :cmd forward-char            :jack t)
-    (:key "C-S-h"   :cmd backward-word           :jack t)
-    (:key "C-S-l"   :cmd forward-word            :jack t)
-    (:key "M-h"     :cmd backward-sexp           :jack t)
-    (:key "M-l"     :cmd forward-sexp            :jack t)
-    (:key "C-M-h"   :cmd pophint-region:backward :jack t)
-    (:key "C-M-l"   :cmd pophint-region:forward  :jack t)
-    (:key "M-S-h"   :cmd ~scroll-right           :jack t)
-    (:key "M-S-l"   :cmd ~scroll-left            :jack t)
-    (:key "C-j"     :cmd next-line               :jack t)
-    (:key "C-k"     :cmd previous-line           :jack t)
-    (:key "C-S-j"   :cmd inertias-up             :jack t)
-    (:key "C-S-k"   :cmd inertias-down           :jack t)
-    (:key "M-j"     :cmd ~end-of-block           :jack t)
-    (:key "M-k"     :cmd ~beginning-of-block     :jack t)
-    (:key "C-M-j"   :cmd ~pophint:forward        :jack t)
-    (:key "C-M-k"   :cmd ~pophint:backward       :jack t)
-    (:key "C-M-S-j" :cmd end-of-buffer           :jack t)
-    (:key "C-M-S-k" :cmd beginning-of-buffer     :jack t)
-    (:key "M-i"     :cmd helm-semantic-or-imenu  :jack t) ; helm-imenu
-    (:key "M->"     :cmd helm-all-mark-rings     :jack t)
+    (:key "C-h"     :cmd backward-char                      :jack t)
+    (:key "C-l"     :cmd forward-char                       :jack t)
+    (:key "C-S-h"   :cmd backward-word                      :jack t)
+    (:key "C-S-l"   :cmd forward-word                       :jack t)
+    (:key "M-h"     :cmd backward-sexp                      :jack t)
+    (:key "M-l"     :cmd forward-sexp                       :jack t)
+    (:key "C-M-h"   :cmd pophint-region:backward            :jack t)
+    (:key "C-M-l"   :cmd pophint-region:forward             :jack t)
+    (:key "M-S-h"   :cmd ~scroll-right                      :jack t)
+    (:key "M-S-l"   :cmd ~scroll-left                       :jack t)
+    (:key "C-j"     :cmd next-line                          :jack t)
+    (:key "C-k"     :cmd previous-line                      :jack t)
+    (:key "C-S-j"   :cmd inertias-up                        :jack t)
+    (:key "C-S-k"   :cmd inertias-down                      :jack t)
+    (:key "M-j"     :cmd ~end-of-block                      :jack t)
+    (:key "M-k"     :cmd ~beginning-of-block                :jack t)
+    (:key "C-M-j"   :cmd ~pophint:forward                   :jack t)
+    (:key "C-M-k"   :cmd ~pophint:backward                  :jack t)
+    (:key "C-M-S-j" :cmd end-of-buffer                      :jack t)
+    (:key "C-M-S-k" :cmd beginning-of-buffer                :jack t)
+    (:key "M-i"     :cmd helm-semantic-or-imenu             :jack t) ; helm-imenu
+    (:key "C-x j"   :cmd goto-line                          :jack t)
+    (:key "C-,"     :cmd point-undo                         :jack t)
+    (:key "C-."     :cmd point-redo                         :jack t)
+    (:key "M-,"     :cmd goto-last-change                   :jack t)
+    (:key "M-."     :cmd goto-last-change-reverse           :jack t)
+    (:key "C-M-."   :cmd helm-all-mark-rings                :jack t)
+    (:key "C-<"     :cmd xref-pop-marker-stack              :jack t)
+    (:key "C->"     :cmd xref-find-definitions-other-window :jack t)
+    (:key "C-M->"   :cmd xref-find-references               :jack t)
+    (:key "M->"     :cmd helm-lsp-workspace-symbol          :jack t)
     ;; ウィンドウ
     (:key "C-z"   :cmd delete-window                                     :jack t)
     (:key "C-S-z" :cmd delete-other-windows                              :jack t)
@@ -74,9 +83,15 @@
     (:key "C-x i"     :cmd indent-region                  :jack t :kind edit)
     (:key "C-S-SPC"   :cmd ~set-mark-only                 :jack t :kint edit)
     (:key "C-x C-SPC" :cmd cua-rectangle-mark-mode        :jack t :kint edit)
-    ;; 検索
-    (:key "C-S-s" :cmd isearch-backward :jack t)
-    ;; ファイル
+    ;; 検索・参照
+    (:key "C-S-s"  :cmd isearch-backward             :jack t)
+    (:key "C-'"    :cmd ~lsp-ui-doc-show             :jack t)
+    (:key "C-\""   :cmd lsp-ui-doc-focus-frame       :jack t)
+    (:key "C-M-'"  :cmd ~lsp-ui-doc-dump-on-my-frame :jack t)
+    (:key "C-M-\"" :cmd nil)
+    (:key "M-'"    :cmd dash-at-point                :jack t)
+    (:key "M-\""   :cmd dash-at-point-with-docset    :jack t)
+    ;; ファイル・バッファ
     (:key "C-x C-f" :cmd helm-find-files    :jack t)
     (:key "C-x f"   :cmd helm-recentf       :jack t)
     (:key "C-x F"   :cmd find-file-at-point :jack t)
@@ -84,21 +99,15 @@
     ;; (:key "C-x d"   :cmd ffap-list-directory)
     ;; (:key "C-x d"   :cmd dired-at-point)
     ;; (:key "M-f"     :cmd follow-delete-other-windows-and-split)
-    ;; バッファ
     (:key "C-x C-S-f" :cmd revert-buffer            :jack t)
     (:key "C-x C-S-r" :cmd ~revert-buffer-with-sudo :jack t)
     (:key "C-x C-b"   :cmd helm-buffers-list        :jack t)
     (:key "C-x b"     :cmd ~ibuffer-other-window    :jack t)
-    ;; 行ジャンプ
-    (:key "C-x j" :cmd goto-line :jack t)
     ;; マクロ
     (:key "C-("       :cmd kmacro-start-macro        :jack t :kind edit)
     (:key "C-)"       :cmd kmacro-end-macro          :jack t :kind edit)
     (:key "C-0"       :cmd kmacro-end-and-call-macro :jack t :kind edit)
     (:key "C-x C-k s" :cmd ~kmacro-save              :jack t)
-    ;; タグジャンプ
-    (:key "C-<"     :cmd pop-tag-mark)
-    (:key "C->"     :cmd find-tag)
     ;; register
     ;; (:key "M-y" :cmd ~register-paste :jack t)
     ;; エラー移動
@@ -111,8 +120,12 @@
     ))
 
 (dolist (e ~custom-key-plists)
-  (let ((~keyjack-define-with-global-set-key (plist-get e :jack)))
-    (global-set-key (kbd (plist-get e :key)) (plist-get e :cmd))))
+  (let ((~keyjack-define-with-global-set-key (plist-get e :jack))
+        (cmd (plist-get e :cmd))
+        (key (plist-get e :key)))
+    (if cmd
+        (global-set-key (kbd key) cmd)
+      (global-unset-key key))))
 
 
 ;;;;;;;;;;;;;

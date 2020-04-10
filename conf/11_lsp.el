@@ -1,6 +1,6 @@
 (bundle lsp-mode)
 (use-package lsp-mode
-  :custom ((lsp-keymap-prefix "H-l")
+  :custom ((lsp-keymap-prefix "C-x l")
            (lsp-signature-render-documentation nil)
            (lsp-signature-auto-activate nil)
            (lsp-inhibit-message t)
@@ -32,7 +32,6 @@
            (lsp-ui-doc-max-height 50)
            (lsp-ui-imenu-enable nil))
   :hook   ((lsp-mode . lsp-ui-mode)
-           (lsp-ui-mode . ~lsp-ui-mode-setup)
            (lsp-ui-doc-frame . ~lsp-ui-doc-frame-setup))
   :config
   (custom-set-faces
@@ -41,14 +40,6 @@
   (setq lsp-ui-doc-frame-parameters
         (append lsp-ui-doc-frame-parameters '((cursor-type . hbar)
                                               (cursor-color . "white"))))
-
-  (defun ~lsp-ui-mode-setup ()
-    (local-set-key (kbd "C->") 'xref-find-definitions-other-window)
-    (local-set-key (kbd "C-<") 'xref-pop-marker-stack)
-    (local-set-key (kbd "C-M->") 'xref-find-references)
-    (local-set-key (kbd "C-'") '~lsp-ui-doc-show)
-    (local-set-key (kbd "C-\"") 'lsp-ui-doc-focus-frame)
-    (local-set-key (kbd "C-M-'") '~lsp-ui-doc-dump-on-my-frame))
 
   (defun ~lsp-ui-doc-frame-setup (frame window)
     (with-selected-window window
@@ -111,8 +102,5 @@
 
 (bundle helm-lsp)
 (use-package helm-lsp
-  :after (lsp-mode helm)
-  :hook (lsp-mode . ~helm-lsp-setup)
-  :config
-  (defun ~helm-lsp-setup ()
-    (local-set-key (kbd "C-M-.") 'helm-lsp-workspace-symbol)))
+  :command (helm-lsp-workspace-symbol)
+  :after (lsp-mode helm))

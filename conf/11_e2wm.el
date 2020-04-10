@@ -186,8 +186,8 @@
      ("prefix z" . ~e2wm:delete-window)
      ("prefix n" . nil)
      ("prefix p" . nil)
-     ("C-."      . e2wm:pst-history-forward-command) ; 履歴を進む
-     ("C-,"      . e2wm:pst-history-back-command) ; 履歴をもどる
+     ("C-}"      . e2wm:pst-history-forward-command) ; 履歴を進む
+     ("C-{"      . e2wm:pst-history-back-command) ; 履歴をもどる
      ("C-z"      . ~e2wm:delete-window)
      ) e2wm:prefix-key)
 
@@ -245,8 +245,8 @@
      ("prefix M" . e2wm:dp-two-main-maximize-toggle-command)
      ("prefix d" . ~e2wm-transcribe:tree-show-command)
      ("prefix i" . ~e2wm-transcribe:history-toggle-command)
-     ("C-."      . e2wm-perspb:switch-to-down-entry-command)
-     ("C-,"      . e2wm-perspb:switch-to-up-entry-command)
+     ("C-}"      . e2wm-perspb:switch-to-down-entry-command)
+     ("C-{"      . e2wm-perspb:switch-to-up-entry-command)
      ) e2wm:prefix-key)
 
   (defadvice direx:find-item (around ~e2wm-transcribe:close-tree activate)

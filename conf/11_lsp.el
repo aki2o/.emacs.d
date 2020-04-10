@@ -45,7 +45,7 @@
     (with-selected-window window
       (with-selected-frame frame
         (local-set-key (kbd "C-\"") 'lsp-ui-doc-unfocus-frame)
-        (local-set-key (kbd "C-M-\"") '~lsp-ui-doc-dump-on-doc-frome))))
+        (local-set-key (kbd "C-M-\"") '~lsp-ui-doc-dump-on-doc-frame))))
 
   (defun ~lsp-ui-doc-show ()
     (interactive)
@@ -56,7 +56,7 @@
     (interactive)
     (~lsp-ui-doc-dump (selected-frame)))
 
-  (defun ~lsp-ui-doc-dump-on-doc-frome ()
+  (defun ~lsp-ui-doc-dump-on-doc-frame ()
     (interactive)
     (~lsp-ui-doc-dump (frame-parent (selected-frame))))
 

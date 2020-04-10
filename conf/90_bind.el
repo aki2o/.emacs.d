@@ -25,8 +25,9 @@
     (:key "C-M-k"   :cmd ~pophint:backward                  :jack t)
     (:key "C-M-S-j" :cmd end-of-buffer                      :jack t)
     (:key "C-M-S-k" :cmd beginning-of-buffer                :jack t)
-    (:key "M-i"     :cmd helm-semantic-or-imenu             :jack t) ; helm-imenu
-    (:key "C-x j"   :cmd goto-line                          :jack t)
+    (:key "C-a"     :cmd seq-beginning-of-line              :jack t)
+    (:key "C-S-a"   :cmd goto-line                          :jack t)
+    (:key "C-S-o"   :cmd other-window                       :jack t)
     (:key "C-,"     :cmd point-undo                         :jack t)
     (:key "C-."     :cmd point-redo                         :jack t)
     (:key "M-,"     :cmd goto-last-change                   :jack t)
@@ -36,33 +37,32 @@
     (:key "C->"     :cmd xref-find-definitions-other-window :jack t)
     (:key "C-M->"   :cmd xref-find-references               :jack t)
     (:key "M->"     :cmd helm-lsp-workspace-symbol          :jack t)
-    ;; ウィンドウ
-    (:key "C-z"   :cmd delete-window                                     :jack t)
-    (:key "C-S-z" :cmd delete-other-windows                              :jack t)
-    (:key "C-S-o" :cmd other-window                                      :jack t)
-    (:key "C-p"   :cmd recenter                                          :jack t)
+    (:key "M-b"     :cmd next-error                         :jack t)
+    (:key "M-S-b"   :cmd previous-error                     :jack t)
+    ;; 表示
+    (:key "C-p"   :cmd seq-recenter                             :jack t)
+    (:key "C-z"   :cmd delete-window                            :jack t)
+    (:key "C-S-z" :cmd delete-other-windows                     :jack t)
+    (:key "H-h"   :cmd owdriver-do-scroll-right                 :jack t)
+    (:key "H-j"   :cmd owdriver-do-inertias-up                  :jack t)
+    (:key "H-k"   :cmd owdriver-do-inertias-down                :jack t)
+    (:key "H-l"   :cmd owdriver-do-scroll-left                  :jack t)
+    (:key "H-M-h" :cmd owdriver-do-scroll-right-on-next-window  :jack t)
+    (:key "H-M-j" :cmd owdriver-do-inertias-up-on-next-window   :jack t)
+    (:key "H-M-k" :cmd owdriver-do-inertias-down-on-next-window :jack t)
+    (:key "H-M-l" :cmd owdriver-do-scroll-left-on-next-window   :jack t)
     (:key "C-|"   :cmd ~split-window-horizontally-and-select)
     (:key "C--"   :cmd ~split-window-vertically-and-select)
-    (:key "H-h"   :cmd owdriver-do-scroll-right                          :jack t)
-    (:key "H-j"   :cmd owdriver-do-inertias-up                           :jack t)
-    (:key "H-k"   :cmd owdriver-do-inertias-down                         :jack t)
-    (:key "H-l"   :cmd owdriver-do-scroll-left                           :jack t)
-    (:key "H-i"   :cmd owdriver-do-helm-semantic-or-imenu                :jack t)
-    (:key "H-M-h" :cmd owdriver-do-scroll-right-on-next-window           :jack t)
-    (:key "H-M-j" :cmd owdriver-do-inertias-up-on-next-window            :jack t)
-    (:key "H-M-k" :cmd owdriver-do-inertias-down-on-next-window          :jack t)
-    (:key "H-M-l" :cmd owdriver-do-scroll-left-on-next-window            :jack t)
-    (:key "H-M-i" :cmd owdriver-do-helm-semantic-or-imenu-on-next-window :jack t)
     ;; 編集
     (:key "C-S-m"     :cmd ~next-line-with-insert         :jack t :kind edit)
     (:key "C-d"       :cmd backward-delete-char-untabify  :jack t :kind edit)
     (:key "C-f"       :cmd delete-char                    :jack t :kind edit)
     (:key "C-S-d"     :cmd ~backward-kill-line            :jack t :kind edit)
     (:key "C-S-f"     :cmd kill-line                      :jack t :kind edit)
-    (:key "M-d"       :cmd pophint-region:backward-delete :jack t :kind edit)
-    (:key "M-f"       :cmd pophint-region:delete          :jack t :kind edit)
-    (:key "C-M-d"     :cmd pophint-region:backward-kill   :jack t :kind edit)
-    (:key "C-M-f"     :cmd pophint-region:kill            :jack t :kind edit)
+    (:key "H-d"       :cmd pophint-region:backward-delete :jack t :kind edit)
+    (:key "H-f"       :cmd pophint-region:delete          :jack t :kind edit)
+    (:key "H-M-d"     :cmd pophint-region:backward-kill   :jack t :kind edit)
+    (:key "H-M-f"     :cmd pophint-region:kill            :jack t :kind edit)
     (:key "C-w"       :cmd kill-ring-save                 :jack t :kind edit)
     (:key "C-S-w"     :cmd kill-region                    :jack t :kind edit)
     (:key "C-S-y"     :cmd helm-show-kill-ring            :jack t :kind edit)
@@ -75,8 +75,8 @@
     (:key "C-M-r"     :cmd ~view-toggle-next-activate     :jack t :kind edit)
     (:key "C-S-g"     :cmd keyboard-escape-quit           :jack t :kind edit) ; C-gの弱い版
     (:key "M-g"       :cmd abort-recursive-edit           :jack t :kind edit)
-    (:key "C-v"       :cmd comment-dwim                   :jack t :kind edit)
-    (:key "C-S-v"     :cmd comment-box                    :jack t :kind edit)
+    (:key "C-'"       :cmd comment-dwim                   :jack t :kind edit)
+    (:key "C-\""      :cmd comment-box                    :jack t :kind edit)
     (:key "C-n"       :cmd align                          :jack t :kind edit)
     (:key "C-S-n"     :cmd align-regexp                   :jack t :kind edit)
     (:key "C-S-i"     :cmd toggle-input-method            :jack t :kind edit)
@@ -84,13 +84,22 @@
     (:key "C-S-SPC"   :cmd ~set-mark-only                 :jack t :kint edit)
     (:key "C-x C-SPC" :cmd cua-rectangle-mark-mode        :jack t :kint edit)
     ;; 検索・参照
-    (:key "C-S-s"  :cmd isearch-backward             :jack t)
-    (:key "C-'"    :cmd ~lsp-ui-doc-show             :jack t)
-    (:key "C-\""   :cmd lsp-ui-doc-focus-frame       :jack t)
-    (:key "C-M-'"  :cmd ~lsp-ui-doc-dump-on-my-frame :jack t)
-    (:key "C-M-\"" :cmd nil)
-    (:key "M-'"    :cmd dash-at-point                :jack t)
-    (:key "M-\""   :cmd dash-at-point-with-docset    :jack t)
+    (:key "C-S-s" :cmd isearch-backward                                  :jack t)
+    (:key "M-i"   :cmd helm-semantic-or-imenu                            :jack t)
+    (:key "H-i"   :cmd owdriver-do-helm-semantic-or-imenu                :jack t)
+    (:key "H-M-i" :cmd owdriver-do-helm-semantic-or-imenu-on-next-window :jack t)
+    (:key "C-;"   :cmd ~lsp-ui-doc-show                                  :jack t)
+    (:key "C-:"   :cmd lsp-ui-doc-focus-frame                            :jack t)
+    (:key "C-M-;" :cmd ~lsp-ui-doc-dump-on-my-frame                      :jack t)
+    (:key "C-M-:" :cmd nil)
+    (:key "M-;"   :cmd dash-at-point                                     :jack t)
+    (:key "M-:"   :cmd dash-at-point-with-docset                         :jack t)
+    (:key "H-M-;" :cmd ~dict-search                                      :jack t)
+    (:key "H-;"   :cmd ~google-translate-dwim                            :jack t)
+    (:key "C-v"   :cmd ~hydra-git/body                                   :jack t)
+    (:key "C-S-v" :cmd ~hydra-git-gutter/body                            :jack t)
+    (:key "C-b"   :cmd nil :jack t) ; タスク管理で使いたい
+    (:key "C-S-b" :cmd nil :jack t) ; タスク管理で使いたい
     ;; ファイル・バッファ
     (:key "C-x C-f" :cmd helm-find-files    :jack t)
     (:key "C-x f"   :cmd helm-recentf       :jack t)
@@ -103,6 +112,7 @@
     (:key "C-x C-S-r" :cmd ~revert-buffer-with-sudo :jack t)
     (:key "C-x C-b"   :cmd helm-buffers-list        :jack t)
     (:key "C-x b"     :cmd ~ibuffer-other-window    :jack t)
+    (:key "C-b"       :cmd persp-switch-to-buffer   :jack t)
     ;; マクロ
     (:key "C-("       :cmd kmacro-start-macro        :jack t :kind edit)
     (:key "C-)"       :cmd kmacro-end-macro          :jack t :kind edit)
@@ -110,9 +120,6 @@
     (:key "C-x C-k s" :cmd ~kmacro-save              :jack t)
     ;; register
     ;; (:key "M-y" :cmd ~register-paste :jack t)
-    ;; エラー移動
-    (:key "C-b"   :cmd next-error     :jack t)
-    (:key "C-S-b" :cmd previous-error :jack t)
     ;; emacsclient
     ;; (:key "C-x C-z" :cmd server-edit :jack t)
     ;; help
@@ -232,9 +239,9 @@ _D_: dmoccur
   ("k" anything-c-moccur-dmoccur)
   ("R" anything-c-moccur-resume))
 
-(global-unset-key (kbd "M-s"))
+(global-unset-key (kbd "H-s"))
 (global-set-key
- (kbd "M-s")
+ (kbd "H-s")
  (defhydra ~hydra-search (:hint nil :exit t :idle ~hydra-help-delay)
    "
 _I_: hydra isearch _i_: by hint
@@ -532,7 +539,7 @@ _z_: cache current file  _V_: browse dirty
 ;; Window Manager
 
 (global-set-key
- (kbd "C-x p")
+ (kbd "H-p")
  (defhydra ~hydra-e2wm (:exit t :idle ~hydra-help-delay)
    "e2wm"
    ("a" e2wm:pst-change-command "select")
@@ -600,10 +607,9 @@ _R_: reload
 ;;;;;;;;;;;;;;
 ;; Browsing
 
-(global-unset-key (kbd "C-M-\""))
 (global-set-key
- (kbd "C-M-\"")
- (defhydra ~hydra-browse (:exit t)
+ (kbd "C-H-M-;")
+ (defhydra ~hydra-browse (:exit t :idle ~hydra-help-delay)
    "browse"
    ("g" ~browse-url "url")
    ("b" ~browse-bookmark "bookmark")
@@ -615,30 +621,42 @@ _R_: reload
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Version Control
 
-(defhydra ~hydra-git-gutter ()
-  "git gutter"
-  ("t" git-gutter:toggle "toggle")
-  ("s" git-gutter:popup-hunk "popup")
-  ("p" git-gutter:previous-hunk "prev hunk")
-  ("n" git-gutter:next-hunk "next hunk")
-  ("S" git-gutter:stage-hunk "stage")
-  ("r" git-gutter:revert-hunk "revert")
+(defhydra ~hydra-git-blame (:pre (when (not magit-blame-mode) (magit-blame))
+                                 :post (when magit-blame-mode (magit-blame-quit))
+                                 :foreign-keys run)
+  "git blame"
+  ("n" magit-blame-next-chunk "next chunk")
+  ("p" magit-blame-previous-chunk "prev chunk")
+  ("N" magit-blame-next-chunk-same-commit "next same commit chunk")
+  ("P" magit-blame-previous-chunk-same-commit "prev same commit chunk")
+  ("o" magit-blame-visit-file "visit file")
+  ("O" magit-blame-visit-other-file "visit other file")
+  ("h" magit-blame-copy-hash "copy commit hash")
+  ("t" magit-blame-cycle-style "cycle style")
   ("q" nil "quit"))
 
-(defhydra ~hydra-browse-github (:exit t)
-  "browse github"
-  ("f" github-browse-file)
-  ("b" github-browse-file-blame))
+(defhydra ~hydra-git (:exit t :idle ~hydra-help-delay)
+  "git"
+  ("d" magit-diff-buffer-file "diff")
+  ("l" magit-log-buffer-file "log")
+  ("L" counsel-git-log "log with counsel")
+  ("a" vc-annotate "annotate")
+  ("b" ~hydra-git-blame/body "blame")
+  ("B" github-browse-file-blame "browse blame")
+  ("o" github-browse-file "browse file"))
 
-(global-unset-key (kbd "M-v"))
-(global-set-key
- (kbd "M-v")
- (defhydra ~hydra-vc (:exit t)
-   "version control"
-   ("m" ~vc-minor-mode "mode")
-   ("g" ~hydra-git-gutter/body "hydra git gutter")
-   ("b" ~hydra-browse-github/body "hydra browse github")
-   ("l" counsel-git-log "log")))
+(defhydra ~hydra-git-gutter (:pre (when (not git-gutter-mode) (git-gutter-mode +1))
+                                  :post (when git-gutter-mode (git-gutter-mode -1))
+                                  :foreign-keys run
+                                  :idle ~hydra-help-delay)
+  "git gutter"
+  ("e" git-gutter "show gutter")
+  ("s" git-gutter:popup-hunk "popup hunk")
+  ("p" git-gutter:previous-hunk "prev hunk")
+  ("n" git-gutter:next-hunk "next hunk")
+  ("S" git-gutter:stage-hunk "stage hunk")
+  ("r" git-gutter:revert-hunk "revert hunk")
+  ("q" nil "quit"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -661,7 +679,7 @@ _R_: reload
 (global-unset-key (kbd "M-b"))
 (global-set-key
  (kbd "M-b")
- (defhydra ~hydra-bts (:exit t)
+ (defhydra ~hydra-bts (:exit t :idle ~hydra-help-delay)
    "bts"
    ("n" bts:ticket-new "new ticket")
    ("s" bts:summary-open "open summary")
@@ -673,7 +691,7 @@ _R_: reload
 ;; Tag
 
 (global-set-key
- (kbd "C-x t")
+ (kbd "H-t")
  (defhydra ~hydra-tag (:exit t :idle ~hydra-help-delay)
    "tag"
    ("t" visit-tags-table "visit")

@@ -1,16 +1,12 @@
 (use-package sdic
-
-  :bind* (("M-t" . ~sdic-smart-describe))
-
+  :commands (~sdic-smart-describe)
   :init
-  
   (setq sdic-window-height 10)
   (setq sdic-disable-select-window t)
   (setq sdic-eiwa-dictionary-list '((sdicf-client (concat user-emacs-directory "sdic/gene.sdic"))))
   (setq sdic-waei-dictionary-list '((sdicf-client (concat user-emacs-directory "sdic/jedict.sdic") (add-keys-to-headword t))))
 
   :config
-  
   (defadvice sdic-display-buffer (around custom-display activate)
     (cond ((featurep 'popwin)
            (funcall display-buffer-function (current-buffer)))
@@ -22,18 +18,13 @@
     (cond ((and transient-mark-mode mark-active)
            (sdic-describe-region (region-beginning) (region-end)))
           (t
-           (sdic-describe-word-at-point))))
-
-  )
+           (sdic-describe-word-at-point)))))
 
 
 (bundle emacswiki:sdic-inline)
 (use-package sdic-inline
-
-  :bind* (("M-t" . ~sdic-inline-smart-display))
-  
+  :commands (~sdic-inline-smart-display)
   :config
-  
   (setq sdic-inline-eiwa-dictionary (concat user-emacs-directory "sdic/gene.sdic"))
   (setq sdic-inline-waei-dictionary (concat user-emacs-directory "sdic/jedict.sdic"))
   ;; (setq sdic-inline-dictionary-encoding 'euc-jp)
@@ -56,9 +47,7 @@
            (~sdic-smart-describe))
           (t
            (setq sdic-inline-not-search-style 't)
-           (sdic-inline-function))))
-  
-  )
+           (sdic-inline-function)))))
 
 
 (bundle emacswiki:sdic-inline-pos-tip)
@@ -76,8 +65,6 @@
   (defun ~dict-search (query)
     (interactive (list (read-string "Enter query: " (~dict-search-initial-input))))
     (browse-url (concat "dict://" query)))
-
-  (bind-key* "M-t" '~dict-search)
 
   (use-package pophint
     :config

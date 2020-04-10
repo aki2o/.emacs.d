@@ -1,11 +1,7 @@
 (bundle sequential-command)
 (bundle emacswiki:sequential-command-config)
 (use-package sequential-command-config
-  :bind* (("C-a" . seq-beginning-of-line)
-          ("C-p" . seq-recenter))
-
   :config
-  
   ;; デフォルト設定はしないで独自に定義
   ;; (sequential-command-setup-keys)
 
@@ -23,7 +19,4 @@
 
   (defun ~move-to-down-of-window ()
     (interactive)
-    (recenter -1))
-
-  )
-
+    (recenter -1)))

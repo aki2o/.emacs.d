@@ -1,9 +1,8 @@
 (bundle persp-mode)
 (use-package persp-mode
-  :bind* (("C-b" . persp-switch-to-buffer))
-  
+  :commands (persp-switch-to-buffer)
   :init
-  (setq persp-keymap-prefix (kbd "C-M-p"))
+  (setq persp-keymap-prefix (kbd "C-x p"))
   (setq persp-save-dir (expand-file-name ".persp-confs/" user-emacs-directory))
   
   (setq persp-switch-to-added-buffer nil) ; バッファ追加時にそのバッファへは切り替えさせない

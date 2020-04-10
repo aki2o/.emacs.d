@@ -125,7 +125,7 @@
         (key (plist-get e :key)))
     (if cmd
         (global-set-key (kbd key) cmd)
-      (global-unset-key key))))
+      (global-unset-key (kbd key)))))
 
 
 ;;;;;;;;;;;;;

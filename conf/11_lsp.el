@@ -102,5 +102,5 @@
 
 (bundle helm-lsp)
 (use-package helm-lsp
-  :command (helm-lsp-workspace-symbol)
+  :commands (helm-lsp-workspace-symbol)
   :after (lsp-mode helm))

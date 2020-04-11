@@ -5,40 +5,40 @@
   `(
     (:key "M-x" :cmd helm-M-x :jack t)
     ;; 移動
-    (:key "C-h"     :cmd backward-char                      :jack t)
-    (:key "C-l"     :cmd forward-char                       :jack t)
-    (:key "C-S-h"   :cmd backward-word                      :jack t)
-    (:key "C-S-l"   :cmd forward-word                       :jack t)
-    (:key "M-h"     :cmd backward-sexp                      :jack t)
-    (:key "M-l"     :cmd forward-sexp                       :jack t)
-    (:key "C-M-h"   :cmd pophint-region:backward            :jack t)
-    (:key "C-M-l"   :cmd pophint-region:forward             :jack t)
-    (:key "M-S-h"   :cmd ~scroll-right                      :jack t)
-    (:key "M-S-l"   :cmd ~scroll-left                       :jack t)
-    (:key "C-j"     :cmd next-line                          :jack t)
-    (:key "C-k"     :cmd previous-line                      :jack t)
-    (:key "C-S-j"   :cmd inertias-up                        :jack t)
-    (:key "C-S-k"   :cmd inertias-down                      :jack t)
-    (:key "M-j"     :cmd ~end-of-block                      :jack t)
-    (:key "M-k"     :cmd ~beginning-of-block                :jack t)
-    (:key "C-M-j"   :cmd ~pophint:forward                   :jack t)
-    (:key "C-M-k"   :cmd ~pophint:backward                  :jack t)
-    (:key "C-M-S-j" :cmd end-of-buffer                      :jack t)
-    (:key "C-M-S-k" :cmd beginning-of-buffer                :jack t)
-    (:key "C-a"     :cmd seq-beginning-of-line              :jack t)
-    (:key "C-S-a"   :cmd goto-line                          :jack t)
-    (:key "C-S-o"   :cmd other-window                       :jack t)
-    (:key "C-,"     :cmd point-undo                         :jack t)
-    (:key "C-."     :cmd point-redo                         :jack t)
-    (:key "M-,"     :cmd goto-last-change                   :jack t)
-    (:key "M-."     :cmd goto-last-change-reverse           :jack t)
-    (:key "C-M-."   :cmd helm-all-mark-rings                :jack t)
-    (:key "C-<"     :cmd xref-pop-marker-stack              :jack t)
-    (:key "C->"     :cmd xref-find-definitions-other-window :jack t)
-    (:key "C-M->"   :cmd xref-find-references               :jack t)
-    (:key "M->"     :cmd helm-lsp-workspace-symbol          :jack t)
-    (:key "M-b"     :cmd next-error                         :jack t)
-    (:key "M-S-b"   :cmd previous-error                     :jack t)
+    (:key "C-h"     :cmd backward-char             :jack t)
+    (:key "C-l"     :cmd forward-char              :jack t)
+    (:key "C-S-h"   :cmd backward-word             :jack t)
+    (:key "C-S-l"   :cmd forward-word              :jack t)
+    (:key "M-h"     :cmd backward-sexp             :jack t)
+    (:key "M-l"     :cmd forward-sexp              :jack t)
+    (:key "C-M-h"   :cmd pophint-region:backward   :jack t)
+    (:key "C-M-l"   :cmd pophint-region:forward    :jack t)
+    (:key "M-S-h"   :cmd ~scroll-right             :jack t)
+    (:key "M-S-l"   :cmd ~scroll-left              :jack t)
+    (:key "C-j"     :cmd next-line                 :jack t)
+    (:key "C-k"     :cmd previous-line             :jack t)
+    (:key "C-S-j"   :cmd inertias-up               :jack t)
+    (:key "C-S-k"   :cmd inertias-down             :jack t)
+    (:key "M-j"     :cmd ~end-of-block             :jack t)
+    (:key "M-k"     :cmd ~beginning-of-block       :jack t)
+    (:key "C-M-j"   :cmd ~pophint:forward          :jack t)
+    (:key "C-M-k"   :cmd ~pophint:backward         :jack t)
+    (:key "C-M-S-j" :cmd end-of-buffer             :jack t)
+    (:key "C-M-S-k" :cmd beginning-of-buffer       :jack t)
+    (:key "C-a"     :cmd seq-beginning-of-line     :jack t)
+    (:key "C-S-a"   :cmd goto-line                 :jack t)
+    (:key "C-S-o"   :cmd other-window              :jack t)
+    (:key "C-,"     :cmd point-undo                :jack t)
+    (:key "C-."     :cmd point-redo                :jack t)
+    (:key "M-,"     :cmd goto-last-change          :jack t)
+    (:key "M-."     :cmd goto-last-change-reverse  :jack t)
+    (:key "C-M-."   :cmd helm-all-mark-rings       :jack t)
+    (:key "C-<"     :cmd ~pop-marker-stack         :jack t)
+    (:key "C->"     :cmd ~find-definition          :jack t)
+    (:key "C-M->"   :cmd ~find-references          :jack t)
+    (:key "M->"     :cmd helm-lsp-workspace-symbol :jack t)
+    (:key "M-b"     :cmd next-error                :jack t)
+    (:key "M-S-b"   :cmd previous-error            :jack t)
     ;; 表示
     (:key "C-p"   :cmd seq-recenter                             :jack t)
     (:key "C-z"   :cmd delete-window                            :jack t)
@@ -88,9 +88,9 @@
     (:key "M-i"   :cmd helm-semantic-or-imenu                            :jack t)
     (:key "H-i"   :cmd owdriver-do-helm-semantic-or-imenu                :jack t)
     (:key "H-M-i" :cmd owdriver-do-helm-semantic-or-imenu-on-next-window :jack t)
-    (:key "C-;"   :cmd ~lsp-ui-doc-show                                  :jack t)
-    (:key "C-:"   :cmd lsp-ui-doc-focus-frame                            :jack t)
-    (:key "C-M-;" :cmd ~lsp-ui-doc-dump-on-my-frame                      :jack t)
+    (:key "C-;"   :cmd ~popup-document-frame                             :jack t)
+    (:key "C-:"   :cmd ~focus-document-frame                             :jack t)
+    (:key "C-M-;" :cmd ~popup-document-buffer                            :jack t)
     (:key "C-M-:" :cmd nil)
     (:key "M-;"   :cmd dash-at-point                                     :jack t)
     (:key "M-:"   :cmd dash-at-point-with-docset                         :jack t)
@@ -563,9 +563,9 @@ _z_: cache current file  _V_: browse dirty
  (kbd "C-x x")
  (defhydra ~hydra-shell (:exit t :hint nil :idle ~hydra-help-delay)
    "
-_x_: run                   _c_: compile     _s_: open shell buffer
-_a_: async                 _I_: interpret
-_p_: with region           _b_: background
+_x_: run                    _c_: compile      _s_: open shell buffer
+_a_: async                  _I_: interpret
+_p_: with region            _b_: background
 _l_: each of region lines
 _r_: replace region
 _i_: insert result
@@ -589,9 +589,9 @@ _i_: insert result
  (kbd "C-x y")
  (defhydra ~hydra-snippet (:exit t :hint nil :idle ~hydra-help-delay)
    "
-_f_: find    _r_: regist oneshot              _t_: on/off
-_i_: insert  _e_: expand oneshot
-_n_: create  _E_: expand oneshot with region
+_f_: find     _r_: regist oneshot               _t_: on/off
+_i_: insert   _e_: expand oneshot
+_n_: create   _E_: expand oneshot with region
 _R_: reload
 "
    ("f" yas-visit-snippet-file)
@@ -603,6 +603,30 @@ _R_: reload
    ("E" ~yas-expand-oneshot-snippet-with-region)
    ("t" yas-minor-mode)))
 
+
+;;;;;;;;;;;;;
+;; Outline
+
+(global-set-key
+ (kbd "M-o")
+ (defhydra ~hydra-outline (:hint nil :idle ~hydra-help-delay)
+   "
+^Toggle^                      ^Move^
+^^^^----------------------------------------------
+_s_: cycle headings           _h_: go to parent
+_f_: cycle current headings   _j_: go to next
+_c_: narrow current heading   _k_: go to prev
+_a_: show all                 _l_: go to child
+"
+   ("s" seq-outline-headings)
+   ("f" seq-outline-current-headings)
+   ("c" ~outline-narrow-current-heading)
+   ("a" outline-show-all)
+   ("h" outline-up-heading)
+   ("j" outline-forward-same-level)
+   ("k" outline-backward-same-level)
+   ("l" outline-next-visible-heading)
+   ("q" nil "quit")))
 
 ;;;;;;;;;;;;;;
 ;; Browsing
@@ -625,10 +649,10 @@ _R_: reload
                                  :post (when magit-blame-mode (magit-blame-quit))
                                  :foreign-keys run)
   "git blame"
-  ("n" magit-blame-next-chunk "next chunk")
-  ("p" magit-blame-previous-chunk "prev chunk")
-  ("N" magit-blame-next-chunk-same-commit "next same commit chunk")
-  ("P" magit-blame-previous-chunk-same-commit "prev same commit chunk")
+  ("j" magit-blame-next-chunk "next chunk")
+  ("k" magit-blame-previous-chunk "prev chunk")
+  ("J" magit-blame-next-chunk-same-commit "next same commit chunk")
+  ("K" magit-blame-previous-chunk-same-commit "prev same commit chunk")
   ("o" magit-blame-visit-file "visit file")
   ("O" magit-blame-visit-other-file "visit other file")
   ("h" magit-blame-copy-hash "copy commit hash")
@@ -651,10 +675,10 @@ _R_: reload
                                   :idle ~hydra-help-delay)
   "git gutter"
   ("e" git-gutter "show gutter")
-  ("s" git-gutter:popup-hunk "popup hunk")
-  ("p" git-gutter:previous-hunk "prev hunk")
-  ("n" git-gutter:next-hunk "next hunk")
-  ("S" git-gutter:stage-hunk "stage hunk")
+  ("j" git-gutter:next-hunk "next hunk")
+  ("k" git-gutter:previous-hunk "prev hunk")
+  ("p" git-gutter:popup-hunk "popup hunk")
+  ("s" git-gutter:stage-hunk "stage hunk")
   ("r" git-gutter:revert-hunk "revert hunk")
   ("q" nil "quit"))
 

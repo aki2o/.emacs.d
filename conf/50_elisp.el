@@ -2,24 +2,12 @@
 
 (add-hook 'emacs-lisp-mode-hook '~emacs-lisp-mode-setup t)
 (defun ~emacs-lisp-mode-setup ()
+  (setq ~find-definition-function '~find-tag-elisp)
+  (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help)
   ;; flycheck
   (~disable-flycheck-in-emacs-conf-file-buffer)
   ;; color-moccur
   (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode)))
-
-(defun ~disable-flycheck-in-emacs-conf-file-buffer ()
-  (let ((confdir (expand-file-name (concat user-emacs-directory "conf")))
-        (bufpath (buffer-file-name)))
-    (when (and bufpath
-               (>= (length bufpath) (length confdir))
-               (string= (substring bufpath 0 (length confdir))
-                        confdir)
-               (functionp 'flycheck-mode))
-      (flycheck-mode 0))))
-
-(bind-keys :map emacs-lisp-mode-map
-           ("C->" . ~find-tag-elisp)
-           ("C-'" . ~popup-tip-elisp-symbol-help))
 
 (defun ~find-tag-elisp ()
   (interactive)
@@ -33,14 +21,23 @@
 
 (defun ~popup-tip-elisp-symbol-help ()
   (interactive)
-  (when (featurep 'pos-tip)
-    (let* ((sym (symbol-at-point))
-           (doc (ignore-errors
-                  (or (describe-function-1 sym)
-                      (documentation-property sym 'variable-documentation)))))
-      (when (not doc)
-        (setq doc "** Can't specify symbol at point for popup help! **"))
-      (pos-tip-show doc))))
+  (let* ((sym (symbol-at-point))
+         (doc (ignore-errors
+                (or (describe-function-1 sym)
+                    (documentation-property sym 'variable-documentation)))))
+    (when (not doc)
+      (setq doc "** Can't specify symbol at point for popup help! **"))
+    (pos-tip-show doc)))
+
+(defun ~disable-flycheck-in-emacs-conf-file-buffer ()
+  (let ((confdir (expand-file-name (concat user-emacs-directory "conf")))
+        (bufpath (buffer-file-name)))
+    (when (and bufpath
+               (>= (length bufpath) (length confdir))
+               (string= (substring bufpath 0 (length confdir))
+                        confdir)
+               (functionp 'flycheck-mode))
+      (flycheck-mode 0))))
 
 
 (bundle eldoc-extension)
@@ -68,8 +65,5 @@
   )
 
 
-(use-package pophint
-  :defer t
-  :config
+(with-eval-after-load 'pophint
   (pophint-tags:advice-command ~find-tag-elisp))
-

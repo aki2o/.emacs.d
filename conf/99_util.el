@@ -65,6 +65,52 @@
   (interactive)
   (backward-up-list))
 
+(defvar ~find-definition-function 'xref-find-definitions-other-window)
+(make-variable-buffer-local '~find-definition-function)
+
+(with-eval-after-load 'pophint
+  (pophint-tags:advice-command xref-find-definitions-other-window))
+
+(defun ~find-definition ()
+  (interactive)
+  (call-interactively ~find-definition-function))
+
+(defvar ~find-references-function 'xref-find-references)
+(make-variable-buffer-local '~find-references-function)
+
+(defun ~find-references ()
+  (interactive)
+  (call-interactively ~find-references-function))
+
+(defvar ~pop-marker-stack-function 'xref-pop-marker-stack)
+(make-variable-buffer-local '~pop-marker-stack-function)
+
+(defun ~pop-marker-stack ()
+  (interactive)
+  (call-interactively ~pop-marker-stack-function))
+
+;; reference
+(defvar ~popup-document-frame-function '~lsp-ui-doc-show)
+(make-variable-buffer-local '~popup-document-frame-function)
+
+(defun ~popup-document-frame ()
+  (interactive)
+  (call-interactively ~popup-document-frame-function))
+
+(defvar ~popup-document-buffer-function '~lsp-ui-doc-dump-on-my-frame)
+(make-variable-buffer-local '~popup-document-buffer-function)
+
+(defun ~popup-document-buffer ()
+  (interactive)
+  (call-interactively ~popup-document-buffer-function))
+
+(defvar ~focus-document-frame-function 'lsp-ui-doc-focus-frame)
+(make-variable-buffer-local '~focus-document-frame-function)
+
+(defun ~focus-document-frame ()
+  (interactive)
+  (call-interactively ~focus-document-frame-function))
+
 ;; scroll
 (defun ~scroll-left ()
   (interactive)

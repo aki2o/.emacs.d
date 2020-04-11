@@ -669,7 +669,7 @@ _a_: show all                 _l_: go to child
   ("B" github-browse-file-blame "browse blame")
   ("o" github-browse-file "browse file"))
 
-(defhydra ~hydra-git-gutter (:pre (when (not git-gutter-mode) (git-gutter-mode +1))
+(defhydra ~hydra-git-gutter (:pre (when (not (ignore-errors git-gutter-mode)) (git-gutter-mode +1))
                                   :post (when git-gutter-mode (git-gutter-mode -1))
                                   :foreign-keys run
                                   :idle ~hydra-help-delay)

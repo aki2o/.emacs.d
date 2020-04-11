@@ -609,14 +609,18 @@ _R_: reload
 
 (global-set-key
  (kbd "M-o")
- (defhydra ~hydra-outline (:hint nil :idle ~hydra-help-delay)
+ (defhydra ~hydra-outline (:hint nil :idle ~hydra-help-delay
+                                 :post (outline-show-all))
    "
-^Toggle^                      ^Move^
-^^^^----------------------------------------------
-_s_: cycle headings           _h_: go to parent
-_f_: cycle current headings   _j_: go to next
-_c_: narrow current heading   _k_: go to prev
-_a_: show all                 _l_: go to child
+^Toggle^                      ^Move^              ^Edit^
+^^^^^^------------------------------------------------------------------
+_s_: cycle headings           _h_: go to parent   _m_: transpose next
+_f_: cycle current headings   _j_: go to next     _M_: transpose prev
+_c_: narrow current heading   _k_: go to prev     _-_: higher up
+_a_: show all                 _l_: go to child    _+_: lower down
+^ ^                           _J_: scroll up
+^ ^                           _K_: scroll down
+^ ^                           _;_: pophint
 "
    ("s" seq-outline-headings)
    ("f" seq-outline-current-headings)
@@ -626,7 +630,44 @@ _a_: show all                 _l_: go to child
    ("j" outline-forward-same-level)
    ("k" outline-backward-same-level)
    ("l" outline-next-visible-heading)
+   ("J" inertias-up)
+   ("K" inertias-down)
+   (";" pophint:do-outline-heading)
+   ("m" outline-move-subtree-up)
+   ("M" outline-move-subtree-down)
+   ("-" outline-promote)
+   ("+" outline-demote)
    ("q" nil "quit")))
+
+(global-set-key
+ (kbd "H-o")
+ (defhydra ~hydra-outline-other-window (:hint nil :idle ~hydra-help-delay
+                                              :post (owdriver-do-outline-show-all))
+   "
+^Toggle^                      ^Move^              ^Window^
+^^^^^^---------------------------------------------------------------
+_s_: cycle headings           _h_: go to parent   _n_: next window
+_f_: cycle current headings   _j_: go to next
+_c_: narrow current heading   _k_: go to prev
+_a_: show all                 _l_: go to child
+^ ^                           _J_: scroll up
+^ ^                           _K_: scroll down
+^ ^                           _;_: pophint
+"
+   ("s" owdriver-do-seq-outline-headings)
+   ("f" owdriver-do-seq-outline-current-headings)
+   ("c" owdriver-do-~outline-narrow-current-heading)
+   ("a" owdriver-do-outline-show-all)
+   ("h" owdriver-do-outline-up-heading)
+   ("j" owdriver-do-outline-forward-same-level)
+   ("k" owdriver-do-outline-backward-same-level)
+   ("l" owdriver-do-outline-next-visible-heading)
+   ("J" owdriver-do-inertias-up)
+   ("K" owdriver-do-inertias-down)
+   (";" owdriver-do-pophint:do-outline-heading)
+   ("n" owdriver-next-window)
+   ("q" nil "quit")))
+
 
 ;;;;;;;;;;;;;;
 ;; Browsing

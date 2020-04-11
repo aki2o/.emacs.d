@@ -1,57 +1,85 @@
-; Outline-minor-mode key map
-(define-prefix-command 'cm-map nil "Outline-")
-; HIDE
-(define-key cm-map "q" 'hide-sublevels)    ; Hide everything but the top-level headings
-(define-key cm-map "t" 'hide-body)         ; Hide everything but headings (all body lines)
-(define-key cm-map "o" 'hide-other)        ; Hide other branches
-(define-key cm-map "c" 'hide-entry)        ; Hide this entry's body
-(define-key cm-map "l" 'hide-leaves)       ; Hide body lines in this entry and sub-entries
-(define-key cm-map "d" 'hide-subtree)      ; Hide everything in this entry and sub-entries
-; SHOW
-(define-key cm-map "a" 'show-all)          ; Show (expand) everything
-(define-key cm-map "e" 'show-entry)        ; Show this heading's body
-(define-key cm-map "i" 'show-children)     ; Show this heading's immediate child sub-headings
-(define-key cm-map "k" 'show-branches)     ; Show all sub-headings under this heading
-(define-key cm-map "s" 'show-subtree)      ; Show (expand) everything in this heading & below
-; MOVE
-(define-key cm-map "u" 'outline-up-heading)                ; Up
-(define-key cm-map "n" 'outline-next-visible-heading)      ; Next
-(define-key cm-map "p" 'outline-previous-visible-heading)  ; Previous
-(define-key cm-map "f" 'outline-forward-same-level)        ; Forward - same level
-(define-key cm-map "b" 'outline-backward-same-level)       ; Backward - same level
-
-(unbind-key "C-x o")
-(bind-key* "C-x o" cm-map)
-
-
 ;; IMenu
-
 (setq imenu-max-item-length 150)
 
 
-;; cperl mode
-(defmacro join (join-char &rest others) `(mapconcat 'identity ',others ,join-char))
+;; Outline
+(defun ~outline-current-level-headings ()
+  (interactive)
+  (save-excursion
+    (outline-show-all)                             ; 全て表示して、
+    (outline-back-to-heading t)                    ; 今いる見出しに移動し、
+    (call-interactively 'outline-hide-sublevels))) ; 同じレベルの階層の見出しだけ表示
 
-(setq my-cperl-outline-regexp
-      (concat
-       "^"                              ; Start of line
-       "[ \\t]*"                        ; Skip leading whitespace
-       "\\("                            ; begin capture group \1
-       (join "\\|"
-             "=head[12]"                  ; POD header
-             "package"                    ; package
-             "=item"                      ; POD item
-             "sub"                        ; subroutine definition
-             "has"                        ; Moose attributes
-             "before" "after" "around"    ; Moose method attributes
-           )
-       "\\)"                            ; end capture group \1
-       "\\b"                            ; Word boundary
-       ))
+(defun ~outline-all-headings ()
+  (interactive)
+  (save-excursion
+    (outline-show-all)          ; 全て表示して、
+    (outline-back-to-heading t) ; 今いる見出しに移動し、
+    (outline-hide-body)))       ; 見出し以外を隠す
 
-(add-hook 'cperl-mode-hook 
-          '(lambda ()
-             (outline-minor-mode 1)
-             (setq outline-regexp my-cperl-outline-regexp)
-             (setq outline-regexp cperl-outline-regexp)) 
-          t)
+(defun ~outline-narrow-current-heading ()
+  (interactive)
+  (save-excursion
+    (outline-back-to-heading t) ; 今いる見出しに移動し、
+    (outline-hide-other)        ; 今いる見出し以外を全て隠し、
+    (outline-show-subtree)))    ; 配下を全て表示
+
+(defun ~outline-current-child-headings ()
+  (interactive)
+  (save-excursion
+    (outline-back-to-heading t) ; 今いる見出しに移動し、
+    (outline-hide-subtree)      ; 配下を全て隠し、
+    (outline-show-children)))   ; 直下の見出しだけ表示
+
+(defun ~outline-current-all-headings ()
+  (interactive)
+  (save-excursion
+    (outline-back-to-heading t) ; 今いる見出しに移動し、
+    (outline-hide-subtree)      ; 配下を全て隠し、
+    (outline-show-branches)))   ; 配下の見出しだけ表示
+
+(defun ~outline-current-all-headings-with-body ()
+  (interactive)
+  (save-excursion
+    (outline-back-to-heading t) ; 今いる見出しに移動し、
+    (outline-hide-subtree)      ; 配下を全て隠し、
+    (outline-show-entry)        ; 直下の見出し以外と、
+    (outline-show-branches)))   ; 配下の見出しだけ表示
+
+(defun ~outline-current-all-body ()
+  (interactive)
+  (save-excursion
+    (outline-back-to-heading t) ; 今いる見出しに移動し、
+    (outline-show-subtree)))    ; 配下を全て表示
+
+(defvar ~outline-mode-alist
+  `((ruby-mode . ((level . (lambda () (- (match-end 1) (match-beginning 1))))
+                 (regexp . ,(rx (group (0+ (in " \t"))) ; インデント数を階層の深さにするため、グルーピング
+                                (or
+                                 ;; クラス定義とか
+                                 (and (or "class" "module" "def") " ")
+                                 ;; do ... end
+                                 (and (any "a-zA-Z@") (1+ (any "0-9a-zA-Z_:")) eow ; describe や resources などのメソッド名があり、
+                                      (0+ not-newline) " do" eow                   ; 引数が続いた後、 `do' があり、
+                                      (0+ (not (any "'\""))) eol)                  ; 後続に文字列クォートが無いなら、 do...end とみなす（ブロック引数のデフォルトが文字列リテラルだったりすると弾けないけど、まあ無いやろ
+                                 ;; { ... }
+                                 (and (1+ not-newline) " {"     ; `{' があって、
+                                      (0+ (not (any "}"))) eol) ; `}' が無いなら、 {...} とみなす
+                                 ;; [ ... ]
+                                 (and (1+ not-newline) " ["     ; `[' があって、
+                                      (0+ (not (any "]"))) eol) ; `]' が無いなら、 [...] とみなす
+                                 ;; private も見出しとして扱ってみる
+                                 (and "private" eol)
+                                 )))))))
+
+(dolist (entry ~outline-mode-alist)
+  (let ((mode (car entry)))
+    (add-hook
+     (intern (format "%s-hook" mode))
+     `(lambda ()
+        (let ((conf (assoc-default ',mode ~outline-mode-alist)))
+          (setq outline-level (or (assoc-default 'level conf) 'outline-level))
+          (setq outline-heading-alist (or (assoc-default 'heading-alist conf) ()))
+          (setq outline-regexp (or (assoc-default 'regexp conf) outline-regexp)))
+        (outline-minor-mode 1))
+     t)))

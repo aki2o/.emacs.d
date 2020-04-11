@@ -5,11 +5,11 @@
   ;; デフォルト設定はしないで独自に定義
   ;; (sequential-command-setup-keys)
 
-  ;; C-aは連打でインデント頭と行頭を行ったり来たり
+  ;; インデント頭と行頭を行ったり来たり
   (define-sequential-command seq-beginning-of-line
     beginning-of-line back-to-indentation seq-return)
 
-  ;; C-pは連打で画面中央、画面最上部、画面最下部に移動するようにする
+  ;; 画面中央、画面最上部、画面最下部に移動するようにする
   (define-sequential-command seq-recenter
     recenter ~move-to-top-of-window ~move-to-down-of-window seq-return)
   
@@ -19,4 +19,12 @@
 
   (defun ~move-to-down-of-window ()
     (interactive)
-    (recenter -1)))
+    (recenter -1))
+
+  ;; バッファ全体の見出し絞り込み
+  (define-sequential-command seq-outline-headings
+    ~outline-all-headings ~outline-current-level-headings outline-show-all)
+
+  ;; 現在見出し配下の見出し絞り込み
+  (define-sequential-command seq-outline-current-headings
+    ~outline-current-all-headings-with-body ~outline-current-all-headings ~outline-current-child-headings ~outline-current-all-body))

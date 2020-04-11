@@ -1,5 +1,6 @@
 (setq el-get-lock-package-versions
-      '((yard-mode :checksum "ba74a47463b0320ae152bd42a7dd7aeecd7b5748")
+      '((undo-tree :checksum "0161041f9aa017c0089372f3aa74c70bc9e78efe")
+        (yard-mode :checksum "ba74a47463b0320ae152bd42a7dd7aeecd7b5748")
         (posframe :checksum "c15800a8388696474fe9f8466fce1b40735b9304")
         (doom-modeline :checksum "e6d690bae01cb68e7171857fe07ac914d7a19f4b")
         (company-lsp :checksum "b93abde5bbc870170d2a2f5aa309be8a9618daf9")

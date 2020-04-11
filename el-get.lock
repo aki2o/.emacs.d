@@ -160,7 +160,7 @@
         (e2wm :checksum "4353d3394c77a49f8f0291c239858c8c5e877549")
         (deferred :checksum "2239671d94b38d92e9b28d4e12fd79814cfb9c16")
         (window-layout :checksum "cd2e4f967b610c2bbef53182829e47250d027056")
-        (pophint :checksum "4f6bbea1fc03b30dc17a9c1eb7510f26bb0138be")
+        (pophint :checksum "fa28299291020ca4dc84242673fbc1c5582f6ce6")
         (log4e :checksum "c69424e407be0d9d0e54b427d8b18b1ac5a607e2")
         (yaxception :checksum "4e94cf3e0b9b5631b0e90eb4b7de597ee7185875")
         (company-statistics :checksum "e62157d43b2c874d2edbd547c3bdfb05d0a7ae5c")

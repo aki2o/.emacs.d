@@ -23,8 +23,8 @@
 
   ;; バッファ全体の見出し絞り込み
   (define-sequential-command seq-outline-headings
-    ~outline-all-headings ~outline-current-level-headings outline-show-all)
+    ~outline-popular-level-headings ~outline-current-level-headings ~outline-all-headings)
 
   ;; 現在見出し配下の見出し絞り込み
   (define-sequential-command seq-outline-current-headings
-    ~outline-current-all-headings-with-body ~outline-current-all-headings ~outline-current-child-headings ~outline-current-all-body))
+    ~outline-current-child-headings ~outline-current-all-headings ~outline-current-all-headings-with-body ~outline-current-all-body))

@@ -81,10 +81,7 @@
         (setq buffer-read-only t)
         (set-buffer-modified-p nil)
         (rename-buffer buffname)
-        (pop-to-buffer (current-buffer)))))
-
-  (with-eval-after-load 'pophint
-    (pophint-tags:advice-command xref-find-definitions-other-window)))
+        (pop-to-buffer (current-buffer))))))
 
 ;; (bundle lsp-treemacs)
 ;; (use-package lsp-treemacs

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @param ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+# @param `(~yas-ruby-method-args)` [$1] ${2:(${3:default})} $0

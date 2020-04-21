@@ -88,6 +88,22 @@
   (defun ~yas-choose-value (sym)
     (yas-choose-value (symbol-value (intern (format "~yas-%s" sym)))))
 
+  (defvar ~yas-dummy-history '())
+  (defun ~yas-ruby-method-args ()
+    (save-excursion
+      (let* ((start (loop while (not (eq (get-text-property (point) 'face) 'font-lock-function-name-face))
+                          do (goto-char (next-single-property-change (point) 'face))
+                          finally return (progn
+                                           (goto-char (next-single-property-change (point) 'face))
+                                           (point))))
+             (end (progn (forward-sexp)
+                         (point)))
+             (args (loop for e in (split-string (buffer-substring-no-properties start end) ",")
+                         for name = (when (string-match (rx bos (or "(" (* space)) (group (+ (any "a-zA-Z0-9_")))) e)
+                                      (match-string 1 e))
+                         if name collect name)))
+        (completing-read "Choice or input name:" args nil nil nil '~yas-dummy-history))))
+
   (defvar ~yas-rspec-matchers
     '("eq " "eql " "equal " "include " "cover " "match " "start_with " "end_with " "contain_exactly()"
       "be " "be_a_kind_of " "be_a " "be_truthy" "be_falsey" "be_nil" "be_present" "be_empty" "be_added()" "be_of_kind()"

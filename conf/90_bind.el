@@ -642,7 +642,7 @@ _a_: show all                 _l_: go to child    _+_: lower down
 (global-set-key
  (kbd "H-o")
  (defhydra ~hydra-outline-other-window (:hint nil :idle ~hydra-help-delay
-                                              :post (owdriver-do-outline-show-all))
+                                              :post (owdriver-do-yaol-fold-clear-all))
    "
 ^Toggle^                      ^Move^              ^Window^
 ^^^^^^---------------------------------------------------------------

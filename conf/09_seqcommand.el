@@ -22,9 +22,14 @@
     (recenter -1))
 
   ;; バッファ全体の見出し絞り込み
-  (define-sequential-command seq-outline-headings
-    ~outline-popular-level-headings ~outline-current-level-headings ~outline-all-headings)
+  (define-sequential-command seq-yaol-heads
+    yaol-fold-in-popular-level-heads
+    yaol-fold-in-popular-heads
+    yaol-fold-in-all-heads)
 
   ;; 現在見出し配下の見出し絞り込み
-  (define-sequential-command seq-outline-current-headings
-    ~outline-current-child-headings ~outline-current-all-headings ~outline-current-all-headings-with-body ~outline-current-all-body))
+  (define-sequential-command seq-yaol-current-heads
+    yaol-fold-in-child-heads-without-body
+    yaol-fold-in-child-heads
+    yaol-fold-in-popular-descendant-heads
+    yaol-fold-in-all-descendant-heads))

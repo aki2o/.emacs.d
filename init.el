@@ -70,6 +70,7 @@
  '(helm-ff-newfile-prompt-p nil)
  '(helm-file-name-case-fold-search t)
  '(helm-split-window-inside-p t)
+ '(hydra-hint-display-type (quote posframe))
  '(mozc-leim-title "[あ]")
  '(package-selected-packages
    (quote

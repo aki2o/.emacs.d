@@ -610,29 +610,29 @@ _R_: reload
 (global-set-key
  (kbd "M-o")
  (defhydra ~hydra-outline (:hint nil :idle ~hydra-help-delay
-                                 :post (outline-show-all))
+                                 :post (yaol-fold-clear-all))
    "
 ^Toggle^                      ^Move^              ^Edit^
 ^^^^^^------------------------------------------------------------------
 _s_: cycle headings           _h_: go to parent   _m_: transpose next
 _f_: cycle current headings   _j_: go to next     _M_: transpose prev
-_c_: narrow current heading   _k_: go to prev     _-_: higher up
+_c_: show current             _k_: go to prev     _-_: higher up
 _a_: show all                 _l_: go to child    _+_: lower down
 ^ ^                           _J_: scroll up
 ^ ^                           _K_: scroll down
 ^ ^                           _;_: pophint
 "
-   ("s" seq-outline-headings)
-   ("f" seq-outline-current-headings)
-   ("c" ~outline-narrow-current-heading)
-   ("a" outline-show-all)
-   ("h" outline-up-heading)
-   ("j" outline-forward-same-level)
-   ("k" outline-backward-same-level)
-   ("l" outline-next-visible-heading)
+   ("s" seq-yaol-heads)
+   ("f" seq-yaol-current-heads)
+   ("c" yaol-fold-clear-current)
+   ("a" yaol-fold-clear-all)
+   ("h" yaol-up-head)
+   ("j" yaol-next-sibling-head)
+   ("k" yaol-previous-sibling-head)
+   ("l" yaol-down-head)
    ("J" inertias-up)
    ("K" inertias-down)
-   (";" pophint:do-outline-heading)
+   (";" pophint:do-yaol-head)
    ("m" outline-move-subtree-up)
    ("M" outline-move-subtree-down)
    ("-" outline-promote)
@@ -654,17 +654,17 @@ _a_: show all                 _l_: go to child
 ^ ^                           _K_: scroll down
 ^ ^                           _;_: pophint
 "
-   ("s" owdriver-do-seq-outline-headings)
-   ("f" owdriver-do-seq-outline-current-headings)
-   ("c" owdriver-do-~outline-narrow-current-heading)
-   ("a" owdriver-do-outline-show-all)
-   ("h" owdriver-do-outline-up-heading)
-   ("j" owdriver-do-outline-forward-same-level)
-   ("k" owdriver-do-outline-backward-same-level)
-   ("l" owdriver-do-outline-next-visible-heading)
+   ("s" owdriver-do-seq-yaol-heads)
+   ("f" owdriver-do-seq-yaol-current-heads)
+   ("c" owdriver-do-yaol-fold-clear-current)
+   ("a" owdriver-do-yaol-fold-clear-all)
+   ("h" owdriver-do-yaol-up-head)
+   ("j" owdriver-do-yaol-next-sibling-head)
+   ("k" owdriver-do-yaol-previous-sibling-head)
+   ("l" owdriver-do-yaol-down-head)
    ("J" owdriver-do-inertias-up)
    ("K" owdriver-do-inertias-down)
-   (";" owdriver-do-pophint:do-outline-heading)
+   (";" owdriver-do-pophint:do-yaol-head)
    ("n" owdriver-next-window)
    ("q" nil "quit")))
 

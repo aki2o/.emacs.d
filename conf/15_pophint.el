@@ -77,7 +77,6 @@
     (e2wm:add-keymap
      e2wm:pst-minor-mode-keymap
      '(("prefix ;" . pophint:do-situationally-e2wm)
-       ("M-;"      . pophint:do-situationally-e2wm)
        ) e2wm:prefix-key)
 
     ;; 11_e2wm.elでカスタマイズしたので変更

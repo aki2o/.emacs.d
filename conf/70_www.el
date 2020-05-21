@@ -78,9 +78,10 @@
           return (funcall (car e) :sources srcs))))
 
 
-(bundle sha1-el :url "http://stuff.mit.edu/afs/sipb/contrib/emacs/packages/flim-1.14.7/sha1-el.el")
-(use-package sha1-el
-  :defer t)
+;; エラーになってしまったのでコメントアウト
+;; (bundle sha1-el :url "http://stuff.mit.edu/afs/sipb/contrib/emacs/packages/flim-1.14.7/sha1-el.el")
+;; (use-package sha1-el
+;;  :defer t)
 
 
 (bundle k1LoW/anything-hatena-bookmark)

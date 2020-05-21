@@ -67,7 +67,8 @@
 
 (bundle tern)
 (bundle tern-auto-complete)
-(bundle elpa:company-tern)
+;; エラーになってしまったのでコメントアウト
+;; (bundle elpa:company-tern)
 (use-package tern
   :commands (tern-mode)
 

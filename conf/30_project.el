@@ -15,10 +15,11 @@
 (loop for e in '("blib")
       do (add-to-list 'projectile-globally-ignored-directories e t))
 
-;; よくわからないけど、動いてないから、常に有効にするので、再定義してみてる
-(define-globalized-minor-mode projectile-global-mode
-  projectile-mode
-  (lambda () (projectile-mode 1)))
+;; 大丈夫そうになってるっぽいから、コメントアウトして様子見
+;; ;; よくわからないけど、動いてないから、常に有効にするので、再定義してみてる
+;; (define-globalized-minor-mode projectile-global-mode
+;;   projectile-mode
+;;   (lambda () (projectile-mode 1)))
 
 (projectile-global-mode)
 

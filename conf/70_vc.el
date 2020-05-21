@@ -235,8 +235,7 @@
     (e2wm:def-plugin-vcs-with-window
      (e2wm:magit-top-dir-function)
      (lambda (dir topdir)
-       (magit-log nil (or (ignore-errors magit-log-section-arguments)
-                          '("-n256" "--decorate"))))
+       (magit-log-current (magit-log-read-revs t)))
      (lambda () (e2wm:def-plugin-vcs-na-buffer "Git N/A"))))
 
   ;; use magit-toplevel not magit-get-top-dir

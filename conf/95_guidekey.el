@@ -7,7 +7,7 @@
   (setq guide-key/idle-delay 1.0)
   (setq guide-key/guide-key-sequence
         '("<f1>" "C-x RET" "C-x ESC" "C-x 4" "C-x 5" "C-x 6"
-          "C-x n" "C-x r" "C-x v"
+          "C-x n" "C-x r" "C-x v" "C-x p"
           "C-x h"
           "C-x C-t" "C-x C-k" "C-x C-r"
           "C-o" "C-c" "C-S-c"

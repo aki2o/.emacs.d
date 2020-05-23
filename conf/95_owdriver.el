@@ -8,7 +8,7 @@
   (with-eval-after-load 'pophint
     (owdriver-define-command pophint:do-flexibly t)
     (owdriver-define-command pophint:do t (pophint:do :not-switch-window t))
-    (owdriver-define-command pophint:do-outline-heading nil))
+    (owdriver-define-command pophint:do-yaol-head nil))
 
   (with-eval-after-load 'helm
     (owdriver-define-command helm-semantic-or-imenu t))

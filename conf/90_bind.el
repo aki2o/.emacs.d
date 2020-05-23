@@ -612,12 +612,12 @@ _R_: reload
  (defhydra ~hydra-outline (:hint nil :idle ~hydra-help-delay
                                  :post (yaol-fold-clear-all))
    "
-^Toggle^                      ^Move^              ^Edit^
-^^^^^^------------------------------------------------------------------
-_s_: cycle headings           _h_: go to parent   _m_: transpose next
-_f_: cycle current headings   _j_: go to next     _M_: transpose prev
-_c_: show current             _k_: go to prev     _-_: higher up
-_a_: show all                 _l_: go to child    _+_: lower down
+^Toggle^                      ^Move^
+^^^^^^--------------------------------------------
+_s_: cycle headings           _h_: go to parent
+_f_: cycle current headings   _j_: go to next
+_c_: show current             _k_: go to prev
+_a_: show all                 _l_: go to child
 ^ ^                           _J_: scroll up
 ^ ^                           _K_: scroll down
 ^ ^                           _;_: pophint
@@ -633,10 +633,6 @@ _a_: show all                 _l_: go to child    _+_: lower down
    ("J" inertias-up)
    ("K" inertias-down)
    (";" pophint:do-yaol-head)
-   ("m" outline-move-subtree-up)
-   ("M" outline-move-subtree-down)
-   ("-" outline-promote)
-   ("+" outline-demote)
    ("q" nil "quit")))
 
 (global-set-key
@@ -648,7 +644,7 @@ _a_: show all                 _l_: go to child    _+_: lower down
 ^^^^^^---------------------------------------------------------------
 _s_: cycle headings           _h_: go to parent   _n_: next window
 _f_: cycle current headings   _j_: go to next
-_c_: narrow current heading   _k_: go to prev
+_c_: show current             _k_: go to prev
 _a_: show all                 _l_: go to child
 ^ ^                           _J_: scroll up
 ^ ^                           _K_: scroll down

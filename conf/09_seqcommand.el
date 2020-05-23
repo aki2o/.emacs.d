@@ -23,13 +23,13 @@
 
   ;; バッファ全体の見出し絞り込み
   (define-sequential-command seq-yaol-heads
-    yaol-fold-in-popular-level-heads
+    yaol-fold-in-all-heads
     yaol-fold-in-popular-heads
-    yaol-fold-in-all-heads)
+    yaol-fold-in-popular-level-heads)
 
   ;; 現在見出し配下の見出し絞り込み
   (define-sequential-command seq-yaol-current-heads
-    yaol-fold-in-child-heads-without-body
-    yaol-fold-in-child-heads
+    yaol-fold-in-all-descendant-heads
     yaol-fold-in-popular-descendant-heads
-    yaol-fold-in-all-descendant-heads))
+    yaol-fold-in-child-heads
+    yaol-fold-in-child-heads-without-body))

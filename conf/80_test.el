@@ -9,6 +9,7 @@
 (use-package lispxmp)
 
 
+(bundle test-simple)
 (bundle el-mock)
 (bundle ert-expectations)
 

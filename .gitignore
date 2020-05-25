@@ -10,7 +10,9 @@
 
 !/conf/
 !/elisp/
-!/straight/versions/*.el
+!/straight/
+/straight/*
+!/straight/versions/
 
 !/snippets/
 

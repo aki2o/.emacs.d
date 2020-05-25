@@ -11,7 +11,11 @@
 
 (use-package docker-run
   :straight (:type built-in)
-  :defer t)
+  :defer t
+  :commands (docker-run:exec
+             docker-run:exec-viassh
+             docker-run:configure-current-project
+             docker-run:configure-current-project-viassh))
 
 
 (use-package viassh

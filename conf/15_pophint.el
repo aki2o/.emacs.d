@@ -1,5 +1,5 @@
-(bundle pophint)
 (use-package pophint
+  :defer t
   :custom ((pophint:popup-chars "hjklyuiopnmgfdatre;")
            (pophint:popup-max-tips 1000)
            (pophint:switch-direction-p nil)
@@ -61,6 +61,10 @@
   (pophint-tags:advice-command find-tag)
   (pophint-isearch:replace-to-yank-region isearch-yank-line)
   (pophint-isearch:replace-to-yank-region migemo-isearch-yank-line)
+
+  (with-eval-after-load 'pophint
+    (pophint-thing:advice-thing-at-point-function projectile-symbol-at-point)
+    (pophint-thing:defcommand-noadvice projectile-ag))
 
   (with-eval-after-load 'ag
     (pophint-thing:advice-thing-at-point-function ag/dwim-at-point)

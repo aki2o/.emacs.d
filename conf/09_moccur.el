@@ -1,11 +1,8 @@
-(bundle color-moccur)
-(bundle moccur-edit)
 (use-package color-moccur
   :commands (~moccur-grep ~moccur-grep-find ~dmoccur ~dmoccur-recursive
                           moccur dired-do-moccur Buffer-menu-moccur)
-  
+  :defer t
   :init
-
   ;; カーソル移動だけで，該当箇所を別ウィンドウに表示
   (setq moccur-grep-following-mode-toggle t)
 
@@ -44,15 +41,12 @@
   ;; diredバッファでのバインド
   (define-key dired-mode-map (kbd "M") 'dired-do-moccur) ;マークしたファイル内検索
 
-  (use-package ibuffer
-    :defer t
-    :config
+  (with-eval-after-load 'ibuffer
     ;; ibufferバッファでのバインド
     ;; マークしたバッファ内検索
     (define-key ibuffer-mode-map (kbd "M") 'Buffer-menu-moccur))
 
   :config
-
   ;; dmoccur実行時にはバッファは増やさないようにする
   (defadvice dmoccur (around clean-buffer-dmoccur activate)
     (let* ((oldbuffs (buffer-list)))
@@ -108,53 +102,6 @@
   (set-face-background 'moccur-current-line-face "blue")
   (set-face-underline-p 'moccur-current-line-face nil)
 
-  ;; dmoccurをlgrep、rgrepのように使えるようにして、
-  ;; dmoccurとmoccur-grepとの間のインタフェースを使いやすいように統一する
-  (defun ~moccur-read-regexp ()
-    (let* ((wd (or (when moccur-grep-default-word-near-point
-                     (thing-at-point 'symbol))
-                   "")))
-      (when wd
-        (set-text-properties 0 (length wd) nil wd))
-      (read-string (format "Input Regexp List (%s): " wd) nil nil wd)))
-
-  (defun ~moccur-read-filemask ()
-    (let* ((wd (or moccur-grep-default-mask
-                   ".*")))
-      (read-string (format "Input FileMask (%s): " wd) nil nil wd)))
-
-  (defun ~dmoccur (dir regexp mask arg)
-    (interactive (list (dmoccur-read-from-minibuf current-prefix-arg)
-                       (~moccur-read-regexp)
-                       (~moccur-read-filemask)
-                       current-prefix-arg))
-    (setq dmoccur-mask (list mask))
-    (setq dmoccur-recursive-search nil)
-    (moccur-split-string regexp)
-    (dmoccur dir regexp arg))
-
-  (defun ~dmoccur-recursive (dir regexp mask arg)
-    (interactive (list (dmoccur-read-from-minibuf current-prefix-arg)
-                       (~moccur-read-regexp)
-                       (~moccur-read-filemask)
-                       current-prefix-arg))
-    (setq dmoccur-mask (list mask))
-    (setq dmoccur-recursive-search t)
-    (moccur-split-string regexp)
-    (dmoccur dir regexp arg))
-
-  (defun ~moccur-grep (dir regexp mask)
-    (interactive (list (moccur-grep-read-directory)
-                       (~moccur-read-regexp)
-                       (~moccur-read-filemask)))
-    (moccur-grep dir (append (moccur-split-string regexp) (list mask))))
-
-  (defun ~moccur-grep-find (dir regexp mask)
-    (interactive (list (moccur-grep-read-directory)
-                       (~moccur-read-regexp)
-                       (~moccur-read-filemask)))
-    (moccur-grep-find dir (append (moccur-split-string regexp) (list mask))))
-
   ;; moccurバッファでのキーバインド変更
   ;; moccurバッファが作られるたびにキーマップが再定義されてしまうので、
   ;; キーバインドを変更する関数を定義して、adviceで呼び出す
@@ -174,11 +121,59 @@
     (~define-key-moccur-mode))
   
   (defadvice moccur-grep-mode (after redefine-moccur-mode-map activate)
-    (~define-key-moccur-mode))
+    (~define-key-moccur-mode)))
 
-  (use-package moccur-edit)
-  
-  )
+;; dmoccurをlgrep、rgrepのように使えるようにして、
+;; dmoccurとmoccur-grepとの間のインタフェースを使いやすいように統一する
+(defun ~moccur-read-regexp ()
+  (let* ((wd (or (when moccur-grep-default-word-near-point
+                   (thing-at-point 'symbol))
+                 "")))
+    (when wd
+      (set-text-properties 0 (length wd) nil wd))
+    (read-string (format "Input Regexp List (%s): " wd) nil nil wd)))
+
+(defun ~moccur-read-filemask ()
+  (let* ((wd (or moccur-grep-default-mask
+                 ".*")))
+    (read-string (format "Input FileMask (%s): " wd) nil nil wd)))
+
+(defun ~dmoccur (dir regexp mask arg)
+  (interactive (list (dmoccur-read-from-minibuf current-prefix-arg)
+                     (~moccur-read-regexp)
+                     (~moccur-read-filemask)
+                     current-prefix-arg))
+  (setq dmoccur-mask (list mask))
+  (setq dmoccur-recursive-search nil)
+  (moccur-split-string regexp)
+  (dmoccur dir regexp arg))
+
+(defun ~dmoccur-recursive (dir regexp mask arg)
+  (interactive (list (dmoccur-read-from-minibuf current-prefix-arg)
+                     (~moccur-read-regexp)
+                     (~moccur-read-filemask)
+                     current-prefix-arg))
+  (setq dmoccur-mask (list mask))
+  (setq dmoccur-recursive-search t)
+  (moccur-split-string regexp)
+  (dmoccur dir regexp arg))
+
+(defun ~moccur-grep (dir regexp mask)
+  (interactive (list (moccur-grep-read-directory)
+                     (~moccur-read-regexp)
+                     (~moccur-read-filemask)))
+  (moccur-grep dir (append (moccur-split-string regexp) (list mask))))
+
+(defun ~moccur-grep-find (dir regexp mask)
+  (interactive (list (moccur-grep-read-directory)
+                     (~moccur-read-regexp)
+                     (~moccur-read-filemask)))
+  (moccur-grep-find dir (append (moccur-split-string regexp) (list mask))))
+
+
+(use-package moccur-edit
+  :defer t
+  :after (color-moccur))
 
 
 ;; helm-c-moccur-buffer-listが動かなかったので、とりあえずanything-c-moccurを使っておく
@@ -224,17 +219,16 @@
 ;;   )
 
 
-(bundle aki2o/anything-c-moccur)
 (use-package anything-c-moccur
+  :straight (:host github :repo "aki2o/anything-c-moccur")
   :commands (anything-c-moccur-occur-by-moccur
              anything-c-moccur-buffer-list
              anything-c-moccur-dmoccur
              anything-c-moccur-resume
              anything-c-moccur-dired-do-moccur-by-moccur
              anything-c-moccur-from-isearch)
-  
+  :defer t
   :init
-  
   (setq anything-c-moccur-anything-idle-delay 0.2)  ; `anything-idle-delay'
   (setq anything-c-moccur-higligt-info-line-flag t) ; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
   (setq anything-c-moccur-enable-auto-look-flag t)  ; 現在選択中の候補の位置を他のwindowに表示する
@@ -247,7 +241,6 @@
   (define-key isearch-mode-map (kbd "C-a") 'anything-c-moccur-from-isearch)
 
   :config
-  
   (bind-keys :map anything-c-moccur-anything-map
               ("C-j" . anything-c-moccur-next-line)
               ("C-k" . anything-c-moccur-previous-line)
@@ -264,7 +257,4 @@
               ("C-S-c h" . anything-c-moccur-start-symbol)
               ("C-S-c l" . anything-c-moccur-end-symbol)
               ("C-S-c n" . anything-c-moccur-start-word)
-              ("C-S-c p" . anything-c-moccur-end-word))
-
-  )
-
+              ("C-S-c p" . anything-c-moccur-end-word)))

@@ -1,5 +1,5 @@
-(bundle yasnippet)
 (use-package yasnippet
+  :defer t
   :commands (yas-visit-snippet-file
              yas-insert-snippet
              yas-new-snippet
@@ -7,11 +7,8 @@
              yas-load-directory
              ~yas-register-oneshot-snippet
              ~yas-expand-oneshot-snippet)
-  
   :mode (("/\\.emacs\\.d/snippets/" . snippet-mode))
-  
   :init
-
   (setq yas-fallback-behavior 'call-other-command)
   ;; (setq yas-next-field-key "TAB")
   (setq yas-indent-line 'auto) ;展開するときにインデントするか
@@ -24,7 +21,6 @@
   (yas-global-mode 1)
 
   :config
-
   (define-key yas-minor-mode-map (kbd "SPC") 'yas-expand)
   
   (add-hook 'snippet-mode-hook 'turn-on-eldoc-mode t)
@@ -81,8 +77,7 @@
   ;;   (indent-according-to-mode))
   ;; (add-hook 'yas-after-exit-snippet-hook 'yas-indent-snippet t)
 
-  (use-package auto-complete
-    :config
+  (when (fboundp 'ac-emacs-lisp-mode-setup)
     (add-hook 'snippet-mode-hook 'ac-emacs-lisp-mode-setup t))
 
   (defun ~yas-choose-value (sym)
@@ -122,22 +117,4 @@
 
   (defvar ~yas-rspec-mock-args
     '(":any_args" ":no_args" ":anything" ":string" ":numeric" ":boolean"
-      "hash_including()" "hash_not_including()" "duck_type()"))
-  )
-
-
-;; (bundle anything-c-yasnippet :url "http://svn.coderepos.org/share/lang/elisp/anything-c-yasnippet/anything-c-yasnippet.el")
-;; (use-package anything-c-yasnippet
-
-;;   :bind* (("C-x a y" . anything-c-yas-complete))
-  
-;;   :init
-  
-;;   ;; スペース区切りで絞り込めるようにする デフォルトは nil
-;;   (setq anything-c-yas-space-match-any-greedy t)
-
-;;   ;; (add-to-list 'yas-extra-mode-hooks 'ruby-mode-hook)
-;;   ;; (add-to-list 'yas-extra-mode-hooks 'cperl-mode-hook)
-
-;;   )
-
+      "hash_including()" "hash_not_including()" "duck_type()")))

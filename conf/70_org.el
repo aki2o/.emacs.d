@@ -1,14 +1,6 @@
-;; -*- coding: utf-8; -*-
-(bundle org)
-(bundle org-redmine)
-(bundle org-ac)
-(bundle org-link-travis)
-(bundle org-linkany)
 (use-package org
   :defer t
-
   :config
-  
   (setq org-src-fontify-natively t)
   (setq org-tag-alist '(("@WORK" . ?w) ("@HOME" . ?h) ("Laptop" . ?l)))
   (setq org-agenda-custom-commands '(("f" occur-tree "FIXME")))
@@ -40,43 +32,54 @@
               ("C-c g" . org-goto)
               ("C-c k" . org-kill-note-or-show-branches))
 
-  (use-package org-ac
-    :config
-    (org-ac/config-default))
-
-  ;; (use-package org-linkany
-  ;;   :config
-  ;;   (setq org-linkany/preferred-backend 'anything)
-  ;;   (setq org-linkany/browse-function '~browse-url-externally))
-
-  (use-package org-link-github-wiki)
-
-  (use-package org-link-travis
-    :config
-    (setq org-link-travis/user-name "aki2o"))
-
-  (use-package smartrep
-    :defer t
-    :config
+  (when (fboundp 'smartrep-define-key)
     (smartrep-define-key 
         org-mode-map "C-c" '(("C-n" . (lambda () 
                                         (outline-next-visible-heading 1)))
                              ("C-p" . (lambda ()
                                         (outline-previous-visible-heading 1))))))
 
-  (use-package pophint
-    :defer t
-    :config
-    (pophint-tags:advice-command org-open-at-point))
+  (when (fboundp 'pophint-tags:advice-command)
+    (pophint-tags:advice-command org-open-at-point)))
 
-  )
+
+(use-package org-redmine
+  :after (org)
+  :defer t)
+
+
+(use-package org-ac
+  :after (org)
+  :defer t
+  :config
+  (org-ac/config-default))
+
+
+;; (use-package org-linkany
+;;   :after (org)
+;;   :config
+;;   (setq org-linkany/preferred-backend 'anything)
+;;   (setq org-linkany/browse-function '~browse-url-externally))
+
+
+(use-package org-link-github-wiki
+  :straight (:type built-in)
+  :after (org)
+  :defer t)
+
+
+(use-package org-link-travis
+  :after (org)
+  :defer t
+  :config
+  (setq org-link-travis/user-name "aki2o"))
 
 
 (use-package ox
+  :straight org
   :defer t
-
+  :after org
   :config
-  
   (defadvice org-md-link (after ~fix-for-github activate)
     ;; この機能不要かも
     (when ~org-md-export-for-github
@@ -109,15 +112,12 @@
              (src (assq 'src-block tr-alist))
              (tr-alist (delq src tr-alist)))
         (push '(src-block . ~org-md-src-block) tr-alist)
-        (setf (org-export-backend-transcoders b) tr-alist))))
-  
-  )
+        (setf (org-export-backend-transcoders b) tr-alist)))))
 
 
-(bundle org-gcal)
 (use-package org-gcal
-  :defer t
   :after org
+  :defer t
   :init
   (defvar ~org-gcal-directory (concat user-emacs-directory "org-gcal/"))
   (defvar ~org-gcal-main-schedule-file (concat ~org-gcal-directory "main.org"))
@@ -131,6 +131,7 @@
 
 (use-package calfw-org
   :commands (cfw:org-create-file-source)
+  :defer t
   :init
   (defun ~cfw:open-calendar ()
     (interactive)
@@ -141,4 +142,3 @@
       (switch-to-buffer (cfw:cp-get-buffer (cfw:create-calendar-component-buffer
                                             :view 'month
                                             :contents-sources `(,src)))))))
-

@@ -1,11 +1,8 @@
-(bundle markdown-mode)
 (use-package markdown-mode
   :defer t
   :config
   (bind-keys :map markdown-mode-map
-             ("C-c C-c" . ~markdown-render-buffer))
-  )
-
+             ("C-c C-c" . ~markdown-render-buffer)))
 
 (defun ~markdown-render-buffer ()
   (interactive)
@@ -15,4 +12,3 @@
                                     "\\`/" "" (replace-regexp-in-string "\\\\" "/" tmpfile)))))
     (shell-command cmd nil nil)
     (~browse-url url t)))
-

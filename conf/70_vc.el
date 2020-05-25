@@ -10,27 +10,30 @@
 
 
 ;; SVN
-(bundle dsvn)
 (use-package dsvn
+  :defer t
   :commands (svn-status svn-update))
 
 
 ;; Git
-(bundle git-commit)
 (setenv "GIT_PAGER" "")
 
 
-(bundle magit :depends (ghub))
-(bundle magit-popup)
 (use-package magit
   :defer t
+  :init
+  (use-package ghub :defer t)
   :config
   (unbind-key "j" magit-status-mode-map)
   (unbind-key "C-j" magit-file-section-map)
   (unbind-key "C-j" magit-hunk-section-map))
 
 
-(bundle git-gutter)
+(use-package magit-popup
+  :after (magit)
+  :defer t)
+
+
 (use-package git-gutter
   :defer t
   :config
@@ -40,30 +43,25 @@
    '(git-gutter:diff-option "-w")))
 
 
-(bundle github-browse-file)
 (use-package github-browse-file
   :defer t
   :config
   (setq github-browse-file-show-line-at-point t))
 
 
-(bundle gitignore-mode)
 (use-package gitignore-mode
   :defer t)
 
 
 ;; e2wm
 (use-package e2wm-vcs
+  :straight e2wm
   :defer t
-  
   :config
-  
   ;; svn
   (setq e2wm:c-svn-focus-buffer-regexp ".")
 
-  
   ;; p-r
-  
   
   (setq e2wm:c-svn-recipe
         '(| (:left-size-ratio 0.3)
@@ -244,9 +242,7 @@
   (defun e2wm:magit-top-dir-function ()
     (loop for f in '(magit-get-top-dir magit-toplevel)
           if (fboundp f)
-          return f))
-
-  )
+          return f)))
 
 
 (defun ~git-grep-file-diff-history ()
@@ -288,6 +284,4 @@
                                 if (string-match query diff)
                                 collect (progn
                                           (plist-get commit :diff diff)
-                                          commit))))
-    ))
-
+                                          commit))))))

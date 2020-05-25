@@ -1,7 +1,5 @@
 (use-package server
-  
   :config
-
   (when (not (server-running-p))
     (server-start)
 
@@ -11,8 +9,4 @@
 
     ;; Buffer `hogehoge' still has clients; kill it? (yes or no) とかいわれるのがうざいのをなおす
     ;; http://aki.issp.u-tokyo.ac.jp/itoh/hiChangeLog/html/2007-04.html#2007-04-09-1
-    (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
-    )
-
-  )
-
+    (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)))

@@ -1,13 +1,17 @@
-(bundle go-mode)
 (use-package go-mode
+  :defer t
   :custom (gofmt-command "goimports") ; go get golang.org/x/tools/cmd/goimports
   :config
-  (defun ~go-setup-mode ()
-    (add-hook 'before-save-hook 'gofmt-before-save t t)
-    (setq-local tab-width 2))
-  
   (add-hook 'go-mode-hook '~go-setup-mode t)
 
+  (defun ~go-setup-mode ()
+    (add-hook 'before-save-hook 'gofmt-before-save t t)
+    (setq-local tab-width 2)
+    (when (fboundp 'mmask-get-regexp-string)
+      (setq moccur-grep-default-mask (mmask-get-regexp-string 'go-mode)))
+    (when (fboundp 'lsp)
+      (lsp)))
+  
   ;; (defun ~godoc ()
   ;;   (interactive)
   ;;   (godoc (completing-read "Query: " (go-packages))))
@@ -18,15 +22,6 @@
   ;; (use-package pophint
   ;;   :config
   ;;   (pophint-tags:advice-command godef-jump-other-window :point-arg-index 0))
-
-  (use-package color-moccur
-    :init
-    (defun ~go-setup-color-moccur ()
-      (setq moccur-grep-default-mask (mmask-get-regexp-string 'go-mode)))
-    (add-hook 'go-mode-hook '~go-setup-color-moccur t))
-
-  (use-package lsp-mode
-    :hook (go-mode . lsp))
 
   ;; p-r
 
@@ -46,12 +41,8 @@ visit FILENAME and go to line LINE and column COLUMN."
           (beginning-of-line)
           (forward-char (1- column))
           (if (buffer-modified-p)
-              (message "Buffer is modified, file position might not have been correct"))))))
-
-  )
+              (message "Buffer is modified, file position might not have been correct")))))))
 
 
-(bundle gom-mode)
 (use-package gom-mode
   :defer t)
-

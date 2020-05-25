@@ -1,15 +1,22 @@
-(bundle dockerfile-mode)
-(use-package dockerfile-mode)
+(use-package dockerfile-mode
+  :defer t
+  :mode (("/Dockerfiles/" . dockerfile-mode)))
 
 
-(bundle docker-tramp)
 (use-package docker-tramp
+  :defer t
   :init
   (setq docker-tramp-use-names t))
 
 
-(use-package docker-run)
-(use-package viassh)
+(use-package docker-run
+  :straight (:type built-in)
+  :defer t)
+
+
+(use-package viassh
+  :straight (:type built-in))
+
 
 (defun ~docker-context-p (buf)
   (let* ((filepath (expand-file-name (buffer-file-name buf))))

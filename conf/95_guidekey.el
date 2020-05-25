@@ -1,8 +1,5 @@
-(bundle guide-key)
-(bundle guide-key-tip)
 (use-package guide-key
   :config
-  
   (setq guide-key/polling-time 3.0)
   (setq guide-key/idle-delay 1.0)
   (setq guide-key/guide-key-sequence
@@ -14,7 +11,6 @@
           "M-m"
           "C-M-p"))
   (guide-key-mode 1)
-
   
   (defmacro* guide-key/setup-local-keystroke (mode &key kbd not-highlight)
     (let ((forms (loop for keystroke in (if (stringp (eval kbd))
@@ -46,36 +42,23 @@
              ,@forms)
            (add-hook ',hook ',func t)))))
 
-
-  (use-package guide-key-tip
-    :config
-    (setq guide-key-tip/enabled t)
-
-    (custom-set-faces
-     '(guide-key-tip/pos-tip-face ((t (:foreground "white" :background "black")))))
-    )
-  
-  (use-package e2wm
-    :defer t
-    :config
+  (when (boundp 'e2wm:prefix-key)
     (add-to-list 'guide-key/guide-key-sequence
                  (replace-regexp-in-string " +\\'" "" e2wm:prefix-key)))
 
-  (use-package org
-    :defer t
-    :config
+  (when (fboundp 'org-mode)
     (guide-key/setup-local-keystroke 'org-mode :kbd "C-c C-x")
     (guide-key/setup-local-highlight 'org-mode "\\`outline-"))
-  
-  (use-package w3m
-    :defer t
-    :config
-    (guide-key/setup-local-keystroke 'w3m-mode :kbd ";"))
-  
-  (use-package eww
-    :defer t
-    :config
-    (guide-key/setup-local-keystroke 'eww-mode :kbd ";"))
 
-  )
+  (when (fboundp 'eww-mode)
+    (guide-key/setup-local-keystroke 'eww-mode :kbd ";")))
 
+
+(use-package guide-key-tip
+  :after (guide-key)
+  :defer t
+  :config
+  (setq guide-key-tip/enabled t)
+
+  (custom-set-faces
+   '(guide-key-tip/pos-tip-face ((t (:foreground "white" :background "black"))))))

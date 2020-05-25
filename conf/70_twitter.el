@@ -1,9 +1,6 @@
-(bundle twittering-mode)
 (use-package twittering-mode
   :defer t
-  
   :init
-
   (setq twittering-auth-method 'oauth)
 
   ;; パスワード認証
@@ -27,7 +24,6 @@
   (setq twittering-number-of-tweets-on-retrieval 100)
 
   :config
-  
   ;; ;; o で次のURLをブラウザでオープン
   ;; (add-hook 'twittering-mode-hook
   ;;           (lambda ()
@@ -38,6 +34,4 @@
   ;;                  (execute-kbd-macro (kbd "C-m"))
   ;;                  )))
   ;;           t)
-
   )
-

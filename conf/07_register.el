@@ -12,4 +12,3 @@
   (interactive)
   (insert-register clipboard-register)
   (message "Paste from register"))
-

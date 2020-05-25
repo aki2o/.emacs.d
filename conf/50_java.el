@@ -1,31 +1,14 @@
-(use-package java-mode
-  :defer t
-  
-  :config
-  
-  (defun ~java-mode-setup ()
-    (add-to-list 'ac-sources 'ac-source-yasnippet)
-    ;; (add-to-list 'ac-sources 'ac-source-gtags))
-    (setq moccur-grep-default-mask (rx-to-string `(or ,(mmask-get-regexp-sexp 'java-mode)
-                                                      ,(mmask-get-regexp-sexp 'scala-mode)))))
-  
-  (add-hook 'java-mode-hook '~java-mode-setup t))
-  
-
-(bundle autodisass-java-bytecode)
 (use-package autodisass-java-bytecode
   :defer t)
 
 
-(bundle google-c-style)
 (use-package google-c-style
   :defer t
   :commands (google-set-c-style))
 
 
-(bundle meghanada)
-(bundle realgud)
 (use-package meghanada
+  :defer t
   :bind (:map meghanada-mode-map
               ("M-RET" . meghanada-local-variable)
               ("C->"   . meghanada-jump-declaration)
@@ -33,7 +16,6 @@
               ("M-z"   . ~hydra-meghanada/body))
   
   :init
-
   (setq meghanada-server-remote-debug nil)
   (setq meghanada-javac-xlint "-Xlint:all,-processing")
   
@@ -46,8 +28,6 @@
     (meghanada-mode t)
     ;; (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)
     )
-
-  (add-hook 'java-mode-hook '~meghanada-setup t)
 
   (defhydra ~hydra-meghanada (:hint nil :exit t :idle ~hydra-help-delay)
     "
@@ -76,26 +56,21 @@ _q_: exit
     ("q" nil))
   
   :config
+  (when (fboundp 'pophint-tags:advice-command)
+    (pophint-tags:advice-command meghanada-jump-declaration)))
 
-  (use-package realgud)
+
+(use-package realgud
+  :defer t
+  :after (meghanada))
   
-  (use-package pophint
-    :config
-    (pophint-tags:advice-command meghanada-jump-declaration))
-  
-  )
 
-
-(bundle scala-mode)
 (use-package scala-mode
   :defer t
-
   :init
-  
   (mmask-regist-extension-with-icase 'scala-mode "scala")
   
   :config
-
   (defun ~scala-mode-setup ()
     (local-set-key [f1] nil)
     (add-to-list 'ac-sources 'ac-source-yasnippet)
@@ -106,8 +81,10 @@ _q_: exit
   (add-hook 'scala-mode-hook '~scala-mode-setup t))
 
 
-(bundle kotlin-mode)
-(bundle flycheck-kotlin)
 (use-package kotlin-mode
-  :config
-  (use-package flycheck-kotlin))
+  :defer t)
+
+
+(use-package flycheck-kotlin
+  :defer t
+  :after (kotlin-mode))

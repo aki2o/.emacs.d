@@ -1,17 +1,12 @@
-;; (bundle bts-evernote)
-(bundle bts-github)
-(bundle date-field)
 (use-package bts
+  :defer t)
+
+
+(use-package date-field
   :defer t
-  
-  :config
+  :after (bts))
 
-  (use-package bts-github)
 
-  ;; [WARN] trace level happens high memory consumption
-  (bts--log-set-level 'debug)
-  (bts--log-enable-logging)
-  ;; (date-field--log-enable-logging)
-
-  )
-
+(use-package bts-github
+  :defer t
+  :after (bts))

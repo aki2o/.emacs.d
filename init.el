@@ -11,44 +11,38 @@
   (load (concat user-emacs-directory "initf.el")))
 
 
-;; mine
-(when (file-directory-p (concat user-emacs-directory "elisp/mine"))
-  (add-to-list 'load-path (concat user-emacs-directory "elisp/mine"))
-  (cd (concat user-emacs-directory "elisp/mine"))
+;; etc
+(when (file-directory-p (concat user-emacs-directory "elisp/etc"))
+  (add-to-list 'load-path (concat user-emacs-directory "elisp/etc"))
+  (cd (concat user-emacs-directory "elisp/etc"))
   (when (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (normal-top-level-add-subdirs-to-load-path)))
 
 
-;; el-get
-(setq-default el-get-dir (concat user-emacs-directory "elisp/el-get/" emacs-version))
-(setq-default package-user-dir (concat user-emacs-directory "elisp/elpa/" emacs-version))
-(setq-default el-get-emacswiki-base-url "http://raw.github.com/emacsmirror/emacswiki.org/master/")
-(setq-default el-get-notify-type 'message)
+;; straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+(setq straight-current-profile (format "%d_%d" emacs-major-version emacs-minor-version))
+(add-to-list 'straight-profiles `(,straight-current-profile . ,(format "%s.el" straight-current-profile)))
 
-(when (and (~is-windows)
-           (file-exists-p (concat exec-directory "install-info")))
-  (setq-default el-get-install-info (concat exec-directory "install-info")))
-
-(add-to-list 'load-path (expand-file-name "bundle" el-get-dir))
-
-(unless (require 'bundle nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "http://raw.github.com/tarao/bundle-el/master/bundle-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(add-to-list 'el-get-recipe-path (locate-user-emacs-file "recipes"))
-
-(bundle! tarao/el-get-lock)
-(el-get-lock)
-(el-get-lock-unlock 'el-get)
+(setq use-package-always-ensure t)
 
 
 ;; load
-(bundle! use-package)
-(bundle! bind-key)
-(bundle! emacs-jp/init-loader)
+(use-package bind-key)
+(use-package init-loader)
 (init-loader-load (locate-user-emacs-file "conf"))
 
 (put 'downcase-region 'disabled nil)

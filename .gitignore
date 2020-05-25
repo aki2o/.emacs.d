@@ -10,8 +10,7 @@
 
 !/conf/
 !/elisp/
-/elisp/el-get
-/elisp/elpa
+!/straight/versions/*.el
 
 !/snippets/
 

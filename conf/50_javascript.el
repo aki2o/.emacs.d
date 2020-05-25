@@ -1,6 +1,5 @@
-;;; -*- lexical-binding: t -*-
-(bundle rjsx-mode)
 (use-package rjsx-mode
+  :defer t
   :init
   (add-to-list 'auto-mode-alist '(".*\\.js\\'" . rjsx-mode))
 
@@ -13,8 +12,8 @@
     )
   )
 
-(bundle js2-mode)
 (use-package js2-mode
+  :defer t
   :init
   (mmask-regist-extension-with-icase 'js2-mode "js" "jse" "gs" "js.erb")
 
@@ -48,12 +47,11 @@
   ;;   (flymake-mode t))
 
   ;; (add-hook 'js2-mode-hook 'flymake-js-load t)
-  
   )
 
 
-(bundle json-mode)
 (use-package json-mode
+  :defer t
   :init
   (mmask-regist-extension-with-icase 'json-mode "json")
   (mmask-regist-name 'json-mode ".tern-project")
@@ -61,24 +59,17 @@
   :config
   (defun ~json-setup-mode ()
     (setq js-indent-level 2))
-  (add-hook 'json-mode-hook '~json-setup-mode t)
-  )
+  (add-hook 'json-mode-hook '~json-setup-mode t))
 
 
-(bundle tern)
-(bundle tern-auto-complete)
-;; エラーになってしまったのでコメントアウト
-;; (bundle elpa:company-tern)
 (use-package tern
+  :defer t
   :commands (tern-mode)
-
   :init
-  
   (dolist (h '(rjsx-mode-hook js2-mode-hook nxml-mode-hook web-mode-hook))
     (add-hook h '(lambda () (tern-mode 1)) t))
 
   :config
-
   (bind-keys :map tern-mode-keymap
              ("C-'"   . tern-get-docs)
              ("C->"   . tern-find-definition)
@@ -95,17 +86,20 @@
   ;; (~tramp-use-original-buffer-file-name-in tern-find-definition-by-name)
   ;; (~tramp-use-original-buffer-file-name-in tern-pop-find-definition)
 
-  ;; (use-package tern-auto-complete
-  ;;   :config
-  ;;   (tern-ac-setup))
+  (when (fboundp 'pophint-tags:advice-command)
+    (pophint-tags:advice-command tern-find-definition)))
+
+
+;; エラーになってしまったのでコメントアウト
+;; (use-package company-tern
+;;   :after (tern))
+
+
+;; (use-package tern-auto-complete
+;;   :after (tern)
+;;   :config
+;;   (tern-ac-setup))
   
-  (use-package pophint
-    :defer t
-    :config
-    (pophint-tags:advice-command tern-find-definition))
-
-  )
-
 
 ;; For debug p-r
 
@@ -133,4 +127,3 @@
 ;;        (ac-start)))))
 
 ))
-

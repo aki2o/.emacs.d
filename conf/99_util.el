@@ -1,13 +1,14 @@
-(bundle s)
-(bundle f)
-(bundle dash-functional)
-(bundle ctable)
-(bundle elmine)
-(bundle hexrgb)
-(bundle fuzzy)
-(bundle dropdown-list)
-(bundle mag-menu)
-(bundle diminish)
+(use-package s :defer t)
+(use-package f :defer t)
+(use-package dash-functional :defer t)
+(use-package ctable :defer t)
+(use-package elmine :defer t)
+(use-package hexrgb :defer t)
+(use-package fuzzy :defer t)
+(use-package dropdown-list :defer t)
+(use-package mag-menu :defer t)
+(use-package diminish :defer t)
+(use-package gntp :defer t)
 
 
 ;;;;;;;;;;;;;;
@@ -68,7 +69,7 @@
 (defvar ~find-definition-function 'xref-find-definitions-other-window)
 (make-variable-buffer-local '~find-definition-function)
 
-(with-eval-after-load 'pophint
+(with-eval-after-load 'pophint-tags
   (pophint-tags:advice-command xref-find-definitions-other-window))
 
 (defun ~find-definition ()

@@ -1,52 +1,15 @@
-(bundle aki2o/direx-el :name direx :branch "feature-not-merged")
-(bundle direx-grep)
-(bundle e2wm-direx)
 (use-package direx
-
+  :straight (:host github :repo "aki2o/direx-el" :branch "feature-not-merged")
+  :defer t
   :bind* (("C-x C-d" . ~direx:jump-to-smartly))
-
   :functions (direx:direx-mode)
-  
   :init
-  
   (setq direx:leaf-icon "  "
         direx:open-icon "▾ "
         direx:closed-icon "▸ ")
 
   :config
-  
   (require 'direx-project)
-
-  (use-package direx-grep
-    :config
-    (define-key direx:direx-mode-map (kbd "s") 'direx-grep:grep-item-from-root)
-    (define-key direx:direx-mode-map (kbd "S") 'direx-grep:grep-item)
-    (define-key direx:direx-mode-map (kbd "a") 'direx-grep:show-all-item)
-    (define-key direx:direx-mode-map (kbd "A") 'direx-grep:show-all-item-at-point))
-
-  (use-package projectile
-    :defer t
-    :config
-    (setq direx-project:project-root-predicate-functions
-          '((lambda (dir)
-              (loop for e in (append projectile-project-root-files
-                                     projectile-project-root-files-bottom-up)
-                    thereis (file-exists-p (expand-file-name e dir)))))))
-
-  (use-package e2wm
-    :defer t
-    :config
-    (use-package e2wm-direx))
-  
-  (defun ~direx:jump-to-smartly ()
-    (interactive)
-    (cond (current-prefix-arg
-           (dired-jump))
-          (t
-           (or (ignore-errors
-                 (direx-project:jump-to-project-root-other-window)
-                 t)
-               (direx:jump-to-directory-other-window)))))
 
   (define-key direx:direx-mode-map (kbd "C-j") nil)
   (define-key direx:direx-mode-map (kbd "C-k") nil)
@@ -61,5 +24,34 @@
   (define-key direx:direx-mode-map (kbd "RET") 'direx:find-item)
   (define-key direx:direx-mode-map (kbd "C-RET") 'direx:find-item-other-window)
 
-  )
+  (with-eval-after-load 'projectile
+    (setq direx-project:project-root-predicate-functions
+          '((lambda (dir)
+              (loop for e in (append projectile-project-root-files
+                                     projectile-project-root-files-bottom-up)
+                    thereis (file-exists-p (expand-file-name e dir))))))))
 
+(defun ~direx:jump-to-smartly ()
+  (interactive)
+  (cond (current-prefix-arg
+         (dired-jump))
+        (t
+         (or (ignore-errors
+               (direx-project:jump-to-project-root-other-window)
+               t)
+             (direx:jump-to-directory-other-window)))))
+
+
+(use-package direx-grep
+  :defer t
+  :after (direx)
+  :config
+  (define-key direx:direx-mode-map (kbd "s") 'direx-grep:grep-item-from-root)
+  (define-key direx:direx-mode-map (kbd "S") 'direx-grep:grep-item)
+  (define-key direx:direx-mode-map (kbd "a") 'direx-grep:show-all-item)
+  (define-key direx:direx-mode-map (kbd "A") 'direx-grep:show-all-item-at-point))
+
+
+(use-package e2wm-direx
+  :defer t
+  :after (:all e2wm direx))

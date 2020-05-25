@@ -1,4 +1,5 @@
 (use-package sdic
+  :defer t
   :commands (~sdic-smart-describe)
   :init
   (setq sdic-window-height 10)
@@ -21,8 +22,10 @@
            (sdic-describe-word-at-point)))))
 
 
-(bundle emacswiki:sdic-inline)
 (use-package sdic-inline
+  :straight (:type built-in)
+  :defer t
+  :after (sdic)
   :commands (~sdic-inline-smart-display)
   :config
   (setq sdic-inline-eiwa-dictionary (concat user-emacs-directory "sdic/gene.sdic"))
@@ -50,8 +53,10 @@
            (sdic-inline-function)))))
 
 
-(bundle emacswiki:sdic-inline-pos-tip)
 (use-package sdic-inline-pos-tip
+  :straight (:type built-in)
+  :defer t
+  :after (sdic)
   :commands (sdic-inline-pos-tip-show)
   :init
   (setq sdic-inline-display-func 'sdic-inline-pos-tip-show))
@@ -66,8 +71,5 @@
     (interactive (list (read-string "Enter query: " (~dict-search-initial-input))))
     (browse-url (concat "dict://" query)))
 
-  (use-package pophint
-    :config
-    (pophint-thing:advice-thing-at-point-function ~dict-search-initial-input))
-  )
-
+  (when (fboundp 'pophint-thing:advice-thing-at-point-function)
+    (pophint-thing:advice-thing-at-point-function ~dict-search-initial-input)))

@@ -1,5 +1,5 @@
-(bundle persp-mode)
 (use-package persp-mode
+  :defer t
   :commands (persp-switch-to-buffer)
   :init
   (setq persp-keymap-prefix (kbd "C-x p"))
@@ -116,9 +116,13 @@
       (switch-to-buffer buffer-or-name norecord force-same-window))))
 
 
-(bundle aki2o/e2wm-perspb :depends (deferred))
 (use-package e2wm-perspb
+  :straight (:host github :repo "aki2o/e2wm-perspb")
+  :defer t
   :after persp-mode
+  :init
+  (use-package deferred :defer t)
+
   :config
   (~persp-switch-to-current-branch)
 
@@ -145,5 +149,8 @@
     (define-key persp-key-map (kbd "i") '~persp-add-git-diff-files))
   (require 'magit nil t))
 
+
 (use-package e2wm-perspb-rails
+  :straight e2wm-perspb
+  :defer t
   :after e2wm-perspb)

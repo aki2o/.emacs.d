@@ -1,6 +1,6 @@
 (use-package view
+  :defer t
   :config
-  
   (setq view-read-only t)
 
   (defvar ~view-next-activate nil)
@@ -48,15 +48,13 @@
              ("C-j"   . next-line)
              ("C-k"   . previous-line)
              ("C-S-j" . ~view-scroll-up)
-             ("C-S-k" . ~view-scroll-down))
-  
-  )
+             ("C-S-k" . ~view-scroll-down)))
 
 
-(bundle rubikitch/viewer)
 (use-package viewer
+  :straight (:host github :repo "rubikitch/viewer")
+  :defer t
   :config
-  
   ;; view-modeのときはモードラインの色を変える
   (setq viewer-modeline-color-unwritable "indian red")
   (setq viewer-modeline-color-view "hot pink")
@@ -79,6 +77,4 @@
 
   (defadvice package-menu-execute (around ~disable-view-setting activate)
     (let ((view-mode-by-default-regexp nil))
-      ad-do-it))
-
-  )
+      ad-do-it)))

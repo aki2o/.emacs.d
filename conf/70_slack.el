@@ -1,9 +1,11 @@
-(bundle slack :depends (oauth2 lui websocket gntp))
 (use-package slack
+  :defer t
   :commands (slack-start)
-
   :init
-
+  (use-package oauth2 :defer t)
+  (use-package circe :defer t)
+  (use-package websocket :defer t)
+  
   (setq slack-buffer-emojify t)
   (setq slack-prefer-current-team t)
 
@@ -15,7 +17,6 @@
   ;; (make-variable-buffer-local 'slack-message-edit-buffer-type)
   
   :config
-
   (slack-register-team
    :name "mf"
    :default t
@@ -102,28 +103,30 @@
                           (slack-message-reactions-input-using-emoji-cheat-sheet-plus)
                         (list (slack-message-reaction-input)))))
       (dolist (reaction reactions)
-        (slack-message-reaction-add reaction ts room team))))
-  
-  )
+        (slack-message-reaction-add reaction ts room team)))))
 
 
 (use-package e2wm-slack
+  :straight (:type built-in)
+  :after (:all slack e2wm)
   :defer t
-  
   :config
-
   (e2wm-slack--log-enable-logging)
   
   (e2wm-slack:history-autoloadable-commandize scroll-down)
   ;; (e2wm-slack:history-autoloadable-commandize inertias-down)
+  )
 
-  (use-package direx-slack-room
-    :config
-    (direx-slack-room--log-enable-logging)
-    (direx-slack-room:set-update-room-automatically t))
 
-  (use-package pophint
-    :config
+(use-package direx-slack-room
+  :straight (:type built-in)
+  :after (slack)
+  :defer t
+  :config
+  (direx-slack-room--log-enable-logging)
+  (direx-slack-room:set-update-room-automatically t)
+
+  (when (fboundp 'pophint:defsource)
     ;; slack.elがフリーズするのでrun-with-idle-timerを使うようにしておく
     (pophint:defsource :name "direx-node"
                        :description "Node on DireX."
@@ -142,8 +145,4 @@
                                                  (run-with-idle-timer
                                                   0.2 nil
                                                   '(lambda (item) (direx:find-item-other-window item))
-                                                  (direx:item-at-point!))))))))
-    )
-  
-  )
-
+                                                  (direx:item-at-point!))))))))))

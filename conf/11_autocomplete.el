@@ -1,5 +1,5 @@
-(bundle auto-complete)
 (use-package auto-complete
+  :defer t
   :init
   (global-auto-complete-mode 0)
   
@@ -71,16 +71,10 @@
               ((listp v)     (setq ac-sources (append ac-sources v))))
         (auto-complete-mode 1)))))
 
-(bundle emacswiki:popup-pos-tip)
-;; (use-package popup-pos-tip
-;;   :after (auto-complete-mode)
-;;   :init
-;;   (defadvice popup-tip (around popup-pos-tip-wrapper (string &rest args) activate)
-;;     (if (eq window-system 'x)
-;;         (apply 'popup-pos-tip string args)
-;;       ad-do-it)))
 
 (use-package auto-complete-config
+  :straight auto-complete
+  :defer t
   :after (auto-complete-mode)
   :hook ((emacs-lisp-mode . ac-emacs-lisp-mode-setup)
          (c-mode-common . ac-cc-mode-setup)
@@ -91,17 +85,15 @@
   (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers)))
 
 
-(bundle company)
 (use-package company
+  :defer t
   :bind (("C-M-i" . company-complete))
-
   :custom ((company-idle-delay 0.2)
            (company-tooltip-limit 20)
            (company-minimum-prefix-length 4)
            (company-selection-wrap-around t)
            (company-transformers '(company-sort-by-backend-importance))
            (completion-ignore-case t))
-  
   :init
   (global-company-mode 1)
   
@@ -224,11 +216,11 @@
             (cl-incf i)))
         (nreverse candidates)))))
 
-(bundle company-quickhelp)
+
 (use-package company-quickhelp
+  :defer t
   :after (company)
   :custom ((company-quickhelp-delay 1.5))
-  
   :config
   ;; company-quickhelp-mode-map なくなったぽい
   ;; (bind-keys :map company-quickhelp-mode-map
@@ -236,22 +228,23 @@
   ;;            ("C-'" . company-quickhelp-manual-begin))
   (company-quickhelp-mode 1))
 
+
 ;; エラーになってしまうのでコメントアウトしてる
-;; (bundle company-statistics)
 ;; (use-package company-statistics
+;;   :defer t
 ;;   :after (company)
 ;;   :config
 ;;   (add-to-list 'company-transformers 'company-sort-by-statistics))
 
-(bundle company-box)
+
 (use-package company-box
-  :after (company all-the-icons)
+  :defer t
+  :after (:all company all-the-icons)
   :custom ((company-box-icons-alist 'company-box-icons-all-the-icons)
            (company-box-doc-delay 1.5)
            (company-box-doc-frame-parameters '((foreground-color . "black")
                                                (internal-border-width . 10))))
   :hook (company-mode . company-box-mode)
-
   :config
   (custom-set-faces
    '(company-box-candidate ((t (:foreground "black"))))

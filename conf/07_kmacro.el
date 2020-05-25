@@ -1,4 +1,3 @@
-
 (defvar ~kmacro-save-file (concat user-emacs-directory "conf/99_saved_kmacro.el"))
 
 (defun ~kmacro-save (symbol)
@@ -9,4 +8,3 @@
     (goto-char (point-max))
     (insert-kbd-macro symbol)
     (basic-save-buffer)))
-

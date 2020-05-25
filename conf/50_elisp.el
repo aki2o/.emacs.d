@@ -40,7 +40,6 @@
       (flycheck-mode 0))))
 
 
-(bundle eldoc-extension)
 (use-package eldoc-extension
   :defer t
   :init
@@ -53,11 +52,10 @@
   )
 
 
-(bundle autodoc :url "https://raw.github.com/bbatsov/emacs-helm/master/developer-tools/autodoc.el")
-(use-package autodoc)
+(use-package autodoc
+  :straight (:type built-in))
 
 
-(bundle log4e)
 (use-package log4e
   :defer t
   :init
@@ -65,5 +63,5 @@
   )
 
 
-(with-eval-after-load 'pophint
+(when (fboundp 'pophint-tags:advice-command)
   (pophint-tags:advice-command ~find-tag-elisp))

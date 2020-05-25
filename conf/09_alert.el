@@ -1,11 +1,6 @@
-(bundle alert)
-(bundle gntp)
 (use-package alert
+  :defer t
   :commands (alert)
-
   :init
-
   (setq alert-default-style
-        (cond ((~is-mac) 'notifier)))
-  )
-
+        (cond ((~is-mac) 'notifier))))

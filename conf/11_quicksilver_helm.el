@@ -1,7 +1,4 @@
-(bundle helm)
-(bundle helm-descbinds)
-
-(require 'helm)
+(use-package helm)
 (require 'helm-config)
 (require 'helm-files)
 (require 'helm-for-files)
@@ -29,7 +26,7 @@
            ("B" . helm-bookmark)
            ("l" . helm-locate-library))
 
-(require 'helm-descbinds) ; replace from descbinds-anything
+(use-package helm-descbinds) ; replace from descbinds-anything
 (helm-descbinds-install)  ; (descbinds-anything-install)
 ;; ;; descbinds-anythingも他のanythingコマンドと同じように
 (setq helm-descbinds-window-style 'split-window) ; (setq descbinds-anything-window-style 'split-window)

@@ -85,4 +85,4 @@
 
 (use-package e2wm-pkgex4pl
   :defer t
-  :after (:all cperl-mode e2wm))
+  :after (e2wm))

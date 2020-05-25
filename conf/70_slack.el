@@ -108,7 +108,7 @@
 
 (use-package e2wm-slack
   :straight (:type built-in)
-  :after (:all slack e2wm)
+  :after (e2wm)
   :defer t
   :config
   (e2wm-slack--log-enable-logging)

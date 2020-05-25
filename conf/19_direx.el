@@ -54,4 +54,4 @@
 
 (use-package e2wm-direx
   :defer t
-  :after (:all e2wm direx))
+  :after (e2wm))

@@ -212,7 +212,6 @@
 (use-package e2wm-transcribe
   :straight (:type built-in)
   :defer t
-  :commands (e2wm-transcribe:dp)
   :config
   (setq e2wm:c-transcribe-recipe
         '(- (:upper-size-ratio 0.55)

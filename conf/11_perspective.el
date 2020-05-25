@@ -119,7 +119,7 @@
 (use-package e2wm-perspb
   :straight (:host github :repo "aki2o/e2wm-perspb")
   :defer t
-  :after persp-mode
+  :after (e2wm)
   :init
   (use-package deferred :defer t)
 

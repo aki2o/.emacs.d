@@ -24,14 +24,6 @@
    '(pophint:pos-tip-face ((t (:background "black" :foreground "white")))))
 
   :config
-  (defun ~pophint:forward ()
-    (interactive)
-    (pophint:do :direction 'forward))
-
-  (defun ~pophint:backward ()
-    (interactive)
-    (pophint:do :direction 'backward))
-  
   (pophint:set-allwindow-command pophint:do-flexibly)
   (pophint:set-allwindow-command pophint:do-rangeyank)
 
@@ -121,3 +113,11 @@
                        (= (char-before) ?\n))
                   (delete-char -1)))))))
     nil))
+
+(defun ~pophint:forward ()
+  (interactive)
+  (pophint:do :direction 'forward))
+
+(defun ~pophint:backward ()
+  (interactive)
+  (pophint:do :direction 'backward))

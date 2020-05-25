@@ -190,13 +190,14 @@ Returns a hash table with keys being short names (choices) and values being rela
                                             'projectile-rails-find-view)))
 
 
-(use-package docker-projectile-rails
-  :straight (:host github :repo "aki2o/emacs-docker-projectile-rails")
-  :after (projectile-rails)
-  :init
-  (use-package docker :defer t)
-  :config
-  (docker-projectile-rails:activate))
+;; void-variable docker-container-attach とエラーになるようになってしまってたので、一旦コメントアウト
+;; (use-package docker-projectile-rails
+;;   :straight (:host github :repo "aki2o/emacs-docker-projectile-rails")
+;;   :after (projectile-rails)
+;;   :init
+;;   (use-package docker :defer t)
+;;   :config
+;;   (docker-projectile-rails:activate))
 
 
 (use-package rspec-mode

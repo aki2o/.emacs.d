@@ -30,8 +30,7 @@
 
 
 (use-package magit-popup
-  :after (magit)
-  :defer t)
+  :after (magit))
 
 
 (use-package git-gutter

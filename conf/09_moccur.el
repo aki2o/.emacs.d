@@ -172,7 +172,6 @@
 
 
 (use-package moccur-edit
-  :defer t
   :after (color-moccur))
 
 

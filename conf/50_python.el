@@ -3,5 +3,4 @@
 
 
 (use-package jedi-direx
-  :defer t
   :after (jedi))

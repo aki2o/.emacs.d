@@ -34,7 +34,6 @@
 
 
 (use-package igrep
-  :defer t
   :after (grep)
   :config
   ;; lgrepを使い、UTF-8で出力
@@ -46,7 +45,6 @@
 
 
 (use-package grep-a-lot
-  :defer t
   :after (grep)
   :config
   ;; (grep-a-lot-setup-keys)
@@ -55,7 +53,6 @@
 
 (use-package wgrep
   :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
-  :defer t
   :after (grep))
 
 

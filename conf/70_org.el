@@ -44,13 +44,11 @@
 
 
 (use-package org-redmine
-  :after (org)
-  :defer t)
+  :after (org))
 
 
 (use-package org-ac
   :after (org)
-  :defer t
   :config
   (org-ac/config-default))
 
@@ -64,20 +62,17 @@
 
 (use-package org-link-github-wiki
   :straight (:type built-in)
-  :after (org)
-  :defer t)
+  :after (org))
 
 
 (use-package org-link-travis
   :after (org)
-  :defer t
   :config
   (setq org-link-travis/user-name "aki2o"))
 
 
 (use-package ox
   :straight org
-  :defer t
   :after org
   :config
   (defadvice org-md-link (after ~fix-for-github activate)
@@ -117,7 +112,6 @@
 
 (use-package org-gcal
   :after org
-  :defer t
   :init
   (defvar ~org-gcal-directory (concat user-emacs-directory "org-gcal/"))
   (defvar ~org-gcal-main-schedule-file (concat ~org-gcal-directory "main.org"))

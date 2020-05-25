@@ -74,7 +74,6 @@
 
 (use-package auto-complete-config
   :straight auto-complete
-  :defer t
   :after (auto-complete-mode)
   :hook ((emacs-lisp-mode . ac-emacs-lisp-mode-setup)
          (c-mode-common . ac-cc-mode-setup)
@@ -218,7 +217,6 @@
 
 
 (use-package company-quickhelp
-  :defer t
   :after (company)
   :custom ((company-quickhelp-delay 1.5))
   :config
@@ -231,14 +229,12 @@
 
 ;; エラーになってしまうのでコメントアウトしてる
 ;; (use-package company-statistics
-;;   :defer t
 ;;   :after (company)
 ;;   :config
 ;;   (add-to-list 'company-transformers 'company-sort-by-statistics))
 
 
 (use-package company-box
-  :defer t
   :after (:all company all-the-icons)
   :custom ((company-box-icons-alist 'company-box-icons-all-the-icons)
            (company-box-doc-delay 1.5)

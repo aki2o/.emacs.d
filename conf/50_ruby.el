@@ -192,7 +192,6 @@ Returns a hash table with keys being short names (choices) and values being rela
 
 (use-package docker-projectile-rails
   :straight (:host github :repo "aki2o/emacs-docker-projectile-rails")
-  :defer t
   :after (projectile-rails)
   :init
   (use-package docker :defer t)
@@ -201,7 +200,6 @@ Returns a hash table with keys being short names (choices) and values being rela
 
 
 (use-package rspec-mode
-  :defer t
   :after (ruby-mode)
   :init
   (custom-set-variables '(rspec-use-rake-flag nil))

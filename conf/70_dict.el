@@ -24,7 +24,6 @@
 
 (use-package sdic-inline
   :straight (:type built-in)
-  :defer t
   :after (sdic)
   :commands (~sdic-inline-smart-display)
   :config
@@ -55,7 +54,6 @@
 
 (use-package sdic-inline-pos-tip
   :straight (:type built-in)
-  :defer t
   :after (sdic)
   :commands (sdic-inline-pos-tip-show)
   :init

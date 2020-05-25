@@ -61,7 +61,6 @@ _q_: exit
 
 
 (use-package realgud
-  :defer t
   :after (meghanada))
   
 
@@ -86,5 +85,4 @@ _q_: exit
 
 
 (use-package flycheck-kotlin
-  :defer t
   :after (kotlin-mode))

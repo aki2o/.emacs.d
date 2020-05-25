@@ -6,7 +6,6 @@
 
 
 (use-package emojify
-  :defer t
   :after (emoji-cheat-sheet-plus)
   :config
   ;; p-r
@@ -25,7 +24,6 @@
 
 
 (use-package company-emoji
-  :defer t
   :after (emojify)
   :init
   (defvar ~company-emoji-setup-hooks
@@ -49,7 +47,6 @@
 
 ;; (use-package ac-emoji
 ;;   :after (emojify)
-;;   :defer t
 ;;   :init
 ;;   (defvar ~ac-emoji-setup-hooks
 ;;     '(org-mode-hook markdown-mode-hook git-commit-mode-hook))

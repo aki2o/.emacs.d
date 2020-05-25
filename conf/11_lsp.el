@@ -17,7 +17,6 @@
 
 
 (use-package lsp-ui
-  :defer t
   :after (lsp-mode)
   :custom ((lsp-ui-sideline-enable nil)
            (lsp-ui-flycheck-live-reporting nil)
@@ -92,7 +91,6 @@
 
 
 (use-package company-lsp
-  :defer t
   :after (lsp-mode company)
   :init (add-to-list 'company-backends 'company-lsp)
   :custom ((company-lsp-cache-candidates 'auto)
@@ -102,6 +100,5 @@
 
 
 (use-package helm-lsp
-  :defer t
   :commands (helm-lsp-workspace-symbol)
-  :after (lsp-mode helm))
+  :after (lsp-mode))

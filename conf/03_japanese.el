@@ -57,7 +57,6 @@
 
 (use-package mozc-popup
   :if window-system
-  :defer t
   :after mozc
   :init
   (use-package popup :defer t)
@@ -66,9 +65,7 @@
 
 
 (use-package mozc-cursor-color
-  :straight (mozc-el-extensions :host github
-                                :repo "iRi-E/mozc-el-extensions")
-  :defer t
+  :straight (mozc-el-extensions :host github :repo "iRi-E/mozc-el-extensions")
   :after mozc
   :config
   (setq mozc-cursor-color-alist

@@ -15,7 +15,6 @@
 
 (use-package php-completion
   :after (php-mode)
-  :defer t
   :config
   (defun ~php-cmp-setup ()
     (php-completion-mode 1)
@@ -25,7 +24,6 @@
 
 (use-package php-eldoc
   :after (php-mode)
-  :defer t
   :config
   (defun ~php-eldoc-setup ()
     (php-eldoc-enable)

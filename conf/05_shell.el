@@ -91,7 +91,6 @@
 
 
 (use-package readline-complete
-  :defer t
   :after (shell)
   :config
   (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))

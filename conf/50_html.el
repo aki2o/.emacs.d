@@ -51,7 +51,6 @@
 
 
 (use-package auto-complete-nxml
-  :defer t
   :after (nxml-mode)
   :config
   (setq auto-complete-nxml-popup-help-key "C-'")
@@ -60,7 +59,6 @@
 
 (use-package genrnc
   :straight (:host github :repo "aki2o/emacs-genrnc")
-  :defer t
   :after (rng-loc))
 
 

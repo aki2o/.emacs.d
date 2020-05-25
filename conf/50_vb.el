@@ -19,7 +19,6 @@
 
 
 (use-package vbasense
-  :defer t
   :after (visual-basic-mode)
   :config
   (setq vbasense-popup-help-key "C-'")

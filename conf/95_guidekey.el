@@ -56,7 +56,6 @@
 
 (use-package guide-key-tip
   :after (guide-key)
-  :defer t
   :config
   (setq guide-key-tip/enabled t)
 

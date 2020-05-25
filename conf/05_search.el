@@ -28,7 +28,6 @@
 (use-package mozc-isearch
   :straight (mozc-el-extensions :host github
                                 :repo "iRi-E/mozc-el-extensions")
-  :defer t
   :after mozc)
 
 

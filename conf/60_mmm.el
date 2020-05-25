@@ -1,6 +1,5 @@
 (use-package mmm-auto
   :straight mmm-mode
-  :defer t
   :after (:any visual-basic-mode php-mode)
   :init
   (setq mmm-global-mode 'maybe)

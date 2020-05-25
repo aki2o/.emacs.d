@@ -205,7 +205,6 @@
 
 
 (use-package e2wm-sww
-  :defer t
   :after (e2wm))
 
 

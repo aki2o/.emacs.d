@@ -43,7 +43,6 @@
 
 
 (use-package direx-grep
-  :defer t
   :after (direx)
   :config
   (define-key direx:direx-mode-map (kbd "s") 'direx-grep:grep-item-from-root)
@@ -53,5 +52,4 @@
 
 
 (use-package e2wm-direx
-  :defer t
   :after (e2wm))

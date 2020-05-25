@@ -60,7 +60,6 @@
 
 
 (use-package plsense
-  :defer t
   :after (cperl-mode)
   :config
   (setq plsense-popup-help-key "C-'")
@@ -75,8 +74,7 @@
   
 
 (use-package plsense-direx
-  :defer t
-  :after (:all cperl-mode plsense)
+  :after (plsense)
   :config
   (setq plsense-direx:open-explorer-other-window-key "C-x d")
   (setq plsense-direx:open-referer-other-window-key "C-x D")
@@ -84,5 +82,4 @@
 
 
 (use-package e2wm-pkgex4pl
-  :defer t
   :after (e2wm))

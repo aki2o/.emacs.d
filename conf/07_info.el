@@ -11,5 +11,4 @@
 
 ;; エラーになっちゃったので一旦コメントアウト
 ;; (use-package info+
-;;   :defer t
 ;;   :after (info))

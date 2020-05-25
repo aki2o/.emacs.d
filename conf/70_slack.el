@@ -109,7 +109,6 @@
 (use-package e2wm-slack
   :straight (:type built-in)
   :after (e2wm)
-  :defer t
   :config
   (e2wm-slack--log-enable-logging)
   
@@ -121,7 +120,6 @@
 (use-package direx-slack-room
   :straight (:type built-in)
   :after (slack)
-  :defer t
   :config
   (direx-slack-room--log-enable-logging)
   (direx-slack-room:set-update-room-automatically t)

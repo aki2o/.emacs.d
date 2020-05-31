@@ -201,7 +201,6 @@
  ("tern" . "a295a80a502771cc07dc061961e0eb85343c2925")
  ("terraform-mode" . "2967e7bdc05d15617e121052f6e43c61439b9070")
  ("tide" . "10e5c19de798aba2d57fb1ec83ad3d1369e6547a")
- ("tramp" . "ef6a40582d1649029c23c4052413c60e6b0fea08")
  ("transient" . "a269614c69ad8b2703e6e5093d0017d6afad6cca")
  ("treemacs" . "1935108f683ac446e3d0add9467bc1adc4f744e7")
  ("treepy.el" . "306f7031d26e4ebfc9ff36614acdc6993f3e23c3")

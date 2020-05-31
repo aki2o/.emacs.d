@@ -51,6 +51,7 @@
 
 
 (use-package tramp
+  :straight (:type built-in)
   :defer t
   :config
   (setq tramp-default-method "scpx")

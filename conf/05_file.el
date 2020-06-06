@@ -51,9 +51,9 @@
 
 
 (use-package tramp
+  :straight (:type built-in)
   :defer t
   :config
-
   (setq tramp-default-method "scpx")
   
   ;; sshの実行にf_sshを含める
@@ -92,10 +92,4 @@
   (defun ~tramp-just-do-auth-source-search ()
     (interactive)
     (auth-source-search :user t :host "dummy" :port "dummy")
-    (message "Done!"))
-
-  )
-
-
-;; (bundle emacswiki:multiverse)
-
+    (message "Done!")))

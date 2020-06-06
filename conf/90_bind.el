@@ -7,6 +7,8 @@
     ;; 移動
     (:key "C-h"     :cmd backward-char             :jack t)
     (:key "C-l"     :cmd forward-char              :jack t)
+    (:key "<left>"  :cmd backward-char             :jack t)
+    (:key "<right>" :cmd forward-char              :jack t)
     (:key "C-S-h"   :cmd backward-word             :jack t)
     (:key "C-S-l"   :cmd forward-word              :jack t)
     (:key "M-h"     :cmd backward-sexp             :jack t)
@@ -19,6 +21,8 @@
     (:key "C-k"     :cmd previous-line             :jack t)
     (:key "C-S-j"   :cmd inertias-up               :jack t)
     (:key "C-S-k"   :cmd inertias-down             :jack t)
+    (:key "<next>"  :cmd inertias-up               :jack t)
+    (:key "<prior>" :cmd inertias-down             :jack t)
     (:key "M-j"     :cmd ~end-of-block             :jack t)
     (:key "M-k"     :cmd ~beginning-of-block       :jack t)
     (:key "C-M-j"   :cmd ~pophint:forward          :jack t)
@@ -792,40 +796,40 @@ _a_: show all                 _l_: go to child
    ("m" geeknote-move "move")))
 
 
-;;;;;;;;;;;;;;
-;; Anything
+;; ;;;;;;;;;;;;;;
+;; ;; Anything
 
-;; abbrevのキーバインドをanything用に空ける
-(dolist (s '("C-a" "'" "+" "-" "e" "g" "l" "n" "p" "i g" "i l"))
-  (global-unset-key (kbd (concat "C-x a" s))))
+;; ;; abbrevのキーバインドをanything用に空ける
+;; (dolist (s '("C-a" "'" "+" "-" "e" "g" "l" "n" "p" "i g" "i l"))
+;;   (global-unset-key (kbd (concat "C-x a" s))))
 
-(global-set-key
- (kbd "C-x a")
- (defhydra ~hydra-anything (:exit t :help nil :idle ~hydra-help-delay)
-   "
-_x_: M-x        _B_: bm                    _r_: resume
-_f_: find file  _q_: replace string        _?_: help
-_F_: for files  _h_: hatena bookmark
-_a_: apropos    _H_: hatena bookmark dump
-_b_: buffers
-_k_: kill ring
-_i_: imenu
-_m_: mark ring
-"
-   ("x" anything-execute-anything-command)
-   ("f" anything-find-files)
-   ("F" anything-for-files)
-   ("a" anything-apropos)
-   ("b" anything-buffers-list)
-   ("k" anything-show-kill-ring)
-   ("i" anything-imenu)
-   ("m" anything-all-mark-rings)
-   ("B" anything-bm-list)
-   ("q" anything-replace-string)
-   ("h" anything-hatena-bookmark)
-   ("H" anything-hatena-bookmark-get-dump)
-   ("r" anything-resume)
-   ("?" anything-help)))
+;; (global-set-key
+;;  (kbd "C-x a")
+;;  (defhydra ~hydra-anything (:exit t :help nil :idle ~hydra-help-delay)
+;;    "
+;; _x_: M-x        _B_: bm                    _r_: resume
+;; _f_: find file  _q_: replace string        _?_: help
+;; _F_: for files  _h_: hatena bookmark
+;; _a_: apropos    _H_: hatena bookmark dump
+;; _b_: buffers
+;; _k_: kill ring
+;; _i_: imenu
+;; _m_: mark ring
+;; "
+;;    ("x" anything-execute-anything-command)
+;;    ("f" anything-find-files)
+;;    ("F" anything-for-files)
+;;    ("a" anything-apropos)
+;;    ("b" anything-buffers-list)
+;;    ("k" anything-show-kill-ring)
+;;    ("i" anything-imenu)
+;;    ("m" anything-all-mark-rings)
+;;    ("B" anything-bm-list)
+;;    ("q" anything-replace-string)
+;;    ("h" anything-hatena-bookmark)
+;;    ("H" anything-hatena-bookmark-get-dump)
+;;    ("r" anything-resume)
+;;    ("?" anything-help)))
 
 
 ;;;;;;;;;;;;;

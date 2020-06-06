@@ -1,4 +1,3 @@
-(bundle owdriver)
 (use-package owdriver
   :config
   (unbind-key "C-o")

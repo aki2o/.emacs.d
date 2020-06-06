@@ -1,10 +1,5 @@
-(bundle ruby-block)
-(bundle ruby-end)
-(bundle rake)
-
 (use-package ruby-mode
   :defer t
-  
   :init
   (mmask-regist-name 'ruby-mode "Gemfile" "Rakefile" "Guardfile" "Capfile" "Vagrantfile")
   (mmask-regist-extension-with-icase 'ruby-mode "rake" "ru" "gemspec" "ruby")
@@ -15,7 +10,25 @@
   (setq ruby-deep-indent-paren-style nil)
 
   :config
+  (add-hook 'ruby-mode-hook '~ruby-mode-setup t)
   
+  (defun ~ruby-mode-setup ()
+    ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
+    (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
+    (define-key ruby-mode-map (kbd "M-/") '~ruby-rubocop-apply-to-current)
+    (define-key ruby-mode-map (kbd "C-M-/") '~ruby-rubocop-apply-to-diff-files)
+    (electric-indent-local-mode 0)
+    (when (fboundp 'lsp)
+      (lsp))
+    (when (fboundp 'flex-autopair-reload-conditions)
+      (add-to-list 'flex-autopair-pairs '(?| . ?|))
+      (add-to-list 'flex-autopair-pairs '(?| . ?|))
+      (setq flex-autopair-user-conditions-high
+            '(((string-match " do +\\'" (buffer-substring (point-at-bol) (point))) . pair)))
+      (flex-autopair-reload-conditions))
+    (when (fboundp 'mmask-get-regexp-string)
+      (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode))))
+
   (defun ~ruby-mode-set-encoding ()
     (interactive)
     (ruby-mode-set-encoding))
@@ -38,13 +51,11 @@
     (interactive)
     (apply '~ruby-rubocop-apply (~git-diff-path-list (current-buffer))))
   
-  (defun ~ruby-setup-mode ()
-    ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
-    (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
-    (define-key ruby-mode-map (kbd "M-/") '~ruby-rubocop-apply-to-current)
-    (define-key ruby-mode-map (kbd "C-M-/") '~ruby-rubocop-apply-to-diff-files)
-    (electric-indent-local-mode 0))
-  (add-hook 'ruby-mode-hook '~ruby-setup-mode t)
+  (defun ~ruby-rails-show-routes (keyword)
+    (interactive
+     (list (read-string "Query: ")))
+    (shell-command (format "bundle exec rake routes | grep %s"
+                           (shell-quote-argument keyword))))
 
   ;; 閉じ括弧のインデントをイイ感じにする
   (defadvice ruby-indent-line (after ~unindent-closing-paren activate)
@@ -62,42 +73,6 @@
         (indent-line-to indent)
         (when (> offset 0) (forward-char offset)))))
 
-  (use-package lsp-mode
-    :hook (ruby-mode . lsp))
-
-  (use-package ruby-block
-    :config
-    (setq ruby-block-highlight-toggle t)
-    (add-hook 'ruby-mode-hook 'ruby-block-mode t))
-
-  (use-package ruby-end
-    :config
-    (unbind-key (read-kbd-macro ruby-end-expand-ret-key) ruby-end-mode-map)
-    (add-hook 'ruby-mode-hook 'ruby-end-mode t))
-
-  ;; (use-package flycheck
-  ;;   :init
-  ;;   (defun ~ruby-setup-flycheck ()
-  ;;     (add-to-list 'flycheck-disabled-checkers 'ruby-rubocop) ; rubocopのチェックは自動ではさせない
-  ;;     (flycheck-mode t))
-  ;;   (add-hook 'ruby-mode-hook '~ruby-setup-flycheck t))
-
-  (use-package flex-autopair
-    :init
-    (defun ~ruby-setup-flex-autopair ()
-      (add-to-list 'flex-autopair-pairs '(?| . ?|))
-      (add-to-list 'flex-autopair-pairs '(?| . ?|))
-      (setq flex-autopair-user-conditions-high
-            '(((string-match " do +\\'" (buffer-substring (point-at-bol) (point))) . pair)))
-      (flex-autopair-reload-conditions))
-    (add-hook 'ruby-mode-hook '~ruby-setup-flex-autopair t))
-
-  (use-package color-moccur
-    :init
-    (defun ~ruby-setup-color-moccur ()
-      (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode)))
-    (add-hook 'ruby-mode-hook '~ruby-setup-color-moccur t))
-
   (defalias '~ruby-syntax-propertize-function
     (syntax-propertize-rules
      ;; 文字列2重展開があるとシンタックスハイライトがおかしくなるので、 ruby-expression-expansion-re を修正したやつを追加
@@ -106,37 +81,41 @@
 
   (defun ~ruby-fix-syntax-propertize ()
     (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function))
-  (add-hook 'ruby-mode-hook '~ruby-fix-syntax-propertize t)
-  )
+  (add-hook 'ruby-mode-hook '~ruby-fix-syntax-propertize t))
 
 
-(bundle inf-ruby)
+(use-package ruby-block
+  :defer t
+  :hook (ruby-mode . ruby-block-mode)
+  :config
+  (setq ruby-block-highlight-toggle t))
+
+
+(use-package ruby-end
+  :defer t
+  :hook (ruby-mode . ruby-end-mode)
+  :config
+  (unbind-key (read-kbd-macro ruby-end-expand-ret-key) ruby-end-mode-map))
+
+
 (use-package inf-ruby
   :defer t
+  :hook (ruby-mode . inf-ruby-minor-mode)
   :init
   (setq inf-ruby-default-implementation "pry")
   (setq inf-ruby-eval-binding "Pry.toplevel_binding")
   (setq inf-ruby-console-environment "development")
-  (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode t)
   :config
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on t))
 
 
-(bundle projectile-rails)
-(bundle aki2o/emacs-docker-projectile-rails :name docker-projectile-rails :depends (docker))
 (use-package projectile-rails
   :defer t
+  :hook (projectile-mode . projectile-rails-on)
   :init
-
   (setq rake-completion-system 'helm)
 
-  (add-hook 'projectile-mode-hook 'projectile-rails-on)
-  (when projectile-mode
-    (projectile-mode)
-    (projectile-mode))
-
   :config
-  
   (~projectile-switchable-project-commandize projectile-rails-find-controller)
   (~projectile-switchable-project-commandize projectile-rails-find-model)
   (~projectile-switchable-project-commandize projectile-rails-find-view)
@@ -179,10 +158,6 @@
             (t
              (projectile-ag (replace-regexp-in-string re "" (concat view-dir view-name)))))))
 
-  (use-package docker-projectile-rails
-    :config
-    (docker-projectile-rails:activate))
-
   ;; p-r
 
   (defun rake--root ()
@@ -212,14 +187,21 @@ Returns a hash table with keys being short names (choices) and values being rela
     (interactive)
     (projectile-rails-find-current-resource "app/views/"
                                             "\\(.*${plural}/[^/]+\\)$"
-                                            'projectile-rails-find-view))
-
-  )
+                                            'projectile-rails-find-view)))
 
 
-(bundle rspec-mode)
+;; void-variable docker-container-attach とエラーになるようになってしまってたので、一旦コメントアウト
+;; (use-package docker-projectile-rails
+;;   :straight (:host github :repo "aki2o/emacs-docker-projectile-rails")
+;;   :after (projectile-rails)
+;;   :init
+;;   (use-package docker :defer t)
+;;   :config
+;;   (docker-projectile-rails:activate))
+
+
 (use-package rspec-mode
-  :defer t
+  :after (ruby-mode)
   :init
   (custom-set-variables '(rspec-use-rake-flag nil))
 
@@ -262,18 +244,13 @@ Returns a hash table with keys being short names (choices) and values being rela
                         (replace-regexp-in-string
                          "_spec\\.rb\\'"
                          "_controller.rb"
-                         (substring spec-path (length request-spec-root)))))))))
-  )
+                         (substring spec-path (length request-spec-root))))))))))
 
 
-(bundle yard-mode)
 (use-package yard-mode
+  :defer t
   :hook (ruby-mode . yard-mode))
 
 
-(defun ~ruby-rails-show-routes (keyword)
-  (interactive
-   (list (read-string "Query: ")))
-  (shell-command (format "bundle exec rake routes | grep %s"
-                         (shell-quote-argument keyword))))
-
+(use-package rake
+  :defer t)

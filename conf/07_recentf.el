@@ -1,4 +1,4 @@
-(bundle recentf-ext)
+(use-package recentf-ext)
 
 (recentf-mode t)
 (setq recentf-max-saved-items 3000)
@@ -18,4 +18,3 @@
     (recentf-add-file dired-directory)))
 
 (add-hook 'dired-mode-hook '~recentf-add-dired-directory)
-

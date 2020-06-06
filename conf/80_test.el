@@ -1,33 +1,25 @@
-(bundle save-load-path)
 (use-package save-load-path
   :config
   (setq save-load-path-file (concat user-emacs-directory ".load-path-saved"))
   (save-load-path-initialize))
 
 
-(bundle lispxmp)
-(use-package lispxmp)
-
-
-(bundle test-simple)
-(bundle el-mock)
-(bundle ert-expectations)
-
-
-;; (bundle ert :url "https://raw.github.com/ohler/ert/c619b56c5bc6a866e33787489545b87d79973205/lisp/emacs-lisp/ert.el")
-;; (require 'ert)
-(bundle emacswiki:el-expectations)
-(bundle emacswiki:el-expectations-success-sample)
-(bundle emacswiki:el-expectations-failure-sample)
-(use-package el-expectations+
+(use-package lispxmp
   :defer t)
 
 
-;; (bundle uk-ar/el-spec)
-;; (require 'el-spec)
+(use-package test-simple
+  :defer t)
 
 
-(bundle caskxy)
+(use-package el-mock
+  :defer t)
+
+
+(use-package ert-expectations
+  :defer t)
+
+
 (use-package caskxy
   :defer t
   :init

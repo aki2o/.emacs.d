@@ -23,7 +23,6 @@
   (~setup-theme))
 
 
-(bundle all-the-icons)
 ;; 初期インストール時に (all-the-icons-install-fonts) をやる必要があるっぽい
 (use-package all-the-icons
   :custom ((inhibit-compacting-font-caches t)
@@ -31,7 +30,6 @@
            (all-the-icons-default-adjust -0.2)))
 
 
-(bundle doom-modeline)
 (use-package doom-modeline
   :custom ((doom-modeline-height 1)
            (doom-modeline-bar-width 3)

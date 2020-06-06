@@ -42,33 +42,30 @@
 
 
 ;; Mozc
-(bundle mozc)
 (use-package mozc
+  :defer t
+  :custom ((mozc-leim-title "[あ]")
+           (mozc-helper-program-name "mozc_emacs_helper"))
+  :hook (mozc-mode . ~send-eisuu-key)
   :init
   (setq default-input-method "japanese-mozc")
-  (setq mozc-helper-program-name "mozc_emacs_helper")
-  
   :config
-  (add-hook 'mozc-mode-hook '~send-eisuu-key)
-  
-  (use-package helm
-    :defer t
-    :config
+  (with-eval-after-load 'helm
     (define-key mozc-mode-map (kbd "M-x") 'helm-M-x)
-    (add-hook 'helm-minibuffer-set-up-hook '~deactivate-input-method t))
+    (add-hook 'helm-minibuffer-set-up-hook '~deactivate-input-method t)))
 
-  :custom
-  (mozc-leim-title "[あ]"))
 
-(bundle mozc-popup :depends (popup))
 (use-package mozc-popup
   :if window-system
   :after mozc
+  :init
+  (use-package popup :defer t)
   :config
   (setq mozc-candidate-style 'popup))
 
-(bundle iRi-E/mozc-el-extensions :name mozc-el-extensions)
+
 (use-package mozc-cursor-color
+  :straight (mozc-el-extensions :host github :repo "iRi-E/mozc-el-extensions")
   :after mozc
   :config
   (setq mozc-cursor-color-alist

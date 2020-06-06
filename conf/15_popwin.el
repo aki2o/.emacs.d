@@ -1,9 +1,6 @@
-(bundle popwin)
 (use-package popwin
   :defer t
-
   :init
-  
   ;; (defvar my-buffer-displayed-winconf nil)
   ;; (defun my-display-buffer-func (buf &optional ignore)
   ;;  (setq my-buffer-displayed-winconf (current-window-configuration))
@@ -33,7 +30,6 @@
   ;; (setq anything-display-function 'my-display-buffer-func)
 
   :config
-
   (push '("*anything*" :position bottom) popwin:special-display-config)
   (push '("*anything complete*" :position right :width 0.5) popwin:special-display-config)
   (push '("*anything buffers*" :position right :width 0.5) popwin:special-display-config)
@@ -97,7 +93,4 @@
 
   ;; For avoid of bug of Emacs
   (when (string-match "\\`24\\.3" emacs-version)
-    (setq popwin:close-popup-window-timer-interval 0.5))
-
-  )
-
+    (setq popwin:close-popup-window-timer-interval 0.5)))

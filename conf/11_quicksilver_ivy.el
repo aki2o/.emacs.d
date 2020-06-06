@@ -1,4 +1,4 @@
-(bundle swiper)
+(use-package swiper)
 (require 'ivy)
 
 (setq ivy-height 15)

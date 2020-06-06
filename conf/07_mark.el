@@ -4,4 +4,3 @@
 (defun ~set-mark-only ()
   (interactive)
   (push-mark nil t nil))
-

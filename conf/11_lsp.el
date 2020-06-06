@@ -1,4 +1,3 @@
-(bundle lsp-mode)
 (use-package lsp-mode
   :custom ((lsp-keymap-prefix "C-x l")
            (lsp-signature-render-documentation nil)
@@ -12,10 +11,11 @@
            (lsp-document-sync-method 'incremental)
            (lsp-response-timeout 5)
            (lsp-enable-snippet nil))
+  :defer t
   ;; :hook (lsp-mode . lsp-enable-which-key-integration)
   )
 
-(bundle lsp-ui)
+
 (use-package lsp-ui
   :after (lsp-mode)
   :custom ((lsp-ui-sideline-enable nil)
@@ -83,12 +83,13 @@
         (rename-buffer buffname)
         (pop-to-buffer (current-buffer))))))
 
-;; (bundle lsp-treemacs)
+
 ;; (use-package lsp-treemacs
+;;   :defer t
 ;;   :commands lsp-treemacs-errors-list
 ;;   :after (lsp-mode))
 
-(bundle company-lsp)
+
 (use-package company-lsp
   :after (lsp-mode company)
   :init (add-to-list 'company-backends 'company-lsp)
@@ -97,7 +98,7 @@
            (company-lsp-enable-snippet nil) ; lsp-enable-snippet とセットで設定する必要がある
            (company-lsp-enable-recompletion nil)))
 
-(bundle helm-lsp)
+
 (use-package helm-lsp
   :commands (helm-lsp-workspace-symbol)
-  :after (lsp-mode helm))
+  :after (lsp-mode))

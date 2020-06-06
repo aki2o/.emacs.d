@@ -2,6 +2,6 @@
 (setq imenu-max-item-length 150)
 
 
-(bundle aki2o/yaol-el :name yaol :depends (log4e))
 (use-package yaol
+  :straight (:host github :repo "aki2o/yaol-el")
   :defer t)

@@ -1,25 +1,19 @@
 ;; cpanm RPC::EPC::Service DBI DBD::SQLite DBD::Pg DBD::mysql
-(bundle edbi)
 (use-package edbi
   :defer t
-
-  :commands (edbi:open-db-viewer)
-
-  )
+  :commands (edbi:open-db-viewer))
 
 
-(bundle kiwanami/emacs-edbi :name e2wm-edbi)
 (use-package e2wm-edbi
+  :straight (:host github :repo "kiwanami/emacs-edbi")
   :defer t
-  
   :config
-
   (setq e2wm:c-edbi-recipe
         '(| (:left-size-ratio 0.3)
             database
             (- (:upper-size-ratio 0.2)
                editor result)))
-  
+
   (setq e2wm:c-edbi-winfo
         '((:name database)
           (:name editor)
@@ -40,7 +34,4 @@
   (e2wm:add-keymap
    e2wm:dp-edbi-minor-mode-map 
    '(("prefix n" . edbi:open-db-viewer)
-     ) e2wm:prefix-key)
-
-  )
-  
+     ) e2wm:prefix-key))

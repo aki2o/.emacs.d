@@ -1,17 +1,9 @@
-(use-package help-mode
-  :defer t
-  :config
-  ;; Helpバッファはview-modeにする
-  (add-to-list 'help-mode-hook
-               '(lambda () (view-mode 1))
-               t)
-  )
+(require 'help-mode)
 
-
-;; (bundle usage-memo)
-;; (require 'usage-memo)
-;; (setq umemo-base-directory (concat user-emacs-directory "umemo"))
-;; (umemo-initialize)
+;; Helpバッファはview-modeにする
+(add-to-list 'help-mode-hook
+             '(lambda () (view-mode 1))
+             t)
 
 
 ;; WoMan

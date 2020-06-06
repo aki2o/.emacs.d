@@ -1,14 +1,8 @@
-(bundle perl-completion)
-(bundle plsense)
-(bundle plsense-direx)
-(bundle e2wm-pkgex4pl)
-
 (defalias 'perl-mode 'cperl-mode)
+
 (use-package cperl-mode
   :defer t
-  
   :init
-  
   ;; CGIもPerlのファイルとして開く
   (mmask-regist-extension-with-icase 'perl-mode "cgi")
   
@@ -24,7 +18,6 @@
   (setq cperl-highlight-variables-indiscriminately t)
 
   :config
-
   (add-hook 'cperl-mode-hook '~perl-mode-setup t)
 
   (defun ~perl-mode-setup ()
@@ -51,8 +44,11 @@
     (add-to-list 'ac-sources 'ac-source-yasnippet)
   
     ;; color-moccur
-    (setq moccur-grep-default-mask (mmask-get-regexp-string 'perl-mode))
-    )
+    (when (fboundp 'mmask-get-regexp-string)
+      (setq moccur-grep-default-mask (mmask-get-regexp-string 'perl-mode)))
+
+    (when (fbondp 'flycheck-mode)
+      (flycheck-mode 1)))
   
   (defun perltidy-region ()
     (interactive)
@@ -60,56 +56,30 @@
   
   (defun perltidy-defun ()
     (interactive)
-    (save-excursion (mark-defun) (perltidy-region)))
-  
-  (use-package flycheck
-    :config
-    (add-hook 'cperl-mode-hook 'flycheck-mode t))
+    (save-excursion (mark-defun) (perltidy-region))))
 
-  (use-package set-perl5lib
-    :config
-    ;; set-perl5lib のデフォルトだとパス内にある最上位のlibフォルダが対象になってしまうので、
-    ;; 最下位のlibフォルダを対象にするように変更
-    (defadvice perllib-check-path (around perllib-check-path-reverse activate)
-      (let* ((lst (ad-get-arg 0))
-             (rlst (if (listp lst) (reverse lst) (list ""))))
-        (loop while (> (length rlst) 0)
-              for node = (car rlst)
-              if (string= node "lib") return nil
-              if (string= node "t") return nil
-              do (setq rlst (cdr rlst))
-              (setq ad-return-value (cond ((and (listp rlst)
-                                                (> (length rlst) 0))
-                                           (concat "/" (mapconcat 'identity (reverse rlst) "/")))
-                                          (t
-                                           "")))))))
 
-  (use-package plsense
-    :config
-  
-    (setq plsense-popup-help-key "C-'")
-    (setq plsense-display-help-buffer-key "C-\"")
-    (setq plsense-jump-to-definition-key "C->")
-    ;; (setq plsense-server-start-automatically-p t)
-    ;; (setq plsense-plcmp-candidate-foreground-color nil)
-    (plsense-config-default)
+(use-package plsense
+  :after (cperl-mode)
+  :config
+  (setq plsense-popup-help-key "C-'")
+  (setq plsense-display-help-buffer-key "C-\"")
+  (setq plsense-jump-to-definition-key "C->")
+  ;; (setq plsense-server-start-automatically-p t)
+  ;; (setq plsense-plcmp-candidate-foreground-color nil)
+  (plsense-config-default)
     
-    (use-package pophint
-      :defer t
-      :config
-      (pophint-tags:advice-command plsense-jump-to-definition)))
+  (when (fboundp 'pophint-tags:advice-command)
+    (pophint-tags:advice-command plsense-jump-to-definition)))
   
-  (use-package plsense-direx
-    :functions (cperl-mode)
-    :config
-    (setq plsense-direx:open-explorer-other-window-key "C-x d")
-    (setq plsense-direx:open-referer-other-window-key "C-x D")
-    (plsense-direx:config-default))
 
-  (use-package e2wm
-    :defer t
-    :config
-    (use-package e2wm-pkgex4pl))
-  
-  )
+(use-package plsense-direx
+  :after (plsense)
+  :config
+  (setq plsense-direx:open-explorer-other-window-key "C-x d")
+  (setq plsense-direx:open-referer-other-window-key "C-x D")
+  (plsense-direx:config-default))
 
+
+(use-package e2wm-pkgex4pl
+  :after (e2wm))

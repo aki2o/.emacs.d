@@ -1,9 +1,6 @@
-(bundle igrep)
-(bundle grep-a-lot)
-(bundle emacswiki:grep-edit)
 (use-package grep
+  :defer t
   :commands (~grep-by-git)
-  
   :init
   (setq grep-host-defaults-alist nil) ; これはおまじないだと思ってください
   (setq grep-template "grep <C> -n <R> <F> <N>")
@@ -23,112 +20,108 @@
   ;;         (setq argument (replace-regexp-in-string "'" "'\\''" argument nil t))
   ;;         (setq ad-return-value (concat "'" argument "'")))
   ;;     ad-do-it))
-  
-  (use-package igrep
-    :config
-    ;; lgrepを使い、UTF-8で出力
-    (igrep-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -Ou8"))
-    (igrep-find-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -Ou8"))
-    ;; (igrep-define grep (igrep-use-zgrep nil) (igrep-regex-option "-n"))
-    ;; (igrep-find-define grep (igrep-use-zgrep nil) (igrep-regex-option "-n"))
-    )
+  )
 
-  (use-package grep-a-lot
-    :config
-    ;; (grep-a-lot-setup-keys)
-    (grep-a-lot-advise igrep))
+(defun ~grep-by-git (regexp dir)
+  (interactive
+   (list (read-string "Regexp: ")
+         (read-directory-name "Dir: ")))
+  (let ((cmd (format "PAGER='' git grep -I -n -i -e %s"
+                     (shell-quote-argument regexp)))
+        (default-directory (expand-file-name dir))
+        (null-device nil))
+    (grep cmd)))
 
-  (use-package grep-edit)
 
-  (defun ~grep-by-git (regexp dir)
-    (interactive
-     (list (read-string "Regexp: ")
-           (read-directory-name "Dir: ")))
-    (let ((cmd (format "PAGER='' git grep -I -n -i -e %s"
-                       (shell-quote-argument regexp)))
-          (default-directory (expand-file-name dir))
-          (null-device nil))
-      (grep cmd)))
-
+(use-package igrep
+  :after (grep)
+  :config
+  ;; lgrepを使い、UTF-8で出力
+  (igrep-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -Ou8"))
+  (igrep-find-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -Ou8"))
+  ;; (igrep-define grep (igrep-use-zgrep nil) (igrep-regex-option "-n"))
+  ;; (igrep-find-define grep (igrep-use-zgrep nil) (igrep-regex-option "-n"))
   )
 
 
-(bundle ag)
-(bundle wgrep)
-(bundle mhayashi1120/Emacs-wgrep :name wgrep-helm)
-(bundle wgrep-ag)
+(use-package grep-a-lot
+  :after (grep)
+  :config
+  ;; (grep-a-lot-setup-keys)
+  (grep-a-lot-advise igrep))
+
+
+(use-package wgrep
+  :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+  :after (grep))
+
+
 (use-package ag
+  :defer t
   :commands (~ag pophint-thing:just-~ag)
-  
   :config
   (custom-set-variables
    '(ag-highlight-search t)  ; 検索結果の中の検索語をハイライトする
    '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
    '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
-
-  (defun ~ag ()
-    (interactive)
-    (call-interactively (if current-prefix-arg 'ag-regexp 'ag)))
-  
-  (use-package wgrep-ag
-    :config
-    (add-hook 'ag-mode-hook 'wgrep-ag-setup t)
-    (bind-keys :map ag-mode-map
-               ("r" . wgrep-change-to-wgrep-mode)))
   )
 
-(bundle rg)
+(defun ~ag ()
+  (interactive)
+  (call-interactively (if current-prefix-arg 'ag-regexp 'ag)))
+
+
+(use-package wgrep-ag
+  :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+  :after (ag)
+  :config
+  (bind-keys :map ag-mode-map
+             ("r" . wgrep-change-to-wgrep-mode)))
+
+
 (use-package rg
   :defer t)
 
 
-(bundle helm-ag)
 (use-package helm-ag
+  :defer t
   :commands (~helm-ag pophint-thing:just-~helm-ag)
-  
   :init
-  (setq helm-ag-insert-at-point 'pophint)
-  
-  :config
-  (defun ~helm-ag (directory)
-    (interactive (list (read-directory-name "Directory: ")))
-    (helm-ag directory))
-  )
+  (setq helm-ag-insert-at-point 'pophint))
+
+(defun ~helm-ag (directory)
+  (interactive (list (read-directory-name "Directory: ")))
+  (helm-ag directory))
 
 
-(bundle helm-rg)
 (use-package helm-rg
   :defer t)
 
 
-(bundle helm-git-grep)
 (use-package helm-git-grep
   :defer t)
 
 
 (use-package counsel
-  :commands (~counsel-ag ~counsel-git-grep)
-  
-  :init
-  (defun ~counsel-initial-input ()
-    (thing-at-point 'word))
-  
-  (defun ~counsel-ag ()
-    (interactive)
-    (counsel-ag (~counsel-initial-input) (read-directory-name "Dir: ")))
+  :defer t
+  :commands (~counsel-ag ~counsel-git-grep))
 
-  (defun ~counsel-git-grep ()
-    (interactive)
-    (counsel-git-grep nil (~counsel-initial-input)))
-  )
+(defun ~counsel-initial-input ()
+  (thing-at-point 'word))
+
+(defun ~counsel-ag ()
+  (interactive)
+  (counsel-ag (~counsel-initial-input) (read-directory-name "Dir: ")))
+
+(defun ~counsel-git-grep ()
+  (interactive)
+  (counsel-git-grep nil (~counsel-initial-input)))
 
 
-(bundle swiper)
 (use-package swiper
-  :commands (~swiper)
-  
-  :init
-  (defun ~swiper ()
-    (interactive)
-    (swiper (~counsel-initial-input))))
+  :defer t
+  :commands (~swiper))
 
+(defun ~swiper ()
+  (interactive)
+  (swiper (~counsel-initial-input)))

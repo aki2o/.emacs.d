@@ -1,5 +1,5 @@
-(bundle google-translate)
 (use-package google-translate
+  :defer t
   :commands (google-translate-translate ~google-translate-dwim)
   :init
   (defvar ~google-translate-english-regexp "\\`[[:ascii:]]+\\'")
@@ -23,6 +23,5 @@
   :config
   (require 'google-translate-default-ui)
 
-  (use-package pophint
-    :config
+  (with-eval-after-load 'pophint
     (pophint-thing:advice-thing-at-point-function ~google-translate-thing-at-point)))

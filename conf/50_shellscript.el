@@ -1,11 +1,22 @@
-(add-hook 'sh-mode-hook
-          '(lambda ()
-             (setq sh-basic-offset 4)
-             (setq sh-indentation 4)
-             (add-to-list 'ac-sources 'ac-source-yasnippet)
-             )
-          t)
+(add-hook 'sh-mode-hook '~sh-mode-setup t)
 
+(defun ~sh-mode-setup ()
+  (setq sh-basic-offset 4)
+  (setq sh-indentation 4)
+  (add-to-list 'ac-sources 'ac-source-yasnippet)
+  (when (fboundp 'mmask-get-regexp-string)
+    (setq moccur-grep-default-mask (mmask-get-regexp-string 'sh-mode)))
+  (when (fboundp 'flex-autopair-reload-conditions)
+    (setq flex-autopair-default-conditions '(((and (eq major-mode 'sh-mode)
+                                                   (eq last-command-event ?\[))
+                                              . self)
+                                             ((and (eq major-mode 'sh-mode)
+                                                   (eq last-command-event ?\())
+                                              . self)))
+    (flex-autopair-reload-conditions))
+  (when (fboundp 'key-combo-define-local)
+    (key-combo-define-local (kbd "(") '("() {\n`!!'\n}"))
+    (key-combo-define-local (kbd "|") '(" | "))))
 
 ;; TAGはauto-completeしない
 ;; ;; auto-complete-etags
@@ -35,38 +46,5 @@
 ;; (add-hook 'sh-mode-hook 'flymake-sh-load t)
 
 
-(use-package color-moccur
-  :defer t
-  :config
-  (add-hook 'sh-mode-hook
-            '(lambda () (setq moccur-grep-default-mask (mmask-get-regexp-string 'sh-mode)))
-            t))
-
-
-(use-package flex-autopair
-  :defer t
-  :config
-
-  (defun flex-autopair-sh-mode-setup ()
-    (setq flex-autopair-default-conditions '(((and (eq major-mode 'sh-mode)
-                                                   (eq last-command-event ?\[))
-                                              . self)
-                                             ((and (eq major-mode 'sh-mode)
-                                                   (eq last-command-event ?\())
-                                              . self)))
-    (flex-autopair-reload-conditions))
-  
-  (add-hook 'sh-mode-hook 'flex-autopair-sh-mode-setup t))
-
-
-(use-package key-combo
-  :defer t
-  :config
-
-  (defun key-combo-sh-mode-setup ()
-    (key-combo-define-local (kbd "(") '("() {\n`!!'\n}"))
-    (key-combo-define-local (kbd "|") '(" | ")))
-  
-  (add-hook 'sh-mode-hook 'key-combo-sh-mode-setup t))
-
-
+(use-package company-shell
+  :defer t)

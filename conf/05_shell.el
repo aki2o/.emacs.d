@@ -1,30 +1,6 @@
-;; カラーシーケンスなどの制御コードは除去する
-(defun ~shell-command-output-without-untext-code (s)
-  (let* ((s (replace-regexp-in-string "\r" "" s))
-         (s (replace-regexp-in-string "\x1B\\[\\([0-9][0-9]?\\(;[0-9][0-9]?\\)?\\)?[m|K]" "" s)))
-    s))
-
-(defadvice shell-command (after ~drop-untext-code activate)
-  (let ((buf (or (ad-get-arg 1) (get-buffer "*Shell Command Output*"))))
-    (when (buffer-live-p buf)
-      (with-current-buffer buf
-        (let ((s (~shell-command-output-without-untext-code (buffer-string))))
-          (erase-buffer)
-          (insert s))))))
-
-(defadvice shell-command-to-string (after ~drop-untext-code activate)
-  (setq ad-return-value (~shell-command-output-without-untext-code ad-return-value)))
-
-
-(bundle readline-complete)
-(bundle company-shell)
-(bundle shell-command)
-(bundle shell-history)
 (use-package shell
   :defer t
-
   :config
-
   (setq shell-file-name (or (executable-find "bash")
                             (executable-find "sh")))
   (setq explicit-shell-file-name (or (executable-find "f_bash")
@@ -107,41 +83,33 @@
   ;; (defadvice start-process-shell-command (before start-process-shell-command-ad-source-rc activate)
   ;;   (ad-set-arg 2 (~source-available-rcfile (ad-get-arg 2))))
 
-  
-  (use-package comint
-    :config
-    (bind-keys :map comint-mode-map
-               ("C-c C-k" . comint-previous-input)
-               ("C-c C-j" . comint-next-input)
-               ("C-M-p"   . comint-previous-matching-input-from-input)
-               ("C-M-n"   . comint-next-matching-input-from-input)))
+  (bind-keys :map comint-mode-map
+             ("C-c C-k" . comint-previous-input)
+             ("C-c C-j" . comint-next-input)
+             ("C-M-p"   . comint-previous-matching-input-from-input)
+             ("C-M-n"   . comint-next-matching-input-from-input)))
 
-  
-  (use-package readline-complete
-    :config
-    (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))
-    (setq comint-process-echoes t)
 
-    (defun ~readline-complete-setup ()
-      (add-to-list 'ac-sources 'ac-source-shell))
-    (add-hook 'shell-mode-hook '~readline-complete-setup t))
+(use-package readline-complete
+  :after (shell)
+  :config
+  (setq explicit-bash-args '("-c" "export EMACS=; stty echo; bash"))
+  (setq comint-process-echoes t)
 
-  (use-package shell-history)
-  
-  )
+  (defun ~readline-complete-setup ()
+    (add-to-list 'ac-sources 'ac-source-shell))
+  (add-hook 'shell-mode-hook '~readline-complete-setup t))
+
+
+;; straight.el 使うようになったら loop 実行でエラーになってしまったので、一旦コメントアウト
+;; (use-package shell-history
+;;   :defer t
+;;   :after (shell))
 
 
 (use-package ansi-color
-  :commands ansi-color-for-comint-mode-on)
-
-
-(bundle emacswiki:background)
-(use-package background
-  :commands (background))
-
-
-;; (bundle multi-term)
-;; (bundle multi-shell)
+  :commands ansi-color-for-comint-mode-on
+  :defer t)
 
 
 (defun ~shell-command-on-region-each-line (start end command-format)
@@ -170,3 +138,20 @@
                  (setq string (read-shell-command "Shell command: "))
                  (list string)))
   (insert (shell-command-to-string command)))
+
+;; カラーシーケンスなどの制御コードは除去する
+(defun ~shell-command-output-without-untext-code (s)
+  (let* ((s (replace-regexp-in-string "\r" "" s))
+         (s (replace-regexp-in-string "\x1B\\[\\([0-9][0-9]?\\(;[0-9][0-9]?\\)?\\)?[m|K]" "" s)))
+    s))
+
+(defadvice shell-command (after ~drop-untext-code activate)
+  (let ((buf (or (ad-get-arg 1) (get-buffer "*Shell Command Output*"))))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (let ((s (~shell-command-output-without-untext-code (buffer-string))))
+          (erase-buffer)
+          (insert s))))))
+
+(defadvice shell-command-to-string (after ~drop-untext-code activate)
+  (setq ad-return-value (~shell-command-output-without-untext-code ad-return-value)))

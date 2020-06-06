@@ -1,11 +1,11 @@
-(unbind-key "M-m")
-(setq e2wm:prefix-key "M-m ")
-
-(bundle pophint)
-(bundle e2wm :depends (deferred))
-(bundle e2wm-sww)
 (use-package e2wm
+  :defer t
   :init
+  (use-package deferred :defer t)
+
+  (unbind-key "M-m")
+  (setq e2wm:prefix-key "M-m ")
+
   (custom-set-faces
    '(e2wm:face-subtitle ((((class color) (background light))
                           (:foreground "Gray10" :height 0.8 :inherit variable-pitch))
@@ -14,13 +14,11 @@
                          (t
                           :height 0.8 :inherit variable-pitch)))
    '(e2wm:face-item ((t :height 0.8 :inherit variable-pitch :foreground "DarkSlateBlue")))
-   '(e2wm:face-history-list-normal ((t :foreground "ivory")))
-   )
+   '(e2wm:face-history-list-normal ((t :foreground "ivory"))))
 
   :config
   ;; e2wm:add-keymap がエラーになるので、一旦コメントアウト
   ;; (use-package e2wm-config)
-  (use-package e2wm-sww)
 
   (setq e2wm:c-max-history-num 100) ; 履歴の保存数
 
@@ -203,13 +201,17 @@
      ("C-h" . e2wm:dp-array-move-left-command)
      ("C-l" . e2wm:dp-array-move-right-command)
      ) e2wm:prefix-key)
-
   )
 
 
+(use-package e2wm-sww
+  :after (e2wm))
+
+
 (use-package e2wm-transcribe
+  :straight (:type built-in)
+  :defer t
   :commands (e2wm-transcribe:dp)
-  
   :config
   (setq e2wm:c-transcribe-recipe
         '(- (:upper-size-ratio 0.55)
@@ -263,12 +265,9 @@
       (when (and (window-live-p wnd)
                  (e2wm:managed-p)
                  (eq (e2wm:$pst-name (e2wm:pst-get-instance)) 'transcribe))
-        (delete-window wnd))))
-  
-  )
+        (delete-window wnd)))))
 
 
-(bundle e2wm-term)
 (use-package e2wm-term
   :defer t
   :config
@@ -280,4 +279,3 @@
   (add-to-list 'e2wm-term:shell-password-prompt-regexps "^Confirm +Vault +password: +")
   (add-to-list 'e2wm-term:shell-password-prompt-regexps "^SUDO +password: +")
   (add-to-list 'e2wm-term:shell-password-prompt-regexps "^SSH +password: +"))
-

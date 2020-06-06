@@ -24,10 +24,10 @@
 (global-set-key (kbd "C-x C-j") '~keyjack-mode)
 
 
-(bundle hydra)
-(bundle posframe)
 (use-package hydra
   :custom ((hydra-hint-display-type 'posframe))
+  :init
+  (use-package posframe :defer t)
   :config
   (defvar ~hydra-help-delay 1.5)
   (plist-put hydra-posframe-show-params :poshandler 'posframe-poshandler-frame-bottom-right-corner)

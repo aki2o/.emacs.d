@@ -11,4 +11,3 @@
             ("C-x C-r i" . cua-incr-rectangle)
             ("C-x C-r r" . cua-replace-in-rectangle)
             ("C-x C-r n" . cua-sequence-rectangle))
-

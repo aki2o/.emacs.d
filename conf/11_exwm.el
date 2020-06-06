@@ -1,6 +1,5 @@
 ;; 使い方よくわからないので、一旦コメントアウト
-;; (bundle exwm)
-;; (require 'exwm)
+;; (use-package exwm)
 ;; (require 'exwm-config)
 
 ;; (setq exwm-workspace-number 4)

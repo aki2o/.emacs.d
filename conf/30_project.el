@@ -1,4 +1,4 @@
-(bundle! projectile)
+(use-package projectile)
 
 (setq projectile-keymap-prefix nil)
 (setq projectile-enable-caching t)
@@ -102,13 +102,9 @@
       (ad-set-arg 1 (format "%s - %s" newname project-root)))))
 
 
-(use-package pophint
-  :config
-  (pophint-thing:advice-thing-at-point-function projectile-symbol-at-point)
-  (pophint-thing:defcommand-noadvice projectile-ag))
+(use-package counsel-projectile)
 
 
-(bundle counsel-projectile)
 (use-package counsel
   :config
   (defun ~projectile-counsel-ag ()
@@ -121,11 +117,9 @@
       (counsel-ag (~counsel-initial-input) dir)))
   
   (~projectile-switchable-project-commandize ~projectile-counsel-ag)
-  (~projectile-switchable-project-commandize ~projectile-counsel-ag-with-directory-select)
-  )
+  (~projectile-switchable-project-commandize ~projectile-counsel-ag-with-directory-select))
 
 
-(bundle helm-projectile)
 (use-package helm-projectile
   :config
   ;; (setq projectile-completion-system 'helm)
@@ -135,8 +129,7 @@
   ;; (~projectile-switchable-project-commandize helm-projectile-find-dir)
   ;; (~projectile-switchable-project-commandize helm-projectile-switch-to-buffer)
   (~projectile-switchable-project-commandize helm-projectile-ag)
-  (~projectile-switchable-project-commandize helm-projectile-rg)
-  )
+  (~projectile-switchable-project-commandize helm-projectile-rg))
 
 
 ;; For p-r

@@ -49,8 +49,10 @@
 
 (defun* viassh--select-user-host-on (directory &key (use-cache t))
   (or (when use-cache (viassh--project-cache directory))
-      (let* ((user-hosts (delq nil (cl-loop for e in (tramp-get-completion-function "ssh")
-                                            append (funcall (nth 0 e) (nth 1 e)))))
+      (let* ((user-hosts (cl-loop for e in (tramp-get-completion-function "ssh")
+                                  append (cl-loop for user-host in (funcall (nth 0 e) (nth 1 e))
+                                                  if (not (null (nth 1 user-host)))
+                                                  collect user-host)))
              (candidates (seq-uniq (cl-loop for e in user-hosts
                                             for user = (nth 0 e)
                                             for host = (substring-no-properties (nth 1 e))

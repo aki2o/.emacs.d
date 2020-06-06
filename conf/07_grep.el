@@ -72,8 +72,8 @@
 
 
 (use-package wgrep-ag
-  :straight wgrep
-  :defer t
+  :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+  :after (ag)
   :config
   (bind-keys :map ag-mode-map
              ("r" . wgrep-change-to-wgrep-mode)))

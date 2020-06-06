@@ -7,6 +7,8 @@
     ;; 移動
     (:key "C-h"     :cmd backward-char             :jack t)
     (:key "C-l"     :cmd forward-char              :jack t)
+    (:key "<left>"  :cmd backward-char             :jack t)
+    (:key "<right>" :cmd forward-char              :jack t)
     (:key "C-S-h"   :cmd backward-word             :jack t)
     (:key "C-S-l"   :cmd forward-word              :jack t)
     (:key "M-h"     :cmd backward-sexp             :jack t)
@@ -19,6 +21,8 @@
     (:key "C-k"     :cmd previous-line             :jack t)
     (:key "C-S-j"   :cmd inertias-up               :jack t)
     (:key "C-S-k"   :cmd inertias-down             :jack t)
+    (:key "<next>"  :cmd inertias-up               :jack t)
+    (:key "<prior>" :cmd inertias-down             :jack t)
     (:key "M-j"     :cmd ~end-of-block             :jack t)
     (:key "M-k"     :cmd ~beginning-of-block       :jack t)
     (:key "C-M-j"   :cmd ~pophint:forward          :jack t)

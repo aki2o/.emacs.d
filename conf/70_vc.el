@@ -26,7 +26,11 @@
   :config
   (unbind-key "j" magit-status-mode-map)
   (unbind-key "C-j" magit-file-section-map)
-  (unbind-key "C-j" magit-hunk-section-map))
+  (unbind-key "C-j" magit-hunk-section-map)
+
+  (with-eval-after-load 'with-editor
+    (bind-keys :map with-editor-mode-map
+               ("C-c <up>" . with-editor-cancel))))
 
 
 (use-package magit-popup

@@ -85,7 +85,13 @@
 
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
+(define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
+
+(define-abbrev-table 'diary-mode-abbrev-table '())
+
 (define-abbrev-table 'diff-mode-abbrev-table '())
+
+(define-abbrev-table 'direx-slack-room:mode-abbrev-table '())
 
 (define-abbrev-table 'direx:direx-mode-abbrev-table '())
 
@@ -98,6 +104,12 @@
 (define-abbrev-table 'e2wm-perspb:mode-abbrev-table '())
 
 (define-abbrev-table 'e2wm-sww:sww-mode-abbrev-table '())
+
+(define-abbrev-table 'e2wm-term:help-mode-abbrev-table '())
+
+(define-abbrev-table 'e2wm-term:history-mode-abbrev-table '())
+
+(define-abbrev-table 'e2wm-term:input-mode-abbrev-table '())
 
 (define-abbrev-table 'e2wm:def-plugin-files-mode-abbrev-table '())
 
@@ -116,6 +128,8 @@
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'emoji-cheat-sheet-plus-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'emojify-apropos-mode-abbrev-table '())
 
@@ -253,6 +267,7 @@
     ("requet" "request" nil 2)
     ("resouce" "resource" nil 4)
     ("resouces" "resources" nil 2)
+    ("resurces" "resources" nil 1)
     ("resutl" "result" nil 1)
     ("revetion" "revision" nil 2)
     ("rnadom" "random" nil 1)
@@ -354,6 +369,8 @@
 
 (define-abbrev-table 'lsp-ui-imenu-mode-abbrev-table '())
 
+(define-abbrev-table 'lui-mode-abbrev-table '())
+
 (define-abbrev-table 'magit-cherry-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-diff-mode-abbrev-table '())
@@ -440,9 +457,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'rake-compilation-mode-abbrev-table '())
 
@@ -467,6 +482,46 @@
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
+(define-abbrev-table 'slack-all-threads-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-dialog-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-dialog-edit-element-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-edit-message-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-file-info-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-file-list-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-info-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-message-attachment-preview-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-message-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-message-compose-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-message-edit-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-message-share-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-pinned-items-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-room-info-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-search-result-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-stars-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-thread-message-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'slack-user-profile-buffer-mode-abbrev-table '())
+
 (define-abbrev-table 'slim-mode-abbrev-table '())
 
 (define-abbrev-table 'snippet-mode-abbrev-table '())
@@ -484,6 +539,8 @@
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
 (define-abbrev-table 'tar-mode-abbrev-table '())
+
+(define-abbrev-table 'term-mode-abbrev-table '())
 
 (define-abbrev-table 'terraform-mode-abbrev-table '())
 

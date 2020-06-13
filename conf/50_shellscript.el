@@ -1,3 +1,5 @@
+(mmask-regist-extension-with-icase 'sh-mode "env" "envrc")
+
 (add-hook 'sh-mode-hook '~sh-mode-setup t)
 
 (defun ~sh-mode-setup ()

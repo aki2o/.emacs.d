@@ -206,6 +206,7 @@
     ("defaluts" "defaults" nil 1)
     ("defualt" "default" nil 2)
     ("deliveris" "deliveries" nil 1)
+    ("delviery" "delivery" nil 1)
     ("descroy" "destroy" nil 1)
     ("destory" "destroy" nil 9)
     ("documenatable" "documentable" nil 1)

@@ -81,6 +81,8 @@
     (:key "M-g"       :cmd abort-recursive-edit           :jack t :kind edit)
     (:key "C-'"       :cmd comment-dwim                   :jack t :kind edit)
     (:key "C-\""      :cmd comment-box                    :jack t :kind edit)
+    (:key "M-/"       :cmd ~tidy-code-current             :jack t :kind edit)
+    (:key "C-M-/"     :cmd ~tidy-code-diff-files          :jack t :kind edit)
     (:key "C-n"       :cmd align                          :jack t :kind edit)
     (:key "C-S-n"     :cmd align-regexp                   :jack t :kind edit)
     (:key "C-S-i"     :cmd toggle-input-method            :jack t :kind edit)

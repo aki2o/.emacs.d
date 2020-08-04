@@ -156,6 +156,24 @@
   (interactive)
   (kill-region (point-at-bol) (point)))
 
+(defvar ~tidy-code-current-function nil)
+(make-variable-buffer-local '~tidy-code-current-function)
+
+(defun ~tidy-code-current ()
+  (interactive)
+  (if ~tidy-code-current-function
+      (call-interactively ~tidy-code-current-function)
+    (error "Can't tidy code to current current on %s" (buffer-name))))
+
+(defvar ~tidy-code-diff-files-function nil)
+(make-variable-buffer-local '~tidy-code-diff-files-function)
+
+(defun ~tidy-code-diff-files ()
+  (interactive)
+  (if ~tidy-code-diff-files-function
+      (call-interactively ~tidy-code-diff-files-function)
+    (error "Can't tidy code to diff files on %s" (buffer-name))))
+
 ;; insert
 (defun ~insert-date ()
   (interactive)

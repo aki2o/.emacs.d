@@ -15,17 +15,22 @@
   (defun ~ruby-mode-setup ()
     ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
     (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
-    (define-key ruby-mode-map (kbd "M-/") '~ruby-rubocop-apply-to-current)
-    (define-key ruby-mode-map (kbd "C-M-/") '~ruby-rubocop-apply-to-diff-files)
+
+    (setq ~tidy-code-current-function '~ruby-rubocop-apply-to-current)
+    (setq ~tidy-code-diff-files-function '~ruby-rubocop-apply-to-diff-files)
+
     (electric-indent-local-mode 0)
+
     (when (fboundp 'lsp)
       (lsp))
+
     (when (fboundp 'flex-autopair-reload-conditions)
       (add-to-list 'flex-autopair-pairs '(?| . ?|))
       (add-to-list 'flex-autopair-pairs '(?| . ?|))
       (setq flex-autopair-user-conditions-high
             '(((string-match " do +\\'" (buffer-substring (point-at-bol) (point))) . pair)))
       (flex-autopair-reload-conditions))
+
     (when (fboundp 'mmask-get-regexp-string)
       (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode))))
 

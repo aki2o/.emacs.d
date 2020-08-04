@@ -4,11 +4,22 @@
   (mmask-regist-extension-with-icase 'typescript-mode "ts")
   (setq typescript-indent-level 2)
 
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+
   :config
   (add-hook 'typescript-mode-hook '~typescript-mode-setup t)
   (defun ~typescript-mode-setup ()
+    (~typescript-flycheck-select-dwim)
+    (setq ~tidy-code-current-function 'prettier-js) ;; npm i -g @typescript-eslint/eslint-plugin が必要
     ;; color-moccur
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode))))
+
+(defun ~typescript-flycheck-select-dwim ()
+  (cond ((projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))
+         (flycheck-select-checker 'typescript-tslint))
+        ((executable-find "eslint")
+         (flycheck-select-checker 'javascript-eslint))))
 
 
 (use-package tide
@@ -23,24 +34,18 @@
     (eldoc-mode +1)
     (tide-hl-identifier-mode +1)
     (company-mode +1)
-    (add-hook 'before-save-hook 'tide-format-before-save)))
-
-
-;; (use-package tss
-;;   :config
-;;   (setq tss-popup-help-key "C-'")
-;;   (setq tss-jump-to-definition-key "C->")
-;;   (setq tss-implement-definition-key "C-c i")
-;;   (tss-config-default)
-
-;;   (when (fboundp 'pophint-tags:advice-command)
-;;     (pophint-tags:advice-command tss-jump-to-definition)))
+    ;; (add-hook 'before-save-hook 'tide-format-before-save)
+    ))
 
 
 (use-package web-mode
   :defer t
   :init
   (mmask-regist-extension-with-icase 'web-mode "tsx")
+
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'typescript-tslint 'web-mode))
 
   :config
   (add-hook 'web-mode-hook '~tsx-setup t)
@@ -50,7 +55,6 @@
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-attr-indent-offset 2)
       (setq web-mode-css-indent-offset 2)
-      (~tide-mode-setup)))
-
-  (when (fboundp 'flycheck-add-mode)
-    (flycheck-add-mode 'typescript-tslint 'web-mode)))
+      (setq ~tidy-code-current-function 'prettier-js) ;; npm i -g @typescript-eslint/eslint-plugin が必要
+      (~tide-mode-setup)
+      (~typescript-flycheck-select-dwim))))

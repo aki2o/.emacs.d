@@ -1,3 +1,10 @@
+;; eslint と連携させて実行するには
+;; npm i -g prettier prettier-eslint eslint eslint-config-prettier eslint-plugin-prettier
+(use-package prettier-js
+  :defer t
+  :commands (prettier-js))
+
+
 (use-package rjsx-mode
   :defer t
   :init
@@ -9,8 +16,9 @@
     (setq indent-tabs-mode nil)
     (setq js-indent-level 2)
     (setq js2-strict-missing-semi-warning nil) ;;行末のセミコロンの警告はオフ
-    )
+    (setq ~tidy-code-current-function 'prettier-js))
   )
+
 
 (use-package js2-mode
   :defer t
@@ -21,6 +29,7 @@
   (add-hook 'js2-mode-hook '~js2-mode-setup t)
   (defun ~js2-mode-setup ()
     (setq js-indent-level 2)
+    (setq ~tidy-code-current-function 'prettier-js)
     ;; color-moccur
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'js2-mode)))
 
@@ -58,7 +67,8 @@
 
   :config
   (defun ~json-setup-mode ()
-    (setq js-indent-level 2))
+    (setq js-indent-level 2)
+    (setq ~tidy-code-current-function 'prettier-js))
   (add-hook 'json-mode-hook '~json-setup-mode t))
 
 
@@ -66,7 +76,7 @@
   :defer t
   :commands (tern-mode)
   :init
-  (dolist (h '(rjsx-mode-hook js2-mode-hook nxml-mode-hook web-mode-hook))
+  (dolist (h '(rjsx-mode-hook js2-mode-hook nxml-mode-hook))
     (add-hook h '(lambda () (tern-mode 1)) t))
 
   :config

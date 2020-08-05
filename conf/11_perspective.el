@@ -117,7 +117,7 @@
 
 
 (use-package e2wm-perspb
-  :straight (:host github :repo "aki2o/e2wm-perspb")
+  :straight (:host github :repo "aki2o/e2wm-perspb" :files ("*.el") :no-byte-compile nil)
   :after (e2wm)
   :init
   (use-package deferred :defer t)

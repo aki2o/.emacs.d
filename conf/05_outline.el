@@ -3,5 +3,5 @@
 
 
 (use-package yaol
-  :straight (:host github :repo "aki2o/yaol-el")
+  :straight (:host github :repo "aki2o/yaol-el" :files ("*.el") :no-byte-compile nil)
   :defer t)

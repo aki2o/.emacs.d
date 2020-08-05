@@ -217,57 +217,45 @@
   (setq e2wm:c-transcribe-recipe
         '(- (:upper-size-ratio 0.55)
             (| (:left-size-ratio 0.45)
-               (| (:left-size-ratio 0.5)
-                  tree left)
+               left
                (| (:right-size-ratio 0.34)
-                  right history))
+                  right
+                  (- (:upper-size-ratio 0.01) sww history)))
             sub))
 
   (setq e2wm:c-transcribe-winfo
         '((:name left)
           (:name right)
-          (:name history :plugin perspb)
-          (:name tree    :plugin direx :default-hide t)
-          (:name sub     :default-hide t)))
+          (:name history :plugin perspb :sww sww :sww-label "Buf" :sww-default t)
+          (:name history :plugin direx :sww sww :sww-label "Tree")
+          (:name sww :plugin sww)
+          (:name sub :default-hide t)))
 
   (defun ~e2wm-transcribe:history-toggle-command ()
     (interactive)
+    (wlf:toggle (e2wm:pst-get-wm) 'sww)
     (wlf:toggle (e2wm:pst-get-wm) 'history)
     (e2wm:pst-update-windows))
-
-  (defun ~e2wm-transcribe:tree-show-command ()
-    (interactive)
-    (let ((wm (e2wm:pst-get-wm)))
-      (wlf:show wm 'tree)
-      (wlf:select wm 'tree)
-      (e2wm:pst-update-windows)))
 
   (e2wm:add-keymap
    e2wm:dp-transcribe-minor-mode-map
    '(("prefix j" . e2wm:dp-two-swap-buffers-command)
      ("prefix M" . e2wm:dp-two-main-maximize-toggle-command)
-     ("prefix d" . ~e2wm-transcribe:tree-show-command)
      ("prefix i" . ~e2wm-transcribe:history-toggle-command)
      ("C-}"      . e2wm-perspb:switch-to-down-entry-command)
      ("C-{"      . e2wm-perspb:switch-to-up-entry-command)
-     ("C-x C-d"  . ~e2wm-transcribe:tree-show-command)
      ) e2wm:prefix-key)
 
-  (defadvice direx:find-item (around ~e2wm-transcribe:close-tree activate)
-    (let ((wnd (selected-window)))
-      ad-do-it
-      (when (and (window-live-p wnd)
-                 (e2wm:managed-p)
-                 (eq (e2wm:$pst-name (e2wm:pst-get-instance)) 'transcribe))
-        (delete-window wnd))))
+  (defadvice direx:find-item (after ~e2wm-transcribe:select-main activate)
+    (when (and (e2wm:managed-p)
+               (eq (e2wm:$pst-name (e2wm:pst-get-instance)) 'transcribe))
+      (e2wm:pst-window-select-main)))
   
-  (defadvice direx:find-item-other-window (around ~e2wm-transcribe:close-tree activate)
-    (let ((wnd (selected-window)))
-      ad-do-it
-      (when (and (window-live-p wnd)
-                 (e2wm:managed-p)
-                 (eq (e2wm:$pst-name (e2wm:pst-get-instance)) 'transcribe))
-        (delete-window wnd)))))
+  (defadvice direx:find-item-other-window (after ~e2wm-transcribe:select-main activate)
+    (when (and (e2wm:managed-p)
+               (eq (e2wm:$pst-name (e2wm:pst-get-instance)) 'transcribe))
+      (e2wm:pst-window-select-main)))
+  )
 
 
 (use-package e2wm-term

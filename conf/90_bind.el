@@ -107,10 +107,10 @@
     (:key "C-b"   :cmd nil :jack t) ; タスク管理で使いたい
     (:key "C-S-b" :cmd nil :jack t) ; タスク管理で使いたい
     ;; ファイル・バッファ
-    (:key "C-x C-f" :cmd helm-find-files    :jack t)
-    (:key "C-x f"   :cmd helm-recentf       :jack t)
-    (:key "C-x F"   :cmd find-file-at-point :jack t)
-    (:key "C-x C-d" :cmd dired              :jack t)
+    (:key "C-x C-f" :cmd helm-find-files        :jack t)
+    (:key "C-x f"   :cmd helm-recentf           :jack t)
+    (:key "C-x F"   :cmd find-file-at-point     :jack t)
+    (:key "C-x C-d" :cmd ~direx:jump-to-smartly :jack t)
     ;; (:key "C-x d"   :cmd ffap-list-directory)
     ;; (:key "C-x d"   :cmd dired-at-point)
     ;; (:key "M-f"     :cmd follow-delete-other-windows-and-split)

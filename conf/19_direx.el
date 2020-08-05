@@ -1,7 +1,6 @@
 (use-package direx
   :straight (:host github :repo "aki2o/direx-el" :branch "feature-not-merged")
   :defer t
-  :bind* (("C-x C-d" . ~direx:jump-to-smartly))
   :functions (direx:direx-mode)
   :init
   (setq direx:leaf-icon "  "

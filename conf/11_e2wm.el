@@ -249,6 +249,7 @@
      ("prefix i" . ~e2wm-transcribe:history-toggle-command)
      ("C-}"      . e2wm-perspb:switch-to-down-entry-command)
      ("C-{"      . e2wm-perspb:switch-to-up-entry-command)
+     ("C-x C-d"  . ~e2wm-transcribe:tree-show-command)
      ) e2wm:prefix-key)
 
   (defadvice direx:find-item (around ~e2wm-transcribe:close-tree activate)

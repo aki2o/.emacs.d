@@ -1,3 +1,7 @@
+(use-package concurrent
+  :straight (emacs-deferred :host github :repo "kiwanami/emacs-deferred")
+  :defer t)
+
 (use-package pophint
   :defer t
   :custom ((pophint:popup-chars "hjklyuiopnmgfdatre;")

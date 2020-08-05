@@ -165,6 +165,7 @@
             ;; for defhide = (wlf:window-option-get winfo :default-hide)
             if (ignore-errors (window-live-p (wlf:get-window wm wname)))
             return (progn (wlf:hide wm wname)
+                          (e2wm:plugin-exec-update (selected-frame) wm)
                           (when (not not-focus-main)
                             (e2wm:pst-window-select-main))))))
 

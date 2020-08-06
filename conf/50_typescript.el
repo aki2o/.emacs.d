@@ -11,7 +11,7 @@
   (add-hook 'typescript-mode-hook '~typescript-mode-setup t)
   (defun ~typescript-mode-setup ()
     (~typescript-flycheck-select-dwim)
-    (setq ~tidy-code-current-function 'prettier-js) ;; npm i -g @typescript-eslint/eslint-plugin が必要
+    (setq ~tidy-code-current-function '~typescript-tidy-dwim)
     ;; color-moccur
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode))))
 
@@ -20,6 +20,15 @@
          (flycheck-select-checker 'typescript-tslint))
         ((executable-find "eslint")
          (flycheck-select-checker 'javascript-eslint))))
+
+;; npm i -g @typescript-eslint/eslint-plugin が必要
+(defun ~typescript-tidy-dwim ()
+  (cond ((not (string= (shell-command-to-string "npm ls --parseable --depth 0 prettier | grep prettier") ""))
+         (prettier-js))
+        ((projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))
+         (~dockerize-shell-command (format "$(npm bin)/tslint --fix %s" (shell-quote-argument (~projectile-relative-path (current-buffer))))))
+        (t
+         (~dockerize-shell-command (format "$(npm bin)/eslint --fix %s" (shell-quote-argument (~projectile-relative-path (current-buffer))))))))
 
 
 (use-package tide

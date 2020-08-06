@@ -20,7 +20,7 @@
     (setq indent-tabs-mode nil)
     (setq js-indent-level 2)
     (setq js2-strict-missing-semi-warning nil) ;;行末のセミコロンの警告はオフ
-    (setq ~tidy-code-current-function 'prettier-js))
+    (setq ~tidy-code-current-function '~typescript-tidy-dwim))
   )
 
 
@@ -33,7 +33,7 @@
   (add-hook 'js2-mode-hook '~js2-mode-setup t)
   (defun ~js2-mode-setup ()
     (setq js-indent-level 2)
-    (setq ~tidy-code-current-function 'prettier-js)
+    (setq ~tidy-code-current-function '~typescript-tidy-dwim)
     ;; color-moccur
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'js2-mode)))
 
@@ -72,7 +72,7 @@
   :config
   (defun ~json-setup-mode ()
     (setq js-indent-level 2)
-    (setq ~tidy-code-current-function 'prettier-js))
+    (setq ~tidy-code-current-function '~typescript-tidy-dwim))
   (add-hook 'json-mode-hook '~json-setup-mode t))
 
 

@@ -43,11 +43,7 @@
 
   (defun ~ruby-rubocop-apply-to-current ()
     (interactive)
-    (let* ((root-path (projectile-project-root))
-           (re (rx-to-string `(and bos ,root-path)))
-           (filepath (expand-file-name (buffer-file-name)))
-           (path (replace-regexp-in-string re "" filepath)))
-      (~ruby-rubocop-apply path)))
+    (~ruby-rubocop-apply (~projectile-relative-path (current-buffer))))
 
   (defun ~ruby-rubocop-apply-to-diff-files ()
     (interactive)

@@ -45,6 +45,12 @@
 ;;   (let ((~projectile-maybe-root-selection (when (interactive-p) t)))
 ;;     ad-do-it))
 
+(defun ~projectile-relative-path (buffer)
+  (let* ((root-path (projectile-project-root))
+         (re (rx-to-string `(and bos ,root-path)))
+         (filepath (expand-file-name (buffer-file-name buffer))))
+    (replace-regexp-in-string re "" filepath)))
+
 ;; コマンド追加
 (defun ~projectile-find-root-dir (&optional arg)
   (interactive "P")

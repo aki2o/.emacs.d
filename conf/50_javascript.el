@@ -2,13 +2,11 @@
 ;; npm i -g prettier prettier-eslint eslint eslint-config-prettier eslint-plugin-prettier
 (use-package prettier-js
   :defer t
-  :commands (prettier-js)
-  :config
+  :commands (prettier-js))
 
-  ;; ./node_modules/.bin を PATH に通してるけど、プロジェクトルートで実行しないと prettier が見つからないって言われる
-  (defadvice prettier-js (around ~prettier-js:default-directory activate)
-    (let ((default-directory (projectile-project-root)))
-      ad-do-it)))
+
+(use-package add-node-modules-path
+  :hook (js-mode js2-mode typescript-mode web-mode))
 
 
 (use-package rjsx-mode

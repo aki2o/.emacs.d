@@ -39,10 +39,7 @@
     (ruby-mode-set-encoding))
 
   (defun ~ruby-rubocop-apply (&rest path)
-    (let ((cmd (format "bundle exec rubocop -a %s" (mapconcat 'shell-quote-argument path " "))))
-      (if (~docker-context-p (current-buffer))
-          (docker-run:exec-viassh 'shell-command (format "/bin/bash -l -c '%s'" cmd))
-        (shell-command cmd))))
+    (~dockerize-shell-command (format "bundle exec rubocop -a %s" (mapconcat 'shell-quote-argument path " "))))
 
   (defun ~ruby-rubocop-apply-to-current ()
     (interactive)

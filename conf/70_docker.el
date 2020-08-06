@@ -22,6 +22,11 @@
   :straight (:type built-in))
 
 
+(defun* ~dockerize-shell-command (cmd &key (buffer (current-buffer)))
+  (if (~docker-context-p buffer)
+      (docker-run:exec-viassh 'shell-command (format "/bin/bash -l -c '%s'" cmd))
+    (shell-command cmd)))
+
 (defun ~docker-context-p (buf)
   (let* ((filepath (expand-file-name (buffer-file-name buf))))
     (cond

@@ -1,6 +1,7 @@
 (("Emacs-wgrep" . "5977b8e00051c9003ca96e9d35133e0dea68db2c")
  ("Fill-Column-Indicator" . "3d88b8a4a3eeabb8d1c9ef27d3c6f5d98517be77")
  ("ace-window" . "7003c88cd9cad58dc35c7cd13ebc61c355fb5be7")
+ ("add-node-modules-path" . "f31e69ccb681f882aebb806ce6e9478e3ac39708")
  ("ag.el" . "bd81d68466e44301505629454dfc689b6c17d94b")
  ("alert" . "7046393272686c7a1a9b3e7f7b1d825d2e5250a6")
  ("all-the-icons.el" . "5b661c3b8722f79d1286d1c9cb0bd0e889c34082")

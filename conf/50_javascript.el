@@ -113,31 +113,101 @@
 ;;   :after (tern)
 ;;   :config
 ;;   (tern-ac-setup))
+
+;; ;; For debug p-r
+
+;; (eval-after-load 'tern-auto-complete
+;;   '(progn
+
+;; (defun tern-ac-complete-request (cc)
+;;   (setq tern-last-point-pos (point))
+;;   (setq tern-ac-complete-reply nil)
+;;   (setq tern-ac-complete-request-point (point))
+;;   (tern-run-query 
+;;    (lambda (data) 
+;;      (tern-ac-complete-response data)
+;;      (funcall cc))
+;;    `((type . "completions") (types . t) (docs . t) (caseInsensitive . t))
+;;    (point)))
+
+;; ;; (defun tern-ac-complete ()
+;; ;;   "Complete code at point by tern."
+;; ;;   (interactive)
+;; ;;   (tern-ac-complete-request
+;; ;;    (lambda ()
+;; ;;      (let ((ac-sources ac-sources))
+;; ;;        (add-to-list 'ac-sources 'ac-source-tern-completion)
+;; ;;        (ac-start)))))
+
+;; ))
+
+
+(use-package typescript-mode
+  :defer t
+  :init
+  (mmask-regist-extension-with-icase 'typescript-mode "ts")
+  (setq typescript-indent-level 2)
+
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+
+  :config
+  (add-hook 'typescript-mode-hook '~typescript-mode-setup t)
+  (defun ~typescript-mode-setup ()
+    (~typescript-flycheck-select-dwim)
+    (setq ~tidy-code-current-function '~typescript-tidy-dwim)
+    ;; color-moccur
+    (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode))))
+
+(defun ~typescript-flycheck-select-dwim ()
+  (cond ((projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))
+         (flycheck-select-checker 'typescript-tslint))
+        ((executable-find "eslint")
+         (flycheck-select-checker 'javascript-eslint))))
+
+;; npm i -g @typescript-eslint/eslint-plugin が必要
+(defun ~typescript-tidy-dwim ()
+  (cond ((not (string= (shell-command-to-string "npm ls --parseable --depth 0 prettier | grep prettier") ""))
+         (prettier-js))
+        ((projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))
+         (~dockerize-shell-command (format "$(npm bin)/tslint --fix %s" (shell-quote-argument (~projectile-relative-path (current-buffer))))))
+        (t
+         (~dockerize-shell-command (format "$(npm bin)/eslint --fix %s" (shell-quote-argument (~projectile-relative-path (current-buffer))))))))
+
+
+(use-package tide
+  :defer t
+  :hook (typescript-mode . ~tide-mode-setup)
+  :init
+  (setq tide-format-options '(:indentSize 2 :tabSize 2))
   
+  (defun ~tide-mode-setup ()
+    (tide-setup)
+    (flycheck-mode +1)
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    (company-mode +1)
+    ;; (add-hook 'before-save-hook 'tide-format-before-save)
+    ))
 
-;; For debug p-r
 
-(eval-after-load 'tern-auto-complete
-  '(progn
+(use-package web-mode
+  :defer t
+  :init
+  (mmask-regist-extension-with-icase 'web-mode "tsx")
 
-(defun tern-ac-complete-request (cc)
-  (setq tern-last-point-pos (point))
-  (setq tern-ac-complete-reply nil)
-  (setq tern-ac-complete-request-point (point))
-  (tern-run-query 
-   (lambda (data) 
-     (tern-ac-complete-response data)
-     (funcall cc))
-   `((type . "completions") (types . t) (docs . t) (caseInsensitive . t))
-   (point)))
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'typescript-tslint 'web-mode))
 
-;; (defun tern-ac-complete ()
-;;   "Complete code at point by tern."
-;;   (interactive)
-;;   (tern-ac-complete-request
-;;    (lambda ()
-;;      (let ((ac-sources ac-sources))
-;;        (add-to-list 'ac-sources 'ac-source-tern-completion)
-;;        (ac-start)))))
-
-))
+  :config
+  (add-hook 'web-mode-hook '~tsx-setup t)
+  (defun ~tsx-setup ()
+    (when (string-equal "tsx" (file-name-extension buffer-file-name))
+      (setq web-mode-code-indent-offset 2)
+      (setq web-mode-markup-indent-offset 2)
+      (setq web-mode-attr-indent-offset 2)
+      (setq web-mode-css-indent-offset 2)
+      (setq ~tidy-code-current-function 'prettier-js) ;; npm i -g @typescript-eslint/eslint-plugin が必要
+      (~tide-mode-setup)
+      (~typescript-flycheck-select-dwim))))

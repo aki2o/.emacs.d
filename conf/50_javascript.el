@@ -167,6 +167,7 @@
 
 ;; npm i -g @typescript-eslint/eslint-plugin が必要
 (defun ~typescript-tidy-dwim ()
+  (interactive)
   (cond ((not (string= (shell-command-to-string "npm ls --parseable --depth 0 prettier | grep prettier") ""))
          (prettier-js))
         ((projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))

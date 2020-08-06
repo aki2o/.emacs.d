@@ -188,6 +188,8 @@
     (eldoc-mode +1)
     (tide-hl-identifier-mode +1)
     (company-mode +1)
+    (setq ~find-definition-function 'tide-jump-to-definition)
+    (setq ~find-references-function 'tide-references)
     ;; (add-hook 'before-save-hook 'tide-format-before-save)
     ))
 
@@ -209,8 +211,6 @@
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-attr-indent-offset 2)
       (setq web-mode-css-indent-offset 2)
-      (setq ~find-definition-function 'tide-jump-to-definition)
-      (setq ~find-references-function 'tide-references)
       (setq ~tidy-code-current-function '~typescript-tidy-dwim)
       (~tide-mode-setup)
       (~typescript-flycheck-select-dwim))))

@@ -208,6 +208,6 @@
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-attr-indent-offset 2)
       (setq web-mode-css-indent-offset 2)
-      (setq ~tidy-code-current-function 'prettier-js) ;; npm i -g @typescript-eslint/eslint-plugin が必要
+      (setq ~tidy-code-current-function '~typescript-tidy-dwim)
       (~tide-mode-setup)
       (~typescript-flycheck-select-dwim))))

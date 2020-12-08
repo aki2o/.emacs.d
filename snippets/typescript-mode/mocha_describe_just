@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: rspec_describe "xxx"
+# name: mocha_describe
 # key: describe
 # --
-describe "$1" do
+describe('$1', () => {
   $0
-end
+});

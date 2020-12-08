@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: rspec_describe "#xxx"
+# key: describe
+# --
+describe "#${1:method}" do
+  subject { instance.$1${2:($3)} }
+  let(:instance) { $0 }
+end

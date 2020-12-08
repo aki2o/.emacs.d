@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: mocha_it
+# key: it
+# --
+it('$1', () => {
+  $0
+});

@@ -68,3 +68,7 @@
 
 (use-package haml-mode
   :defer t)
+
+
+(use-package pug-mode
+  :defer t)

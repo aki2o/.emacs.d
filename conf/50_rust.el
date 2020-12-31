@@ -5,7 +5,8 @@
 
 (defun ~rust-setup ()
   (when (fboundp 'lsp)
-    (setq lsp-rust-server 'rust-analyzer)
+    ;; (setq lsp-rust-server 'rust-analyzer)
+    ;; (setq lsp-rust-analyzer-server-command '("rust-analyzer"))
     (lsp)))
 
 (use-package cargo

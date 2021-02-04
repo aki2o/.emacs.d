@@ -1,6 +1,6 @@
-(use-package jedi
-  :defer t)
+;; (use-package jedi
+;;   :defer t)
 
 
-(use-package jedi-direx
-  :after (jedi))
+;; (use-package jedi-direx
+;;   :after (jedi))

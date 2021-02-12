@@ -29,6 +29,8 @@
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
+(define-abbrev-table 'cargo-process-mode-abbrev-table '())
+
 (define-abbrev-table 'change-log-mode-abbrev-table '())
 
 (define-abbrev-table 'coffee-mode-abbrev-table '())
@@ -178,7 +180,7 @@
     ("Validaitons" "Validations" nil 1)
     ("Wofkflow" "Workflow" nil 1)
     ("approvied" "approved" nil 1)
-    ("assocation" "association" nil 1)
+    ("assocation" "association" nil 2)
     ("atetndance" "attendance" nil 1)
     ("attednance" "attendance" nil 3)
     ("attenadnae" "attendance" nil 4)
@@ -194,11 +196,11 @@
     ("comapny" "company" nil 1)
     ("commnet" "comment" nil 1)
     ("concerte" "concrete" nil 1)
-    ("conext" "context" nil 1)
+    ("conext" "context" nil 2)
     ("configuratin" "configuration" nil 1)
     ("contetn" "content" nil 2)
     ("contianer" "container" nil 1)
-    ("craete" "create" nil 1)
+    ("craete" "create" nil 2)
     ("cretae" "create" nil 1)
     ("custoemr" "customer" nil 2)
     ("dcoument" "document" nil 1)
@@ -210,6 +212,7 @@
     ("delviery" "delivery" nil 1)
     ("descroy" "destroy" nil 1)
     ("destory" "destroy" nil 9)
+    ("devliery" "delivery" nil 1)
     ("disabel" "disable" nil 1)
     ("documenatable" "documentable" nil 1)
     ("documetn" "document" nil 4)
@@ -267,10 +270,11 @@
     ("quantitiy" "quantity" nil 11)
     ("queeu" "queue" nil 1)
     ("realod" "reload" nil 2)
+    ("regsiter" "register" nil 1)
     ("relaod" "reload" nil 6)
     ("remakr" "remark" nil 1)
     ("reocrd" "record" nil 1)
-    ("reqeust" "request" nil 4)
+    ("reqeust" "request" nil 5)
     ("reqeusted" "requested" nil 1)
     ("requestd" "requested" nil 1)
     ("requet" "request" nil 2)
@@ -445,6 +449,8 @@
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
+(define-abbrev-table 'org-export-stack-mode-abbrev-table '())
+
 (define-abbrev-table 'org-mode-abbrev-table '())
 
 (define-abbrev-table 'outline-mode-abbrev-table '())
@@ -483,6 +489,8 @@
   '(
     ("yeta" "year_end_tax_adjustment" nil 4)
    ))
+
+(define-abbrev-table 'rust-mode-abbrev-table '())
 
 (define-abbrev-table 'scss-mode-abbrev-table '())
 

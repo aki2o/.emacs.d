@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: constraint/foreign
+# key: foreign
+# --
+FOREIGN KEY (${1:columns}) REFERENCES ${2:parent_table}(${3:parent_columns})$0

@@ -117,4 +117,7 @@
 
   (defvar ~yas-rspec-mock-args
     '(":any_args" ":no_args" ":anything" ":string" ":numeric" ":boolean"
-      "hash_including()" "hash_not_including()" "duck_type()")))
+      "hash_including()" "hash_not_including()" "duck_type()"))
+
+  (defvar ~yas-mysql-foreign-key-references
+    '("RESTRICT" "CASCADE" "SET NULL" "NO ACTION")))

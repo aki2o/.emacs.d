@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: constraint/references/on_delete
+# key: on
+# --
+ON DELETE `(~yas-choose-value 'mysql-foreign-key-references)`$0

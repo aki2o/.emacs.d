@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: table/drop
+# key: drop
+# --
+DROP TABLE ${1:IF EXISTS} $2;$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: constraint/primary
+# key: primary
+# --
+id BIGINT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY(id)$0

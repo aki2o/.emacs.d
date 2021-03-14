@@ -69,9 +69,6 @@
 (defvar ~find-definition-function 'xref-find-definitions-other-window)
 (make-variable-buffer-local '~find-definition-function)
 
-(with-eval-after-load 'pophint-tags
-  (pophint-tags:advice-command xref-find-definitions-other-window))
-
 (defun ~find-definition ()
   (interactive)
   (call-interactively ~find-definition-function))

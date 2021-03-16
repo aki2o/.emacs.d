@@ -2,5 +2,5 @@
 # name: constraint/primary
 # key: primary
 # --
-id BIGINT NOT NULL AUTO_INCREMENT,
+id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(id)$0

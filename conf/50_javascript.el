@@ -76,32 +76,32 @@
   (add-hook 'json-mode-hook '~json-setup-mode t))
 
 
-(use-package tern
-  :defer t
-  :commands (tern-mode)
-  :init
-  (dolist (h '(rjsx-mode-hook js2-mode-hook nxml-mode-hook))
-    (add-hook h '(lambda () (tern-mode 1)) t))
+;; (use-package tern
+;;   :defer t
+;;   :commands (tern-mode)
+;;   :init
+;;   (dolist (h '(rjsx-mode-hook js2-mode-hook nxml-mode-hook))
+;;     (add-hook h '(lambda () (tern-mode 1)) t))
 
-  :config
-  (bind-keys :map tern-mode-keymap
-             ("C-'"   . tern-get-docs)
-             ("C->"   . tern-find-definition)
-             ("M-."   . nil)
-             ("M-RET" . tern-ac-complete))
+;;   :config
+;;   (bind-keys :map tern-mode-keymap
+;;              ("C-'"   . tern-get-docs)
+;;              ("C->"   . tern-find-definition)
+;;              ("M-."   . nil)
+;;              ("M-RET" . tern-ac-complete))
   
-  (~tags-be-find-tag-command tern-show-definition)
+;;   (~tags-be-find-tag-command tern-show-definition)
 
-  ;; (add-to-list 'tern-command "--no-port-file" t)
+;;   ;; (add-to-list 'tern-command "--no-port-file" t)
 
-  ;; (~tramp-use-original-buffer-file-name-in tern-get-type)
-  ;; (~tramp-use-original-buffer-file-name-in tern-get-docs)
-  ;; (~tramp-use-original-buffer-file-name-in tern-find-definition)
-  ;; (~tramp-use-original-buffer-file-name-in tern-find-definition-by-name)
-  ;; (~tramp-use-original-buffer-file-name-in tern-pop-find-definition)
+;;   ;; (~tramp-use-original-buffer-file-name-in tern-get-type)
+;;   ;; (~tramp-use-original-buffer-file-name-in tern-get-docs)
+;;   ;; (~tramp-use-original-buffer-file-name-in tern-find-definition)
+;;   ;; (~tramp-use-original-buffer-file-name-in tern-find-definition-by-name)
+;;   ;; (~tramp-use-original-buffer-file-name-in tern-pop-find-definition)
 
-  (when (fboundp 'pophint-tags:advice-command)
-    (pophint-tags:advice-command tern-find-definition)))
+;;   (when (fboundp 'pophint-tags:advice-command)
+;;     (pophint-tags:advice-command tern-find-definition)))
 
 
 ;; エラーになってしまったのでコメントアウト

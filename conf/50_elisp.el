@@ -19,6 +19,8 @@
           (t
            (message "Can't specify symbol at point for find tag")))))
 
+(pophint-tags:advice-command ~find-tag-elisp)
+
 (defun ~popup-tip-elisp-symbol-help ()
   (interactive)
   (let* ((sym (symbol-at-point))
@@ -61,7 +63,3 @@
   :init
   ;; (define-key emacs-lisp-mode-map (kbd "C-\\") 'log4e:insert-start-log-quickly)
   )
-
-
-(when (fboundp 'pophint-tags:advice-command)
-  (pophint-tags:advice-command ~find-tag-elisp))

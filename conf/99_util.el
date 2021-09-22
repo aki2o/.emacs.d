@@ -66,14 +66,26 @@
   (interactive)
   (backward-up-list))
 
-(defvar ~find-definition-function 'xref-find-definitions-other-window)
+(defun ~xref-find-definitions ()
+  (interactive)
+  (xref-find-definitions-other-window (xref-backend-identifier-at-point (xref-find-backend))))
+
+(pophint-tags:advice-command ~xref-find-definitions)
+
+(defun ~xref-find-references ()
+  (interactive)
+  (xref-find-references (xref-backend-identifier-at-point (xref-find-backend))))
+
+(pophint-tags:advice-command ~xref-find-references)
+
+(defvar ~find-definition-function '~xref-find-definitions)
 (make-variable-buffer-local '~find-definition-function)
 
 (defun ~find-definition ()
   (interactive)
   (call-interactively ~find-definition-function))
 
-(defvar ~find-references-function 'xref-find-references)
+(defvar ~find-references-function '~xref-find-references)
 (make-variable-buffer-local '~find-references-function)
 
 (defun ~find-references ()

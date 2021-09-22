@@ -99,27 +99,6 @@
       (setq e2wm:prev-selected-buffer nil)))
 
   
-  ;; e2wm有効な場合に画面更新がされない機能のための対処
-  (defmacro ~e2wm:window-update-ize (command)
-    (declare (indent 0))
-    `(defadvice ,command (after ~e2wm:window-update activate)
-       (when (e2wm:managed-p)
-         (dolist (wnd (window-list))
-           (let ((pt (with-current-buffer (window-buffer wnd)
-                       (point))))
-             (when (not (= (window-point wnd) pt))
-               (set-window-point wnd pt)))))))
-
-  (~e2wm:window-update-ize find-function)
-  (~e2wm:window-update-ize find-variable)
-  (~e2wm:window-update-ize pop-tag-mark)
-  (~e2wm:window-update-ize helm-ag--find-file-action)
-  (~e2wm:window-update-ize helm-git-grep-persistent-action)
-  (~e2wm:window-update-ize ivy-call)
-  (~e2wm:window-update-ize robe-jump)
-  (~e2wm:window-update-ize godef-jump)
-
-
   ;; タグジャンプとかでハイライトさせたい
   (defvar ~e2wm:highlight-current-line-overlay nil)
   
@@ -142,14 +121,33 @@
                      (when ~e2wm:highlight-current-line-overlay
                        (delete-overlay ~e2wm:highlight-current-line-overlay)
                        (setq ~e2wm:highlight-current-line-overlay nil))))))))))
+  
+  ;; e2wm有効な場合に画面更新がされない機能のための対処
+  (defmacro ~e2wm:window-update-ize (command)
+    (declare (indent 0))
+    `(defadvice ,command (after ~e2wm:window-update activate)
+       (when (e2wm:managed-p)
+         (dolist (wnd (window-list))
+           (let ((pt (with-current-buffer (window-buffer wnd)
+                       (point))))
+             (when (not (= (window-point wnd) pt))
+               (set-window-point wnd pt)))))))
 
-  (~e2wm:highlight-current-line-after find-function right)
-  (~e2wm:highlight-current-line-after find-variable right)
+  (~e2wm:highlight-current-line-after ~find-tag-elisp right)
   (~e2wm:highlight-current-line-after helm-ag--action-find-file right)
   (~e2wm:highlight-current-line-after robe-jump right)
   (~e2wm:highlight-current-line-after godef-jump right)
+  (~e2wm:highlight-current-line-after ~xref-find-definitions right)
+  (~e2wm:window-update-ize ~find-tag-elisp)
+  (~e2wm:window-update-ize pop-tag-mark)
+  (~e2wm:window-update-ize helm-ag--find-file-action)
+  (~e2wm:window-update-ize helm-git-grep-persistent-action)
+  (~e2wm:window-update-ize ivy-call)
+  (~e2wm:window-update-ize robe-jump)
+  (~e2wm:window-update-ize godef-jump)
+  (~e2wm:window-update-ize ~xref-find-definitions)
 
-  
+
   ;; コマンド
   (defun ~e2wm:restart-management (&optional pstset)
     (interactive)

@@ -21,8 +21,9 @@
 
     (electric-indent-local-mode 0)
 
-    (when (fboundp 'lsp)
-      (lsp))
+    ;; 遅くて、一旦コメントアウト
+    ;; (when (fboundp 'lsp)
+    ;;   (lsp))
 
     (when (fboundp 'flex-autopair-reload-conditions)
       (add-to-list 'flex-autopair-pairs '(?| . ?|))

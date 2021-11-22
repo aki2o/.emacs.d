@@ -5,11 +5,11 @@
   :hook (rust-mode . ~rust-setup))
 
 (defun ~rust-setup ()
-  (when (fboundp 'lsp)
-    (setq lsp-rust-server 'rust-analyzer)
-    (setq lsp-rust-analyzer-server-command '("rust-analyzer"))
-    (lsp)))
+  (when (fboundp 'lsp) (lsp)))
 
 (use-package cargo
   :defer t
   :hook (rust-mode . cargo-minor-mode))
+
+(setq lsp-rust-server 'rust-analyzer)
+(setq lsp-rust-analyzer-server-command '("rust-analyzer"))

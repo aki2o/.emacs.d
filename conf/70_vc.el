@@ -32,6 +32,8 @@
     (bind-keys :map with-editor-mode-map
                ("C-c <up>" . with-editor-cancel))))
 
+(use-package magit-section
+  :after (magit))
 
 (use-package magit-popup
   :after (magit))

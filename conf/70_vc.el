@@ -52,7 +52,7 @@
   (setq github-browse-file-show-line-at-point t))
 
 
-(use-package gitignore-mode
+(use-package git-modes
   :defer t)
 
 

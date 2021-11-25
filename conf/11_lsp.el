@@ -10,7 +10,8 @@
            (lsp-auto-guess-root t)
            (lsp-document-sync-method 'incremental)
            (lsp-response-timeout 5)
-           (lsp-enable-snippet nil))
+           (lsp-enable-snippet nil)
+           (lsp-headerline-breadcrumb-enable nil))
   :defer t
   ;; :hook (lsp-mode . lsp-enable-which-key-integration)
   )

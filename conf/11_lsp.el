@@ -91,15 +91,6 @@
 ;;   :after (lsp-mode))
 
 
-(use-package company-lsp
-  :after (lsp-mode company)
-  :init (add-to-list 'company-backends 'company-lsp)
-  :custom ((company-lsp-cache-candidates 'auto)
-           (company-lsp-async nil)
-           (company-lsp-enable-snippet nil) ; lsp-enable-snippet とセットで設定する必要がある
-           (company-lsp-enable-recompletion nil)))
-
-
 (use-package helm-lsp
   :commands (helm-lsp-workspace-symbol)
   :after (lsp-mode))

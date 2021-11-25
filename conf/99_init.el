@@ -141,3 +141,6 @@
 
 ;; ミニバッファのサイズ変更するか
 (setq resize-mini-windows t)
+
+;; lsp とか使うと、デフォルトは小さすぎて、動作が重くなるので、大きくする必要があるらしい
+(setq gc-cons-threshold 200000000)

@@ -144,3 +144,6 @@
 
 ;; lsp とか使うと、デフォルトは小さすぎて、動作が重くなるので、大きくする必要があるらしい
 (setq gc-cons-threshold 200000000)
+
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+(setq read-process-output-max (* 1024 1024)) ; 1MB

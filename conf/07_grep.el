@@ -102,26 +102,28 @@
   :defer t)
 
 
-(use-package counsel
-  :defer t
-  :commands (~counsel-ag ~counsel-git-grep))
+;; counsel が見つからないって言われたので、一旦コメントアウト
 
-(defun ~counsel-initial-input ()
-  (thing-at-point 'word))
+;; (use-package counsel
+;;   :defer t
+;;   :commands (~counsel-ag ~counsel-git-grep))
 
-(defun ~counsel-ag ()
-  (interactive)
-  (counsel-ag (~counsel-initial-input) (read-directory-name "Dir: ")))
+;; (defun ~counsel-initial-input ()
+;;   (thing-at-point 'word))
 
-(defun ~counsel-git-grep ()
-  (interactive)
-  (counsel-git-grep nil (~counsel-initial-input)))
+;; (defun ~counsel-ag ()
+;;   (interactive)
+;;   (counsel-ag (~counsel-initial-input) (read-directory-name "Dir: ")))
+
+;; (defun ~counsel-git-grep ()
+;;   (interactive)
+;;   (counsel-git-grep nil (~counsel-initial-input)))
 
 
-(use-package swiper
-  :defer t
-  :commands (~swiper))
+;; (use-package swiper
+;;   :defer t
+;;   :commands (~swiper))
 
-(defun ~swiper ()
-  (interactive)
-  (swiper (~counsel-initial-input)))
+;; (defun ~swiper ()
+;;   (interactive)
+;;   (swiper (~counsel-initial-input)))

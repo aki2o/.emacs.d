@@ -2,20 +2,11 @@
 (when (~is-windows)
   (defun gnutls-available-p () nil))
 
-(setq ~browse-external-url-list
-      '("http://www.google.com/reader"
-        "http://www.google.co.jp/reader"
-        "http://maps.google.co.jp"
-        "http://map.yahoo.co.jp"
-        "http://map.labs.goo.ne.jp"
-        "http://www.haloscan.com"
-        "http://sitemeter.com"
-        "http://www.hmv.co.jp"
-        "https://www.facebook.com/"
-        "https://mf.esa.io/"))
+(setq ~browse-internal-url-list
+      '("https://docs.ruby-lang.org/"))
 
 (setq browse-url-browser-function
-      `((,(concat "^" (regexp-opt ~browse-external-url-list)) . ~browse-url-externally)
+      `((,(concat "^" (regexp-opt ~browse-internal-url-list)) . ~browse-url)
         ("^dict://"                                           . browse-url-default-browser)
         ("."                                                  . ~browse-url-externally)))
 
@@ -53,7 +44,7 @@
          (~browse-url-externally url))
         ((or (> emacs-major-version 24)
              (and (= emacs-major-version 24) (>= emacs-minor-version 4)))
-         (eww-browse-url url))
+         (eww-browse-url url t))
         ((functionp w3m-browse-url)
          (w3m-browse-url url))
         (t

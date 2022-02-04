@@ -678,11 +678,12 @@ _a_: show all                 _l_: go to child
  (kbd "C-H-M-;")
  (defhydra ~hydra-browse (:exit t :idle ~hydra-help-delay)
    "browse"
-   ("g" ~browse-url "url")
+   ("o" browse-url "open")
+   ("O" ~browse-url "open internal")
    ("b" ~browse-bookmark "bookmark")
    ("s" ~eww-search-manualy "eww manualy")
    ("S" ~eww-search "eww")
-   ("a" browse-url-at-point "at point")))
+   ("a" browse-url-at-point "open at point")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;

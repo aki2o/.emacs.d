@@ -28,6 +28,9 @@
   (unbind-key "C-j" magit-file-section-map)
   (unbind-key "C-j" magit-hunk-section-map)
 
+  (put 'magit-log-select-mode 'magit-log-default-arguments '("-n256" "--decorate"))
+  (put 'magit-log-mode 'magit-log-default-arguments '("-n256" "--decorate"))
+
   (with-eval-after-load 'with-editor
     (bind-keys :map with-editor-mode-map
                ("C-c <up>" . with-editor-cancel))))
@@ -235,8 +238,7 @@
     (e2wm:def-plugin-vcs-with-window
      (e2wm:magit-top-dir-function)
      (lambda (dir topdir)
-       (magit-log nil (or (ignore-errors magit-log-section-arguments)
-                          '("-n256" "--decorate"))))
+       (apply 'magit-log-current (cons (magit-log-read-revs t) (magit-log-arguments))))
      (lambda () (e2wm:def-plugin-vcs-na-buffer "Git N/A"))))
 
   ;; use magit-toplevel not magit-get-top-dir

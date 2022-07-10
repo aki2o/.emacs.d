@@ -35,9 +35,6 @@
 (use-package magit-section
   :after (magit))
 
-(use-package magit-popup
-  :after (magit))
-
 
 (use-package git-gutter
   :defer t

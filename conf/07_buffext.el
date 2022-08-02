@@ -17,7 +17,7 @@
   )
 
 
-(use-package lcomp
-  :straight nil
-  :config
-  (lcomp-install))
+;; (use-package lcomp
+;;   :straight nil
+;;   :config
+;;   (lcomp-install))

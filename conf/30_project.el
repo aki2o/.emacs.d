@@ -2,9 +2,10 @@
 
 (setq projectile-keymap-prefix nil)
 (setq projectile-enable-caching t)
-(setq projectile-completion-system 'helm)
+;; (setq projectile-completion-system 'helm)
 (setq projectile-cache-file (concat user-emacs-directory ".projectile.cache"))
 (setq projectile-known-projects-file (concat user-emacs-directory ".projectile-bookmarks.eld"))
+(setq projectile-require-project-root nil)
 
 (loop for e in '(".plsense" ".tern-project")
       do (add-to-list 'projectile-project-root-files-bottom-up e t))
@@ -126,16 +127,16 @@
   (~projectile-switchable-project-commandize ~projectile-counsel-ag-with-directory-select))
 
 
-(use-package helm-projectile
-  :config
-  ;; (setq projectile-completion-system 'helm)
-  ;; (helm-projectile-on)
+;; (use-package helm-projectile
+;;   :config
+;;   ;; (setq projectile-completion-system 'helm)
+;;   ;; (helm-projectile-on)
 
-  ;; (~projectile-switchable-project-commandize helm-projectile-find-file)
-  ;; (~projectile-switchable-project-commandize helm-projectile-find-dir)
-  ;; (~projectile-switchable-project-commandize helm-projectile-switch-to-buffer)
-  (~projectile-switchable-project-commandize helm-projectile-ag)
-  (~projectile-switchable-project-commandize helm-projectile-rg))
+;;   ;; (~projectile-switchable-project-commandize helm-projectile-find-file)
+;;   ;; (~projectile-switchable-project-commandize helm-projectile-find-dir)
+;;   ;; (~projectile-switchable-project-commandize helm-projectile-switch-to-buffer)
+;;   (~projectile-switchable-project-commandize helm-projectile-ag)
+;;   (~projectile-switchable-project-commandize helm-projectile-rg))
 
 
 ;; For p-r

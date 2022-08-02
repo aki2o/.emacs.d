@@ -3,7 +3,7 @@
 
 (defvar ~custom-key-plists
   `(
-    (:key "M-x" :cmd helm-M-x :jack t)
+    ;;(:key "M-x" :cmd helm-M-x :jack t)
     ;; 移動
     (:key "C-h"     :cmd backward-char             :jack t)
     (:key "C-l"     :cmd forward-char              :jack t)
@@ -107,7 +107,7 @@
     (:key "C-b"   :cmd nil :jack t) ; タスク管理で使いたい
     (:key "C-S-b" :cmd nil :jack t) ; タスク管理で使いたい
     ;; ファイル・バッファ
-    (:key "C-x C-f" :cmd helm-find-files        :jack t)
+    ;;(:key "C-x C-f" :cmd helm-find-files        :jack t)
     (:key "C-x f"   :cmd helm-recentf           :jack t)
     (:key "C-x F"   :cmd find-file-at-point     :jack t)
     (:key "C-x C-d" :cmd ~direx:jump-to-smartly :jack t)
@@ -116,7 +116,7 @@
     ;; (:key "M-f"     :cmd follow-delete-other-windows-and-split)
     (:key "C-x C-S-f" :cmd revert-buffer            :jack t)
     (:key "C-x C-S-r" :cmd ~revert-buffer-with-sudo :jack t)
-    (:key "C-x C-b"   :cmd helm-buffers-list        :jack t)
+    ;;(:key "C-x C-b"   :cmd helm-buffers-list        :jack t)
     (:key "C-x b"     :cmd ~ibuffer-other-window    :jack t)
     (:key "C-b"       :cmd persp-switch-to-buffer   :jack t)
     ;; マクロ

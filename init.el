@@ -1,3 +1,5 @@
+(setq browse-url-mosaic-program nil)
+
 ;; http://blog.daich.org/2015/03/27/el-get-flycheck/
 (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
   (setenv "PATH" path-from-shell)

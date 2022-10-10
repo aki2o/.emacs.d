@@ -1,0 +1,2 @@
+(require 'mmask)
+(mmask-init)

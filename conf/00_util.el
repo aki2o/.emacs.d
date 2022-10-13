@@ -135,6 +135,15 @@
   (interactive)
   (call-interactively ~focus-document-frame-function))
 
+(defvar ~action-at-point-functions '())
+(make-variable-buffer-local '~action-at-point-functions)
+
+(defun ~action-at-point ()
+  (interactive)
+  (cl-loop for f in ~action-at-point-functions
+           for v = (call-interactively f)
+           if v return v))
+
 ;; scroll
 (defun ~scroll-down ()
   (interactive)

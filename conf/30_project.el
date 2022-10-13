@@ -69,7 +69,7 @@
       (let ((ag-command (if arg 'ag-regexp 'ag))
             ;; reset the prefix arg, otherwise it will affect the ag-command
             (current-prefix-arg nil)
-            (dir (expand-file-name (projectile-complete-dir) (projectile-project-root))))
+            (dir (expand-file-name (projectile-complete-dir (projectile-project-root)) (projectile-project-root))))
         (funcall ag-command search-term dir))
     (error "Ag is not available")))
 
@@ -79,7 +79,7 @@
 
 (defun ~projectile-consult-ripgrep-with-directory-select ()
   (interactive)
-  (funcall '~consult-ripgrep (expand-file-name (projectile-complete-dir) (projectile-project-root))))
+  (funcall '~consult-ripgrep (expand-file-name (projectile-complete-dir (projectile-project-root)) (projectile-project-root))))
 
 (defvar ~projectile-switch-project-processing nil)
 (defmacro ~projectile-switchable-project-commandize (command)

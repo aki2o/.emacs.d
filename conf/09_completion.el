@@ -4,7 +4,7 @@
 
 (bundle vertico)
 (use-package vertico
-  :custom ((vertico-count 20))
+  :custom ((vertico-count 25))
   :init
   (vertico-mode)
   :config

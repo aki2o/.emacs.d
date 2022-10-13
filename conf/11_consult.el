@@ -1,5 +1,7 @@
 (bundle consult :type github :pkgname "minad/consult")
 (use-package consult
+  :custom ((consult-narrow-key ">"))
+
   :bind (([remap apropos-command] . consult-apropos)
          ([remap imenu] . consult-imenu)
          ([remap pop-global-mark] . consult-global-mark)
@@ -9,12 +11,12 @@
          ([remap pop-global-mark] . consult-global-mark)
          ([remap recentf-open-files] . consult-recent-file)
          :map isearch-mode-map
-              ("C-M-p" . consult-isearch-history)
-              ("H-s" . consult-line)
+         ("C-M-p" . consult-isearch-history)
+         ("H-s" . consult-line)
          :map minibuffer-local-map
-              ([remap next-matching-history-element] . consult-history)
-              ([remap previous-matching-history-element] . consult-history))
-  
+         ([remap next-matching-history-element] . consult-history)
+         ([remap previous-matching-history-element] . consult-history))
+
   :hook (completion-list-mode . consult-preview-at-point-mode)
 
   :init
@@ -33,6 +35,8 @@
                      (list (kbd "C-M-;")
                            :debounce 0.1 (kbd "C-j") (kbd "C-k") (kbd "<up>") (kbd "<down>")
                            :debounce 0.5 'any))
+
+  (define-key consult-narrow-map (vconcat consult-narrow-key "?") 'consult-narrow-help)
 
   (with-eval-after-load 'pophint
     (pophint-thing:defcommand-noadvice ~consult-grep))

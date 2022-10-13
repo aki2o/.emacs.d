@@ -1,5 +1,7 @@
 (setq el-get-lock-package-versions
-      '((consult :checksum "3f5d7992db43092de1e4b0e83eab350b027214ce")
+      '((embark-consult :checksum "2422d4e86f24b2b4204f2441f953e8407d011a2e")
+        (cape :checksum "c976301286df7120863fe31b3224a7b22c8cf550")
+        (consult :checksum "3f5d7992db43092de1e4b0e83eab350b027214ce")
         (eldoc-extension :checksum "a74cfbe05115afb18b671588b7f63d37d6b2b895")
         (projectile :checksum "683862872462c1c3c68fa41e370817399c15f836")
         (flycheck :checksum "d72c29fec85f1da6584475d88c1265f80e1275ad")

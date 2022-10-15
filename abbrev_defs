@@ -208,6 +208,7 @@
     ("destory" "destroy" nil 9)
     ("devliery" "delivery" nil 1)
     ("disabel" "disable" nil 1)
+    ("distict" "distinct" nil 1)
     ("documenatable" "documentable" nil 1)
     ("documetn" "document" nil 4)
     ("doucment" "document" nil 3)

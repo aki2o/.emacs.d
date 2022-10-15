@@ -89,18 +89,18 @@
     (:key "C-S-SPC"   :cmd ~set-mark-only                 :jack t :kind edit)
     (:key "C-x C-SPC" :cmd cua-rectangle-mark-mode        :jack t :kind edit)
     ;; 検索・参照
-    (:key "C-S-s" :cmd isearch-backward                 :jack t)
-    (:key "M-i"   :cmd imenu                            :jack t)
-    (:key "H-i"   :cmd owdriver-do-imenu                :jack t)
-    (:key "H-M-i" :cmd owdriver-do-imenu-on-next-window :jack t)
-    (:key "C-;"   :cmd ~popup-document-frame            :jack t)
-    (:key "C-:"   :cmd ~focus-document-frame            :jack t)
-    (:key "C-M-;" :cmd ~popup-document-buffer           :jack t)
-    (:key "C-M-:" :cmd ~google-translate-dwim           :jack t)
-    (:key "M-;"   :cmd ~action-at-point                 :jack t)
-    (:key "H-;"   :cmd nil)
-    (:key "C-v"   :cmd ~hydra-git/body                  :jack t)
-    (:key "C-S-v" :cmd ~hydra-git-gutter/body           :jack t)
+    (:key "C-S-s" :cmd isearch-backward                  :jack t)
+    (:key "M-i"   :cmd ~imenu                            :jack t)
+    (:key "H-i"   :cmd owdriver-do-~imenu                :jack t)
+    (:key "H-M-i" :cmd owdriver-do-~imenu-on-next-window :jack t)
+    (:key "C-;"   :cmd ~popup-document-frame             :jack t)
+    (:key "C-:"   :cmd ~focus-document-frame             :jack t)
+    (:key "C-M-;" :cmd ~popup-document-buffer            :jack t)
+    (:key "C-M-:" :cmd ~google-translate-dwim            :jack t)
+    (:key "M-;"   :cmd ~action-at-point                  :jack t)
+    (:key "H-;"   :cmd ~hydra-browse/body                :jack t)
+    (:key "C-v"   :cmd ~hydra-git/body                   :jack t)
+    (:key "C-S-v" :cmd ~hydra-git-gutter/body            :jack t)
     ;; ファイル・バッファ
     (:key "C-x f"   :cmd recentf-open-files     :jack t)
     (:key "C-x F"   :cmd find-file-at-point     :jack t)
@@ -195,14 +195,14 @@
   ("l" lgrep "lgrep")
   ("r" rgrep "rgrep")
   ("c" ~consult-grep "consult")
-  ("c" pophint-thing:just-~consult-grep "consult no-hint")
-  ("g" ~grep-by-git "git")
-  ("G" ~consult-git-grep "git by consult"))
+  ("n" pophint-thing:just-~consult-grep "consult no-hint")
+  ("g" ~consult-git-grep "git by consult")
+  ("G" ~grep-by-git "git"))
 
 (defhydra ~hydra-ag (:exit t :idle ~hydra-help-delay)
   "ag"
   ("a" ~ag "normal")
-  ("A" pophint-thing:just-~ag "normal no-hint"))
+  ("n" pophint-thing:just-~ag "normal no-hint"))
 
 (defhydra ~hydra-rg (:exit t :idle ~hydra-help-delay)
   "rg"
@@ -211,7 +211,7 @@
   ("d" rg-dwim "dwim")
   ("p" rg-project "project")
   ("c" ~consult-ripgrep "consult")
-  ("C" pophint-thing:just-~consult-ripgrep "consult no-hint"))
+  ("n" pophint-thing:just-~consult-ripgrep "consult no-hint"))
 
 (defhydra ~hydra-moccur (:exit t :idle ~hydra-help-delay)
   "moccur"
@@ -641,16 +641,14 @@ _a_: show all                 _l_: go to child
 ;;;;;;;;;;;;;;
 ;; Browsing
 
-(global-set-key
- (kbd "C-H-M-;")
- (defhydra ~hydra-browse (:exit t :idle ~hydra-help-delay)
-   "browse"
-   ("o" browse-url "open")
-   ("O" ~browse-url "open internal")
-   ("b" ~browse-bookmark "bookmark")
-   ("s" ~eww-search-manualy "eww manualy")
-   ("S" ~eww-search "eww")
-   ("a" browse-url-at-point "open at point")))
+(defhydra ~hydra-browse (:exit t :idle ~hydra-help-delay)
+  "browse"
+  ("o" browse-url "open")
+  ("O" ~browse-url "open internal")
+  ("b" ~browse-bookmark "bookmark")
+  ("s" ~eww-search-manualy "eww manualy")
+  ("S" ~eww-search "eww")
+  ("a" browse-url-at-point "open at point"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -764,69 +762,4 @@ _a_: show all                 _l_: go to child
    ("s" geeknote-find "find")
    ("f" geeknote-show "show")
    ("m" geeknote-move "move")))
-
-
-;; ;;;;;;;;;;;;;;
-;; ;; Anything
-
-;; ;; abbrevのキーバインドをanything用に空ける
-;; (dolist (s '("C-a" "'" "+" "-" "e" "g" "l" "n" "p" "i g" "i l"))
-;;   (global-unset-key (kbd (concat "C-x a" s))))
-
-;; (global-set-key
-;;  (kbd "C-x a")
-;;  (defhydra ~hydra-anything (:exit t :help nil :idle ~hydra-help-delay)
-;;    "
-;; _x_: M-x        _B_: bm                    _r_: resume
-;; _f_: find file  _q_: replace string        _?_: help
-;; _F_: for files  _h_: hatena bookmark
-;; _a_: apropos    _H_: hatena bookmark dump
-;; _b_: buffers
-;; _k_: kill ring
-;; _i_: imenu
-;; _m_: mark ring
-;; "
-;;    ("x" anything-execute-anything-command)
-;;    ("f" anything-find-files)
-;;    ("F" anything-for-files)
-;;    ("a" anything-apropos)
-;;    ("b" anything-buffers-list)
-;;    ("k" anything-show-kill-ring)
-;;    ("i" anything-imenu)
-;;    ("m" anything-all-mark-rings)
-;;    ("B" anything-bm-list)
-;;    ("q" anything-replace-string)
-;;    ("h" anything-hatena-bookmark)
-;;    ("H" anything-hatena-bookmark-get-dump)
-;;    ("r" anything-resume)
-;;    ("?" anything-help)))
-
-
-;;;;;;;;;;;;;
-;; Counsel
-
-(global-unset-key (kbd "C-x i"))
-(global-set-key
- (kbd "C-x i")
- (defhydra ~hydra-counsel (:exit t :help nil :idle ~hydra-help-delay)
-   "
-_x_: M-x           _g_: git grep  _b_: descbinds          _r_: resume
-_f_: find file     _a_: ag        _d_: describe function
-_i_: imenu                        _D_: describe variable
-_y_: yank pop
-_l_: load library
-_L_: locate
-"
-   ("x" counsel-M-x)
-   ("f" counsel-find-file)
-   ("i" counsel-imenu)
-   ("y" counsel-yank-pop)
-   ("l" counsel-load-library)
-   ("L" counsel-locate)
-   ("g" counsel-git-grep)
-   ("a" counsel-ag)
-   ("b" counsel-descbinds)
-   ("d" counsel-describe-function)
-   ("D" counsel-describe-variable)
-   ("r" ivy-resume)))
 

@@ -1,5 +1,5 @@
-(define-key minibuffer-local-map "C-M-p" 'previous-matching-history-element)
-(define-key minibuffer-local-map "C-M-n" 'next-matching-history-element)
+(define-key minibuffer-local-map (kbd "C-M-p") 'previous-matching-history-element)
+(define-key minibuffer-local-map (kbd "C-M-n") 'next-matching-history-element)
 
 
 (bundle vertico)
@@ -7,7 +7,10 @@
   :custom ((vertico-count 25))
   :init
   (vertico-mode)
+  (add-hook 'minibuffer-setup-hook 'vertico-repeat-save)
   :config
+  (define-key vertico-map (kbd "C-S-j") 'vertico-scroll-up)
+  (define-key vertico-map (kbd "C-S-k") 'vertico-scroll-down)
   (define-key vertico-map (kbd "C-S-h") 'vertico-directory-delete-word)
   (define-key vertico-map (kbd "C-S-l") 'vertico-insert))
 

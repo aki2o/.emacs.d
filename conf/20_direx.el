@@ -1,4 +1,4 @@
-(bundle direx :type github :pkgname "aki2o/direx-el" :branch "feature-not-merged")
+(bundle direx :type git :url "git@github.com:aki2o/direx-el.git" :branch "feature-not-merged")
 (use-package direx
   :defer t
   :functions (direx:direx-mode)

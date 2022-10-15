@@ -22,13 +22,12 @@
   ;;     ad-do-it))
   )
 
-(defun ~grep-by-git (regexp dir)
+(defun ~grep-by-git (regexp &optional dir)
   (interactive
-   (list (read-string "Regexp: ")
-         (read-directory-name "Dir: ")))
+   (list (read-string "Regexp: ")))
   (let ((cmd (format "PAGER='' git grep -I -n -i -e %s"
                      (shell-quote-argument regexp)))
-        (default-directory (expand-file-name dir))
+        (default-directory (if dir (expand-file-name dir) default-directory))
         (null-device nil))
     (grep cmd)))
 

@@ -10,7 +10,6 @@
 (bundle diminish)
 (bundle gntp)
 (bundle compat)
-(bundle posframe)
 (bundle deferred)
 
 
@@ -83,6 +82,10 @@
 (defun ~beginning-of-block ()
   (interactive)
   (backward-up-list))
+
+(defun ~imenu ()
+  (interactive)
+  (~call-interactively-any-of consult-imenu helm-imenu imenu))
 
 (defun ~xref-find-definitions ()
   (interactive)

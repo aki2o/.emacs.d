@@ -1,10 +1,11 @@
+(unbind-key "M-m")
 (bundle e2wm)
 (use-package e2wm
   :defer t
+  :custom ((e2wm:c-max-history-num 100))
   :init
-  (unbind-key "M-m")
   (setq e2wm:prefix-key "M-m ")
-
+  :config
   (custom-set-faces
    '(e2wm:face-subtitle ((((class color) (background light))
                           (:foreground "Gray10" :height 0.8 :inherit variable-pitch))
@@ -15,11 +16,8 @@
    '(e2wm:face-item ((t :height 0.8 :inherit variable-pitch :foreground "DarkSlateBlue")))
    '(e2wm:face-history-list-normal ((t :foreground "ivory"))))
 
-  :config
   ;; e2wm:add-keymap がエラーになるので、一旦コメントアウト
   ;; (use-package e2wm-config)
-
-  (setq e2wm:c-max-history-num 100) ; 履歴の保存数
 
   ;; ドキュメント的に扱いたいバッファ
   (setq ~e2wm:regexp-doc-buff
@@ -172,20 +170,17 @@
 
 
   ;; キーバインド
-  (e2wm:add-keymap
-   e2wm:pst-minor-mode-keymap
-   '(("prefix R" . ~e2wm:restart-management)
-     ("prefix L" . ielm)
-     ("prefix I" . info)
-     ("prefix m" . e2wm:pst-window-select-main-command)
-     ("prefix s" . ~e2wm:sub-maximize-toggle-command)
-     ("prefix z" . ~e2wm:delete-window)
-     ("prefix n" . nil)
-     ("prefix p" . nil)
-     ("C-}"      . e2wm:pst-history-forward-command) ; 履歴を進む
-     ("C-{"      . e2wm:pst-history-back-command) ; 履歴をもどる
-     ("C-z"      . ~e2wm:delete-window)
-     ) e2wm:prefix-key)
+  (setq e2wm:pst-minor-mode-keymap
+    (e2wm:define-keymap
+     '(("prefix q" . e2wm:stop-management)
+       ("prefix r" . ~e2wm:restart-management)
+       ("prefix g" . e2wm:pst-update-windows-command)
+       ("prefix m" . e2wm:pst-window-select-main-command)
+       ("prefix s" . ~e2wm:sub-maximize-toggle-command)
+       ("C-}"      . e2wm:pst-history-forward-command)
+       ("C-{"      . e2wm:pst-history-back-command)
+       ("C-z"      . ~e2wm:delete-window)
+       ) e2wm:prefix-key))
 
   (e2wm:add-keymap
    e2wm:dp-code-minor-mode-map
@@ -223,6 +218,13 @@
                             (goto-char (pophint:hint-startpt hint))
                             (e2wm:def-plugin-history-list2-select-command)
                             (e2wm:pst-window-select-main))))))
+
+
+  ;; PR
+  (defun e2wm:buffer-completion-p (buf)
+    "[internal] If `buf' is completion buffer, return not nil."
+    (and (bufferp buf) (buffer-live-p buf) (string-match "\\*Completions\\*" (buffer-name buf))))
+
   )
 
 

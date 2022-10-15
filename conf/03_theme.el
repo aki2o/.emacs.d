@@ -1,20 +1,16 @@
 (defun ~setup-theme ()
-  ;; light
-  ;; (load-theme 'tango t)
-
-  ;; dark
-  ;; (load-theme 'wombat t)
-  ;; (load-theme 'misterioso t)
-  ;; (load-theme 'tango-dark t)
+  ;; https://naokton.hatenablog.com/entry/2020/07/20/065700
+  (setq custom--inhibit-theme-enable nil)
 
   (load-theme 'deeper-blue t)
-  (custom-theme-set-faces 'deeper-blue
-                          '(default                ((t (:foreground "gray90"))))
-                          '(font-lock-comment-face ((t (:foreground "DarkSeaGreen4"))))
-                          ;; '(mode-line-buffer-id    ((t (:foreground "gray80" :bold nil))))
-                          '(mode-line              ((t (:foreground "powder blue" :background "DeepSkyBlue4"))))
-                          '(mode-line-inactive     ((t (:foreground "gray50" :background "gray15"))))
-                          '(cursor                 ((t (:background "white")))))
+  (custom-theme-set-faces
+   'deeper-blue
+   '(default                ((t (:foreground "gray90"))))
+   '(font-lock-comment-face ((t (:foreground "DarkSeaGreen4"))))
+   ;; '(mode-line-buffer-id    ((t (:foreground "gray80" :bold nil))))
+   '(mode-line              ((t (:foreground "powder blue" :background "DeepSkyBlue4"))))
+   '(mode-line-inactive     ((t (:foreground "gray50" :background "gray15"))))
+   '(cursor                 ((t (:background "white")))))
   )
 
 (~setup-theme)

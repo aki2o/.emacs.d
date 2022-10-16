@@ -15,13 +15,15 @@
   :defer t
   :commands (auto-revert-tail-mode)
   :hook (find-file . ~auto-revert-tail-mode-on)
-  :init
-  (defun ~auto-revert-tail-mode-on ()
-    (interactive)
-    (when (string-match "/log/" default-directory)
-      (auto-revert-tail-mode t)))
-  
+  :config
   (add-hook 'after-revert-hook
             '(lambda ()
-               (when auto-revert-tail-mode (end-of-buffer)))
-            t))
+               (when auto-revert-mode (end-of-buffer)))
+            t)
+  )
+
+(defun ~auto-revert-tail-mode-on ()
+  (interactive)
+  (when (string-match "/log/" default-directory)
+    (auto-revert-tail-mode t)))
+

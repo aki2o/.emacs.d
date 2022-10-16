@@ -1,6 +1,6 @@
 (bundle embark)
 (use-package embark
-  :commands (~embark-act-with-completing-read)
+  :after (vertico)
   :init
   (add-hook 'find-file-hook '~embark-setup-dwim t)
   (add-hook 'minibuffer-setup-hook '~embark-setup-act t)

@@ -6,9 +6,9 @@
 (use-package vertico
   :custom ((vertico-count 25))
   :init
-  (vertico-mode)
   (add-hook 'minibuffer-setup-hook 'vertico-repeat-save)
   :config
+  (vertico-mode)
   (define-key vertico-map (kbd "C-S-j") 'vertico-scroll-up)
   (define-key vertico-map (kbd "C-S-k") 'vertico-scroll-down)
   (define-key vertico-map (kbd "C-S-h") 'vertico-directory-delete-word)

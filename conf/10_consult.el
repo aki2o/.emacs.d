@@ -4,12 +4,14 @@
            (consult-preview-key (kbd "C-M-;"))
            (consult-preview-raw-size 1048576))
 
-  :bind (([remap apropos-command] . consult-apropos)
-         ([remap pop-global-mark] . consult-global-mark)
+  :bind (([remap apropos-command]    . consult-apropos)
+         ([remap pop-global-mark]    . consult-global-mark)
          ([remap recentf-open-files] . consult-recent-file)
+         ([remap yank-pop]           . consult-yank-replace)
          :map ~keyjack-mode-map
-         ([remap pop-global-mark] . consult-global-mark)
+         ([remap pop-global-mark]    . consult-global-mark)
          ([remap recentf-open-files] . consult-recent-file)
+         ([remap yank-pop]           . consult-yank-replace)
          :map isearch-mode-map
          ("C-M-p" . consult-isearch-history)
          ("M-c" . consult-line)

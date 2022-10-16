@@ -1,4 +1,4 @@
-(bundle pophint :type github :pkgname "aki2o/emacs-pophint")
+(bundle pophint :type git :url "git@github.com:aki2o/emacs-pophint.git" :branch "refactor_for_emacs_28")
 (use-package pophint
   :defer t
   :custom ((pophint:popup-chars "hjklyuiopnmgfdatre;")

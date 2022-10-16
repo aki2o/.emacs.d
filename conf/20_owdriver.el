@@ -1,4 +1,4 @@
-(bundle owdriver)
+(bundle owdriver :type git :url "git@github.com:aki2o/owdriver.git" :branch "follow_up_pophint_update")
 (use-package owdriver
   :config
   (unbind-key "C-o")

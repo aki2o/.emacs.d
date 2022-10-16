@@ -1,6 +1,6 @@
 (bundle embark)
 (use-package embark
-  :defer t
+  :commands (~embark-act-with-completing-read)
   :init
   (add-hook 'find-file-hook '~embark-setup-dwim t)
   (add-hook 'minibuffer-setup-hook '~embark-setup-act t)

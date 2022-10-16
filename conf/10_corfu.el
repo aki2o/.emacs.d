@@ -11,7 +11,8 @@
   (bind-keys :map corfu-map
              ("C-S-j" . corfu-next)
              ("C-S-k" . corfu-previous)
-             ("SPC" . corfu-insert-separator))
+             ("C-z"   . corfu-quit)
+             ("SPC"   . corfu-insert-separator))
   )
 
 

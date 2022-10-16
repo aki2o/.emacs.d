@@ -1,16 +1,24 @@
 (bundle embark)
 (use-package embark
+  :defer t
+  :init
+  (add-hook 'find-file-hook '~embark-setup-dwim t)
+  (add-hook 'minibuffer-setup-hook '~embark-setup-act t)
   :config
-  (add-hook 'find-file-hook '~embark-setup t)
-  (add-hook 'minibuffer-setup-hook '~embark-setup t)
-
   (with-eval-after-load 'which-key
-    (setq embark-indicators '(~embark-which-key-indicator))
-    (advice-add 'embark-completing-read-prompter :after '(lambda () (funcall which-key-custom-hide-popup-function))))
+    (setq embark-indicators '(~embark-which-key-indicator)))
+
+  (with-eval-after-load 'vertico
+    (define-key minibuffer-local-map (kbd "<tab>") 'abort-recursive-edit)
+    (define-key vertico-map (kbd "<tab>") '~embark-act-with-completing-read))
   )
 
-(defun ~embark-setup ()
-  (add-to-list '~action-at-point-functions 'embark-act))
+(defun ~embark-setup-dwim ()
+  (setq ~dwim-at-point-function 'embark-dwim)
+  (setq ~action-at-point-function 'embark-act))
+
+(defun ~embark-setup-act ()
+  (setq ~dwim-at-point-function 'embark-act))
 
 (defun ~embark-which-key-indicator ()
   (lambda (&optional keymap targets prefix)
@@ -31,9 +39,15 @@
        nil nil t (lambda (binding)
                    (not (string-suffix-p "-argument" (cdr binding))))))))
 
+(defun ~embark-act-with-completing-read (&optional arg)
+  (interactive "P")
+  (let* ((embark-prompter 'embark-completing-read-prompter)
+         (act (propertize "Act" 'face 'highlight))
+         (embark-indicators '()))
+    (embark-act arg)))
+
 
 (bundle embark-consult :type github :pkgname "oantolin/embark")
 (use-package embark-consult
-  :after (embark consult)
-  :hook (embark-collect-mode . consult-preview-at-point-mode))
+  :after (embark consult))
 

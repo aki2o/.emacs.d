@@ -55,10 +55,17 @@
   (pophint-isearch:replace-to-yank-region isearch-yank-line)
   (pophint-isearch:replace-to-yank-region migemo-isearch-yank-line)
 
-  (pophint-thing:advice-thing-at-point-function ~dwim-at-point)
+  (pophint-thing:advice-thing-at-point-function ~dwim-thing-at-point)
 
   (pophint-tags:advice-command ~xref-find-references)
   (pophint-tags:advice-command ~xref-find-definitions)
+
+  (pophint-thing:advice-thing-at-point-function ~browse-search-initial-input)
+  (pophint-thing:defcommand-noadvice ~browse-search)
+  (pophint-thing:defcommand-noadvice ~browse-search-internally)
+
+  ;; (with-eval-after-load 'eww
+  ;;   (define-key eww-mode-map (kbd ";") 'pophint:do-eww-anchor))
 
   ;; For p-r
 

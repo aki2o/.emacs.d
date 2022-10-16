@@ -54,7 +54,7 @@
     (with-current-buffer buf (shell-command-to-string "git diff HEAD --name-only"))
     "\n")))
 
-(defun ~dwim-at-point ()
+(defun ~dwim-thing-at-point ()
   (cond ((use-region-p)
          (buffer-substring-no-properties (region-beginning) (region-end)))
         ((symbol-at-point)
@@ -62,6 +62,16 @@
           (symbol-name (symbol-at-point))))
         (t
          (word-at-point))))
+
+(defun ~pulse-momentary ()
+  (with-selected-window (get-buffer-window (current-buffer))
+    (recenter)
+    (lexical-let* ((vbeg (save-excursion (beginning-of-visual-line) (point)))
+                   (vend (save-excursion (end-of-visual-line) (point)))
+                   (end (line-end-position))
+                   (ov (make-overlay vbeg (if (= vend end) (1+ end) vend))))
+      (overlay-put ov 'face 'highlight)
+      (run-with-idle-timer 0.5 nil (lambda () (when ov (delete-overlay ov)))))))
 
 (defmacro ~call-interactively-any-of (&rest commands)
   `(call-interactively (cl-loop for c in ',commands if (commandp c) return c)))
@@ -138,14 +148,22 @@
   (interactive)
   (call-interactively ~focus-document-frame-function))
 
-(defvar ~action-at-point-functions '())
-(make-variable-buffer-local '~action-at-point-functions)
+(defvar ~dwim-at-point-function nil)
+(make-variable-buffer-local '~dwim-at-point-function)
+
+(defun ~dwim-at-point ()
+  (interactive)
+  (if (commandp ~dwim-at-point-function)
+      (call-interactively ~dwim-at-point-function)
+    (error "No ~dwim-at-point-function")))
+
+(defvar ~action-at-point-function nil)
 
 (defun ~action-at-point ()
   (interactive)
-  (cl-loop for f in ~action-at-point-functions
-           for v = (call-interactively f)
-           if v return v))
+  (if (commandp ~action-at-point-function)
+      (call-interactively ~action-at-point-function)
+    (error "No ~action-at-point-function")))
 
 ;; scroll
 (defun ~scroll-down ()

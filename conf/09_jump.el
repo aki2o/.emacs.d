@@ -1,3 +1,5 @@
+(setq xref-after-jump-hook '(~pulse-momentary))
+
 (bundle point-undo)
 (use-package point-undo
   :defer t

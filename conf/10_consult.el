@@ -29,7 +29,7 @@
   :config
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") 'consult-narrow-help)
 
-  (setq consult-after-jump-hook '(~consult-after-jump))
+  (setq consult-after-jump-hook '(~pulse-momentary))
 
   (with-eval-after-load 'pophint
     (pophint-thing:defcommand-noadvice ~consult-grep)
@@ -37,27 +37,18 @@
     (pophint-thing:defcommand-noadvice ~consult-ripgrep))
   )
 
-(defun ~consult-after-jump ()
-  (recenter)
-  (lexical-let* ((vbeg (save-excursion (beginning-of-visual-line) (point)))
-                 (vend (save-excursion (end-of-visual-line) (point)))
-                 (end (line-end-position))
-                 (ov (make-overlay vbeg (if (= vend end) (1+ end) vend))))
-    (overlay-put ov 'face 'highlight)
-    (run-with-idle-timer 1 nil (lambda () (when ov (delete-overlay ov))))))
-
 (defun ~consult-grep (dir)
   (interactive
    (list (read-directory-name "Dir: ")))
-  (funcall 'consult-grep dir (~dwim-at-point)))
+  (funcall 'consult-grep dir (~dwim-thing-at-point)))
 
 (defun ~consult-git-grep (&optional dir)
   (interactive)
-  (funcall 'consult-git-grep dir (~dwim-at-point)))
+  (funcall 'consult-git-grep dir (~dwim-thing-at-point)))
 
 (defun ~consult-ripgrep (dir)
   (interactive
    (list (read-directory-name "Dir: ")))
-  (funcall 'consult-ripgrep dir (~dwim-at-point)))
+  (funcall 'consult-ripgrep dir (~dwim-thing-at-point)))
 
 

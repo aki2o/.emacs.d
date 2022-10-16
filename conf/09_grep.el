@@ -54,6 +54,8 @@
 
 (bundle wgrep :type github :pkgname "mhayashi1120/Emacs-wgrep")
 (use-package wgrep
+  :custom ((wgrep-enable-key "e")
+           (wgrep-auto-save-buffer t))
   :after (grep))
 
 
@@ -80,9 +82,7 @@
 (bundle wgrep-ag :type github :pkgname "mhayashi1120/Emacs-wgrep")
 (use-package wgrep-ag
   :after (ag)
-  :config
-  (bind-keys :map ag-mode-map
-             ("r" . wgrep-change-to-wgrep-mode)))
+  :hook (ag-mode . wgrep-setup))
 
 
 (bundle rg)

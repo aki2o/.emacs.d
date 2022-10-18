@@ -46,7 +46,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(lsp-log-io nil nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages '(which-key-posframe consult compat bind-key))
+ '(package-selected-packages '(vue-mode which-key-posframe consult compat bind-key))
  '(rspec-use-rake-flag nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

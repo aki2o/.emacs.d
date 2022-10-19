@@ -26,7 +26,7 @@
   (setq max-lisp-eval-depth 5000)
   (setq max-specpdl-size 6000)
 
-  (when (featurep 'mmask)
+  (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'nxml-mode))))
 
 (with-eval-after-load 'rng-loc

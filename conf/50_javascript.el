@@ -38,7 +38,7 @@
 (defun ~js2-mode-setup ()
   (setq js-indent-level 2)
   (setq ~tidy-code-current-function '~typescript-tidy-dwim)
-  (when (featurep 'mmask)
+  (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'js2-mode))))
 
 
@@ -73,11 +73,11 @@
   )
 
 (defun ~typescript-mode-setup ()
-  (when (featurep 'projectile)
+  (when (find-library-name "projectile")
     (~typescript-flycheck-select-dwim)
     (setq ~tidy-code-current-function '~typescript-tidy-dwim))
 
-  (when (featurep 'mmask)
+  (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode))))
 
 (defun ~typescript-flycheck-select-dwim ()

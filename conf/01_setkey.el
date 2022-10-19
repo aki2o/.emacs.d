@@ -643,11 +643,15 @@ _a_: show all                 _l_: go to child
 
 (defhydra ~hydra-browse (:exit t :idle ~hydra-help-delay)
   "browse"
-  ("j"     browse-url-at-point "open url")
+  ("j"     browse-url-at-point "open at point")
+  ("J"     browse-url "open")
   ("o"     ~browse-search "search external")
   ("o"     pophint-thing:just-~browse-search "search external no-hint")
   ("C-o"   ~browse-search-internally "search internal")
-  ("C-S-o" pophint-thing:just-~browse-search-internally "search internal")
+  ("C-S-o" pophint-thing:just-~browse-search-internally "search internal no-hint")
+  ("v"     github-browse-file "github file")
+  ("C-v"   github-browse-file-blame "github blame")
+  ("M-S-v" github-browse-commit "github commit")
   (";"     ~browse-document "document")
   ("u"     ~google-translate-dwim "translate"))
 

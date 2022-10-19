@@ -11,10 +11,10 @@
 (defun ~go-setup-mode ()
   (setq-local tab-width 2)
 
-  (when (featurep 'mmask)
+  (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'go-mode)))
 
-  (when (featurep 'lsp-mode)
+  (when (find-library-name "lsp-mode")
     (add-hook 'before-save-hook 'lsp-format-buffer t t)
     (add-hook 'before-save-hook 'lsp-organize-imports t t)
     (lsp-deferred)))

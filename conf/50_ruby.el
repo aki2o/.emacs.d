@@ -13,6 +13,9 @@
   :config
   (add-hook 'ruby-mode-hook '~ruby-mode-setup)
 
+  (with-eval-after-load 'lsp-mode
+    (add-hook 'ruby-mode-hook 'lsp-deferred t))
+
   ;; 閉じ括弧のインデントをイイ感じにする
   (defadvice ruby-indent-line (after ~unindent-closing-paren activate)
     (let ((column (current-column))
@@ -47,17 +50,14 @@
 
   (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function)
 
-  (when (featurep 'lsp-mode)
-    (lsp-deferred))
-
-  (when (featurep 'flex-autopair)
+  (when (find-library-name "flex-autopair")
     (add-to-list 'flex-autopair-pairs '(?| . ?|))
     (add-to-list 'flex-autopair-pairs '(?| . ?|))
     (setq flex-autopair-user-conditions-high
           '(((string-match " do +\\'" (buffer-substring (point-at-bol) (point))) . pair)))
     (flex-autopair-reload-conditions))
 
-  (when (featurep 'mmask)
+  (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode))))
 
 (defun ~ruby-mode-set-encoding ()

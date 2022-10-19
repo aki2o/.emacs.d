@@ -9,7 +9,7 @@
   ;; flycheck
   (~disable-flycheck-in-emacs-conf-file-buffer)
   ;; color-moccur
-  (when (featurep 'mmask)
+  (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode))))
 
 (defun ~elisp-document-url-with (words)

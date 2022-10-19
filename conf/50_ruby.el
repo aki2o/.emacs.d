@@ -163,24 +163,6 @@
   (defun rake--root ()
     (directory-file-name (file-truename (locate-dominating-file default-directory "Rakefile"))))
 
-  ;; hashの値は (concat dir file) ってなってたけど、 app/views/app/views/hoge.html とかなって動いてない
-  (defun projectile-rails-choices (dirs)
-    "Uses `projectile-rails-dir-files' function to find files in directories.
-
-The DIRS is list of lists consisting of a directory path and regexp to filter files from that directory.
-Optional third element can be present in the DIRS list. The third element will be a prefix to be placed before
-the filename in the resulting choice.
-Returns a hash table with keys being short names (choices) and values being relative paths to the files."
-    (let ((hash (make-hash-table :test 'equal)))
-      (loop for (dir re prefix) in dirs do
-            (loop for file in (projectile-rails-dir-files (projectile-rails-expand-root dir)) do
-                  (when (string-match re file)
-                    (puthash
-                     (concat (or prefix "") (match-string 1 file))
-                     file
-                     hash))))
-      hash))
-
   ;; 複数の階層が分かれている場合、目的のディレクトリのファイルが出なかったので、ファイルパス全体を選択肢に出すようにしてる
   (defun projectile-rails-find-current-view ()
     "Find a template for the current resource."

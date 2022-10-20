@@ -1,9 +1,12 @@
 (with-eval-after-load 'mmask
   (mmask-regist-extension-with-icase 'emacs-lisp-mode "el"))
 
+(~browse-document-defun elisp "https://www.gnu.org/software/emacs/manual/html_mono/elisp.html"
+  :body (concat "#index-" (replace-regexp-in-string "-" "_002d" (nth 0 words))))
+
 (add-hook 'emacs-lisp-mode-hook '~emacs-lisp-mode-setup t)
 (defun ~emacs-lisp-mode-setup ()
-  (add-to-list '~browse-document-url-functions '~elisp-document-url-with)
+  (add-to-list '~browse-document-url-functions '~browse-elisp-document t)
   (setq ~find-definition-function '~find-tag-elisp)
   (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help)
   ;; flycheck
@@ -11,12 +14,6 @@
   ;; color-moccur
   (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode))))
-
-(defun ~elisp-document-url-with (words)
-  (concat "https://www.gnu.org/software/emacs/manual/html_mono/elisp.html"
-          (if (> (length words) 0)
-              (concat "#index-" (replace-regexp-in-string "-" "_002d" (nth 0 words)))
-            "")))
 
 (defun ~find-tag-elisp ()
   (interactive)

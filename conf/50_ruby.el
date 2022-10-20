@@ -13,6 +13,15 @@
   :config
   (add-hook 'ruby-mode-hook '~ruby-mode-setup)
 
+  (~browse-document-defun ruby "https://docs.ruby-lang.org/en/master/"
+    :body (concat (nth 0 words) ".html"))
+
+  (~browse-document-defun gem "https://www.rubydoc.info/"
+    :path "find/gems"
+    :body (concat "?q=" (mapconcat 'identity words "+")))
+
+  (~browse-document-defun rails "https://api.rubyonrails.org/")
+
   (with-eval-after-load 'lsp-mode
     (add-hook 'ruby-mode-hook 'lsp-deferred t))
 
@@ -40,6 +49,10 @@
   )
 
 (defun ~ruby-mode-setup ()
+  (add-to-list '~browse-document-url-functions '~browse-ruby-document t)
+  (add-to-list '~browse-document-url-functions '~browse-gem-document t)
+  (add-to-list '~browse-document-url-functions '~browse-rails-document t)
+
   ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
   (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
 

@@ -1,7 +1,6 @@
 (setq ~browse-internal-url-list
       '("https://www.gnu.org/software/emacs/manual/html_mono/"
-        "https://www.gnu.org/software/emacs/manual/html_node/"
-        "https://docs.ruby-lang.org/"))
+        "https://www.gnu.org/software/emacs/manual/html_node/"))
 
 (setq browse-url-browser-function '~browse-url-browser)
 
@@ -55,6 +54,14 @@
                                             (cond ((= (length urls) 1) (nth 0 urls))
                                                   (t (completing-read "URL: " urls)))))))
       (call-interactively '~browse-search))))
+
+(cl-defmacro ~browse-document-defun (name baseurl &key (body nil) (internal nil) (path ""))
+  (declare (indent 2))
+  (when internal
+    (add-to-list '~browse-internal-url-list baseurl t))
+  `(defun ,(intern (format "~browse-%s-document" name)) (words)
+     (concat ,baseurl ,path (if (and (= (length words) 1) (string= (nth 0 words) "")) "" ,body))))
+
 
 (use-package eww
   :commands (~browse-search)

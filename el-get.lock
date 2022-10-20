@@ -1,5 +1,6 @@
 (setq el-get-lock-package-versions
-      '((vue-mode :checksum "031edd1f97db6e7d8d6c295c0e6d58dd128b9e71")
+      '((pophint :checksum "441d6ea0a1b7d7adec63a1d26b8ff42aa1767a99")
+        (vue-mode :checksum "031edd1f97db6e7d8d6c295c0e6d58dd128b9e71")
         (mmm-mode :checksum "ed4bcdcbe4556dae9013d9c6697e2b6a2ed6d2dc")
         (ssass-mode :checksum "96f557887ad97a0066a60c54f92b7234b8407016")
         (vue-html-mode :checksum "1514939804bad558584feeb6298b38d22eadf64e")
@@ -70,7 +71,6 @@
         (window-layout :checksum "cd2e4f967b610c2bbef53182829e47250d027056")
         (direx-grep :checksum "1109a512a80b2673a70b18b8568514049017faad")
         (direx :checksum "365a90c251a4675e708b42c68fa36923ec2b2896")
-        (pophint :checksum "18ca6f102231bccd060c18a5cae8ef28e207d20f")
         (log4e :checksum "737d275eac28dbdfb0b26d28e99da148bfce9d16")
         (yaxception :checksum "4e94cf3e0b9b5631b0e90eb4b7de597ee7185875")
         (embark-consult :checksum "2422d4e86f24b2b4204f2441f953e8407d011a2e")

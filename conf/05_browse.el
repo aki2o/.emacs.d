@@ -84,32 +84,31 @@
   (setq eww-search-prefix "https://www.google.co.jp/search?q=")
 
   :config
-  (add-hook 'eww-mode-hook '~eww-setup t)
-  (add-hook 'eww-after-render-hook '~eww-after-render t)
+  (~add-setup-hook 'eww-mode
+    (face-remap-add-relative 'default :background "white" :foreground "black" :height 140)
+    (face-remap-add-relative 'shr-link :foreground "linkColor")
+    (setq cursor-type 'box)
 
+    (when ~browse-searched-words
+      (rename-buffer (format "*eww: %s*" (mapconcat 'identity ~browse-searched-words " ")) t))
+
+    (setq-local shr-put-image-function 'shr-put-image-alt))
+
+  (~add-setup-hook 'eww-after-render
+    (loop for w in ~browse-searched-words do (highlight-regexp w))
+    (setq ~browse-searched-words nil))
+
+  (advice-add 'display-graphic-p :around '~shr-graphic)
   (advice-add 'shr-colorize-region :around '~shr-colorize-region)
   (advice-add 'eww-colorize-region :around '~shr-colorize-region))
-
-(defun ~eww-setup ()
-  (face-remap-add-relative 'default :background "white" :foreground "black" :height 140)
-  (face-remap-add-relative 'shr-link :foreground "linkColor")
-  (setq cursor-type 'box)
-
-  (when ~browse-searched-words
-    (rename-buffer (format "*eww: %s*" (mapconcat 'identity ~browse-searched-words " ")) t))
-
-  (setq-local shr-put-image-function 'shr-put-image-alt))
-
-(defun ~eww-after-render ()
-  (loop for w in ~browse-searched-words do (highlight-regexp w))
-  (setq ~browse-searched-words nil))
 
 (defvar ~eww-colorful-view nil)
 (make-variable-buffer-local '~eww-colorful-view)
 
-(defadvice display-graphic-p (around ~shr-graphic activate)
-  (when ~eww-colorful-view
-    ad-do-it))
+(defun ~shr-graphic (orig &rest args)
+  (when (or (not (eq major-mode 'eww-mode))
+            ~eww-colorful-view)
+    (apply orig args)))
 
 (defun ~shr-colorize-region (orig start end fg &optional bg &rest _)
   (when ~eww-colorful-view

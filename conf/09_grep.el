@@ -69,7 +69,7 @@
    '(ag-reuse-window 'nil)   ; 現在のウィンドウを検索結果表示に使う
    '(ag-reuse-buffers 'nil)) ; 現在のバッファを検索結果表示に使う
 
-  (with-eval-after-load 'pophint
+  (when (find-library-name "pophint-thing")
     (pophint-thing:advice-thing-at-point-function ag/dwim-at-point)
     (pophint-thing:defcommand-noadvice ~ag))
   )

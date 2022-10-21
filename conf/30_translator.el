@@ -24,6 +24,6 @@
   :config
   (require 'google-translate-default-ui)
 
-  (with-eval-after-load 'pophint
+  (when (find-library-name "pophint-thing")
     (pophint-thing:advice-thing-at-point-function ~google-translate-thing-at-point)))
 

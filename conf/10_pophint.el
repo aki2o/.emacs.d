@@ -75,7 +75,6 @@
 (pophint-isearch:replace-to-yank-region isearch-yank-line)
 (pophint-isearch:replace-to-yank-region migemo-isearch-yank-line)
 
-(pophint-tags:advice-command ~find-tag-elisp)
 (pophint-tags:advice-command ~xref-find-references)
 (pophint-tags:advice-command ~xref-find-definitions)
 

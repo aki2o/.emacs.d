@@ -25,7 +25,7 @@
           (t
            (message "Can't specify symbol at point for find tag")))))
 
-(when (find-library-name "pophint-tags")
+(with-eval-after-load 'pophint-autoloads
   (pophint-tags:advice-command ~find-tag-elisp))
 
 (defun ~popup-tip-elisp-symbol-help ()

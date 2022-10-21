@@ -120,7 +120,7 @@
       (ad-set-arg 1 (format "%s - %s" newname project-root)))))
 
 
-(when (find-library-name "pophint-thing")
+(with-eval-after-load 'pophint-autoloads
   (pophint-thing:advice-thing-at-point-function projectile-symbol-at-point)
   (pophint-thing:defcommand-noadvice projectile-ag))
 

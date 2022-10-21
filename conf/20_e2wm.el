@@ -195,7 +195,7 @@
      ("C-l" . e2wm:dp-array-move-right-command)
      ) e2wm:prefix-key)
 
-  (with-eval-after-load 'pophint
+  (with-eval-after-load 'pophint-autoloads
     (e2wm:add-keymap
      e2wm:pst-minor-mode-keymap
      '(("prefix ;" . pophint:do-situationally-e2wm)

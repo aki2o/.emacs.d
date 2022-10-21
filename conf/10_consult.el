@@ -33,7 +33,7 @@
 
   (setq consult-after-jump-hook '(~pulse-momentary))
 
-  (when (find-library-name "pophint-thing")
+  (with-eval-after-load 'pophint-autoloads
     (pophint-thing:defcommand-noadvice ~consult-grep)
     (pophint-thing:defcommand-noadvice ~consult-git-grep)
     (pophint-thing:defcommand-noadvice ~consult-ripgrep))

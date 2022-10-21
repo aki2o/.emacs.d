@@ -16,7 +16,7 @@
     (owdriver-define-command seq-yaol-heads         nil)
     (owdriver-define-command seq-yaol-current-heads nil))
 
-  (with-eval-after-load 'pophint
+  (with-eval-after-load 'pophint-autoloads
     (owdriver-define-command pophint:do-flexibly t)
     (owdriver-define-command pophint:do t (pophint:do :not-switch-window t))
     (owdriver-define-command pophint:do-yaol-head nil))

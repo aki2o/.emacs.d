@@ -1,6 +1,9 @@
 (with-eval-after-load 'mmask
   (mmask-regist-extension-with-icase 'nxml-mode "htm" "html" "shtm" "shtml" "xhtm" "xhtml" "xml" "rdf" "xul"))
 
+(~add-setup-hook-after-load 'mmask 'nxml-mode
+  (setq moccur-grep-default-mask (mmask-get-regexp-string 'nxml-mode)))
+
 (load "rng-auto.el" 't)
 
 (setq nxml-slash-auto-complete-flag t)      ; スラッシュの入力で終了タグを自動補完
@@ -10,8 +13,7 @@
 (setq nxml-sexp-element-flag t)             ; C-M-kで下位を含む要素全体をkillする
 (setq nxml-char-ref-display-glyph-flag nil) ; グリフは非表示
 
-(add-hook 'nxml-mode-hook '~nxml-mode-setup t)
-(defun ~nxml-mode-setup ()
+(~add-setup-hook 'nxml-mode
   ;; 更新タイムスタンプの自動挿入
   (setq time-stamp-line-limit 10000)
   (when (not (memq 'time-stamp write-file-hooks))
@@ -24,10 +26,7 @@
 
   (local-set-key (kbd "M-h") nil)
   (setq max-lisp-eval-depth 5000)
-  (setq max-specpdl-size 6000)
-
-  (when (find-library-name "mmask")
-    (setq moccur-grep-default-mask (mmask-get-regexp-string 'nxml-mode))))
+  (setq max-specpdl-size 6000))
 
 (with-eval-after-load 'rng-loc
   (add-to-list 'rng-schema-locating-files (concat user-emacs-directory "schema/schemas.xml")))

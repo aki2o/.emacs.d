@@ -1,19 +1,22 @@
-(with-eval-after-load 'mmask
-  (mmask-regist-extension-with-icase 'emacs-lisp-mode "el"))
-
 (~browse-document-defun elisp "https://www.gnu.org/software/emacs/manual/html_mono/elisp.html"
   :body (concat "#index-" (replace-regexp-in-string "-" "_002d" (nth 0 words))))
 
-(add-hook 'emacs-lisp-mode-hook '~emacs-lisp-mode-setup t)
-(defun ~emacs-lisp-mode-setup ()
+(with-eval-after-load 'mmask
+  (mmask-regist-extension-with-icase 'emacs-lisp-mode "el"))
+
+(~add-setup-hook-after-load 'mmask 'emacs-lisp-mode
+  (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode)))
+
+(~add-setup-hook 'emacs-list-mode
   (add-to-list '~browse-document-url-functions '~browse-elisp-document t)
   (setq ~find-definition-function '~find-tag-elisp)
-  (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help)
+  (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help))
 
-  (~disable-flycheck-in-emacs-conf-file-buffer)
+(with-eval-after-load 'pophint-autoloads
+  (pophint-tags:advice-command ~find-tag-elisp))
 
-  (when (find-library-name "mmask")
-    (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode))))
+(~add-setup-hook-after-load 'flycheck 'emacs-list-mode
+  (~disable-flycheck-in-emacs-conf-file-buffer))
 
 (defun ~find-tag-elisp ()
   (interactive)
@@ -24,9 +27,6 @@
            (find-variable sym))
           (t
            (message "Can't specify symbol at point for find tag")))))
-
-(with-eval-after-load 'pophint-autoloads
-  (pophint-tags:advice-command ~find-tag-elisp))
 
 (defun ~popup-tip-elisp-symbol-help ()
   (interactive)

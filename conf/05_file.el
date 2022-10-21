@@ -12,8 +12,7 @@
 
 
 ;; (bundle emacswiki:sudo-ext)
-;; (when (and (find-library-name "server")
-;;            (server-running-p))
+;; (when (server-running-p)
 ;;   (require 'sudo-ext)
 ;;   )
 
@@ -24,8 +23,7 @@
 ;; 
 ;; ;; 書き込めないファイルならsudoするか聞く
 ;; (defun ~open-as-root-p (file)
-;;   (and (not (find-library-name "sudo-ext)")
-;;        file
+;;   (and file
 ;;        (file-exists-p file)
 ;;        (file-regular-p file)
 ;;        (not (file-writable-p file))

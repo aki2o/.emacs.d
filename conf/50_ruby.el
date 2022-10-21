@@ -11,8 +11,6 @@
     (mmask-regist-extension-with-icase 'ruby-mode "rake" "ru" "gemspec" "ruby"))
 
   :config
-  (add-hook 'ruby-mode-hook '~ruby-mode-setup)
-
   (~browse-document-defun ruby "https://docs.ruby-lang.org/en/master/"
     :body (concat (nth 0 words) ".html"))
 
@@ -21,6 +19,31 @@
     :body (concat "?q=" (mapconcat 'identity words "+")))
 
   (~browse-document-defun rails "https://api.rubyonrails.org/")
+
+  (~add-setup-hook 'ruby-mode
+    (add-to-list '~browse-document-url-functions '~browse-ruby-document t)
+    (add-to-list '~browse-document-url-functions '~browse-gem-document t)
+    (add-to-list '~browse-document-url-functions '~browse-rails-document t)
+
+    ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
+    (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
+
+    (setq ~tidy-code-current-function '~ruby-rubocop-apply-to-current)
+    (setq ~tidy-code-diff-files-function '~ruby-rubocop-apply-to-diff-files)
+
+    (electric-indent-local-mode 0)
+
+    (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function))
+
+  (~add-setup-hook-after-load 'flex-autopair 'ruby-mode
+    (add-to-list 'flex-autopair-pairs '(?| . ?|))
+    (add-to-list 'flex-autopair-pairs '(?| . ?|))
+    (setq flex-autopair-user-conditions-high
+          '(((string-match " do +\\'" (buffer-substring (point-at-bol) (point))) . pair)))
+    (flex-autopair-reload-conditions))
+
+  (~add-setup-hook-after-load 'mmask 'ruby-mode
+    (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode)))
 
   (with-eval-after-load 'lsp-mode
     (add-hook 'ruby-mode-hook 'lsp-deferred t))
@@ -47,31 +70,6 @@
      ("\\(?:[^\\]\\|\\=\\)\\(\\\\\\\\\\)*\\(#{[^{^}]*#{[^}]*}[^}]*}\\)\\|\\(#\\({[^}\n\\\\]*\\(\\\\.[^}\n\\\\]*\\)*}\\|\\(\\$\\|@\\|@@\\)\\(\\w\\|_\\)+\\|\\$[^a-zA-Z \n]\\)\\)"
       (0 (ignore (ruby-syntax-propertize-expansion))))))
   )
-
-(defun ~ruby-mode-setup ()
-  (add-to-list '~browse-document-url-functions '~browse-ruby-document t)
-  (add-to-list '~browse-document-url-functions '~browse-gem-document t)
-  (add-to-list '~browse-document-url-functions '~browse-rails-document t)
-
-  ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
-  (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
-
-  (setq ~tidy-code-current-function '~ruby-rubocop-apply-to-current)
-  (setq ~tidy-code-diff-files-function '~ruby-rubocop-apply-to-diff-files)
-
-  (electric-indent-local-mode 0)
-
-  (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function)
-
-  (when (find-library-name "flex-autopair")
-    (add-to-list 'flex-autopair-pairs '(?| . ?|))
-    (add-to-list 'flex-autopair-pairs '(?| . ?|))
-    (setq flex-autopair-user-conditions-high
-          '(((string-match " do +\\'" (buffer-substring (point-at-bol) (point))) . pair)))
-    (flex-autopair-reload-conditions))
-
-  (when (find-library-name "mmask")
-    (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode))))
 
 (defun ~ruby-mode-set-encoding ()
   (interactive)

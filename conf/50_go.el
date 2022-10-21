@@ -2,22 +2,20 @@
 (use-package go-mode
   :defer t
   :config
-  (add-hook 'go-mode-hook '~go-setup-mode t)
+  (~add-setup-hook 'go-mode
+    (setq-local tab-width 2))
 
-  (with-eval-after-load 'lsp
-    (lsp-register-custom-settings '(("gopls.completeUnimported" t t))))
-  )
-
-(defun ~go-setup-mode ()
-  (setq-local tab-width 2)
-
-  (when (find-library-name "mmask")
+  (~add-setup-hook-after-load 'mmask 'go-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'go-mode)))
 
-  (when (find-library-name "lsp-mode")
+  (with-eval-after-load 'lsp-mode
+    (lsp-register-custom-settings '(("gopls.completeUnimported" t t))))
+
+  (~add-setup-hook-after-load 'lsp-mode 'go-mode
     (add-hook 'before-save-hook 'lsp-format-buffer t t)
     (add-hook 'before-save-hook 'lsp-organize-imports t t)
-    (lsp-deferred)))
+    (lsp-deferred))
+  )
 
 
 (bundle protobuf-mode)

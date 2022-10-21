@@ -73,8 +73,33 @@
       (overlay-put ov 'face 'highlight)
       (run-with-idle-timer 0.5 nil (lambda () (when ov (delete-overlay ov)))))))
 
-(defmacro ~call-interactively-any-of (&rest commands)
+(cl-defmacro ~call-interactively-any-of (&rest commands)
   `(call-interactively (cl-loop for c in ',commands if (commandp c) return c)))
+
+(cl-defmacro ~add-setup-hook (hook &rest body)
+  (declare (indent 1))
+  (let ((f (intern (format "~%s-setup" (eval hook))))
+        (h (intern (format "%s-hook" (eval hook)))))
+    `(progn
+       (defun ,f () ,@body)
+       (add-hook ',h ',f t))))
+
+(cl-defmacro ~add-setup-hook-for-load (feature hook &rest body)
+  (declare (indent 2))
+  (let ((f (intern (format "~%s-setup-for-%s" (eval hook) (eval feature))))
+        (h (intern (format "%s-hook" (eval hook)))))
+    `(progn
+       (defun ,f () ,@body)
+       (add-hook ',h ',f t))))
+
+(cl-defmacro ~add-setup-hook-after-load (feature hook &rest body)
+  (declare (indent 2))
+  (let ((f (intern (format "~%s-setup-for-%s" (eval hook) (eval feature))))
+        (h (intern (format "%s-hook" (eval hook)))))
+    `(with-eval-after-load ,feature
+       (defun ,f () ,@body)
+       (add-hook ',h ',f t))))
+
 
 ;;;;;;;;;;;;;
 ;; Command

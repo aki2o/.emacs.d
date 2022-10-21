@@ -107,6 +107,10 @@
 (defvar ~eww-colorful-view nil)
 (make-variable-buffer-local '~eww-colorful-view)
 
+(defadvice display-graphic-p (around ~shr-graphic activate)
+  (when ~eww-colorful-view
+    ad-do-it))
+
 (defun ~shr-colorize-region (orig start end fg &optional bg &rest _)
   (when ~eww-colorful-view
     (funcall orig start end fg)))
@@ -114,9 +118,5 @@
 (defun ~eww-toggle-colorfully ()
   (interactive)
   (setq ~eww-colorful-view (not ~eww-colorful-view))
-  (if ~eww-colorful-view
-      (progn
-        (setq-local shr-put-image-function 'shr-put-image))
-    (setq-local shr-put-image-function 'shr-put-image-alt))
   (eww-reload))
 

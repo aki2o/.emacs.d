@@ -9,9 +9,9 @@
   (add-to-list '~browse-document-url-functions '~browse-elisp-document t)
   (setq ~find-definition-function '~find-tag-elisp)
   (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help)
-  ;; flycheck
+
   (~disable-flycheck-in-emacs-conf-file-buffer)
-  ;; color-moccur
+
   (when (find-library-name "mmask")
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode))))
 

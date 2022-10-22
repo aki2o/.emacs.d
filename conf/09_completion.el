@@ -20,6 +20,7 @@
   (advice-add 'read-directory-name :around '~vertico-inhibit-repeat-save)
   (advice-add 'read-buffer :around '~vertico-inhibit-repeat-save))
 
+;; vertico-repeat の実行中に、実行対象の session の情報にアクセスできるようにしてる
 (defvar ~vertico-current-session nil)
 
 (defun ~vertico-let-current-session (orig &rest args)
@@ -27,6 +28,7 @@
                                       (car vertico-repeat-history))))
     (apply orig args)))
 
+;; ミニバッファを扱う関数が実行されると、全て vertico-repeat の対象として保存されてしまうので、抑制できるようにしてる
 (defun ~vertico-inhibit-repeat-save (orig &rest args)
   (let ((vertico-repeat-transformers (list '(lambda (x) nil))))
     (apply orig args)))

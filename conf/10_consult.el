@@ -39,6 +39,9 @@
     (pophint-thing:defcommand-noadvice ~consult-ripgrep))
   )
 
+;; vertico-repeat は、最初のミニバッファの入力を変えるらしく、
+;; 最初にディレクトリを選択するコマンドでは、 vertico-repeat を使えないので、
+;; vertico-repeat-transformers をいじって、別のコマンドが実行されるようにしている
 (defun ~consult-resume ()
   (interactive)
   (let* ((session ~vertico-current-session)
@@ -46,6 +49,7 @@
          (f (intern-soft (format "consult-%s" (pop v))))
          (dir (pop v))
          (input (mapconcat 'identity v " ")))
+    ;; 本来の入力値とコマンドで実行
     (setf (nth 1 session) input)
     (funcall f dir input)))
 

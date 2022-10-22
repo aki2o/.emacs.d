@@ -73,14 +73,6 @@
         (funcall ag-command search-term dir))
     (error "Ag is not available")))
 
-(defun ~projectile-consult-ripgrep ()
-  (interactive)
-  (funcall '~consult-ripgrep (projectile-project-root)))
-
-(defun ~projectile-consult-ripgrep-with-directory-select ()
-  (interactive)
-  (funcall '~consult-ripgrep (expand-file-name (projectile-complete-dir (projectile-project-root)) (projectile-project-root))))
-
 (defvar ~projectile-switch-project-processing nil)
 (defmacro ~projectile-switchable-project-commandize (command)
   `(progn
@@ -106,11 +98,8 @@
 (~projectile-switchable-project-commandize projectile-invalidate-cache)
 (~projectile-switchable-project-commandize projectile-ag)
 (~projectile-switchable-project-commandize ~projectile-ag-with-directory-select)
-(~projectile-switchable-project-commandize ~projectile-consult-ripgrep)
-(~projectile-switchable-project-commandize ~projectile-consult-ripgrep-with-directory-select)
 (~projectile-switchable-project-commandize projectile-multi-occur)
 (~projectile-switchable-project-commandize projectile-find-test-file)
-
 
 (defadvice uniquify-rename-buffer (before ~try-put-projectile-project (item newname))
   (let* ((buff (uniquify-item-buffer item))
@@ -123,6 +112,23 @@
 (with-eval-after-load 'pophint-autoloads
   (pophint-thing:advice-thing-at-point-function projectile-symbol-at-point)
   (pophint-thing:defcommand-noadvice projectile-ag))
+
+(with-eval-after-load 'vertico
+  (advice-add 'projectile-completing-read :around '~vertico-inhibit-repeat-save)
+  (advice-add 'projectile-complete-dir :around '~vertico-inhibit-repeat-save))
+
+(with-eval-after-load 'consult
+  (defun ~projectile-consult-ripgrep ()
+    (interactive)
+    (funcall '~consult-ripgrep (projectile-project-root)))
+
+  (defun ~projectile-consult-ripgrep-with-directory-select ()
+    (interactive)
+    (funcall '~consult-ripgrep (expand-file-name (projectile-complete-dir (projectile-project-root)) (projectile-project-root))))
+
+  (~projectile-switchable-project-commandize ~projectile-consult-ripgrep)
+  (~projectile-switchable-project-commandize ~projectile-consult-ripgrep-with-directory-select)
+  )
 
 
 ;; For p-r

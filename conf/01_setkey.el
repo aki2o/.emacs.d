@@ -71,7 +71,6 @@
     (:key "C-S-y"     :cmd yank-pop                       :jack t :kind edit)
     (:key "M-y"       :cmd pophint:do-flexibly-yank       :jack t :kind edit)
     (:key "C-M-y"     :cmd pophint:do-rangeyank           :jack t :kind edit)
-    (:key "C-?"       :cmd redo                           :jack t :kind edit)
     (:key "C-r"       :cmd query-replace                  :jack t :kind edit)
     (:key "C-S-r"     :cmd query-replace-regexp           :jack t :kind edit)
     (:key "M-r"       :cmd toggle-read-only               :jack t :kind edit)
@@ -80,10 +79,13 @@
     (:key "M-g"       :cmd abort-recursive-edit           :jack t :kind edit)
     (:key "C-'"       :cmd comment-dwim                   :jack t :kind edit)
     (:key "C-\""      :cmd comment-box                    :jack t :kind edit)
-    (:key "M-/"       :cmd ~tidy-code-current             :jack t :kind edit)
-    (:key "C-M-/"     :cmd ~tidy-code-diff-files          :jack t :kind edit)
+    (:key "C-?"       :cmd redo                           :jack t :kind edit)
+    (:key "M-/"       :cmd vertico-repeat-last            :jack t :kind edit)
+    (:key "C-M-/"     :cmd vertico-repeat-select          :jack t :kind edit)
     (:key "C-n"       :cmd align                          :jack t :kind edit)
     (:key "C-S-n"     :cmd align-regexp                   :jack t :kind edit)
+    (:key "M-n"       :cmd ~tidy-code-current             :jack t :kind edit)
+    (:key "C-M-n"     :cmd ~tidy-code-diff-files          :jack t :kind edit)
     (:key "C-S-i"     :cmd toggle-input-method            :jack t :kind edit)
     (:key "C-x i"     :cmd indent-region                  :jack t :kind edit)
     (:key "C-S-SPC"   :cmd ~set-mark-only                 :jack t :kind edit)
@@ -759,7 +761,7 @@ _a_: show all                 _l_: go to child
 ;; Note
 
 (global-set-key
- (kbd "M-n")
+ (kbd "H-n")
  (defhydra ~hydra-note (:exit t :idle ~hydra-help-delay)
    "geeknote"
    ("n" geeknote-create "create")

@@ -12,7 +12,15 @@
   (define-key vertico-map (kbd "C-S-j") 'vertico-scroll-up)
   (define-key vertico-map (kbd "C-S-k") 'vertico-scroll-down)
   (define-key vertico-map (kbd "C-S-h") 'vertico-directory-delete-word)
-  (define-key vertico-map (kbd "C-S-l") 'vertico-insert))
+  (define-key vertico-map (kbd "C-S-l") 'vertico-insert)
+
+  (advice-add 'read-file-name :around '~vertico-inhibit-repeat-save)
+  (advice-add 'read-directory-name :around '~vertico-inhibit-repeat-save)
+  (advice-add 'read-buffer :around '~vertico-inhibit-repeat-save))
+
+(defun ~vertico-inhibit-repeat-save (orig &rest args)
+  (let ((vertico-repeat-transformers (list '(lambda (x) nil))))
+    (apply orig args)))
 
 
 (bundle orderless)

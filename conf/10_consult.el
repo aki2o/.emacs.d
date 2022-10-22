@@ -16,7 +16,7 @@
          ("C-M-p" . consult-isearch-history)
          ("M-c" . consult-line)
          :map minibuffer-local-map
-         ([remap next-matching-history-element] . consult-history)
+         ([remap next-matching-history-element]     . consult-history)
          ([remap previous-matching-history-element] . consult-history))
 
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -39,18 +39,51 @@
     (pophint-thing:defcommand-noadvice ~consult-ripgrep))
   )
 
+(defun ~consult-resume ()
+  (interactive)
+  (let* ((v (funcall orderless-component-separator (minibuffer-contents-no-properties)))
+         (f (intern-soft (format "consult-%s" (pop v))))
+         (dir (pop v))
+         (input (mapconcat 'identity v " ")))
+    (delete-minibuffer-contents)
+    (insert input)
+    (funcall f dir input)))
+
+(defvar ~consult-resumed-command nil)
+(make-variable-buffer-local '~consult-resumed-command)
+
+(defvar ~consult-resumed-directory nil)
+(make-variable-buffer-local '~consult-resumed-directory)
+
+(defun ~consult-resume-transformer (session)
+  (when session
+    (list '~consult-resume
+          (mapconcat 'identity (list ~consult-resumed-command ~consult-resumed-directory (cadr session)) " ")
+          (caddr session))))
+
 (defun ~consult-grep (dir)
   (interactive
    (list (read-directory-name "Dir: ")))
-  (funcall 'consult-grep dir (~dwim-thing-at-point)))
+  (let* ((input (~dwim-thing-at-point))
+         (vertico-repeat-transformers `(,@vertico-repeat-transformers ~consult-resume-transformer))
+         (~consult-resumed-command "grep")
+         (~consult-resumed-directory dir))
+    (funcall 'consult-grep dir input)))
 
 (defun ~consult-git-grep (&optional dir)
   (interactive)
-  (funcall 'consult-git-grep dir (~dwim-thing-at-point)))
+  (let* ((input (~dwim-thing-at-point))
+         (vertico-repeat-transformers `(,@vertico-repeat-transformers ~consult-resume-transformer))
+         (~consult-resumed-command "git-grep")
+         (~consult-resumed-directory dir))
+    (funcall 'consult-git-grep dir input)))
 
 (defun ~consult-ripgrep (dir)
   (interactive
    (list (read-directory-name "Dir: ")))
-  (funcall 'consult-ripgrep dir (~dwim-thing-at-point)))
-
+  (let* ((input (~dwim-thing-at-point))
+         (vertico-repeat-transformers `(,@vertico-repeat-transformers ~consult-resume-transformer))
+         (~consult-resumed-command "ripgrep")
+         (~consult-resumed-directory dir))
+    (funcall 'consult-ripgrep dir input)))
 

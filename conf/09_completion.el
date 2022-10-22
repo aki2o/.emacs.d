@@ -14,9 +14,18 @@
   (define-key vertico-map (kbd "C-S-h") 'vertico-directory-delete-word)
   (define-key vertico-map (kbd "C-S-l") 'vertico-insert)
 
+  (advice-add 'vertico-repeat-last :around '~vertico-let-current-session)
+
   (advice-add 'read-file-name :around '~vertico-inhibit-repeat-save)
   (advice-add 'read-directory-name :around '~vertico-inhibit-repeat-save)
   (advice-add 'read-buffer :around '~vertico-inhibit-repeat-save))
+
+(defvar ~vertico-current-session nil)
+
+(defun ~vertico-let-current-session (orig &rest args)
+  (let ((~vertico-current-session (or (car args)
+                                      (car vertico-repeat-history))))
+    (apply orig args)))
 
 (defun ~vertico-inhibit-repeat-save (orig &rest args)
   (let ((vertico-repeat-transformers (list '(lambda (x) nil))))

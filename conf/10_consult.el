@@ -41,19 +41,16 @@
 
 (defun ~consult-resume ()
   (interactive)
-  (let* ((v (funcall orderless-component-separator (minibuffer-contents-no-properties)))
+  (let* ((session ~vertico-current-session)
+         (v (funcall orderless-component-separator (cadr session)))
          (f (intern-soft (format "consult-%s" (pop v))))
          (dir (pop v))
          (input (mapconcat 'identity v " ")))
-    (delete-minibuffer-contents)
-    (insert input)
+    (setf (nth 1 session) input)
     (funcall f dir input)))
 
 (defvar ~consult-resumed-command nil)
-(make-variable-buffer-local '~consult-resumed-command)
-
 (defvar ~consult-resumed-directory nil)
-(make-variable-buffer-local '~consult-resumed-directory)
 
 (defun ~consult-resume-transformer (session)
   (when session

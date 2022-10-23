@@ -30,6 +30,7 @@
     (:key "C-M-S-k" :cmd beginning-of-buffer       :jack t)
     (:key "C-a"     :cmd ~beginning-of-line        :jack t)
     (:key "C-S-a"   :cmd goto-line                 :jack t)
+    (:key "C-o"     :cmd owdriver-start            :jack t)
     (:key "C-S-o"   :cmd other-window              :jack t)
     (:key "C-,"     :cmd point-undo                :jack t)
     (:key "C-."     :cmd point-redo                :jack t)
@@ -39,7 +40,6 @@
     (:key "C-<"     :cmd ~pop-marker-stack         :jack t)
     (:key "C->"     :cmd ~find-definition          :jack t)
     (:key "C-M->"   :cmd ~find-references          :jack t)
-    (:key "M->"     :cmd helm-lsp-workspace-symbol :jack t)
     (:key "M-b"     :cmd next-error                :jack t)
     (:key "M-S-b"   :cmd previous-error            :jack t)
     ;; 表示

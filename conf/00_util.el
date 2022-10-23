@@ -82,7 +82,7 @@
         (h (intern (format "%s-hook" (eval hook)))))
     `(progn
        (defun ,f () ,@body)
-       (add-hook ',h ',f t))))
+       (add-hook ',h ',f))))
 
 (cl-defmacro ~add-setup-hook-for-load (feature hook &rest body)
   (declare (indent 2))
@@ -90,7 +90,7 @@
         (h (intern (format "%s-hook" (eval hook)))))
     `(progn
        (defun ,f () ,@body)
-       (add-hook ',h ',f t))))
+       (add-hook ',h ',f))))
 
 (cl-defmacro ~add-setup-hook-after-load (feature hook &rest body)
   (declare (indent 2))
@@ -98,7 +98,7 @@
         (h (intern (format "%s-hook" (eval hook)))))
     `(with-eval-after-load ,feature
        (defun ,f () ,@body)
-       (add-hook ',h ',f t))))
+       (add-hook ',h ',f))))
 
 
 ;;;;;;;;;;;;;

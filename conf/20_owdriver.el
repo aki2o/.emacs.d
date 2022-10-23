@@ -1,33 +1,30 @@
 (bundle owdriver :type git :url "git@github.com:aki2o/owdriver.git" :branch "follow_up_pophint_update")
 (use-package owdriver
   :config
-  (unbind-key "C-o")
-  (setq owdriver-prefix-key "C-o")
+  (add-to-list 'owdriver-keep-driving-command-prefixes "~scroll-" t)
+  (add-to-list 'owdriver-keep-driving-command-prefixes "~beginning-of-" t)
+  (add-to-list 'owdriver-keep-driving-command-prefixes "~end-of-" t)
+  (add-to-list 'owdriver-keep-driving-command-prefixes "~find-" t)
+
+  (add-to-list 'owdriver-keep-driving-commands '~pophint:forward t)
+  (add-to-list 'owdriver-keep-driving-commands '~pophint:backward t)
+
   (owdriver-config-default)
 
-  (owdriver-define-command ~scroll-down nil)
-  (owdriver-define-command ~scroll-up nil)
-  (owdriver-define-command ~imenu nil)
+  (owdriver-define-command ~scroll-down)
+  (owdriver-define-command ~scroll-up)
+  (owdriver-define-command ~imenu)
 
   (with-eval-after-load 'sequential-command
-    (owdriver-define-command seq-beginning-of-line t)
-    (owdriver-define-command seq-recenter t)
+    (add-to-list 'owdriver-keep-driving-commands 'seq-beginning-of-line t)
     ;; yaol
-    (owdriver-define-command seq-yaol-heads         nil)
-    (owdriver-define-command seq-yaol-current-heads nil))
+    (add-to-list 'owdriver-keep-driving-commands 'seq-yaol-heads t)
+    (add-to-list 'owdriver-keep-driving-commands 'seq-yaol-current-heads t))
 
   (with-eval-after-load 'pophint-autoloads
-    (owdriver-define-command pophint:do-flexibly t)
-    (owdriver-define-command pophint:do t (pophint:do :not-switch-window t))
-    (owdriver-define-command pophint:do-yaol-head nil))
+    (add-to-list 'owdriver-keep-driving-commands 'pophint:do-yaol-head t))
 
   (with-eval-after-load 'yaol
-    (owdriver-define-command yaol-fold-clear-current    nil)
-    (owdriver-define-command yaol-fold-clear-all        nil)
-    (owdriver-define-command yaol-up-head               nil)
-    (owdriver-define-command yaol-next-sibling-head     nil)
-    (owdriver-define-command yaol-previous-sibling-head nil)
-    (owdriver-define-command yaol-down-head             nil))
-
-  (owdriver-mode 1))
+    (add-to-list 'owdriver-keep-driving-command-prefixes "yaol-" t))
+  )
 

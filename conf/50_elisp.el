@@ -7,7 +7,7 @@
 (~add-setup-hook-after-load 'mmask 'emacs-lisp-mode
   (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode)))
 
-(~add-setup-hook 'emacs-list-mode
+(~add-setup-hook 'emacs-lisp-mode
   (add-to-list '~browse-document-url-functions '~browse-elisp-document t)
   (setq ~find-definition-function '~find-tag-elisp)
   (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help))
@@ -15,7 +15,7 @@
 (with-eval-after-load 'pophint-autoloads
   (pophint-tags:advice-command ~find-tag-elisp))
 
-(~add-setup-hook-after-load 'flycheck 'emacs-list-mode
+(~add-setup-hook-after-load 'flycheck 'emacs-lisp-mode
   (~disable-flycheck-in-emacs-conf-file-buffer))
 
 (defun ~find-tag-elisp ()

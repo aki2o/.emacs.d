@@ -57,10 +57,11 @@
 
 (cl-defmacro ~browse-document-defun (name baseurl &key (body nil) (internal nil) (path ""))
   (declare (indent 2))
-  (when internal
-    (add-to-list '~browse-internal-url-list baseurl t))
-  `(defun ,(intern (format "~browse-%s-document" name)) (words)
-     (concat ,baseurl ,path (if (and (= (length words) 1) (string= (nth 0 words) "")) "" ,body))))
+  `(progn
+     (when ,internal
+       (add-to-list '~browse-internal-url-list ,baseurl t))
+     (defun ,(intern (format "~browse-%s-document" name)) (words)
+       (concat ,baseurl ,path (if (and (= (length words) 1) (string= (nth 0 words) "")) "" ,body)))))
 
 
 (use-package eww

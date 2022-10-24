@@ -45,7 +45,7 @@
   (~add-setup-hook-after-load 'mmask 'ruby-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode)))
 
-  (with-eval-after-load 'lsp-mode
+  (when (functionp 'lsp)
     (add-hook 'ruby-mode-hook 'lsp-deferred t))
 
   ;; 閉じ括弧のインデントをイイ感じにする

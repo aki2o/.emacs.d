@@ -8,7 +8,7 @@
   (~add-setup-hook-after-load 'mmask 'go-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'go-mode)))
 
-  (with-eval-after-load 'lsp-mode
+  (when (functionp 'lsp)
     (lsp-register-custom-settings '(("gopls.completeUnimported" t t))))
 
   (~add-setup-hook-after-load 'lsp-mode 'go-mode

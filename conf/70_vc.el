@@ -24,7 +24,7 @@
 
 (bundle magit)
 (use-package magit
-  :defer t
+  :after (persp-mode)
   :config
   (unbind-key "j" magit-status-mode-map)
   (unbind-key "C-j" magit-file-section-map)

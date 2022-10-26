@@ -14,6 +14,7 @@
   (owdriver-define-command ~scroll-down)
   (owdriver-define-command ~scroll-up)
   (owdriver-define-command ~imenu)
+  (owdriver-define-command isearch-forward)
 
   (with-eval-after-load 'sequential-command
     (add-to-list 'owdriver-keep-driving-commands 'seq-beginning-of-line t)

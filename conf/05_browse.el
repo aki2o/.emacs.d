@@ -1,6 +1,4 @@
-(setq ~browse-internal-url-list
-      '("https://www.gnu.org/software/emacs/manual/html_mono/"
-        "https://www.gnu.org/software/emacs/manual/html_node/"))
+(defvar ~browse-internal-url-list '())
 
 (setq browse-url-browser-function '~browse-url-browser)
 

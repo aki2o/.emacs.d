@@ -1,5 +1,5 @@
 (setq el-get-lock-package-versions
-      '((owdriver :checksum "1974330d7ef0a13f5ee55767b65bb7f0e545e085")
+      '((owdriver :checksum "001fe513c1a9dd807c21218f24257b3702340d95")
         (pophint :checksum "fecc5c6d1c40a244ea983ebe6621d58ae4332521")
         (terraform-mode :checksum "e560caaa9d9a11b0868adf6d9dcae5ebb5055730")
         (hcl-mode :checksum "ec27736c4c16fbf7f1ecab0210ec3c71ac2406fa")

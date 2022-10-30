@@ -1,5 +1,6 @@
 (bundle owdriver :type git :url "git@github.com:aki2o/owdriver.git" :branch "follow_up_pophint_update")
 (use-package owdriver
+  :custom ((owdriver-next-window-function '~owdriver-next-window))
   :config
   (add-to-list 'owdriver-keep-driving-command-prefixes "~scroll-" t)
   (add-to-list 'owdriver-keep-driving-command-prefixes "~beginning-of-" t)
@@ -10,6 +11,9 @@
   (add-to-list 'owdriver-keep-driving-commands '~pophint:backward t)
 
   (owdriver-config-default)
+
+  (owdriver-add-keymap [remap 'delete-other-windows] 'owdriver-quit)
+  (owdriver-add-keymap [remap 'delete-window] 'owdriver-focus-window)
 
   (owdriver-define-command ~scroll-down)
   (owdriver-define-command ~scroll-up)
@@ -28,4 +32,14 @@
   (with-eval-after-load 'yaol
     (add-to-list 'owdriver-keep-driving-command-prefixes "yaol-" t))
   )
+
+(defun ~owdriver-next-window (reverse)
+  (let ((w (and (functionp 'e2wm:managed-p)
+                (e2wm:managed-p)
+                (eq (e2wm:$pst-name (e2wm:pst-get-instance)) 'transcribe)
+                (wlf:get-window (e2wm:pst-get-wm) 'right))))
+    (if (and (window-live-p w)
+             (not (eq w owdriver--window)))
+        w
+      (owdriver-find-next-window reverse))))
 

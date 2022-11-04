@@ -1,4 +1,4 @@
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 (require 'seq)
 (require 'tramp-sh)
 
@@ -47,7 +47,7 @@
     (insert (prin1-to-string (viassh--ensure-project-cache-hash)))
     (write-file viassh-project-cache-file)))
 
-(defun* viassh--select-user-host-on (directory &key (use-cache t))
+(cl-defun viassh--select-user-host-on (directory &key (use-cache t))
   (or (when use-cache (viassh--project-cache directory))
       (let* ((user-hosts (cl-loop for e in (tramp-get-completion-function "ssh")
                                   append (cl-loop for user-host in (funcall (nth 0 e) (nth 1 e))
@@ -72,10 +72,13 @@
   (let* ((user-host (viassh--select-user-host-on default-directory))
          (user (nth 0 user-host))
          (host (nth 1 user-host))
-         (v (make-tramp-file-name :method "ssh" :user user :domain nil :host host :port nil :localname "/" :hop nil)))
-    (with-current-buffer (tramp-get-connection-buffer v)
-      (tramp-send-command v cmd)
-      (buffer-string))))
+         ;; (v (make-tramp-file-name :method "ssh" :user user :domain nil :host host :port nil :localname "/" :hop nil))
+         (viassh--activate nil))
+    ;; NOTE: emacs 28 にしたら、動かなくなっちゃったので、一旦sshコマンドをシェル経由で実行するので代用してみてる
+    ;; (with-current-buffer (tramp-get-connection-buffer v)
+    ;;   (tramp-send-string v cmd)
+    ;;   (buffer-string))
+    (shell-command-to-string (format "ssh %s %s 2>/dev/null" host (shell-quote-argument cmd)))))
 
 (defun viassh-p ()
   viassh--activate)
@@ -89,21 +92,25 @@
   (viassh--store-project-cache default-directory nil))
 
 
-(defadvice shell-command (around viassh activate)
+(advice-add 'shell-command           :around 'viassh-advice-shell-command)
+(advice-add 'shell-command-to-string :around 'viassh-advice-shell-command-to-string)
+
+(defun viassh-advice-shell-command (orig &rest args)
   (if (not viassh--activate)
-      ad-do-it
-    (let ((command (ad-get-arg 0))
-          (output-buf (or (ad-get-arg 1) (get-buffer-create "*Shell Command Output*"))))
+      (apply orig args)
+    (let* ((command (nth 0 args))
+           (buf (nth 1 args))
+           (output-buf (if (buffer-live-p buf) buf (get-buffer-create "*Shell Command Output*"))))
       (with-current-buffer output-buf
         (erase-buffer)
         (insert (viassh-send-command command))
         (when (> (buffer-size) 0)
           (pop-to-buffer (current-buffer)))))))
 
-(defadvice shell-command-to-string (around viassh activate)
+(defun viassh-advice-shell-command-to-string (orig &rest args)
   (if (not viassh--activate)
-      ad-do-it
-    (setq ad-return-value (viassh-send-command (ad-get-arg 0)))))
+      (apply orig args)
+    (viassh-send-command (nth 0 args))))
 
 
 (provide 'viassh)

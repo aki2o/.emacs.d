@@ -67,8 +67,8 @@
 
 
 ;;; Code:
-(eval-when-compile (require 'cl))
-(require 'viassh nil t)
+(eval-when-compile (require 'cl-lib))
+(require 'viassh)
 
 (defgroup docker-run nil
   "Support to execute on docker container."
@@ -115,13 +115,13 @@
             (insert-file-contents docker-run:project-cache-file)
             (buffer-string)))))
 
-(defun* docker-run::store-project-cache (&key container)
+(cl-defun docker-run::store-project-cache (&key container)
   (puthash docker-run:project-root `(:container ,container) (docker-run::ensure-project-cache-hash))
   (with-temp-buffer
     (insert (prin1-to-string (docker-run::ensure-project-cache-hash)))
     (write-file docker-run:project-cache-file)))
 
-(defun* docker-run::select-container (&key (use-cache t))
+(cl-defun docker-run::select-container (&key (use-cache t))
   (or (when use-cache (docker-run::project-cached-value :container))
       (let* ((cmd "ps --format='{{.Names}} {{.ID}}'")
              (res (docker-run::call-docker-command 'shell-command-to-string cmd))

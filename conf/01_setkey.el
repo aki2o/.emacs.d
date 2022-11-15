@@ -250,67 +250,36 @@ _r_: hydra rg      _s_: swiper
 ;; Project
 
 (defhydra ~hydra-projectile-file (:exit t :hint nil)
-  "
-_f_: in other project   _o_: other window             _r_: recent
-_F_: in known projects  _a_: other file
-_l_: in dir             _A_: other file other window
-_g_: dwim               _G_: dwim other window
-"
-  ("g" projectile-find-file-dwim)
-  ("f" projectile-find-file--in-other-project)
-  ("F" projectile-find-file-in-known-projects)
-  ("l" projectile-find-file-in-directory)
-  ("o" projectile-find-file-other-window)
-  ("a" projectile-find-other-file)
-  ("A" projectile-find-other-file-other-window)
-  ("G" projectile-find-file-dwim-other-window)
-  ("r" projectile-recentf))
+  ("g" projectile-find-file-dwim "dwim")
+  ("f" projectile-find-file-in-known-projects "in known projects")
+  ("l" projectile-find-file-in-directory "in directory")
+  ("o" projectile-find-file-other-window "to other window")
+  ("a" projectile-find-other-file "other file")
+  ("A" projectile-find-other-file-other-window "other file to other window")
+  ("G" projectile-find-file-dwim-other-window "dwim to other window")
+  ("r" projectile-recentf "recentf"))
 
 (defhydra ~hydra-projectile-dir (:exit t :hint nil)
-  "
-_d_: in other project       _D_: dired
-_o_: other window           _E_: edit dir locals
-_r_: root
-_R_: root in other project
-"
-  ("d" projectile-find-dir--in-other-project)
-  ("r" ~projectile-find-root-dir)
-  ("R" ~projectile-find-root-dir--in-other-project)
-  ("o" projectile-find-dir-other-window)
-  ("D" projectile-dired)
-  ("E" projectile-edit-dir-locals))
+  ("o" projectile-find-dir-other-window "to other window")
+  ("d" projectile-dired "dired")
+  ("e" projectile-edit-dir-locals "edit dir locals"))
 
 (defhydra ~hydra-projectile-buffer (:exit t :hint nil)
-  "
-_b_: switch in other project  _k_: kill                   _i_: ibuffer
-_o_: switch other window      _K_: kill in other project
-_p_: display                  _s_: save
-_A_: all other buffers
-"
-  ("b" projectile-switch-to-buffer--in-other-project)
-  ("o" projectile-switch-to-buffer-other-window)
-  ("p" projectile-display-buffer)
-  ("k" projectile-kill-buffers)
-  ("K" projectile-kill-buffers--in-other-project)
-  ("s" projectile-save-project-buffers)
-  ("A" projectile-project-buffers-other-buffer)
-  ("i" projectile-ibuffer))
+  ("o" projectile-switch-to-buffer-other-window "to other window")
+  ("p" projectile-display-buffer "display")
+  ("k" projectile-kill-buffers "kill")
+  ("K" projectile-kill-buffers--in-other-project "kill in other project")
+  ("s" projectile-save-project-buffers "save")
+  ("A" projectile-project-buffers-other-buffer "other")
+  ("i" projectile-ibuffer "ibuffer"))
 
 (defhydra ~hydra-projectile-test (:exit t :hint nil)
-  "
-_f_: in other project  _t_: toggle
-_o_: to other window   _x_: run
-"
-  ("f" projectile-find-test-file--in-other-project)
-  ("o" projectile-find-implementation-or-test-other-window)
-  ("t" projectile-toggle-between-implementation-and-test)
-  ("x" projectile-test-project))
+  ("o" projectile-find-implementation-or-test-other-window "to other window")
+  ("t" projectile-toggle-between-implementation-and-test "toggle")
+  ("x" projectile-test-project "run"))
 
 (defhydra ~hydra-projectile-search-rails (:exit t :hint nil :idle ~hydra-help-delay)
-  "
-_v_: ag in current view
-"
-  ("v" ~projectile-rails-ag-current-partial-view))
+  ("v" ~projectile-rails-ag-current-partial-view "ag current partial view"))
 
 (defhydra ~hydra-projectile-search-other (:exit t :hint nil :idle ~hydra-help-delay)
   ("a" projectile-ag--in-other-project "ag")
@@ -322,163 +291,129 @@ _v_: ag in current view
 (defhydra ~hydra-projectile-search (:exit t :hint nil :idle ~hydra-help-delay)
   ("a" projectile-ag "ag")
   ("g" ~projectile-consult-ripgrep "rg")
+  ("m" projectile-multi-occur "occur")
   ("A" ~projectile-ag-with-directory-select "ag in dir")
   ("G" ~projectile-consult-ripgrep-with-directory-select "rg in dir")
-  ("m" projectile-multi-occur "occur")
-  ("o" ~hydra-projectile-search-other "hydra other projects")
   ("r" ~hydra-projectile-search-rails/body "hydra rails"))
 
 (defhydra ~hydra-projectile-shell (:exit t :hint nil)
-  "
-_x_: run in root    _s_: open shell
-_a_: async in root  _e_: open eshell
-                  _t_: oepn term
-"
-  ("x" projectile-run-shell-command-in-root)
-  ("a" projectile-run-async-shell-command-in-root)
-  ("s" projectile-run-shell)
-  ("e" projectile-run-eshell)
-  ("t" projectile-run-term))
+  ("x" projectile-run-shell-command-in-root "shell command")
+  ("a" projectile-run-async-shell-command-in-root "shell command async")
+  ("s" projectile-run-shell "shell")
+  ("e" projectile-run-eshell "eshell")
+  ("t" projectile-run-term "term"))
 
 (defhydra ~hydra-projectile-manage (:exit t :hint nil)
-  "
-_i_: invalidate cache  _c_: compile
-_r_: replace           _x_: run
-_t_: regenerate tag    _s_: switch
-                     _S_: switch open project
-"
-  ("i" projectile-invalidate-cache)
-  ("r" projectile-replace)
-  ("t" projectile-regenerate-tags)
-  ("c" projectile-compile-project)
-  ("x" projectile-run-project)
-  ("s" projectile-switch-project)
-  ("S" projectile-switch-open-project))
+  ("r" projectile-replace "replace")
+  ("t" projectile-regenerate-tags "regenerate tags")
+  ("c" projectile-compile-project "compile")
+  ("x" projectile-run-project "run")
+  ("s" projectile-switch-project "switch project")
+  ("S" projectile-switch-open-project "switch open project"))
 
-(defhydra ~hydra-projectile-rails-find-misc (:exit t :hint nil)
-  "
-_m_: find migration    _M_: find migration in other project    _C-m_: find current migration   _g_: find gemfile
-_e_: find environment  _E_: find environment in other project                                _r_: find routes
-_s_: find serializer   _S_: find serializer in other project   _C-s_: find current serializer  _d_: find schema
-_l_: find lib          _L_: find lib in other project                                        _D_: find seeds
-_f_: find feature      _F_: find feature in other project                                    _h_: find spec helper
-_o_: find log          _O_: find log in other project
-_y_: find layout       _Y_: find layout in other project
-_t_: find rake task    _T_: find rake task in other project
-_v_: find validator    _V_: find validator in other project
-"
-  ("m"   projectile-rails-find-migration)
-  ("M"   projectile-rails-find-migration--in-other-project)
-  ("C-m" projectile-rails-find-current-migration)
-  
-  ("e"   projectile-rails-find-environment)
-  ("E"   projectile-rails-find-environment--in-other-project)
-  
-  ("s"   projectile-rails-find-serializer)
-  ("S"   projectile-rails-find-serializer--in-other-project)
-  ("C-s" projectile-rails-find-current-serializer)
-  
-  ("l"   projectile-rails-find-lib)
-  ("L"   projectile-rails-find-lib--in-other-project)
-  
-  ("f"   projectile-rails-find-feature)
-  ("F"   projectile-rails-find-feature--in-other-project)
-  
-  ("o"   projectile-rails-find-log)
-  ("O"   projectile-rails-find-log--in-other-project)
-  
-  ("y"   projectile-rails-find-layout)
-  ("Y"   projectile-rails-find-layout--in-other-project)
-  
-  ("t"   projectile-rails-find-rake-task)
-  ("T"   projectile-rails-find-rake-task--in-other-project)
-  
-  ("v"   projectile-rails-find-validator)
-  ("V"   projectile-rails-find-validator--in-other-project)
-
-  ("g"   projectile-rails-goto-gemfile)
-  ("r"   projectile-rails-goto-routes)
-  ("d"   projectile-rails-goto-schema)
-  ("D"   projectile-rails-goto-seeds)
-  ("h"   projectile-rails-goto-spec-helper))
+(defhydra ~hydra-projectile-rails-goto (:exit t :hint nil)
+  ("a" projectile-rails-goto-file-at-point "file at point")
+  ("g" projectile-rails-goto-gemfile "gemfile")
+  ("r" projectile-rails-goto-routes "routes")
+  ("d" projectile-rails-goto-schema "schema")
+  ("s" projectile-rails-goto-seeds "seeds")
+  ("h" projectile-rails-goto-spec-helper "spec helper"))
 
 (defhydra ~hydra-projectile-rails-manage (:exit t :hint nil)
+  ("c" projectile-rails-console "console")
+  ("s" projectile-rails-server "server")
+  ("r" projectile-rails-rake "rake")
+  ("g" projectile-rails-generate "generate")
+  ("d" projectile-rails-destroy "destroy")
+  ("b" projectile-rails-dbconsole "dbconsole")
+  ("e" projectile-rails-extract-region "extract region"))
+
+(defhydra ~hydra-projectile-rails-other (:exit t :hint nil :idle ~hydra-help-delay)
   "
-_c_: console  _g_: generate   _e_: extract region
-_s_: server   _d_: destroy
-_r_: rake     _b_: dbconsole
+_c_: find controller  _@_: find mailer
+_m_: find modle       _l_: find locale
+_v_: find view        _i_: find initializer
+_j_: find javascript  _b_: find job
+_s_: find stylesheet  _a_: find migration
+_h_: find helper      _e_: find environment
+_p_: find spec
+_t_: find test
+_u_: find fixture
 "
-  ("c" projectile-rails-console)
-  ("s" projectile-rails-server)
-  ("r" projectile-rails-rake)
-  ("g" projectile-rails-generate)
-  ("d" projectile-rails-destroy)
-  ("b" projectile-rails-dbconsole)
-  ("e" projectile-rails-extract-region))
+  ("c" projectile-rails-find-controller--in-other-project)
+  ("m" projectile-rails-find-model--in-other-project)
+  ("v" projectile-rails-find-view--in-other-project)
+  ("j" projectile-rails-find-javascript--in-other-project)
+  ("s" projectile-rails-find-stylesheet--in-other-project)
+  ("h" projectile-rails-find-helper--in-other-project)
+  ("p" projectile-rails-find-spec--in-other-project)
+  ("t" projectile-rails-find-test--in-other-project)
+  ("u" projectile-rails-find-fixture--in-other-project)
+  ("@" projectile-rails-find-mailer--in-other-project)
+  ("l" projectile-rails-find-locale--in-other-project)
+  ("i" projectile-rails-find-initializer--in-other-project)
+  ("b" projectile-rails-find-job--in-other-project)
+  ("a" projectile-rails-find-migration--in-other-project)
+  ("e" projectile-rails-find-environment--in-other-project))
 
 (defhydra ~hydra-projectile-rails (:exit t :hint nil :idle ~hydra-help-delay)
   "
-_c_: find controller  _C_: find controller in other project  _C-c_: find current controller  _@_: find mailer       _C-@_: find mailer in other project
-_m_: find model       _M_: find modle in other project       _C-m_: find current model       _a_: find locale       _A_:   find locale in other project
-_v_: find view        _V_: find view in other project        _C-v_: find current view        _i_: find initializer  _I_:   find initializer in other project
-_j_: find javascript  _J_: find javascript in other project  _C-j_: find current javascript  _b_: find job          _B_:   find job in other project
-_s_: find stylesheet  _S_: find stylesheet in other project  _C-s_: find current stylesheet
-_h_: find helper      _H_: find helper in other project      _C-h_: find current helper
-_p_: find spec        _P_: find spec in other project        _C-p_: find current spec        _>_: goto file at point
-_t_: find test        _T_: find test in other project        _C-t_: find current test        _._: hydra find misc
-_u_: find fixture     _U_: find fixture in other project     _C-u_: find current fixture     _x_: hydra manage
+_c_: find controller  _C-c_: find current controller  _@_: find mailer
+_m_: find model       _C-m_: find current model       _l_: find locale
+_v_: find view        _C-v_: find current view        _i_: find initializer
+_j_: find javascript  _C-j_: find current javascript  _b_: find job
+_s_: find stylesheet  _C-s_: find current stylesheet  _a_: find migration
+_h_: find helper      _C-h_: find current helper      _e_: find environment
+_p_: find spec        _C-p_: find current spec
+_t_: find test        _C-t_: find current test        _x_: hydra manage
+_u_: find fixture     _C-u_: find current fixture     _g_: hydra goto
 "
   ("c"   projectile-rails-find-controller)
-  ("C"   projectile-rails-find-controller--in-other-project)
   ("C-c" projectile-rails-find-current-controller)
   
   ("m"   projectile-rails-find-model)
-  ("M"   projectile-rails-find-model--in-other-project)
   ("C-m" projectile-rails-find-current-model)
   
   ("v"   projectile-rails-find-view)
-  ("V"   projectile-rails-find-view--in-other-project)
   ("C-v" projectile-rails-find-current-view)
   
   ("j"   projectile-rails-find-javascript)
-  ("J"   projectile-rails-find-javascript--in-other-project)
   ("C-j" projectile-rails-find-current-javascript)
   
   ("s"   projectile-rails-find-stylesheet)
-  ("S"   projectile-rails-find-stylesheet--in-other-project)
   ("C-s" projectile-rails-find-current-stylesheet)
   
   ("h"   projectile-rails-find-helper)
-  ("H"   projectile-rails-find-helper--in-other-project)
   ("C-h" projectile-rails-find-current-helper)
   
   ("p"   projectile-rails-find-spec)
-  ("P"   projectile-rails-find-spec--in-other-project)
   ("C-p" projectile-rails-find-current-spec)
   
   ("t"   projectile-rails-find-test)
-  ("T"   projectile-rails-find-test--in-other-project)
   ("C-t" projectile-rails-find-current-test)
   
   ("u"   projectile-rails-find-fixture)
-  ("U"   projectile-rails-find-fixture--in-other-project)
   ("C-u" projectile-rails-find-current-fixture)
   
   ("@"   projectile-rails-find-mailer)
-  ("C-@" projectile-rails-find-mailer--in-other-project)
-  
-  ("a"   projectile-rails-find-locale)
-  ("A"   projectile-rails-find-locale--in-other-project)
-  
+  ("l"   projectile-rails-find-locale)
   ("i"   projectile-rails-find-initializer)
-  ("I"   projectile-rails-find-initializer--in-other-project)
-  
   ("b"   projectile-rails-find-job)
-  ("B"   projectile-rails-find-job--in-other-project)
+  ("a"   projectile-rails-find-migration)
+  ("e"   projectile-rails-find-environment)
   
-  (">"   projectile-rails-goto-file-at-point)
-  ("."   ~hydra-projectile-rails-find-misc/body)
-  ("x"   ~hydra-projectile-rails-manage/body))
+  ("x"   ~hydra-projectile-rails-manage/body)
+  ("g"   ~hydra-projectile-rails-goto/body))
+
+(defhydra ~hydra-projectile-other (:exit t :hint nil :idle ~hydra-help-delay)
+  ("f" projectile-find-file--in-other-project "find file")
+  ("d" projectile-find-dir--in-other-project "find dir")
+  ("b" projectile-switch-to-buffer--in-other-project "switch buffer")
+  ("t" projectile-find-test-file--in-other-project "find test")
+  ("o" ~hydra-projectile-search-other/body "hydra search")
+  ("^" ~projectile-find-root-dir--in-other-project "root dir")
+  ("r" ~hydra-projectile-rails-other/body "hydra rails")
+  ("c" projectile-invalidate-cache--in-other-project "invalidate cache"))
 
 (global-set-key
   (kbd "M-p")
@@ -487,10 +422,10 @@ _u_: find fixture     _U_: find fixture in other project     _C-u_: find current
 _f_: find file   _d_: find dir   _b_: switch buffer  _t_: find test
 _F_: hydra file  _D_: hydra dir  _B_: hydra buffer   _T_: hydra test
 
-_s_: hydra search  _m_: hydra manage  _r_: hydra rails  _x_: hydra shell
+_s_: hydra search   _x_: hydra shell  _m_: hydra manage  _^_: root dir
+_o_: other project  _r_: hydra rails
 
-_j_: tag jump            _v_: version control
-_z_: cache current file  _V_: browse dirty
+_c_: invalidate cache  _z_: cache current file  _p_: browse dirty projects
 "
     ("f" projectile-find-file)
     ("F" ~hydra-projectile-file/body)
@@ -503,11 +438,12 @@ _z_: cache current file  _V_: browse dirty
     ("s" ~hydra-projectile-search/body)
     ("x" ~hydra-projectile-shell/body)
     ("m" ~hydra-projectile-manage/body)
+    ("^" ~projectile-find-root-dir)
+    ("o" ~hydra-projectile-other/body)
     ("r" ~hydra-projectile-rails/body)
-    ("j" projectile-find-tag)
-    ("v" projectile-vc)
-    ("V" projectile-browse-dirty-projects)
-    ("z" projectile-cache-current-file)))
+    ("c" projectile-invalidate-cache)
+    ("z" projectile-cache-current-file)
+    ("p" projectile-browse-dirty-projects)))
 
 
 ;;;;;;;;;;;;;;;;;;;;

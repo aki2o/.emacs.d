@@ -410,7 +410,7 @@ _u_: find fixture     _C-u_: find current fixture     _g_: hydra goto
   ("d" projectile-find-dir--in-other-project "find dir")
   ("b" projectile-switch-to-buffer--in-other-project "switch buffer")
   ("t" projectile-find-test-file--in-other-project "find test")
-  ("o" ~hydra-projectile-search-other/body "hydra search")
+  ("s" ~hydra-projectile-search-other/body "hydra search")
   ("^" ~projectile-find-root-dir--in-other-project "root dir")
   ("r" ~hydra-projectile-rails-other/body "hydra rails")
   ("c" projectile-invalidate-cache--in-other-project "invalidate cache"))

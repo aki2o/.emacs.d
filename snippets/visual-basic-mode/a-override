@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : ' @override
+# key : @
+# expand-env : ((yas-wrap-around-region nil))
+# --
+' @override ${1:classnm}${2:
+@}$0

@@ -1,0 +1,56 @@
+# -*- mode: snippet; coding: utf-8 -*-
+# name: README of Elisp
+# --
+#+OPTIONS: toc:nil
+
+[[https://github.com/aki2o/$1/blob/master/README-ja.md][Japanese]]
+
+[[travis-build:aki2o/$1#master]]
+
+* What's this?
+
+  This is a extension of Emacs that $0
+
+* Feature
+
+* Install
+
+*** If use package.el
+
+*** If use el-get.el
+
+*** If use auto-install.el
+
+   #+BEGIN_SRC lisp
+(auto-install-from-url "https://raw.github.com/aki2o/${1:repo}/master/${2:elisp}.el")
+   #+END_SRC
+
+    - In this case, you need to install each of the following dependency.
+
+*** Manually
+
+    Download $2.el and put it on your load-path.  
+    
+    - In this case, you need to install each of the following dependency.
+
+*** Dependency
+
+    - [[https://github.com/aki2o/log4e][log4e.el]]
+    - [[https://github.com/aki2o/yaxception][yaxception.el]]
+    
+    
+* Configuration
+
+* Usage
+
+* Consideration
+
+* Tested On
+  
+  - Emacs ... ${3:`(replace-regexp-in-string "[ \n]+" " " (emacs-version))`}
+  - log4e.el ... ${4:0.2.0}
+  - yaxception.el ... ${5:0.2.0}
+
+    
+  *Enjoy!!!*
+

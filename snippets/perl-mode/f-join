@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : join "...", @list
+#key : join
+#expand-env : ((yas-wrap-around-region nil))
+# --
+join "$1", $0

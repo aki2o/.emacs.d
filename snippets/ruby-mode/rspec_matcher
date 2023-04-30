@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rspec_matcher
+# key: y_matcher
+#expand-env : ((yas-wrap-around-region nil))
+# --
+`(~yas-choose-value 'rspec-matchers)`$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : ref<...>
+#key : y_ref
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+ref<y_type$1>$0

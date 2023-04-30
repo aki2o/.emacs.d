@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: instance_eval
+# --
+class << self
+  def $1
+    new.instance_eval do
+      $1
+    end
+  end
+end
+
+private
+
+def $1
+end

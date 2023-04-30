@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : throw Aki::Exception::Condition ...
+#key : throw
+#expand-env : ((yas-wrap-around-region nil))
+# --
+throw Aki::Exception::Condition "${1:msg}";$0

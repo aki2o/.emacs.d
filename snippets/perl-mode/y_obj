@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : obj<...>
+#key : y_obj
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+obj<${1:classnm}>$0

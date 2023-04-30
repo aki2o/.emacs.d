@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : unlike( $got, qr{expected}, $test_name );
+#key : unlike
+# --
+unlike( ${1:got}, qr{ ${2:expected} }xms, "${3:testnm}" );$0

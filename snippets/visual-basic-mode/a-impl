@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : ' @imple
+# key : @
+# expand-env : ((yas-wrap-around-region nil))
+# --
+' @impl     ${1:
+@}$0

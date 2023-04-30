@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: (message "[MYELISP] %s" ...)
+# --
+(defun* ${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}${2:--}show-message (msg &rest args)
+  (apply 'message (concat "[${3:`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`}] " msg) args)
+  nil)
+$0

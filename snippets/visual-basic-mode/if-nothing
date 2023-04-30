@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: If test Is Nothing Then
+# key: if
+# --
+If ${1:Not }${2:`(~yas-get-register "var")`} Is Nothing Then
+    $0
+End If${2:$(~yas-set-register text "if")}

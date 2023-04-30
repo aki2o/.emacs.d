@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : elif ; then ...
+#key : elif
+# --
+elif $1; then
+    $0

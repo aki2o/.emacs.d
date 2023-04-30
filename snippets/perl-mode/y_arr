@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : arr<...>
+#key : y_arr
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+arr<y_type$1>$0

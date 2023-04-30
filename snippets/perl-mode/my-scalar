@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : my $scalar = ...;
+#key : my
+#expand-env : ((yas-wrap-around-region nil))
+# --
+my \$${1:varnm}${2: = ${3:shift}}${4: || ${5:""}};${1:$(~yas-set-register text "var")}$0

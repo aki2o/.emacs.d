@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: mocha_before
+# key: before
+# --
+before${1:Each}(() => {
+  $0
+});

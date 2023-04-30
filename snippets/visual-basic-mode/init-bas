@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: init-bas
+# key: Option
+# --
+Attribute VB_Name = "`(file-name-sans-extension (file-name-nondirectory (buffer-file-name)))`"
+'MYSELFPATH=${1:\\}`(file-name-nondirectory (buffer-file-name))`
+
+Option Explicit$0

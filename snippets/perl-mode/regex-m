@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : =~ m{ ... }xms
+#key : =~
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+=~ m{ $1 }xms$0

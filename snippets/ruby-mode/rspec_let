@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rspec_let
+# key: let
+# --
+let(:$1) { $0 }

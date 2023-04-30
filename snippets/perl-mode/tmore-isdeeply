@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : is_deeply( $got, $expected, $test_name );
+#key : is_deeply
+# --
+is_deeply( \$${1:got}, ${2:expected}, "${3:testnm}" );$0

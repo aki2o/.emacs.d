@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : select type
+#key : y_type
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+`(yas-choose-value '("int" "str" "bool" "date" "double" "path" "long" "float" "decimal" "y_arr" "y_hash" "y_obj" "y_ref"))`$0

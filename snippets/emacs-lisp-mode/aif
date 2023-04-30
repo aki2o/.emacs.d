@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: defmacro aif
+# key: defmacro aif
+# --
+(defmacro ${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}${2:-}aif (test then &rest else)
+  (declare (indent 2))
+  `(let ((it ,test)) (if it ,then ,@else)))$0

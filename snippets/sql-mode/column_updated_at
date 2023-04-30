@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: column/updated_at
+# key: updated_at
+# --
+updated_at DATETIME NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp

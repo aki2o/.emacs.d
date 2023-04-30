@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for ( var e in array ) { ... }
+# key: for
+# --
+for ( var ${1:e} in ${2:array} ) {
+$0
+}

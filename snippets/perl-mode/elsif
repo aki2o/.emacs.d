@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : elsif ( tested ) { \n }
+#key : elsif
+# --
+elsif ( ${1:! }${2:defined }${3:`(~yas-get-register "if")`} ) {
+    $0
+}

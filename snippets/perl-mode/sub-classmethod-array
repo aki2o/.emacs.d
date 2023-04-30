@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : sub ... { my ($self) = @_ }
+#key : sub
+# --
+#
+sub $1 ${2:y_mmod$3 }{
+    my ($self$0) = @_;
+}

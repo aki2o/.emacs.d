@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : lastidx { ... } @list
+#key : lastidx
+#expand-env : ((yas-wrap-around-region nil))
+# --
+lastidx { ${1:\$_} } $0

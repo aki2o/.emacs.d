@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : hash<...>
+#key : y_hash
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+hash<y_type$1>$0

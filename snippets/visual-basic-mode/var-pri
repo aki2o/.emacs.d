@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Private var As ...
+# key: private
+# expand-env : ((yas-wrap-around-region nil))
+# --
+Private ${1:name} As $2${1:$(~yas-set-register text "var")}$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: mocha_after
+# key: after
+# --
+after${1:Each}(() => {
+  $0
+});

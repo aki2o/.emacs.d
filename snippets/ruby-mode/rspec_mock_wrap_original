@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: allow|expect to receive().and_wrap_original
+# --
+`(~yas-choose-value 'rspec-mocks)`($1).to receive${2:_message_chain}(:$3)${4:.with(y_with_arg$5)}.and_wrap_original do |orig, *args|
+  orig.call(*args)$0
+end

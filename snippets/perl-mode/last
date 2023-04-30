@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : last
+#key : last
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+last ${1:`(~yas-get-register "loop")`}$0

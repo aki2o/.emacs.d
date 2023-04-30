@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+#name : sub get_... { ...h_of }
+#key : sub
+#expand-env : ((yas-wrap-around-region nil))
+# --
+sub get_${1:`(~yas-get-register "attr")`}${2: y_mmod$3} {
+    my ($self, \$${4:`(~yas-get-register "attr")`nm}) = @_;
+    if ( ! \$$4 || ! exists \$${5:`(~yas-get-register "attr")`h}_of{ident $self}->{\$$4} ) {
+        ${6:return;}
+    }
+    return \$$5_of{ident $self}->{\$$4};
+}$0

@@ -1,0 +1,5 @@
+# -*- mode: snippet; coding: utf-8 -*-
+# name: yyyy/mm/dd It's available. But, master branch only.
+# --
+${1:`(format-time-string "%Y/%m/%d")`} It's available. But, master branch only.
+$0

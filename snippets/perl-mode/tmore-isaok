@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : isa_ok( $object, $class );
+#key : isa_ok
+# --
+isa_ok( \$${1:object}, "${2:class}" );$0

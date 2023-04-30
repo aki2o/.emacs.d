@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: table/create
+# key: create
+# --
+CREATE TABLE $1 ($0) ENGINE=${2:InnoDB} DEFAULT CHARSET=${3:utf8mb4} COLLATE=${4:utf8mb4_bin} ROW_FORMAT=${5:DYNAMIC};

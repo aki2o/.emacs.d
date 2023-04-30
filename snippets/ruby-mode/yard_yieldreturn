@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @yieldreturn ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+# @yieldreturn [$1] $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : ..._is{$ident}
+#key : is
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+is{$ident}$0

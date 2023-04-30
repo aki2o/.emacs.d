@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : if ( tested ) { \n }
+#key : if
+# --
+if ( ${1:! }${2:defined }${3:\$`(~yas-get-register "var")`} ) {
+    $0
+}${3:$(~yas-set-register text "if")}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: column/created_at
+# key: created_at
+# --
+created_at DATETIME NOT NULL DEFAULT current_timestamp

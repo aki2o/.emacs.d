@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ReDim Preserve x(Ubound(x) + 1)
+# key: redim
+# expand-env : ((yas-wrap-around-region nil))
+# --
+ReDim Preserve ${1:`(~yas-get-register "var")`}(UBound($1) + 1)$0

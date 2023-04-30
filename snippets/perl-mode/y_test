@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : select test operator
+#key : y_test
+# --
+`(yas-choose-value '("==" "!=" "<" ">" "<=" ">=" "eq" "ne" "gt" "ge" "lt" "le"))`$0

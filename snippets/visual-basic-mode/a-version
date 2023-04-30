@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : ' @version
+# key : @
+# expand-env : ((yas-wrap-around-region nil))
+# --
+' @version  ${1:1.0}  ${2:#TODO}${3:
+@}$0

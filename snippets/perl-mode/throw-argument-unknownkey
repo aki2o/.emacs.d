@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : throw Aki::Exception::Argument::UnknownKey ...
+#key : throw
+#expand-env : ((yas-wrap-around-region nil))
+# --
+throw Aki::Exception::Argument::UnknownKey "${1:key}", ${2:existlist};$0

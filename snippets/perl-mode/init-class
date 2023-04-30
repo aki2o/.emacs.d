@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+#name : #!perl package ...
+#key : #!perl
+#condition : 'force-in-comment
+#expand-env : ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+#!perl
+
+package$1
+
+use strict;
+use warnings;
+use Class::Std;
+{
+    $0
+}
+
+1;
+
+__END__
+

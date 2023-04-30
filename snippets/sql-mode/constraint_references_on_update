@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: constraint/references/on_update
+# key: on
+# --
+ON UPDATE `(~yas-choose-value 'mysql-foreign-key-references)`$0

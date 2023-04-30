@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : sub START ...
+#key : sub
+#expand-env : ((yas-wrap-around-region nil))
+# --
+sub START {
+    my ($class, $ident, $arg_ref) = @_;
+    $0
+}

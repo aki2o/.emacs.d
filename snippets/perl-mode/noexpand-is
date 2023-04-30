@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : not expand
+#key : is
+# --
+is $0

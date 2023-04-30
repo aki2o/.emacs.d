@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: mocha_describe with subject
+# key: describe
+# --
+describe('$1', () => {
+  const subject = () => {
+    $0
+  };
+});

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : throw Aki::Exception::IO::NoSuchFile ...
+#key : throw
+#expand-env : ((yas-wrap-around-region nil))
+# --
+throw Aki::Exception::IO::NoSuchFile \$${1:filepath} if ! \$$1 || ! -f \$$1;$0

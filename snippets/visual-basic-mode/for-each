@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: For Each v In ...
+# key: for
+# --
+For Each ${1:v} In ${2:list}
+    $0
+Next

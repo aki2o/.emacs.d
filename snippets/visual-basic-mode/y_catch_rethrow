@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Err.Raise ... (re-throw)
+# key: y_catch
+# --
+Err.Raise Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext$0

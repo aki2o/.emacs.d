@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @override
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+# @override $0

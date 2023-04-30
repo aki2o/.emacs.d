@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+#name : sub unshift_... { ...list_of }
+#key : sub
+#expand-env : ((yas-wrap-around-region nil))
+# --
+sub unshift_${1:`(~yas-get-register "attr")`}${2: y_mmod$3} {
+    my ($self, \$$1) = @_;
+    if ( ! \$$1 ) {
+        ${4:return;}
+    }
+    if ( ! \$$1->isa("$5") ) {
+        ${6:return;}
+    }
+    unshift @{\$${7:$1list}_of{ident $self}}, \$$1;
+}$0

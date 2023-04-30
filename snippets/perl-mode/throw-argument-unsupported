@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : throw Aki::Exception::Argument::Unsupported ...
+#key : throw
+#expand-env : ((yas-wrap-around-region nil))
+# --
+throw Aki::Exception::Argument::Unsupported "${1:`(~yas-get-register "var")`}", \$$1;$0

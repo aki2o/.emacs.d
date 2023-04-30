@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : catch ... with { ... }
+#key : catch
+# --
+catch Aki::Exception$1 with {
+    my $e = shift;
+    $0
+}

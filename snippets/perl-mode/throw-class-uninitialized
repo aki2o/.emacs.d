@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : throw Aki::Exception::Class::Uninitialized ...
+#key : throw
+#expand-env : ((yas-wrap-around-region nil))
+# --
+throw Aki::Exception::Class::Uninitialized "${1:name}" if !${2: defined} \$$1_of{\$ident};$0

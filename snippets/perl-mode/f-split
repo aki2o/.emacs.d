@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : split m{ ... }xms, $scalar
+#key : split
+#expand-env : ((yas-wrap-around-region nil))
+# --
+split m{ $1 }xms, $0

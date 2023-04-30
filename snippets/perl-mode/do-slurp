@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: do { local $/; <$fh> }
+# key: do
+# --
+do { local \$/; <\$fh> }$0

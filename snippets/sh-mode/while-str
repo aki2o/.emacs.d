@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : while [ "tested" = "cond" ]; do ...
+#key : while
+# --
+while [ "\$${1:`(~yas-get-register "var")`}" ${2:!}= "$3" ]; do
+    $0
+done

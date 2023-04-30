@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rspec_describe ".xxx"
+# key: describe
+# --
+describe ".${1:method}" do
+  subject { described_class.$1${2:($3)} }$0
+end

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : isnt( got, expected, test_name );
+#key : isnt
+# --
+isnt( ${1:got}, ${2:expected}, "${3:testnm}" );$0

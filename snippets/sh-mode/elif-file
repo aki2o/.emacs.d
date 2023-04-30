@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : elif [ -f "tested" ]; then ...
+#key : elif
+# --
+elif [ ${1:! }-f "${2:\$`(~yas-get-register "if")`}" ]; then
+    $0

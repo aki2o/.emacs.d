@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: rspec_parameterized
+# key: with_them
+# --
+where($1) do
+  [
+    $0
+  ]
+end
+
+with_them do
+  it do
+  end
+end

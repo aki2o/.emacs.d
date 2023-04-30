@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : SKIP: { ... }
+#key : SKIP:
+# --
+SKIP: {
+    eval { require ${1:module} };
+    plan "$1 not installed", ${2:num} if $@;
+    $0
+}

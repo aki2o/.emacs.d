@@ -1,0 +1,5 @@
+# -*- mode: snippet; coding: utf-8 -*-
+# name: yyyy/mm/dd 利用可能。ただし、masterブランチのみです。
+# --
+${1:`(format-time-string "%Y/%m/%d")`} 利用可能。ただし、masterブランチのみです。
+$0

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Public Function get...
+# key: public
+# expand-env : ((yas-wrap-around-region nil))
+# --
+Public Function get${1:`(~yas-get-register "attr")`$(capitalize text)}() As ${2:`(~yas-get-register "attrtype")`}
+    ${3:Set }get$1 = x${1:$(downcase text)}
+End Function$0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Err.Raise ... (root of chain)
+# key: y_catch
+# --
+Err.Raise Err.Number, "`(file-name-sans-extension (file-name-nondirectory (buffer-file-name)))`.`(~yas-get-register "func")`", Err.Description$0

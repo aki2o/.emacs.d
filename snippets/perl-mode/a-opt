@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : # @option ...
+#key : #
+#condition : 'force-in-comment
+#expand-env : ((yas-wrap-around-region nil))
+# --
+# @option   ${1:name}  y_otype$2${3:!}  ${4:#TODO}$0

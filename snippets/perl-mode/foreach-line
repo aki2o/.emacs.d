@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : foreach ... { ... }
+#key : foreach
+# --
+foreach my \$${1:e} ( $2 ) { $0 }

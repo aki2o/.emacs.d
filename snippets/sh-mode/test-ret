@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : [ $? -? cond ] && ... || ...
+#key : [
+#expand-env : ((yas-wrap-around-region nil))
+# --
+[ $? -${1:$$(yas-choose-value '("eq" "ne" "gt" "ge" "lt" "le"))} ${2:0} ]${3: && ${4:code}}${5: || ${6:code}}$0

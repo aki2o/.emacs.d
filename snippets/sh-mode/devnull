@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : > /dev/null 2>&1
+#key : >
+#expand-env : ((yas-wrap-around-region nil))
+# --
+> ${1:/dev/null ${2:2>&1}}$0

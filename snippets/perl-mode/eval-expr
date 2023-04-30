@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#name : eval " ... ";
+#key : eval
+# --
+eval "`yas-selected-text`$1";$0

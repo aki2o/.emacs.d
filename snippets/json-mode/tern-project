@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: tern-project
+# --
+{
+    "libs": [
+        "browser",
+        "jquery"
+     ],
+    "plugins": {
+        "node": {},
+        "gmaps_3.17": {},
+    }
+}

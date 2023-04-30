@@ -7,11 +7,11 @@
   :bind (([remap apropos-command]    . consult-apropos)
          ([remap pop-global-mark]    . consult-global-mark)
          ([remap recentf-open-files] . consult-recent-file)
-         ([remap yank-pop]           . consult-yank-replace)
+         ([remap yank-pop]           . consult-yank-from-kill-ring)
          :map ~keyjack-mode-map
          ([remap pop-global-mark]    . consult-global-mark)
          ([remap recentf-open-files] . consult-recent-file)
-         ([remap yank-pop]           . consult-yank-replace)
+         ([remap yank-pop]           . consult-yank-from-kill-ring)
          :map isearch-mode-map
          ("C-M-p" . consult-isearch-history)
          ("M-c" . consult-line)
@@ -33,11 +33,19 @@
 
   (setq consult-after-jump-hook '(~pulse-momentary))
 
+  (advice-add 'consult-yank-from-kill-ring :after '~consult-update-current-kill-to)
+
   (with-eval-after-load 'pophint-autoloads
     (pophint-thing:defcommand-noadvice ~consult-grep)
     (pophint-thing:defcommand-noadvice ~consult-git-grep)
     (pophint-thing:defcommand-noadvice ~consult-ripgrep))
   )
+
+(defun ~consult-update-current-kill-to (string &optional arg)
+  (let ((curr (current-kill 0 t)))
+    (when (not (string= curr string))
+      (current-kill (- (seq-position kill-ring string)
+                       (seq-position kill-ring curr))))))
 
 ;; vertico-repeat は、最初のミニバッファの入力を変えるらしく、
 ;; 最初にディレクトリを選択するコマンドでは、 vertico-repeat を使えないので、

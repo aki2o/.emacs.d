@@ -130,6 +130,16 @@
       ad-do-it
     (setq ad-return-value nil)))
 
+;; ファイルが無いディレクトリがリストされるようにする
+(defun projectile-project-dirs (project)
+  (cl-flet ((parent (x)
+                    (file-name-directory (directory-file-name x))))
+    (delete-dups
+     (cl-loop with dirs = (delq nil
+                                (mapcar #'file-name-directory (projectile-project-files project)))
+              while dirs append dirs
+              do (setq dirs (delq nil (mapcar #'parent dirs)))))))
+
 (defun projectile-project-root (&optional ignore-cache)
   "Retrieves the root directory of a project if available.
 The current directory is assumed to be the project's root otherwise."

@@ -16,6 +16,8 @@
   (define-key vertico-map (kbd "M-n") '~vertico-next-history-element)
   (define-key vertico-map (kbd "M-p") '~vertico-previous-history-element)
 
+  (add-to-list 'vertico-repeat-transformers '~vertico-repeat-transform-session-candidate t)
+
   (advice-add 'vertico--setup :after '~vertico-setup)
   (advice-add 'next-history-element :around '~vertico-scroll-up)
   (advice-add 'previous-history-element :around '~vertico-scroll-down)
@@ -63,6 +65,11 @@
   (let ((~vertico-current-session (or (car args)
                                       (car vertico-repeat-history))))
     (apply orig args)))
+
+;; vertico終了時に選択していた候補の情報が異なる毎に履歴は作らないようにする
+(defun ~vertico-repeat-transform-session-candidate (session)
+  (setf (nth 2 session) nil)
+  session)
 
 ;; ミニバッファを扱う関数が実行されると、全て vertico-repeat の対象として保存されてしまうので、抑制できるようにしてる
 (defun ~vertico-inhibit-repeat-save (orig &rest args)

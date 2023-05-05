@@ -54,12 +54,20 @@
   (interactive)
   (let* ((session ~vertico-current-session)
          (v (funcall orderless-component-separator (cadr session)))
-         (f (intern-soft (format "consult-%s" (pop v))))
+         (c (pop v))
+         (f (intern-soft (format "consult-%s" c)))
          (dir (pop v))
-         (input (mapconcat 'identity v " ")))
+         (input (mapconcat 'identity v " "))
+         (vertico-repeat-transformers `(,@vertico-repeat-transformers ~consult-resume-transformer))
+         (~consult-resumed-command c)
+         (~consult-resumed-directory dir))
+    (when (not (functionp f))
+      (error "Invalid session : %s" session))
     ;; 本来の入力値とコマンドで実行
     (setf (nth 1 session) input)
-    (funcall f dir input)))
+    (unwind-protect
+        (funcall f dir input)
+      (setf (nth 1 session) (mapconcat 'identity (list c dir input) " ")))))
 
 (defvar ~consult-resumed-command nil)
 (defvar ~consult-resumed-directory nil)

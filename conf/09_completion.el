@@ -9,6 +9,7 @@
   (add-hook 'minibuffer-setup-hook 'vertico-repeat-save)
   :config
   (vertico-mode)
+
   (define-key vertico-map (kbd "C-S-h") 'vertico-directory-delete-word)
   (define-key vertico-map (kbd "C-S-l") 'vertico-insert)
   (define-key vertico-map (kbd "M-j") 'vertico-next-group)
@@ -16,12 +17,14 @@
   (define-key vertico-map (kbd "M-n") '~vertico-next-history-element)
   (define-key vertico-map (kbd "M-p") '~vertico-previous-history-element)
 
-  (add-to-list 'vertico-repeat-transformers '~vertico-repeat-transform-session-candidate t)
-
   (advice-add 'vertico--setup :after '~vertico-setup)
   (advice-add 'next-history-element :around '~vertico-scroll-up)
-  (advice-add 'previous-history-element :around '~vertico-scroll-down)
+  (advice-add 'previous-history-element :around '~vertico-scroll-down))
 
+(use-package vertico-repeat
+  :config
+  (add-to-list 'vertico-repeat-transformers '~vertico-repeat-transform-session-candidate t)
+  
   (advice-add 'vertico-repeat-last :around '~vertico-let-current-session)
 
   (advice-add 'read-file-name :around '~vertico-inhibit-repeat-save)

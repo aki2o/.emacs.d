@@ -115,6 +115,7 @@
     (:key "C-x C-b"   :cmd switch-to-buffer         :jack t)
     (:key "C-x b"     :cmd ~ibuffer-other-window    :jack t)
     (:key "C-b"       :cmd persp-switch-to-buffer   :jack t)
+    (:key "C-x l"     :cmd find-library             :jack t)
     ;; マクロ
     (:key "C-("       :cmd kmacro-start-macro        :jack t :kind edit)
     (:key "C-)"       :cmd kmacro-end-macro          :jack t :kind edit)

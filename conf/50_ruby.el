@@ -251,3 +251,5 @@
 (use-package rake
   :defer t)
 
+
+(bundle rbs-mode)

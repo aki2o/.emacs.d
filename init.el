@@ -45,8 +45,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(git-gutter:diff-option "-w")
+ '(git-gutter:hide-gutter t)
+ '(git-gutter:lighter " GG")
  '(lsp-log-io nil nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages '(vue-mode which-key-posframe consult compat bind-key))
+ '(package-selected-packages
+   '(corfu-prescient vertico-prescient prescient rbs-mode vue-mode which-key-posframe consult compat bind-key))
  '(rspec-use-rake-flag nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -59,6 +63,7 @@
  '(e2wm:face-history-list-normal ((t :foreground "ivory")))
  '(e2wm:face-item ((t :height 0.8 :inherit variable-pitch :foreground "DarkSlateBlue")))
  '(e2wm:face-subtitle ((((class color) (background light)) (:foreground "Gray10" :height 0.8 :inherit variable-pitch)) (((class color) (background dark)) (:foreground "Gray90" :height 0.8 :inherit variable-pitch)) (t :height 0.8 :inherit variable-pitch)))
+ '(lsp-ui-doc-background ((t :background "gray30")))
  '(pophint:match-face ((t (:background "dark slate gray" :foreground "white"))))
  '(pophint:pos-tip-face ((t (:background "black" :foreground "white"))))
  '(pophint:tip-face ((t (:background "HotPink4" :foreground "white" :bold t))))

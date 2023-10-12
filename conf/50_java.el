@@ -86,7 +86,10 @@ _q_: exit
 
 (bundle kotlin-mode)
 (use-package kotlin-mode
-  :defer t)
+  :defer t
+  :config
+  (when (functionp 'lsp)
+    (add-hook 'kotlin-mode-hook 'lsp-deferred t)))
 
 
 (bundle flycheck-kotlin)

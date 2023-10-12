@@ -33,7 +33,11 @@
 
     (electric-indent-local-mode 0)
 
-    (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function))
+    (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function)
+
+    (when (functionp 'lsp)
+      (lsp-deferred)
+      (add-to-list 'lsp-enabled-clients 'ruby-ls)))
 
   (~add-setup-hook-after-load 'flex-autopair 'ruby-mode
     (add-to-list 'flex-autopair-pairs '(?| . ?|))
@@ -44,9 +48,6 @@
 
   (~add-setup-hook-after-load 'mmask 'ruby-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'ruby-mode)))
-
-  (when (functionp 'lsp)
-    (add-hook 'ruby-mode-hook 'lsp-deferred t))
 
   ;; 閉じ括弧のインデントをイイ感じにする
   (defadvice ruby-indent-line (after ~unindent-closing-paren activate)

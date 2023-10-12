@@ -14,18 +14,23 @@
            (lsp-enable-snippet nil)
            (lsp-headerline-breadcrumb-enable nil)
            (lsp-idle-delay 0.5)
-           (lsp-completion-provider :none))
+           (lsp-completion-enable nil)
+           (lsp-completion-provider :none)
+           )
   :defer t
   :config
-  (with-eval-after-load 'cape
-    (add-hook 'lsp-completion-mode-hook '~lsp-cape-setup))
+  (make-variable-buffer-local 'lsp-enabled-clients)
 
-  (with-eval-after-load 'which-key
-    (add-hook 'lsp-mode 'lsp-enable-which-key-integration))
+  (~add-setup-hook-after-load 'which-key 'lsp-mode
+    (lsp-enable-which-key-integration))
+
+  (~add-setup-hook 'lsp-after-initialize
+    (add-to-list 'completion-at-point-functions '~lsp-completion-at-point)
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults)) '(substring)))
   )
 
-(defun ~lsp-cape-setup ()
-  (add-to-list 'completion-at-point-functions 'lsp-completion-at-point))
+(defun ~lsp-completion-at-point ()
+  (cape-wrap-buster 'lsp-completion-at-point))
 
 
 (bundle lsp-ui)
@@ -106,24 +111,3 @@
 ;;   :defer t
 ;;   :commands lsp-treemacs-errors-list
 ;;   :after (lsp-mode))
-
-
-;; (bundle unicode-escape :type github :pkgname "kosh04/unicode-escape.el")
-(bundle unicode-escape)
-(bundle company)
-(bundle company-tabnine)
-(use-package company-tabnine
-  :after (lsp-mode)
-  :config
-  (with-eval-after-load 'cape
-    (add-hook 'lsp-completion-mode-hook '~company-tabnine-cape-setup)))
-
-(defun ~company-tabnine-cape-setup ()
-  (setq completion-at-point-functions (-remove-item 'lsp-completion-at-point completion-at-point-functions))
-
-  (add-to-list 'completion-at-point-functions
-               (cape-capf-buster
-                (cape-super-capf
-                 'lsp-completion-at-point
-                 (cape-company-to-capf 'company-tabnine)))))
-

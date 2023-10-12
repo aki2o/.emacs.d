@@ -130,19 +130,11 @@
              (when (not (= (window-point wnd) pt))
                (set-window-point wnd pt)))))))
 
-  (~e2wm:highlight-current-line-after ~find-tag-elisp right)
-  (~e2wm:highlight-current-line-after helm-ag--action-find-file right)
-  (~e2wm:highlight-current-line-after robe-jump right)
-  (~e2wm:highlight-current-line-after godef-jump right)
-  (~e2wm:highlight-current-line-after ~xref-find-definitions right)
-  (~e2wm:window-update-ize ~find-tag-elisp)
+  (~e2wm:highlight-current-line-after ~find-definition right)
+  (~e2wm:highlight-current-line-after ~find-references right)
   (~e2wm:window-update-ize pop-tag-mark)
-  (~e2wm:window-update-ize helm-ag--find-file-action)
-  (~e2wm:window-update-ize helm-git-grep-persistent-action)
-  (~e2wm:window-update-ize ivy-call)
-  (~e2wm:window-update-ize robe-jump)
-  (~e2wm:window-update-ize godef-jump)
-  (~e2wm:window-update-ize ~xref-find-definitions)
+  (~e2wm:window-update-ize ~find-definition)
+  (~e2wm:window-update-ize ~find-references)
 
 
   ;; コマンド

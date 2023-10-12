@@ -1,8 +1,13 @@
-(bundle corfu)
+(bundle corfu :type git :url "git@github.com:minad/corfu.git" :checkout "de565e2a358eacc305420cfb590f07612ee6dfec")
 (use-package corfu
   :custom ((corfu-auto t)
            (corfu-auto-deley 0.4)
-           (corfu-auto-prefix 4))
+           (corfu-auto-prefix 4)
+           (corfu-preview-current nil)
+           (corfu-preselect-first nil)
+           (corfu-quit-at-boundary 'separator)
+           (corfu-quit-no-match nil))
+  :hook ((corfu-mode . corfu-popupinfo-mode))
 
   :init
   (global-corfu-mode)
@@ -14,18 +19,32 @@
              ("C-z"   . corfu-quit))
   )
 
+(add-to-list 'load-path (concat (file-name-directory (locate-library "corfu")) "extensions"))
 
-(bundle corfu-doc)
-(use-package corfu-doc
-  :after (corfu)
-  :hook (corfu-mode-hook . corfu-doc-mode))
+(use-package corfu-popupinfo
+  :after corfu)
 
 
-(bundle cape :type github :pkgname "minad/cape")
+(bundle cape :type github :pkgname "minad/cape" :branch "main")
 (use-package cape
-  :hook (find-file-hook . ~cape-setup)
   :init
-  (add-to-list 'completion-at-point-functions 'cape-keyword t))
+  (with-eval-after-load 'minibuffer
+    (add-to-list 'completion-at-point-functions '~completion-at-point-function)
+    (make-variable-buffer-local 'completion-at-point-functions))
+  )
+
+(defun ~completion-at-point-function ()
+  (cape-wrap-super #'cape-dabbrev #'cape-dict #'cape-keyword))
+
+
+(bundle corfu-prescient :type github :pkgname "radian-software/prescient.el")
+(use-package corfu-prescient
+  :after corfu
+  :custom ((corfu-prescient-enable-filtering nil)
+           (corfu-prescient-override-sorting t))
+  :config
+  (setq corfu-prescient-completion-styles completion-styles) ;; ensure to be done after configuring completion-styles
+  (corfu-prescient-mode 1))
 
 
 (bundle kind-icon)

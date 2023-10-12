@@ -87,8 +87,8 @@
            (orderless-style-dispatchers '(~orderless-dispatcher-bang ~orderless-dispatcher-quote ~orderless-dispatcher-caret)))
   :init
   (setq completion-styles '(orderless basic))
-  ;; (setq completion-category-defaults nil)
-  (setq completion-category-overrides '((buffer (styles orderless basic))))
+  (setq completion-category-overrides '((buffer (styles orderless substring))
+                                        (file (styles basic partial-completion))))
   (setq read-file-name-completion-ignore-case t)
   (setq read-buffer-completion-ignore-case t)
   (setq completion-ignore-case t)
@@ -115,6 +115,25 @@
      ((string-prefix-p "^" pattern)
       `(orderless-initialism . ,(substring pattern 1)))))
   )
+
+
+(bundle prescient)
+(use-package prescient
+  :defer t
+  :custom ((prescient-aggressive-file-save t))
+  )
+
+
+;; recent-file で、直近使ったものが上に来なくなってしまったので使うのやめてる
+;;
+;; (bundle vertico-prescient)
+;; (use-package vertico-prescient
+;;   :after vertico
+;;   :custom ((vertico-prescient-enable-filtering nil)
+;;            (vertico-prescient-override-sorting t))
+;;   :config
+;;   (setq vertico-prescient-completion-styles completion-styles) ;; ensure to be done after configuring completion-styles
+;;   (vertico-prescient-mode 1))
 
 
 (bundle marginalia)

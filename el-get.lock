@@ -1,5 +1,9 @@
 (setq el-get-lock-package-versions
-      '((corfu-prescient :checksum "37d356e105fe29d5d3c686dcae2585981299d30b")
+      '((editorconfig :checksum "4bf871b7a2f2433d1032ef2b251bfb08c23347f4")
+        (copilot :checksum "3086d214f40a9689d00d647667b73795abc07bc9")
+        (lsp-java :checksum "449673da7221a30f1b1756cedcc48b9a2b52a51e")
+        (request :checksum "01e338c335c07e4407239619e57361944a82cb8a")
+        (corfu-prescient :checksum "37d356e105fe29d5d3c686dcae2585981299d30b")
         (corfu :checksum "de565e2a358eacc305420cfb590f07612ee6dfec")
         (owdriver :checksum "968d1d5dccfe74de3a59ff431f03544ab920f556")
         (pophint :checksum "fecc5c6d1c40a244ea983ebe6621d58ae4332521")

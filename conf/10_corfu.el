@@ -4,7 +4,7 @@
            (corfu-auto-deley 0.4)
            (corfu-auto-prefix 4)
            (corfu-preview-current nil)
-           (corfu-preselect-first nil)
+           (corfu-preselect-first t)
            (corfu-quit-at-boundary 'separator)
            (corfu-quit-no-match nil))
   :hook ((corfu-mode . corfu-popupinfo-mode))

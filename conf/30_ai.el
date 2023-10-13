@@ -8,8 +8,7 @@
   (bind-keys :map copilot-completion-map
              ("C-<return>" . copilot-accept-completion)
              ("C-," . copilot-previous-completion)
-             ("C-." . copilot-next-completion)
-             ("C-z" . copilot-clear-overlay))
+             ("C-." . copilot-next-completion))
 
   (bind-keys :map ~keyjack-mode-map
              ("C-M-SPC" . copilot-complete))

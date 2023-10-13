@@ -15,8 +15,7 @@
   :config
   (bind-keys :map corfu-map
              ("C-S-j" . corfu-next)
-             ("C-S-k" . corfu-previous)
-             ("C-z"   . corfu-quit))
+             ("C-S-k" . corfu-previous))
   )
 
 (add-to-list 'load-path (concat (file-name-directory (locate-library "corfu")) "extensions"))

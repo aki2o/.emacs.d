@@ -201,7 +201,7 @@
   (with-current-buffer buff
     (when wname
       (setq e2wm-gnus::current-window-name wname))
-    (local-set-key (kbd "C-g") 'e2wm-gnus:keyboard-quit)
+    (local-set-key (kbd "C-z") 'e2wm-gnus:keyboard-quit)
     (e2wm-gnus::config-guide-key-for-dp)))
 
 (defun e2wm-gnus:dp-init ()

@@ -2,7 +2,7 @@
 (define-key minibuffer-local-map (kbd "C-M-n") 'next-matching-history-element)
 
 
-(bundle vertico)
+(bundle vertico :type git :url "git@github.com:minad/vertico.git" :checkout "af1c893f3891902162e32f73f062213436636567")
 (use-package vertico
   :custom ((vertico-count 25))
   :init
@@ -21,15 +21,16 @@
   (advice-add 'next-history-element :around '~vertico-scroll-up)
   (advice-add 'previous-history-element :around '~vertico-scroll-down))
 
+(add-to-list 'load-path (concat (file-name-directory (locate-library "vertico")) "extensions"))
+
 (use-package vertico-repeat
   :config
   (add-to-list 'vertico-repeat-transformers '~vertico-repeat-transform-session-candidate t)
+  (add-to-list 'vertico-repeat-filter 'read-file-name t)
+  (add-to-list 'vertico-repeat-filter 'read-directory-name t)
+  (add-to-list 'vertico-repeat-filter 'read-buffer t)
   
-  (advice-add 'vertico-repeat-last :around '~vertico-let-current-session)
-
-  (advice-add 'read-file-name :around '~vertico-inhibit-repeat-save)
-  (advice-add 'read-directory-name :around '~vertico-inhibit-repeat-save)
-  (advice-add 'read-buffer :around '~vertico-inhibit-repeat-save))
+  (advice-add 'vertico-repeat-last :around '~vertico-let-current-session))
 
 ;; (define-key vertico-map (kbd "C-S-j") 'vertico-scroll-up)
 ;; (define-key vertico-map (kbd "C-S-k") 'vertico-scroll-down)
@@ -73,11 +74,6 @@
 (defun ~vertico-repeat-transform-session-candidate (session)
   (setf (nth 2 session) nil)
   session)
-
-;; ミニバッファを扱う関数が実行されると、全て vertico-repeat の対象として保存されてしまうので、抑制できるようにしてる
-(defun ~vertico-inhibit-repeat-save (orig &rest args)
-  (let ((vertico-repeat-transformers (list '(lambda (x) nil))))
-    (apply orig args)))
 
 
 (bundle orderless)

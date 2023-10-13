@@ -105,8 +105,8 @@
   (pophint-thing:defcommand-noadvice projectile-ag))
 
 (with-eval-after-load 'vertico
-  (advice-add 'projectile-completing-read :around '~vertico-inhibit-repeat-save)
-  (advice-add 'projectile-complete-dir :around '~vertico-inhibit-repeat-save))
+  (add-to-list 'vertico-repeat-filter 'projectile-completing-read t)
+  (add-to-list 'vertico-repeat-filter 'projectile-complete-dir t))
 
 (with-eval-after-load 'consult
   (defun ~projectile-consult-ripgrep ()

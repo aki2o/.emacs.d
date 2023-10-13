@@ -29,9 +29,7 @@
 (use-package cape
   :init
   (with-eval-after-load 'minibuffer
-    (add-to-list 'completion-at-point-functions '~completion-at-point-function)
-    (make-variable-buffer-local 'completion-at-point-functions))
-  )
+    (add-to-list 'completion-at-point-functions '~completion-at-point-function)))
 
 (defun ~completion-at-point-function ()
   (cape-wrap-super #'cape-dabbrev #'cape-dict #'cape-keyword))

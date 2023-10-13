@@ -21,16 +21,23 @@
   :config
   (make-variable-buffer-local 'lsp-enabled-clients)
 
-  (~add-setup-hook-after-load 'which-key 'lsp-mode
-    (lsp-enable-which-key-integration))
+  (add-to-list 'completion-at-point-functions '~lsp-completion-at-point)
+
+  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults)) '(substring))
 
   (~add-setup-hook 'lsp-after-initialize
-    (add-to-list 'completion-at-point-functions '~lsp-completion-at-point)
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults)) '(substring)))
+    (setq ~lsp-initialized t))
+
+  (~add-setup-hook-after-load 'which-key 'lsp-mode
+    (lsp-enable-which-key-integration))
   )
 
+(defvar ~lsp-initialized nil)
+(make-variable-buffer-local '~lsp-initialized)
+
 (defun ~lsp-completion-at-point ()
-  (cape-wrap-buster 'lsp-completion-at-point))
+  (when (and lsp-mode ~lsp-initialized)
+    (cape-wrap-buster 'lsp-completion-at-point)))
 
 
 (bundle lsp-ui)

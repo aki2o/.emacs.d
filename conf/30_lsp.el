@@ -14,16 +14,16 @@
            (lsp-enable-snippet nil)
            (lsp-headerline-breadcrumb-enable nil)
            (lsp-idle-delay 0.5)
-           (lsp-completion-enable nil)
            (lsp-completion-provider :none)
            )
   :defer t
   :config
   (make-variable-buffer-local 'lsp-enabled-clients)
+  (make-variable-buffer-local 'lsp-completion-enable)
 
-  (add-to-list 'completion-at-point-functions '~lsp-completion-at-point)
+  (advice-add 'lsp-completion-at-point :around '~lsp-completion-at-point)
 
-  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults)) '(substring))
+  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-overrides)) '(substring))
 
   (~add-setup-hook 'lsp-after-initialize
     (setq ~lsp-initialized t))
@@ -35,9 +35,9 @@
 (defvar ~lsp-initialized nil)
 (make-variable-buffer-local '~lsp-initialized)
 
-(defun ~lsp-completion-at-point ()
-  (when (and lsp-mode ~lsp-initialized)
-    (cape-wrap-buster 'lsp-completion-at-point)))
+(defun ~lsp-completion-at-point (orig &rest args)
+  (when ~lsp-initialized
+    (cape-wrap-buster orig)))
 
 
 (bundle lsp-ui)

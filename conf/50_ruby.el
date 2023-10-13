@@ -37,6 +37,7 @@
 
     (when (functionp 'lsp)
       (lsp-deferred)
+      (setq lsp-completion-enable nil)
       (add-to-list 'lsp-enabled-clients 'ruby-ls)))
 
   (~add-setup-hook-after-load 'flex-autopair 'ruby-mode

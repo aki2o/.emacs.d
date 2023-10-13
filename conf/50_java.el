@@ -97,8 +97,10 @@
 (use-package kotlin-mode
   :defer t
   :config
-  (when (functionp 'lsp)
-    (add-hook 'kotlin-mode-hook 'lsp-deferred t)))
+  (~add-setup-hook 'kotlin-mode
+    (when (functionp 'lsp)
+      (lsp-deferred)
+      (setq lsp-completion-enable nil))))
 
 
 (bundle flycheck-kotlin)

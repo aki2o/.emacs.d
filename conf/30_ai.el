@@ -1,7 +1,7 @@
 (bundle copilot :type github :pkgname "zerolfx/copilot.el" :branch "main")
 (use-package copilot
   :defer t
-  :custom ((copilot-idle-delay 5))
+  :custom ((copilot-idle-delay 3))
   :hook ((prog-mode . copilot-mode))
 
   :config

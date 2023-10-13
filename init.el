@@ -50,7 +50,7 @@
  '(git-gutter:lighter " GG")
  '(lsp-log-io nil nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
-   '(corfu-prescient vertico-prescient prescient rbs-mode vue-mode which-key-posframe consult compat bind-key))
+   '(corfu-prescient prescient rbs-mode vue-mode which-key-posframe consult compat bind-key))
  '(rspec-use-rake-flag nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

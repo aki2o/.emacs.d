@@ -180,3 +180,8 @@ to invalidate."
       (message "Invalidated Projectile cache for %s."
                (propertize project-root 'face 'font-lock-keyword-face)))))
 
+
+(bundle editorconfig)
+(use-package editorconfig
+  :defer t
+  :hook ((prog-mode . editorconfig-mode)))

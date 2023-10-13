@@ -1,5 +1,6 @@
 (setq el-get-lock-package-versions
-      '((editorconfig :checksum "4bf871b7a2f2433d1032ef2b251bfb08c23347f4")
+      '((vertico :checksum "af1c893f3891902162e32f73f062213436636567")
+        (editorconfig :checksum "4bf871b7a2f2433d1032ef2b251bfb08c23347f4")
         (copilot :checksum "3086d214f40a9689d00d647667b73795abc07bc9")
         (lsp-java :checksum "449673da7221a30f1b1756cedcc48b9a2b52a51e")
         (request :checksum "01e338c335c07e4407239619e57361944a82cb8a")

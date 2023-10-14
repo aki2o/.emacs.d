@@ -2,7 +2,8 @@
 (use-package consult
   :custom ((consult-narrow-key (kbd "C-n"))
            (consult-preview-key (kbd "C-M-;"))
-           (consult-preview-raw-size 1048576))
+           (consult-preview-raw-size 1048576)
+           (consult-async-min-input 5))
 
   :bind (([remap apropos-command]    . consult-apropos)
          ([remap pop-global-mark]    . consult-global-mark)

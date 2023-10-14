@@ -7,6 +7,8 @@
   :config
   (bind-keys :map copilot-completion-map
              ("C-<return>" . copilot-accept-completion)
+             ("C-S-<return>" . copilot-accept-completion-by-word)
+             ("C-M-<return>" . copilot-accept-completion-by-line)
              ("C-," . copilot-previous-completion)
              ("C-." . copilot-next-completion))
 

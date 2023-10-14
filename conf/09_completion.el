@@ -110,8 +110,22 @@
       '(orderless-literal . ""))
      ((string-prefix-p "^" pattern)
       `(orderless-initialism . ,(substring pattern 1)))))
-  )
 
+  (advice-add 'orderless-filter :around '~orderless-let-unmatch-filterable)
+
+  (defun ~orderless-let-unmatch-filterable (orig &rest args)
+    (let* ((components (funcall orderless-component-separator (nth 0 args)))
+           (not-components (cl-remove-if-not (lambda (x) (string-prefix-p "-" x)) components)))
+      (if (= (length not-components) 0)
+          (apply orig args)
+        (pop args)
+        (let* ((components (cl-remove-if (lambda (x) (member x not-components)) components))
+               (not-components (append components
+                                       (mapcar (lambda (x) (substring x 1)) not-components)))
+               (table (apply orig `(,(mapconcat 'identity components " ") ,@args)))
+               (not-table (apply orig `(,(mapconcat 'identity not-components " ") ,@args))))
+          (cl-remove-if (lambda (x) (member x not-table)) table)))))
+  )
 
 (bundle prescient)
 (use-package prescient

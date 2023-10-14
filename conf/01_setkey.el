@@ -75,8 +75,8 @@
     (:key "C-S-r"     :cmd query-replace-regexp           :jack t :kind edit)
     (:key "M-r"       :cmd toggle-read-only               :jack t :kind edit)
     (:key "C-M-r"     :cmd ~view-toggle-next-activate     :jack t :kind edit)
-    (:key "C-z"       :cmd keyboard-quit                  :jack t :kind edit) ; C-g
-    (:key "C-S-z"     :cmd keyboard-escape-quit           :jack t :kind edit) ; C-gの弱い版
+    (:key "C-z"       :cmd keyboard-escape-quit           :jack t :kind edit) ; C-gの弱い版
+    (:key "C-S-z"     :cmd keyboard-quit                  :jack t :kind edit) ; C-g
     (:key "C-S-M-z"   :cmd abort-recursive-edit           :jack t :kind edit)
     (:key "C-'"       :cmd comment-dwim                   :jack t :kind edit)
     (:key "C-\""      :cmd comment-box                    :jack t :kind edit)

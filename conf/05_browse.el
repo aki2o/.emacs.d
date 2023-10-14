@@ -23,6 +23,7 @@
 (defvar ~browse-searched-words nil)
 (defvar ~browse-search-browser-function 'browse-url)
 (defvar ~browse-search-url-function '~browse-search-url-with)
+(defvar ~browse-document-url-functions-alist '())
 
 (defun ~browse-search-initial-input ()
   (thing-at-point 'word))
@@ -40,26 +41,30 @@
   (let ((~browse-search-browser-function '~browse-url-internally))
     (call-interactively '~browse-search)))
 
-(defvar ~browse-document-url-functions '())
-(make-variable-buffer-local '~browse-document-url-functions)
-
 (defun ~browse-document ()
   (interactive)
-  (if (not ~browse-document-url-functions)
-      (error "No ~browse-document-url-functions")
-    (let ((~browse-search-url-function '(lambda (words)
-                                          (let ((urls (mapcar (lambda (x) (funcall x words)) ~browse-document-url-functions)))
-                                            (cond ((= (length urls) 1) (nth 0 urls))
-                                                  (t (completing-read "URL: " urls)))))))
-      (call-interactively '~browse-search))))
+  (let ((~browse-search-url-function '(lambda (words)
+                                        (let* ((key (intern-soft (replace-regexp-in-string "-mode$" "" (symbol-name major-mode))))
+                                               (functions (assoc key ~browse-document-url-functions-alist))
+                                               (urls (mapcar (lambda (x) (funcall x words)) functions)))
+                                          (cond ((not urls)
+                                                 (error "No entries in ~browse-document-url-functions-alist for %s" key))
+                                                ((= (length urls) 1) (nth 0 urls))
+                                                (t (completing-read "URL: " urls)))))))
+    (call-interactively '~browse-search)))
 
-(cl-defmacro ~browse-document-defun (name baseurl &key (body nil) (internal t) (path ""))
+(cl-defmacro ~browse-document-defun-for (mode baseurl &key (name nil) (body nil) (internal t) (path ""))
   (declare (indent 2))
-  `(progn
-     (when ,internal
-       (add-to-list '~browse-internal-url-list ,baseurl t))
-     (defun ,(intern (format "~browse-%s-document" name)) (words)
-       (concat ,baseurl ,path (if (and (= (length words) 1) (string= (nth 0 words) "")) "" ,body)))))
+  (let ((f (intern (format "~browse-%s%s-document" mode (if name (format "-%s" name) "")))))
+    `(progn
+       (defun ,f (words)
+         (concat ,baseurl ,path (if (and (= (length words) 1) (string= (nth 0 words) "")) "" ,body)))
+       (when ,internal
+         (add-to-list '~browse-internal-url-list ,baseurl t))
+       (let ((entry (assoc ',mode ~browse-document-url-functions-alist)))
+         (if entry
+             (setf (cdr entry) (append (cdr entry) (list ',f)))
+           (push (cons ',mode (list ',f)) ~browse-document-url-functions-alist))))))
 
 
 (use-package eww

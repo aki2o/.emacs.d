@@ -1,4 +1,4 @@
-(~browse-document-defun elisp "https://www.gnu.org/software/emacs/manual/html_mono/elisp.html"
+(~browse-document-defun-for emacs-lisp "https://www.gnu.org/software/emacs/manual/html_mono/elisp.html"
   :body (concat "#index-" (replace-regexp-in-string "-" "_002d" (nth 0 words))))
 
 (with-eval-after-load 'mmask
@@ -8,7 +8,6 @@
   (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode)))
 
 (~add-setup-hook 'emacs-lisp-mode
-  (add-to-list '~browse-document-url-functions '~browse-elisp-document t)
   (setq ~find-definition-function '~find-tag-elisp)
   (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help))
 

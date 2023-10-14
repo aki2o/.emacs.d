@@ -11,20 +11,16 @@
     (mmask-regist-extension-with-icase 'ruby-mode "rake" "ru" "gemspec" "ruby"))
 
   :config
-  (~browse-document-defun ruby "https://docs.ruby-lang.org/en/master/"
+  (~browse-document-defun-for ruby "https://docs.ruby-lang.org/en/master/"
     :body (concat (nth 0 words) ".html"))
-
-  (~browse-document-defun gem "https://www.rubydoc.info/"
+  (~browse-document-defun-for ruby "https://www.rubydoc.info/"
+    :name gem
     :path "find/gems"
     :body (concat "?q=" (mapconcat 'identity words "+")))
-
-  (~browse-document-defun rails "https://api.rubyonrails.org/")
+  (~browse-document-defun-for ruby "https://api.rubyonrails.org/"
+    :name rails)
 
   (~add-setup-hook 'ruby-mode
-    (add-to-list '~browse-document-url-functions '~browse-ruby-document t)
-    (add-to-list '~browse-document-url-functions '~browse-gem-document t)
-    (add-to-list '~browse-document-url-functions '~browse-rails-document t)
-
     ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
     (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
 

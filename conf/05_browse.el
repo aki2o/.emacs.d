@@ -53,7 +53,7 @@
                                                   (t (completing-read "URL: " urls)))))))
       (call-interactively '~browse-search))))
 
-(cl-defmacro ~browse-document-defun (name baseurl &key (body nil) (internal nil) (path ""))
+(cl-defmacro ~browse-document-defun (name baseurl &key (body nil) (internal t) (path ""))
   (declare (indent 2))
   `(progn
      (when ,internal
@@ -64,6 +64,9 @@
 
 (use-package eww
   :commands (~browse-search)
+  :custom (
+           ;; (eww-retrieve-command '("chromium" "--headless" "--dump-dom"))
+           )
   :bind (:map eww-mode-map
               ("j" . next-line)
               ("k" . previous-line)
@@ -91,18 +94,21 @@
     (when ~browse-searched-words
       (rename-buffer (format "*eww: %s*" (mapconcat 'identity ~browse-searched-words " ")) t))
 
-    (setq-local shr-put-image-function 'shr-put-image-alt))
+    (setq-local shr-put-image-function '~shr-put-image-alt))
 
   (~add-setup-hook 'eww-after-render
-    (loop for w in ~browse-searched-words do (highlight-regexp w))
-    (setq ~browse-searched-words nil))
+    (setq ~browse-searched-words nil)
+    (eww-readable)
+    (loop for w in ~browse-searched-words do (highlight-regexp w)))
 
   (advice-add 'display-graphic-p :around '~shr-graphic)
   (advice-add 'shr-colorize-region :around '~shr-colorize-region)
   (advice-add 'eww-colorize-region :around '~shr-colorize-region))
 
 (defvar ~eww-colorful-view nil)
-(make-variable-buffer-local '~eww-colorful-view)
+
+(defun ~shr-put-image-alt (spec alt &optional flags)
+  (insert alt))
 
 (defun ~shr-graphic (orig &rest args)
   (when (or (not (eq major-mode 'eww-mode))
@@ -110,11 +116,12 @@
     (apply orig args)))
 
 (defun ~shr-colorize-region (orig start end fg &optional bg &rest _)
-  (when ~eww-colorful-view
+  (when (or (not (eq major-mode 'eww-mode))
+            ~eww-colorful-view)
     (funcall orig start end fg)))
 
 (defun ~eww-toggle-colorfully ()
   (interactive)
-  (setq ~eww-colorful-view (not ~eww-colorful-view))
+  (setq-local ~eww-colorful-view (not ~eww-colorful-view))
   (eww-reload))
 

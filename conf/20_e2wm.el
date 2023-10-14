@@ -132,7 +132,7 @@
 
   (~e2wm:highlight-current-line-after ~find-definition right)
   (~e2wm:highlight-current-line-after ~find-references right)
-  (~e2wm:window-update-ize pop-tag-mark)
+  (~e2wm:window-update-ize ~pop-marker-stack)
   (~e2wm:window-update-ize ~find-definition)
   (~e2wm:window-update-ize ~find-references)
 

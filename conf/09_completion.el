@@ -114,18 +114,19 @@
   (advice-add 'orderless-filter :around '~orderless-let-unmatch-filterable)
 
   (defun ~orderless-let-unmatch-filterable (orig &rest args)
-    (let* ((components (funcall orderless-component-separator (nth 0 args)))
-           (not-components (cl-remove-if-not (lambda (x) (string-prefix-p "-" x)) components)))
+    (let* ((all-components (funcall orderless-component-separator (nth 0 args)))
+           (not-components (cl-remove-if-not (lambda (x) (string-prefix-p "-" x)) all-components)))
       (if (= (length not-components) 0)
           (apply orig args)
         (pop args)
-        (let* ((components (cl-remove-if (lambda (x) (member x not-components)) components))
-               (not-components (append components
-                                       (mapcar (lambda (x) (substring x 1)) not-components)))
-               (table (apply orig `(,(mapconcat 'identity components " ") ,@args)))
-               (not-table (apply orig `(,(mapconcat 'identity not-components " ") ,@args))))
-          (cl-remove-if (lambda (x) (member x not-table)) table)))))
+        (let* ((components (cl-remove-if (lambda (x) (member x not-components)) all-components))
+               (table (apply orig `(,(mapconcat 'identity components " ") ,(pop args) ,@args))))
+          (cl-loop for c in (mapcar (lambda (x) (substring x 1)) not-components)
+                   for not-table = (apply orig `(,c ,table ,@args))
+                   do (setq table (cl-remove-if (lambda (x) (member x not-table)) table))
+                   finally return table)))))
   )
+
 
 (bundle prescient)
 (use-package prescient

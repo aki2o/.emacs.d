@@ -171,7 +171,7 @@
        ("prefix s" . ~e2wm:sub-maximize-toggle-command)
        ("C-}"      . e2wm:pst-history-forward-command)
        ("C-{"      . e2wm:pst-history-back-command)
-       ("C-M-z"    . ~e2wm:delete-window)
+       ("C-S-z"    . ~e2wm:delete-window)
        ) e2wm:prefix-key))
 
   (e2wm:add-keymap

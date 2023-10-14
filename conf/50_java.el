@@ -97,7 +97,13 @@
 (use-package kotlin-mode
   :defer t
   :config
+  (~browse-document-defun kotlin-stdlib "https://kotlinlang.org/api/latest/jvm/stdlib/")
+  (~browse-document-defun kotlin-jooq "https://www.jooq.org/javadoc/latest/org.jooq/module-summary.html")
+
   (~add-setup-hook 'kotlin-mode
+    (add-to-list '~browse-document-url-functions '~browse-kotlin-stdlib-document t)
+    (add-to-list '~browse-document-url-functions '~browse-kotlin-jooq-document t)
+
     (when (functionp 'lsp)
       (lsp-deferred)
       (setq lsp-completion-enable nil))))

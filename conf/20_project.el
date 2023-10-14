@@ -78,7 +78,7 @@
      (defun ,(intern (format "%s--in-other-project" command)) ()
        (interactive)
        (let ((projectile-switch-project-action (lambda ()
-                                                 (call-interactively ',command))))
+                                                 (call-interactively (setq this-command ',command)))))
          (projectile-switch-project)))))
 
 (~projectile-switchable-project-commandize projectile-find-file)
@@ -104,9 +104,44 @@
   (pophint-thing:advice-thing-at-point-function projectile-symbol-at-point)
   (pophint-thing:defcommand-noadvice projectile-ag))
 
+
 (with-eval-after-load 'vertico
-  (add-to-list 'vertico-repeat-filter 'projectile-completing-read t)
-  (add-to-list 'vertico-repeat-filter 'projectile-complete-dir t))
+  (advice-add 'projectile-completing-read :around #'~projectile-let-resumable)
+  (advice-add 'projectile-complete-dir :around #'~projectile-let-resumable))
+
+(defun ~projectile-let-resumable (orig &rest args)
+  (let* ((vertico-repeat-transformers (if (memq '~projectile-resume-transformer vertico-repeat-transformers)
+                                          vertico-repeat-transformers
+                                        (append vertico-repeat-transformers '(~projectile-resume-transformer))))
+         (~projectile-resumed-command (replace-regexp-in-string "^projectile-" "" (symbol-name this-command)))
+         (~projectile-resumed-directory (projectile-project-root)))
+    (apply orig args)))
+
+(defvar ~projectile-resumed-command nil)
+(defvar ~projectile-resumed-directory nil)
+
+(defun ~projectile-resume-transformer (session)
+  (when session
+    (list '~projectile-resume
+          (mapconcat 'identity (list ~projectile-resumed-command ~projectile-resumed-directory (cadr session)) " ")
+          (caddr session))))
+
+(defun ~projectile-resume ()
+  (interactive)
+  (let* ((session ~vertico-current-session)
+         (v (funcall orderless-component-separator (cadr session)))
+         (c (pop v))
+         (f (intern-soft (format "projectile-%s" c)))
+         (dir (pop v))
+         (input (mapconcat 'identity v " "))
+         (default-directory dir))
+    (when (not (commandp f))
+      (error "Invalid session : %s" session))
+    (setf (nth 1 session) input)
+    (unwind-protect
+        (call-interactively (setq this-command f))
+      (setf (nth 1 session) (mapconcat 'identity (list c dir input) " ")))))
+
 
 (with-eval-after-load 'consult
   (defun ~projectile-consult-ripgrep ()

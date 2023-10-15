@@ -50,7 +50,6 @@
         (with-editor :checksum "1d5860cfd05d6805018bd071b8f9b56493ba11c6")
         (git-modes :checksum "eca3bb42ea8abed9ef8549b2ac91bbea445c5bb5")
         (dsvn :checksum "87610624d71223f84d30e28908ed6b985b9ce894")
-        (docker-tramp :checksum "930d7b46c180d8a13240a028c1b40af84f2a3219")
         (dockerfile-mode :checksum "52c6c00da1d31c0b6c29c74335b3af63ed6bf06c")
         (yard-mode :checksum "ef3426ff55b6e91d581c8da12f5f64855d932527")
         (rspec-mode :checksum "484f0bab468674852aaf3e0ad0c3b3d4335d4316")

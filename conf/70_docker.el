@@ -4,13 +4,6 @@
   :mode (("/Dockerfiles/" . dockerfile-mode)))
 
 
-(bundle docker-tramp)
-(use-package docker-tramp
-  :defer t
-  :init
-  (setq docker-tramp-use-names t))
-
-
 (use-package viassh)
 (use-package docker-run
   :defer t

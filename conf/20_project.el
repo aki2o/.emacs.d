@@ -73,7 +73,7 @@
         (funcall ag-command search-term dir))
     (error "Ag is not available")))
 
-(defmacro ~projectile-switchable-project-commandize (command)
+(cl-defmacro ~projectile-switchable-project-commandize (command)
   `(progn
      (defun ,(intern (format "%s--in-other-project" command)) ()
        (interactive)
@@ -143,18 +143,16 @@
       (setf (nth 1 session) (mapconcat 'identity (list c dir input) " ")))))
 
 
-(with-eval-after-load 'consult
-  (defun ~projectile-consult-ripgrep ()
-    (interactive)
-    (funcall '~consult-ripgrep (projectile-project-root)))
+(defun ~projectile-consult-ripgrep ()
+  (interactive)
+  (funcall '~consult-ripgrep (projectile-project-root)))
 
-  (defun ~projectile-consult-ripgrep-with-directory-select ()
-    (interactive)
-    (funcall '~consult-ripgrep (expand-file-name (projectile-complete-dir (projectile-project-root)) (projectile-project-root))))
+(defun ~projectile-consult-ripgrep-with-directory-select ()
+  (interactive)
+  (funcall '~consult-ripgrep (expand-file-name (projectile-complete-dir (projectile-project-root)) (projectile-project-root))))
 
-  (~projectile-switchable-project-commandize ~projectile-consult-ripgrep)
-  (~projectile-switchable-project-commandize ~projectile-consult-ripgrep-with-directory-select)
-  )
+(~projectile-switchable-project-commandize ~projectile-consult-ripgrep)
+(~projectile-switchable-project-commandize ~projectile-consult-ripgrep-with-directory-select)
 
 
 ;; For p-r

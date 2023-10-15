@@ -15,7 +15,7 @@
            (lsp-headerline-breadcrumb-enable nil)
            (lsp-idle-delay 0.5)
            (lsp-completion-provider :none)
-           )
+           (lsp-warn-no-matched-clients nil))
   :defer t
   :config
   (make-variable-buffer-local 'lsp-enabled-clients)

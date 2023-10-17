@@ -90,48 +90,32 @@
               ("b" . eww-switch-to-buffer)
               ("o" . eww-browse-with-external-browser)
               ("R" . eww-reload)
-              ("t" . ~eww-toggle-colorfully))
+              ("t" . ~eww-toggle-font))
   :init
-  ;; (setq eww-search-prefix "https://duckduckgo.com/html/?k1=-1&kc=1&kf=-1&q=")
   (setq eww-search-prefix "https://www.google.co.jp/search?q=")
 
   :config
   (~add-setup-hook 'eww-mode
-    (face-remap-add-relative 'default :background "white" :foreground "black" :height 140)
-    (face-remap-add-relative 'shr-link :foreground "linkColor")
-    (setq cursor-type 'box)
+    (setq-local cursor-type 'box)
+    (setq-local shr-put-image-function '~shr-put-image-alt)
+    (setq-local shr-use-fonts nil)
 
     (when ~browse-searched-words
-      (rename-buffer (format "*eww: %s*" (mapconcat 'identity ~browse-searched-words " ")) t))
-
-    (setq-local shr-put-image-function '~shr-put-image-alt))
+      (rename-buffer (format "*eww: %s*" (mapconcat 'identity ~browse-searched-words " ")) t)))
 
   (~add-setup-hook 'eww-after-render
     (setq ~browse-searched-words nil)
     (eww-readable)
     (loop for w in ~browse-searched-words do (highlight-regexp w)))
 
-  (advice-add 'display-graphic-p :around '~shr-graphic)
-  (advice-add 'shr-colorize-region :around '~shr-colorize-region)
-  (advice-add 'eww-colorize-region :around '~shr-colorize-region))
-
-(defvar ~eww-colorful-view nil)
+  (with-eval-after-load 'owdriver
+    (add-to-list 'owdriver-keep-driving-command-prefixes "eww-" t)
+    (add-to-list 'owdriver-keep-driving-commands '~eww-toggle-font t)))
 
 (defun ~shr-put-image-alt (spec alt &optional flags)
   (insert alt))
 
-(defun ~shr-graphic (orig &rest args)
-  (when (or (not (eq major-mode 'eww-mode))
-            ~eww-colorful-view)
-    (apply orig args)))
-
-(defun ~shr-colorize-region (orig start end fg &optional bg &rest _)
-  (when (or (not (eq major-mode 'eww-mode))
-            ~eww-colorful-view)
-    (funcall orig start end fg)))
-
-(defun ~eww-toggle-colorfully ()
+(defun ~eww-toggle-font ()
   (interactive)
-  (setq-local ~eww-colorful-view (not ~eww-colorful-view))
+  (setq-local shr-use-fonts (not shr-use-fonts))
   (eww-reload))
-

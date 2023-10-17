@@ -31,7 +31,7 @@
     (add-to-list 'completion-at-point-functions '~completion-at-point-function)))
 
 (defun ~completion-at-point-function ()
-  (cape-wrap-super #'cape-dabbrev #'cape-dict #'cape-keyword))
+  (cape-wrap-super #'cape-dabbrev #'cape-keyword))
 
 
 (bundle corfu-prescient :type github :pkgname "radian-software/prescient.el")

@@ -80,7 +80,7 @@
         (projectile :checksum "683862872462c1c3c68fa41e370817399c15f836")
         (pkg-info :checksum "76ba7415480687d05a4353b27fea2ae02b8d9d61")
         (epl :checksum "78ab7a85c08222cd15582a298a364774e3282ce6")
-        (e2wm-perspb :checksum "59807bf9ba6158e4a1a1eeb6ebfdfd2d7d8d0ae7")
+        (e2wm-perspb :checksum "ffa59d66eecee260a29d7cba542214f93fed0b38")
         (smartrep :checksum "f0ff5a6d7b8603603598ae3045c98b011e58d86e")
         (e2wm-term :checksum "74362d6271e736272df32ea807c5a22e4df54a50")
         (e2wm-sww :checksum "8926d0c70be05c7b4ef821e22e411e8813973687")

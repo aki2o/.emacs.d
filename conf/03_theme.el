@@ -73,6 +73,8 @@
     (python-mode           . "Py")
     (perl-mode             . "Pl")
     (cperl-mode            . "Pl")
+    (kotlin-mode           . "Kt")
+    (java-mode             . "Jv")
     (slim-mode             . "Sl")
     (js2-mode              . "Js")
     (coffee-mode           . "Cf")

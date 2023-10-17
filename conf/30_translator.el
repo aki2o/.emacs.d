@@ -27,3 +27,11 @@
   (with-eval-after-load 'pophint-autoloads
     (pophint-thing:advice-thing-at-point-function ~google-translate-thing-at-point)))
 
+
+(~browse-document-defun-for fundamental "https://eow.alc.co.jp/search"
+  :name alc
+  :body (concat "?q=" (mapconcat 'identity words "+")))
+
+(~browse-document-defun-for prog "https://eow.alc.co.jp/search"
+  :name alc
+  :body (concat "?q=" (mapconcat 'identity words "+")))

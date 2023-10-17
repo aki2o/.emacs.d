@@ -44,9 +44,14 @@
 (defun ~browse-document ()
   (interactive)
   (let ((~browse-search-url-function '(lambda (words)
-                                        (let* ((key (intern-soft (replace-regexp-in-string "-mode$" "" (symbol-name major-mode))))
-                                               (functions (assoc key ~browse-document-url-functions-alist))
-                                               (urls (mapcar (lambda (x) (funcall x words)) functions)))
+                                        (let* ((urls (cl-loop with mode = major-mode
+                                                              while mode
+                                                              for functions = (assoc-default
+                                                                               (intern-soft (replace-regexp-in-string "-mode$" "" (symbol-name mode)))
+                                                                               ~browse-document-url-functions-alist)
+                                                              if functions
+                                                              append (mapcar (lambda (f) (funcall f words)) functions)
+                                                              do (setq mode (get mode 'derived-mode-parent)))))
                                           (cond ((not urls)
                                                  (error "No entries in ~browse-document-url-functions-alist for %s" key))
                                                 ((= (length urls) 1) (nth 0 urls))

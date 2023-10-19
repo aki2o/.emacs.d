@@ -33,7 +33,7 @@
         (json-reformat :checksum "9120ab67c5379c44bc7a7a07ca858670cea4f32f")
         (rjsx-mode :checksum "b697fe4d92cc84fa99a7bcb476f815935ea0d919")
         (js2-mode :checksum "7480c796917a18d7236414ce3cdf44b5be578d2a")
-        (add-node-modules-path :checksum "63f047fd84b825876152743f66de7ee6f9ed203b")
+        (add-node-modules-path :checksum "841e93dfed50448da66c89a977c9182bb18796a1")
         (prettier-js :checksum "e9b73e81d3e1642aec682195f127a42dfb0b5774")
         (haml-mode :checksum "bf5b6c11b1206759d2b28af48765e04882dd1fc4")
         (slim-mode :checksum "3636d18ab1c8b316eea71c4732eb44743e2ded87")

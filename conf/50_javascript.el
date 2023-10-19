@@ -8,7 +8,10 @@
 
 (bundle add-node-modules-path)
 (use-package add-node-modules-path
-  :hook (js-mode js2-mode typescript-mode web-mode))
+  :defer t
+  :init
+  (dolist (h '(js-mode-hook js2-mode-hook typescript-mode-hook web-mode-hook))
+    (add-hook h 'add-node-modules-path t)))
 
 
 (bundle rjsx-mode)

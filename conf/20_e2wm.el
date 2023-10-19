@@ -257,8 +257,8 @@
    '(("prefix j" . e2wm:dp-two-swap-buffers-command)
      ("prefix M" . e2wm:dp-two-main-maximize-toggle-command)
      ("prefix i" . ~e2wm-transcribe:history-toggle-command)
-     ("C-}"      . e2wm-perspb:switch-to-down-entry-command)
-     ("C-{"      . e2wm-perspb:switch-to-up-entry-command)
+     ("C-{"      . e2wm-perspb:switch-to-down-entry-command)
+     ("C-}"      . e2wm-perspb:switch-to-up-entry-command)
      ) e2wm:prefix-key)
 
   (defadvice direx:find-item (after ~e2wm-transcribe:select-main activate)

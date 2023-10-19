@@ -52,7 +52,7 @@
     (mmask-regist-name 'json-mode ".tern-project"))
   :config
   (~add-setup-hook 'json-mode
-    (setq js-indent-level 2)
+    (setq-local js-indent-level 2)
     (setq ~tidy-code-current-function '~typescript-tidy-dwim)))
 
 

@@ -195,11 +195,14 @@
 
   ;; For p-r
 
-  ;; magit では、なぜか再度 e2wm:pst-update-windows を実行しないと、
+  ;; magit では、パースペクティブ切替後に再度プラグインのupdateを実行しないと、
   ;; diffやbranchなどのmagitコマンド実行時に、以前のリポジトリに切り替わってしまったりする
   (advice-add 'e2wm:dp-magit :after '~e2wm:dp-magit-after)
   (defun ~e2wm:dp-magit-after ()
-    (e2wm:pst-update-windows))
+    (let* ((instance (e2wm:pst-get-instance))
+           (wm (e2wm:$pst-wm instance)))
+      (e2wm:pst-method-call e2wm:$pst-class-update instance wm))
+    )
   )
 
 

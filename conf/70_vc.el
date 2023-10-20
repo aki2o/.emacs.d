@@ -108,7 +108,7 @@
 
   ;; use only buffer that's shown on main
   (defun e2wm:def-plugin-vcs-with-window (topdir-func body-func na-buffer-func)
-    (let* ((buf (wlf:get-buffer (e2wm:pst-get-wm) 'main))
+    (let* ((buf (wlf:get-buffer wm 'main))
            (file (buffer-file-name buf))
            (dir (or (and file (file-name-directory file))
                     (with-current-buffer buf default-directory)))

@@ -19,7 +19,8 @@
 ;; Git
 (setenv "GIT_PAGER" "")
 (bundle git-modes)
-(use-package git-modes :defer t)
+(use-package git-modes
+  :defer t)
 
 
 (bundle magit)
@@ -35,7 +36,12 @@
 
   (with-eval-after-load 'with-editor
     (bind-keys :map with-editor-mode-map
-               ("C-c <up>" . with-editor-cancel))))
+               ("C-c <up>" . with-editor-cancel)))
+
+  (~add-setup-hook-after-load 'cape 'git-commit-mode
+    (make-local-variable 'completion-at-point-functions)
+    (add-to-list 'completion-at-point-functions 'cape-emoji t))
+  )
 
 (bundle magit-section)
 (use-package magit-section
@@ -68,81 +74,6 @@
 (use-package e2wm-vcs
   :defer t
   :config
-  ;; svn
-  (setq e2wm:c-svn-focus-buffer-regexp ".")
-
-  ;; p-r
-
-  (setq e2wm:c-svn-recipe
-        '(| (:left-size-ratio 0.3)
-            status
-            (| (:left-size-ratio 0.2)
-               (- (:upper-size-ratio 0.5)
-                  logs main)
-               (| (:left-size-ratio 0.1)
-                  diff sub))))
-
-  (setq e2wm:c-svn-winfo
-        '((:name status :plugin svn-status)
-          (:name logs   :plugin svn-logs)
-          (:name main)
-          (:name diff   :buffer "*svn output*" :default-hide t)
-          (:name sub    :buffer nil :default-hide t)))
-
-  (e2wm:pst-class-register
-   (make-e2wm:$pst-class
-    :name   'svn
-    :extend 'base
-    :title  "Svn"
-    :init   'e2wm:dp-svn-init
-    :main   'status
-    :switch 'e2wm:dp-svn-switch
-    :popup  'e2wm:dp-svn-popup
-    :leave  'e2wm:dp-svn-leave
-    :keymap 'e2wm:dp-svn-minor-mode-map))
-
-  (defun e2wm:dp-svn-init ()
-    (let* ((svn-wm
-            (wlf:no-layout e2wm:c-svn-recipe e2wm:c-svn-winfo))
-           (buf (or e2wm:prev-selected-buffer
-                    (e2wm:history-get-main-buffer))))
-      (wlf:set-buffer svn-wm 'main buf)
-      (wlf:select svn-wm 'status)
-      svn-wm))
-
-  (defun e2wm:dp-svn-switch (buf)
-    (e2wm:message "#DP SVN switch : %s" buf)
-    (cond ((e2wm:history-recordable-p buf)
-           (e2wm:with-advice
-            (e2wm:pst-buffer-set 'main buf t t)))
-          ((string= (buffer-name buf) "*log-edit-files*")
-           nil)
-          (t
-           (or (e2wm:vcs-select-if-plugin buf)
-               (e2wm:dp-svn-popup-sub buf)))))
-
-  (defun e2wm:dp-svn-popup (buf)
-    (let ((cb (current-buffer)))
-      (e2wm:message "#DP SVN popup : %s (current %s / backup %s)"
-                    buf cb e2wm:override-window-cfg-backup))
-    (cond ((e2wm:history-recordable-p buf)
-           (e2wm:with-advice
-            (e2wm:pst-buffer-set 'main buf t t)))
-          ((string= (buffer-name buf) "*svn output*")
-           (e2wm:with-advice
-            (e2wm:pst-buffer-set 'diff buf t t)))
-          (t
-           (e2wm:dp-svn-popup-sub buf))))
-
-  (defun e2wm:dp-svn-popup-sub (buf)
-    (let* ((wm (e2wm:pst-get-wm))
-           (bufname (buffer-name buf))
-           (focus-set (and (= 0 (minibuffer-depth))
-                           (string-match e2wm:c-svn-focus-buffer-regexp bufname))))
-      (e2wm:with-advice
-       (e2wm:pst-buffer-set 'sub buf t focus-set))))
-
-
   (setq e2wm:c-magit-recipe
         '(| (:left-size-ratio 0.3)
             (- (:upper-size-ratio 0.6)
@@ -174,6 +105,27 @@
     :leave  'e2wm:dp-magit-leave
     :keymap 'e2wm:dp-magit-minor-mode-map))
 
+  ;; use only buffer that's shown on main
+  (defun e2wm:def-plugin-vcs-with-window (topdir-func body-func na-buffer-func)
+    (let* ((buf (wlf:get-buffer (e2wm:pst-get-wm) 'main))
+           (file (buffer-file-name buf))
+           (dir (or (and file (file-name-directory file))
+                    (with-current-buffer buf default-directory)))
+           (topdir (and dir (funcall topdir-func dir))))
+      (e2wm:with-advice
+       (cond
+        (topdir
+         (with-selected-window (wlf:get-window wm (wlf:window-name winfo))
+           (with-current-buffer buf
+             (funcall body-func dir topdir)
+             (goto-char (point-min)))
+           (wlf:set-buffer wm (wlf:window-name winfo)
+                           (window-buffer (selected-window)))))
+        (t
+         (wlf:set-buffer wm (wlf:window-name winfo)
+                         (funcall na-buffer-func)))))))
+
+  ;; detect the window to show using not only e2wm:vcs-select-if-plugin but also others
   (defun e2wm:dp-magit-switch (buf)
     (e2wm:message "#DP MAGIT switch : %s" buf)
     (cond ((e2wm:history-recordable-p buf)
@@ -186,7 +138,6 @@
                   (e2wm:pst-buffer-set 'sub buf t not-minibufp)))))))
 
   ;; detect a commit buffer without magit-commit-buffer-name
-
   (defun e2wm:dp-magit-popup (buf)
     (let ((cb (current-buffer)))
       (e2wm:message "#DP MAGIT popup : %s (current %s / backup %s)"
@@ -215,22 +166,18 @@
            ;; displaying other objects in the sub window
            (e2wm:pst-buffer-set 'sub buf t not-minibufp)))))))
 
-  ;; use magit-status-internal as substitute for magit-status
-
+  ;; use e2wm:def-plugin-vcs-na-buffer unless topdir found
   (defun e2wm:def-plugin-magit-status (frame wm winfo)
     (e2wm:def-plugin-vcs-with-window
-     (e2wm:magit-top-dir-function)
+     'magit-toplevel
      (lambda (dir topdir)
-       (loop for f in '(magit-status-internal magit-status)
-             if (fboundp f)
-             return (funcall f (file-name-as-directory dir))))
-     (lambda () (e2wm:history-get-main-buffer))))
+       (magit-status topdir))
+     (lambda () (e2wm:def-plugin-vcs-na-buffer "Git N/A"))))
 
   ;; select function to show branches
-
   (defun e2wm:def-plugin-magit-branches (frame wm winfo)
     (e2wm:def-plugin-vcs-with-window
-     (e2wm:magit-top-dir-function)
+     'magit-toplevel
      (lambda (dir topdir)
        (dolist (f '(magit-show-branches magit-branch-manager magit-show-refs-head))
          (when (fboundp f)
@@ -238,20 +185,21 @@
      (lambda () (e2wm:def-plugin-vcs-na-buffer "Git N/A"))))
 
   ;; use magit-log-section-arguments for performance
-
   (defun e2wm:def-plugin-magit-logs (frame wm winfo)
     (e2wm:def-plugin-vcs-with-window
-     (e2wm:magit-top-dir-function)
+     'magit-toplevel
      (lambda (dir topdir)
        (apply 'magit-log-current (cons (magit-log-read-revs t) (magit-log-arguments))))
      (lambda () (e2wm:def-plugin-vcs-na-buffer "Git N/A"))))
 
-  ;; use magit-toplevel not magit-get-top-dir
+  ;; For p-r
 
-  (defun e2wm:magit-top-dir-function ()
-    (loop for f in '(magit-get-top-dir magit-toplevel)
-          if (fboundp f)
-          return f)))
+  ;; magit では、なぜか再度 e2wm:pst-update-windows を実行しないと、
+  ;; diffやbranchなどのmagitコマンド実行時に、以前のリポジトリに切り替わってしまったりする
+  (advice-add 'e2wm:dp-magit :after '~e2wm:dp-magit-after)
+  (defun ~e2wm:dp-magit-after ()
+    (e2wm:pst-update-windows))
+  )
 
 
 (defun ~git-grep-file-diff-history ()

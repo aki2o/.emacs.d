@@ -38,9 +38,10 @@
     (bind-keys :map with-editor-mode-map
                ("C-c <up>" . with-editor-cancel)))
 
-  (~add-setup-hook-after-load 'cape 'git-commit-mode
-    (make-local-variable 'completion-at-point-functions)
-    (add-to-list 'completion-at-point-functions 'cape-emoji t))
+  ;; Emacs29以降だった
+  ;; (~add-setup-hook-after-load 'cape 'git-commit-mode
+  ;;   (make-local-variable 'completion-at-point-functions)
+  ;;   (add-to-list 'completion-at-point-functions 'cape-emoji t))
   )
 
 (bundle magit-section)

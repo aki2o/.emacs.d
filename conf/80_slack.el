@@ -13,9 +13,10 @@
 ;;   ;; (make-variable-buffer-local 'slack-current-team-id)
 ;;   ;; (make-variable-buffer-local 'slack-message-edit-buffer-type)
 
-;;   (~add-setup-hook-after-load 'cape 'slack-mode
-;;     (make-local-variable 'completion-at-point-functions)
-;;     (add-to-list 'completion-at-point-functions 'cape-emoji t))
+;;   ;; Emacs29以降だった
+;;   ;; (~add-setup-hook-after-load 'cape 'slack-mode
+;;   ;;   (make-local-variable 'completion-at-point-functions)
+;;   ;;   (add-to-list 'completion-at-point-functions 'cape-emoji t))
 
 ;;   (slack-register-team
 ;;    :name "mf"

@@ -5,9 +5,10 @@
   (bind-keys :map markdown-mode-map
              ("C-c C-c" . ~markdown-render-buffer))
 
-  (~add-setup-hook-after-load 'cape 'markdown-mode
-    (make-local-variable 'completion-at-point-functions)
-    (add-to-list 'completion-at-point-functions 'cape-emoji t))
+  ;; Emacs29以降だった
+  ;; (~add-setup-hook-after-load 'cape 'markdown-mode
+  ;;   (make-local-variable 'completion-at-point-functions)
+  ;;   (add-to-list 'completion-at-point-functions 'cape-emoji t))
   )
 
 (defun ~markdown-render-buffer ()

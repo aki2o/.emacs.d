@@ -176,7 +176,7 @@
 (defun e2wm-transcribe:current-buffer-into-right-window-command ()
   (interactive)
   (let ((buf (current-buffer)))
-    (pushnew buf e2wm-transcribe:right-buffers)
+    (cl-pushnew buf e2wm-transcribe:right-buffers)
     (switch-to-buffer buf)))
 
 ;;;###autoload
@@ -191,7 +191,7 @@
           (buf (ad-get-arg 2)))
       (cl-case wname
         (left
-         (pushnew buf e2wm-transcribe:left-buffers)
+         (cl-pushnew buf e2wm-transcribe:left-buffers)
          (when (member buf e2wm-transcribe:right-buffers)
            (setq e2wm-transcribe:right-buffers
                  (delete buf e2wm-transcribe:right-buffers))))

@@ -34,7 +34,7 @@
 (bundle chatgpt :type github :pkgname "emacs-openai/chatgpt" :branch "master")
 (use-package chatgpt
   :defer t
-  :custom ((chatgpt-max-tokens 5000)
+  :custom ((chatgpt-max-tokens 2048)
            (chatgpt-max-history 100)
            (chatgpt-input-method 'minibuffer)
            (chatgpt-display-tokens-info t)))

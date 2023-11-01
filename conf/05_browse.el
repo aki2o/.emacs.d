@@ -71,30 +71,45 @@
              (setf (cdr entry) (append (cdr entry) (list ',f)))
            (push (cons ',mode (list ',f)) ~browse-document-url-functions-alist))))))
 
+(defvar ~browse-github-repositories '())
+
+(defun ~browse-github-code (repo path words)
+  (interactive
+   (list (completing-read "Repo: " ~browse-github-repositories nil nil)
+         (read-string "Path: " (ignore-errors (concat "*." (file-name-extension (buffer-file-name)))))
+         (list (read-string "Enter query: " (~browse-search-initial-input)))))
+  (let* ((url (format "https://github.com/search?q=%s%s+%s&type=code"
+                      (concat "repo%3A" (replace-regexp-in-string "/" "%2F" repo))
+                      (when path (concat "+path%3A" path))
+                      (mapconcat 'identity words "+"))))
+    (browse-url url)))
+
 
 (use-package eww
   :commands (~browse-search)
   :custom (
            ;; (eww-retrieve-command '("chromium" "--headless" "--dump-dom"))
            )
-  :bind (:map eww-mode-map
-              ("j" . next-line)
-              ("k" . previous-line)
-              ("h" . ~scroll-right)
-              ("l" . ~scroll-left)
-              ("J" . ~scroll-up)
-              ("K" . ~scroll-down)
-              ("H" . eww-back-url)
-              ("s" . ~browse-search-internally)
-              ("S" . pophint-thing:just-~browse-search-internally)
-              ("b" . eww-switch-to-buffer)
-              ("o" . eww-browse-with-external-browser)
-              ("R" . eww-reload)
-              ("t" . ~eww-toggle-font))
   :init
   (setq eww-search-prefix "https://www.google.co.jp/search?q=")
 
   :config
+  (bind-keys :map eww-mode-map
+             ("j" . next-line)
+             ("k" . previous-line)
+             ("h" . ~scroll-right)
+             ("l" . ~scroll-left)
+             ("J" . ~scroll-up)
+             ("K" . ~scroll-down)
+             ("H" . eww-back-url)
+             ("s" . ~browse-search-internally)
+             ("S" . pophint-thing:just-~browse-search-internally)
+             ("b" . eww-switch-to-buffer)
+             ("o" . eww-browse-with-external-browser)
+             ("R" . eww-reload)
+             ("A" . ~eww-toggle-readable)
+             ("T" . ~eww-toggle-font))
+
   (~add-setup-hook 'eww-mode
     (setq-local cursor-type 'box)
     (setq-local shr-put-image-function '~shr-put-image-alt)
@@ -105,15 +120,23 @@
 
   (~add-setup-hook 'eww-after-render
     (setq ~browse-searched-words nil)
-    (eww-readable)
+    (when ~eww-readable (eww-readable))
     (loop for w in ~browse-searched-words do (highlight-regexp w)))
 
   (with-eval-after-load 'owdriver
     (add-to-list 'owdriver-keep-driving-command-prefixes "eww-" t)
+    (add-to-list 'owdriver-keep-driving-commands '~eww-toggle-readable t)
     (add-to-list 'owdriver-keep-driving-commands '~eww-toggle-font t)))
+
+(defvar ~eww-readable t)
 
 (defun ~shr-put-image-alt (spec alt &optional flags)
   (insert alt))
+
+(defun ~eww-toggle-readable ()
+  (interactive)
+  (setq-local ~eww-readable (not ~eww-readable))
+  (eww-reload))
 
 (defun ~eww-toggle-font ()
   (interactive)

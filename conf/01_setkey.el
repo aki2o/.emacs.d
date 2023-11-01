@@ -593,6 +593,7 @@ _a_: show all                 _l_: go to child
   ("C-v"   github-browse-file-blame "github blame")
   ("M-S-v" github-browse-commit "github commit")
   (";"     ~browse-document "document")
+  (":"     ~browse-github-code "github code")
   ("u"     ~google-translate-dwim "translate"))
 
 

@@ -100,14 +100,18 @@
   (~browse-document-defun-for kotlin "https://kotlinlang.org/api/latest/jvm/stdlib/"
     :name stdlib)
   (~browse-document-defun-for kotlin "https://www.jooq.org/javadoc/latest/search.html"
-    :name jooq
-    :body (concat "?q=" (mapconcat 'identity words "%20")))
+    :name jooq-javadoc
+    :body (concat "?q=" (mapconcat 'identity words "%20"))
+    :internal nil)
+  (~browse-document-defun-for kotlin "https://www.jooq.org/doc/latest/manual/"
+    :name jooq-manual)
   (~browse-document-defun-for kotlin "https://kotest.io/docs/assertions/core-matchers.html"
     :name kotest-core)
 
   (~add-setup-hook 'kotlin-mode
     (when (functionp 'lsp)
-      (lsp-deferred)
+      ;; 不安定なので、一旦コメントアウト
+      ;; (lsp-deferred)
       (setq lsp-completion-enable nil))))
 
 

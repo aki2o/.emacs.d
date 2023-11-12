@@ -19,7 +19,7 @@
         (corfu-prescient :checksum "37d356e105fe29d5d3c686dcae2585981299d30b")
         (corfu :checksum "de565e2a358eacc305420cfb590f07612ee6dfec")
         (owdriver :checksum "968d1d5dccfe74de3a59ff431f03544ab920f556")
-        (pophint :checksum "fecc5c6d1c40a244ea983ebe6621d58ae4332521")
+        (pophint :checksum "6e9a89863b7caa2d7a1747ed0e689fedd37644d0")
         (terraform-mode :checksum "e560caaa9d9a11b0868adf6d9dcae5ebb5055730")
         (hcl-mode :checksum "ec27736c4c16fbf7f1ecab0210ec3c71ac2406fa")
         (sql-indent :checksum "7d5641dd68135e7070f5026c44e518266c663434")

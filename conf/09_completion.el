@@ -84,7 +84,7 @@
   :init
   (setq completion-styles '(orderless basic))
   (setq completion-category-overrides '((buffer (styles orderless substring))
-                                        (file (styles basic partial-completion))))
+                                        (file (styles orderless partial-completion))))
   (setq read-file-name-completion-ignore-case t)
   (setq read-buffer-completion-ignore-case t)
   (setq completion-ignore-case t)

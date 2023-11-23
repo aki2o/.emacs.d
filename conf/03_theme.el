@@ -6,7 +6,7 @@
   (custom-theme-set-faces
    'deeper-blue
    '(default                ((t (:foreground "gray90"))))
-   '(font-lock-comment-face ((t (:foreground "DarkSeaGreen4"))))
+   '(font-lock-comment-face ((t (:foreground "PaleTurquoise3"))))
    ;; '(mode-line-buffer-id    ((t (:foreground "gray80" :bold nil))))
    '(mode-line              ((t (:foreground "powder blue" :background "DeepSkyBlue4"))))
    '(mode-line-inactive     ((t (:foreground "gray50" :background "gray15"))))

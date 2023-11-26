@@ -1,7 +1,4 @@
-;; C/Migemo
 ;; http://www.kaoriya.net/software/cmigemo
-;; ソースコードをダウンロードし、READMEに従ってCygwin向けにインストール
-(bundle migemo)
 (use-package migemo
   :defer t
   :init
@@ -16,4 +13,3 @@
   (setq migemo-coding-system 'utf-8-unix)
   (load-library "migemo")
   (migemo-init))
-

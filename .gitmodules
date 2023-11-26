@@ -119,6 +119,10 @@
 	path = elisp/borg/marginalia
 	url = https://github.com/minad/marginalia
 	ignore = untracked
+[submodule "migemo"]
+	path = elisp/borg/migemo
+	url = https://github.com/emacs-jp/migemo
+	ignore = untracked
 [submodule "mozc"]
 	path = elisp/borg/mozc
 	url = git@github.com:emacsmirror/mozc.git

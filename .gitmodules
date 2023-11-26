@@ -17,6 +17,10 @@
 [submodule "compat"]
 	path = elisp/borg/compat
 	url = git@github.com:emacs-compat/compat.git
+[submodule "corfu"]
+	path = elisp/borg/corfu
+	url = https://github.com/minad/corfu
+	ignore = untracked
 [submodule "ctable"]
 	path = elisp/borg/ctable
 	url = https://github.com/kiwanami/emacs-ctable
@@ -95,6 +99,10 @@
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
+[submodule "marginalia"]
+	path = elisp/borg/marginalia
+	url = https://github.com/minad/marginalia
+	ignore = untracked
 [submodule "mozc"]
 	path = elisp/borg/mozc
 	url = git@github.com:emacsmirror/mozc.git
@@ -111,12 +119,20 @@
 	path = elisp/borg/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
 	ignore = untracked
+[submodule "orderless"]
+	path = elisp/borg/orderless
+	url = https://github.com/oantolin/orderless
+	ignore = untracked
 [submodule "popup"]
 	path = elisp/borg/popup
 	url = https://github.com/auto-complete/popup-el
 [submodule "posframe"]
 	path = elisp/borg/posframe
 	url = https://github.com/tumashu/posframe
+	ignore = untracked
+[submodule "prescient"]
+	path = elisp/borg/prescient
+	url = https://github.com/radian-software/prescient.el
 	ignore = untracked
 [submodule "s"]
 	path = elisp/borg/s
@@ -138,6 +154,10 @@
 [submodule "use-package"]
 	path = elisp/borg/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "vertico"]
+	path = elisp/borg/vertico
+	url = https://github.com/minad/vertico
+	ignore = untracked
 [submodule "viewer"]
 	path = elisp/borg/viewer
 	url = https://github.com/rubikitch/viewer

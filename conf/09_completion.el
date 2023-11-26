@@ -2,7 +2,6 @@
 (define-key minibuffer-local-map (kbd "C-M-n") 'next-matching-history-element)
 
 
-(bundle vertico :type git :url "git@github.com:minad/vertico.git" :checkout "af1c893f3891902162e32f73f062213436636567")
 (use-package vertico
   :custom ((vertico-count 25))
   :init
@@ -76,7 +75,6 @@
   session)
 
 
-(bundle orderless)
 (use-package orderless
   :custom ((orderless-component-separator 'orderless-escapable-split-on-space)
            (orderless-matching-styles '(orderless-regexp))
@@ -128,7 +126,6 @@
   )
 
 
-(bundle prescient)
 (use-package prescient
   :defer t
   :custom ((prescient-aggressive-file-save t))
@@ -137,7 +134,6 @@
 
 ;; recent-file で、直近使ったものが上に来なくなってしまったので使うのやめてる
 ;;
-;; (bundle vertico-prescient)
 ;; (use-package vertico-prescient
 ;;   :after vertico
 ;;   :custom ((vertico-prescient-enable-filtering nil)
@@ -147,10 +143,8 @@
 ;;   (vertico-prescient-mode 1))
 
 
-(bundle marginalia)
 (use-package marginalia
   :bind (:map minibuffer-local-map
               ("C-;" . marginalia-cycle))
   :init
   (marginalia-mode))
-

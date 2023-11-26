@@ -12,6 +12,7 @@
 !/elisp/
 /elisp/*
 !/elisp/etc/
+!/elisp/borg/
 
 !/snippets/
 

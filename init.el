@@ -1,43 +1,29 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-(when (file-exists-p (concat user-emacs-directory "initf.el"))
-  (load (concat user-emacs-directory "initf.el")))
+(load (locate-user-emacs-file "initf.el"))
 
+(let ((elisp-dir (locate-user-emacs-file "elisp/")))
+  ;; package
+  (require 'package)
+  (setq-default package-user-dir (concat elisp-dir "elpa"))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (setq package-enable-at-startup nil)
 
-;; etc
-(when (file-directory-p (concat user-emacs-directory "elisp/etc"))
-  (add-to-list 'load-path (concat user-emacs-directory "elisp/etc"))
-  (cd (concat user-emacs-directory "elisp/etc"))
-  (when (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (normal-top-level-add-subdirs-to-load-path)))
+  ;; borg
+  (setq borg-drones-directory (concat elisp-dir "borg"))
+  (add-to-list 'load-path (expand-file-name "borg" borg-drones-directory))
+  (require 'borg-elpa)
+  (borg-elpa-initialize)
 
-
-(let ((versioned-dir (locate-user-emacs-file (format "elisp/v%s" emacs-version))))
-  (setq-default el-get-dir (expand-file-name "el-get" versioned-dir)
-                package-user-dir (expand-file-name "elpa" versioned-dir)))
-
-
-;; bundle (an El-Get wrapper)
-(setq-default el-get-emacswiki-base-url
-              "http://raw.github.com/emacsmirror/emacswiki.org/master/")
-(add-to-list 'load-path (expand-file-name "bundle" el-get-dir))
-(unless (require 'bundle nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "http://raw.github.com/tarao/bundle-el/master/bundle-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-(add-to-list 'el-get-recipe-path (locate-user-emacs-file "recipes"))
-
-(bundle tarao/el-get-lock
-  (el-get-lock)
-  (el-get-lock-unlock 'el-get 'seq))
-
+  ;; etc
+  (add-to-list 'load-path (concat elisp-dir "etc"))
+  (cd (concat elisp-dir "etc"))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;; load
-(bundle! use-package)
-(bundle! init-loader)
+(require 'use-package)
+(require 'init-loader)
 (init-loader-load (locate-user-emacs-file "conf"))
 
 (custom-set-variables
@@ -49,8 +35,6 @@
  '(git-gutter:hide-gutter t)
  '(git-gutter:lighter " GG")
  '(lsp-log-io nil nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(tblui oauth2 corfu-prescient prescient rbs-mode vue-mode which-key-posframe consult compat bind-key))
  '(rspec-use-rake-flag nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

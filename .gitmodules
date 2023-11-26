@@ -37,7 +37,8 @@
 	path = elisp/borg/corfu
 	url = https://github.com/minad/corfu
 	ignore = untracked
-    recursive-byte-compile = true
+	load-path = .
+	load-path = extensions
 [submodule "ctable"]
 	path = elisp/borg/ctable
 	url = https://github.com/kiwanami/emacs-ctable
@@ -251,7 +252,8 @@
 	path = elisp/borg/vertico
 	url = https://github.com/minad/vertico
 	ignore = untracked
-    recursive-byte-compile = true
+	load-path = .
+	load-path = extensions
 [submodule "viewer"]
 	path = elisp/borg/viewer
 	url = https://github.com/rubikitch/viewer

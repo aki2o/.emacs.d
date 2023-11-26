@@ -68,6 +68,10 @@
 	path = elisp/borg/f
 	url = https://github.com/rejeep/f.el
 	ignore = untracked
+[submodule "fill-column-indicator"]
+	path = elisp/borg/fill-column-indicator
+	url = https://github.com/alpaker/fill-column-indicator
+	ignore = untracked
 [submodule "fuzzy"]
 	path = elisp/borg/fuzzy
 	url = https://github.com/auto-complete/fuzzy-el

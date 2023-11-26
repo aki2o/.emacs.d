@@ -80,6 +80,10 @@
 	path = elisp/borg/fill-column-indicator
 	url = https://github.com/alpaker/fill-column-indicator
 	ignore = untracked
+[submodule "flex-autopair"]
+	path = elisp/borg/flex-autopair
+	url = https://github.com/uk-ar/flex-autopair
+	ignore = untracked
 [submodule "fuzzy"]
 	path = elisp/borg/fuzzy
 	url = https://github.com/auto-complete/fuzzy-el

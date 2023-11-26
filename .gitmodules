@@ -1,3 +1,7 @@
+[submodule "alert"]
+	path = elisp/borg/alert
+	url = https://github.com/jwiegley/alert
+	ignore = untracked
 [submodule "all-the-icons"]
 	path = elisp/borg/all-the-icons
 	url = https://github.com/domtronn/all-the-icons.el

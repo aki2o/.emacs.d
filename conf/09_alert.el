@@ -1,4 +1,3 @@
-(bundle alert)
 (use-package alert
   :defer t
   :commands (alert)

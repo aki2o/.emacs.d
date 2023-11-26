@@ -25,6 +25,9 @@
 [submodule "git-modes"]
 	path = elisp/borg/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "hydra"]
+	path = elisp/borg/hydra
+	url = https://github.com/abo-abo/hydra
 [submodule "init-loader"]
 	path = elisp/borg/init-loader
 	url = https://github.com/emacs-jp/init-loader
@@ -34,6 +37,9 @@
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
+[submodule "posframe"]
+	path = elisp/borg/posframe
+	url = https://github.com/tumashu/posframe
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3
 	url = git@github.com:pekingduck/emacs-sqlite3-api.git
@@ -46,6 +52,12 @@
 [submodule "use-package"]
 	path = elisp/borg/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "which-key"]
+	path = elisp/borg/which-key
+	url = https://github.com/justbur/emacs-which-key
+[submodule "which-key-posframe"]
+	path = elisp/borg/which-key-posframe
+	url = https://github.com/emacsorphanage/which-key-posframe
 [submodule "with-editor"]
 	path = elisp/borg/with-editor
 	url = git@github.com:magit/with-editor.git

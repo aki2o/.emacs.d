@@ -24,11 +24,6 @@
 (global-set-key (kbd "C-x j") '~keyjack-mode)
 
 
-(bundle! bind-key)
-(bundle posframe)
-
-
-(bundle hydra)
 (use-package hydra
   :defer t
   :custom ((hydra-hint-display-type 'posframe))
@@ -41,7 +36,6 @@
   (plist-put hydra-posframe-show-params :internal-border-width 10))
 
 
-(bundle which-key)
 (use-package which-key
   :custom ((which-key-idle-delay 1.5))
   :init
@@ -66,7 +60,6 @@
    "C-c" "Special Provided"))
 
 
-(bundle which-key-posframe)
 (use-package which-key-posframe
   :custom ((which-key-posframe-poshandler 'posframe-poshandler-window-bottom-left-corner)
            (which-key-posframe-border-width 10))
@@ -82,4 +75,3 @@
   (defun which-key-posframe--max-dimensions (_)
     (cons (1- (frame-height)) (/ (frame-width) 2)))
   )
-

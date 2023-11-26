@@ -45,6 +45,10 @@
 [submodule "epkg"]
 	path = elisp/borg/epkg
 	url = git@github.com:emacscollective/epkg.git
+[submodule "exec-path-from-shell"]
+	path = elisp/borg/exec-path-from-shell
+	url = https://github.com/purcell/exec-path-from-shell
+	ignore = untracked
 [submodule "f"]
 	path = elisp/borg/f
 	url = https://github.com/rejeep/f.el

@@ -80,6 +80,21 @@
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
+[submodule "mozc"]
+	path = elisp/borg/mozc
+	url = git@github.com:emacsmirror/mozc.git
+	ignore = untracked
+[submodule "mozc-el-extensions"]
+	path = elisp/borg/mozc-el-extensions
+	url = git@github.com:iRi-E/mozc-el-extensions.git
+	ignore = untracked
+[submodule "mozc-popup"]
+	path = elisp/borg/mozc-popup
+	url = https://github.com/d5884/mozc-popup
+	ignore = untracked
+[submodule "popup"]
+	path = elisp/borg/popup
+	url = https://github.com/auto-complete/popup-el
 [submodule "posframe"]
 	path = elisp/borg/posframe
 	url = https://github.com/tumashu/posframe

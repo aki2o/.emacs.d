@@ -42,7 +42,6 @@
 
 
 ;; Mozc
-(bundle mozc)
 (use-package mozc
   :defer t
   :custom ((mozc-leim-title "[あ]")
@@ -56,8 +55,6 @@
     (add-hook 'helm-minibuffer-set-up-hook '~deactivate-input-method t)))
 
 
-(bundle popup)
-(bundle mozc-popup)
 (use-package mozc-popup
   :if window-system
   :after mozc
@@ -67,7 +64,6 @@
   (setq mozc-candidate-style 'popup))
 
 
-(bundle mozc-cursor-color :type github :pkgname "iRi-E/mozc-el-extensions")
 (use-package mozc-cursor-color
   :after mozc
   :config

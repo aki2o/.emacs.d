@@ -1,3 +1,6 @@
+[submodule "all-the-icons"]
+	path = elisp/borg/all-the-icons
+	url = https://github.com/domtronn/all-the-icons.el
 [submodule "auto-compile"]
 	path = elisp/borg/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
@@ -30,6 +33,10 @@
 [submodule "diminish"]
 	path = elisp/borg/diminish
 	url = https://github.com/myrjola/diminish.el
+	ignore = untracked
+[submodule "doom-modeline"]
+	path = elisp/borg/doom-modeline
+	url = https://github.com/seagle0128/doom-modeline
 	ignore = untracked
 [submodule "dropdown-list"]
 	path = elisp/borg/dropdown-list
@@ -92,6 +99,10 @@
 	path = elisp/borg/mozc-popup
 	url = https://github.com/d5884/mozc-popup
 	ignore = untracked
+[submodule "nerd-icons"]
+	path = elisp/borg/nerd-icons
+	url = https://github.com/rainstormstudio/nerd-icons.el
+	ignore = untracked
 [submodule "popup"]
 	path = elisp/borg/popup
 	url = https://github.com/auto-complete/popup-el
@@ -102,6 +113,10 @@
 [submodule "s"]
 	path = elisp/borg/s
 	url = https://github.com/magnars/s.el
+	ignore = untracked
+[submodule "shrink-path"]
+	path = elisp/borg/shrink-path
+	url = https://gitlab.com/bennya/shrink-path.el
 	ignore = untracked
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3

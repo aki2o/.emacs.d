@@ -28,6 +28,7 @@
 [submodule "hydra"]
 	path = elisp/borg/hydra
 	url = https://github.com/abo-abo/hydra
+	ignore = untracked
 [submodule "init-loader"]
 	path = elisp/borg/init-loader
 	url = https://github.com/emacs-jp/init-loader
@@ -40,6 +41,7 @@
 [submodule "posframe"]
 	path = elisp/borg/posframe
 	url = https://github.com/tumashu/posframe
+	ignore = untracked
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3
 	url = git@github.com:pekingduck/emacs-sqlite3-api.git
@@ -58,6 +60,7 @@
 [submodule "which-key-posframe"]
 	path = elisp/borg/which-key-posframe
 	url = https://github.com/emacsorphanage/which-key-posframe
+	ignore = untracked
 [submodule "with-editor"]
 	path = elisp/borg/with-editor
 	url = git@github.com:magit/with-editor.git

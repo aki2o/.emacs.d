@@ -49,7 +49,6 @@
     (read-only-mode 1)))
 
 
-(bundle viewer :type github :pkgname "rubikitch/viewer")
 (use-package viewer
   :after (view)
   :custom ((viewer-modeline-color-unwritable "indian red")

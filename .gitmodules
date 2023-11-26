@@ -134,6 +134,10 @@
 [submodule "use-package"]
 	path = elisp/borg/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "viewer"]
+	path = elisp/borg/viewer
+	url = https://github.com/rubikitch/viewer
+	ignore = untracked
 [submodule "which-key"]
 	path = elisp/borg/which-key
 	url = https://github.com/justbur/emacs-which-key

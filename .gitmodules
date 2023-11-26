@@ -18,6 +18,10 @@
 [submodule "closql"]
 	path = elisp/borg/closql
 	url = git@github.com:magit/closql.git
+[submodule "color-moccur"]
+	path = elisp/borg/color-moccur
+	url = https://github.com/myuhe/color-moccur.el
+	ignore = untracked
 [submodule "compat"]
 	path = elisp/borg/compat
 	url = git@github.com:emacs-compat/compat.git
@@ -122,6 +126,10 @@
 [submodule "migemo"]
 	path = elisp/borg/migemo
 	url = https://github.com/emacs-jp/migemo
+	ignore = untracked
+[submodule "moccur-edit"]
+	path = elisp/borg/moccur-edit
+	url = git@github.com:emacsattic/moccur-edit.git
 	ignore = untracked
 [submodule "mozc"]
 	path = elisp/borg/mozc

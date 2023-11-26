@@ -1,4 +1,3 @@
-(bundle color-moccur)
 (use-package color-moccur
   :commands (~moccur-grep ~moccur-grep-find ~dmoccur ~dmoccur-recursive
                           moccur dired-do-moccur Buffer-menu-moccur)
@@ -172,7 +171,5 @@
   (moccur-grep-find dir (append (moccur-split-string regexp) (list mask))))
 
 
-(bundle moccur-edit)
 (use-package moccur-edit
   :after (color-moccur))
-

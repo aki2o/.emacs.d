@@ -74,6 +74,10 @@
 	path = elisp/borg/hexrgb
 	url = git@github.com:emacsmirror/hexrgb.git
 	ignore = untracked
+[submodule "highlight-symbol"]
+	path = elisp/borg/highlight-symbol
+	url = https://github.com/nschum/highlight-symbol.el
+	ignore = untracked
 [submodule "hydra"]
 	path = elisp/borg/hydra
 	url = https://github.com/abo-abo/hydra

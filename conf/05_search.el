@@ -25,12 +25,10 @@
     ad-do-it))
 
 
-(bundle mozc-isearch :type github :pkgname "iRi-E/mozc-el-extensions")
 (use-package mozc-isearch
   :after mozc)
 
 
-(bundle highlight-symbol)
 (use-package highlight-symbol
   :defer t
   :bind* (("<f3>" . highlight-symbol-mode))

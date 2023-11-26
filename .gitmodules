@@ -29,6 +29,7 @@
 [submodule "compat"]
 	path = elisp/borg/compat
 	url = git@github.com:emacs-compat/compat.git
+	ignore = untracked
 [submodule "consult"]
 	path = elisp/borg/consult
 	url = https://github.com/minad/consult

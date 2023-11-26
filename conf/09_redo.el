@@ -1,4 +1,3 @@
-(bundle redo+)
 (use-package redo+
   :commands (redo undo)
   :config

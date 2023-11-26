@@ -1,4 +1,3 @@
-(bundle tail)
 (use-package tail
   :defer t
   :bind* (("C-x C-t"   . nil)

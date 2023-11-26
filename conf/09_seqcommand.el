@@ -1,4 +1,3 @@
-(bundle sequential-command)
 (use-package sequential-command)
 
 ;; インデント頭と行頭を行ったり来たり

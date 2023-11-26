@@ -114,6 +114,10 @@
 	path = elisp/borg/hydra
 	url = https://github.com/abo-abo/hydra
 	ignore = untracked
+[submodule "inertial-scroll"]
+	path = elisp/borg/inertial-scroll
+	url = https://github.com/kiwanami/emacs-inertial-scroll
+	ignore = untracked
 [submodule "init-loader"]
 	path = elisp/borg/init-loader
 	url = https://github.com/emacs-jp/init-loader
@@ -186,6 +190,10 @@
 	path = elisp/borg/recentf-ext
 	url = https://github.com/rubikitch/recentf-ext
 	ignore = untracked
+[submodule "redo+"]
+	path = elisp/borg/redo+
+	url = git@github.com:emacsmirror/redo-plus.git
+	ignore = untracked
 [submodule "rg"]
 	path = elisp/borg/rg
 	url = https://github.com/dajva/rg.el
@@ -194,6 +202,10 @@
 	path = elisp/borg/s
 	url = https://github.com/magnars/s.el
 	ignore = untracked
+[submodule "sequential-command"]
+	path = elisp/borg/sequential-command
+	url = https://github.com/rubikitch/sequential-command
+	ignore = untracked
 [submodule "shrink-path"]
 	path = elisp/borg/shrink-path
 	url = https://gitlab.com/bennya/shrink-path.el
@@ -201,6 +213,10 @@
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3
 	url = git@github.com:pekingduck/emacs-sqlite3-api.git
+[submodule "tail"]
+	path = elisp/borg/tail
+	url = https://github.com/emacsorphanage/tail
+	ignore = untracked
 [submodule "transient"]
 	path = elisp/borg/transient
 	url = git@github.com:magit/transient.git

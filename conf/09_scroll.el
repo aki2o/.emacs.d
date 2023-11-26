@@ -1,4 +1,3 @@
-(bundle inertial-scroll :type github :pkgname "kiwanami/emacs-inertial-scroll")
 (use-package inertial-scroll
   :custom ((inertias-initial-velocity 60.0))
   :config
@@ -8,4 +7,3 @@
 
   ;; undefined function follow-mode とエラーになってしまうので、 require してみてる
   (require 'follow))
-

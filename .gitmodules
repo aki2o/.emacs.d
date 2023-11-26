@@ -10,21 +10,59 @@
 [submodule "compat"]
 	path = elisp/borg/compat
 	url = git@github.com:emacs-compat/compat.git
+[submodule "ctable"]
+	path = elisp/borg/ctable
+	url = https://github.com/kiwanami/emacs-ctable
+	ignore = untracked
 [submodule "dash"]
 	path = elisp/borg/dash
 	url = git@github.com:magnars/dash.el.git
+[submodule "dash-functional"]
+	path = elisp/borg/dash-functional
+	url = git@github.com:aki2o/.emacs.d.git
+[submodule "deferred"]
+	path = elisp/borg/deferred
+	url = https://github.com/kiwanami/emacs-deferred
+	ignore = untracked
 [submodule "diff-hl"]
 	path = elisp/borg/diff-hl
 	url = git@github.com:dgutov/diff-hl.git
+[submodule "diminish"]
+	path = elisp/borg/diminish
+	url = https://github.com/myrjola/diminish.el
+	ignore = untracked
+[submodule "dropdown-list"]
+	path = elisp/borg/dropdown-list
+	url = git@github.com:emacsmirror/dropdown-list.git
+	ignore = untracked
+[submodule "elmine"]
+	path = elisp/borg/elmine
+	url = https://github.com/leoc/elmine
+	ignore = untracked
 [submodule "emacsql"]
 	path = elisp/borg/emacsql
 	url = git@github.com:magit/emacsql.git
 [submodule "epkg"]
 	path = elisp/borg/epkg
 	url = git@github.com:emacscollective/epkg.git
+[submodule "f"]
+	path = elisp/borg/f
+	url = https://github.com/rejeep/f.el
+	ignore = untracked
+[submodule "fuzzy"]
+	path = elisp/borg/fuzzy
+	url = https://github.com/auto-complete/fuzzy-el
 [submodule "git-modes"]
 	path = elisp/borg/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "gntp"]
+	path = elisp/borg/gntp
+	url = https://github.com/tekai/gntp.el
+	ignore = untracked
+[submodule "hexrgb"]
+	path = elisp/borg/hexrgb
+	url = git@github.com:emacsmirror/hexrgb.git
+	ignore = untracked
 [submodule "hydra"]
 	path = elisp/borg/hydra
 	url = https://github.com/abo-abo/hydra
@@ -41,6 +79,10 @@
 [submodule "posframe"]
 	path = elisp/borg/posframe
 	url = https://github.com/tumashu/posframe
+	ignore = untracked
+[submodule "s"]
+	path = elisp/borg/s
+	url = https://github.com/magnars/s.el
 	ignore = untracked
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3

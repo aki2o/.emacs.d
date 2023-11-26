@@ -1,4 +1,3 @@
-(bundle recentf-ext)
 (use-package recentf-ext)
 
 (recentf-mode t)

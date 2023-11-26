@@ -182,6 +182,10 @@
 	path = elisp/borg/queue
 	url = git@github.com:emacsmirror/queue.git
 	ignore = untracked
+[submodule "recentf-ext"]
+	path = elisp/borg/recentf-ext
+	url = https://github.com/rubikitch/recentf-ext
+	ignore = untracked
 [submodule "rg"]
 	path = elisp/borg/rg
 	url = https://github.com/dajva/rg.el

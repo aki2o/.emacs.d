@@ -15,6 +15,10 @@
 [submodule "borg"]
 	path = elisp/borg/borg
 	url = git@github.com:emacscollective/borg.git
+[submodule "cape"]
+	path = elisp/borg/cape
+	url = https://github.com/minad/cape
+	ignore = untracked
 [submodule "closql"]
 	path = elisp/borg/closql
 	url = git@github.com:magit/closql.git
@@ -25,10 +29,15 @@
 [submodule "compat"]
 	path = elisp/borg/compat
 	url = git@github.com:emacs-compat/compat.git
+[submodule "consult"]
+	path = elisp/borg/consult
+	url = https://github.com/minad/consult
+	ignore = untracked
 [submodule "corfu"]
 	path = elisp/borg/corfu
 	url = https://github.com/minad/corfu
 	ignore = untracked
+    recursive-byte-compile = true
 [submodule "ctable"]
 	path = elisp/borg/ctable
 	url = https://github.com/kiwanami/emacs-ctable
@@ -121,6 +130,14 @@
 [submodule "init-loader"]
 	path = elisp/borg/init-loader
 	url = https://github.com/emacs-jp/init-loader
+[submodule "kind-icon"]
+	path = elisp/borg/kind-icon
+	url = https://github.com/jdtsmith/kind-icon
+	ignore = untracked
+[submodule "libgit"]
+	path = elisp/borg/libgit
+	url = https://github.com/magit/libegit2
+	ignore = untracked
 [submodule "llama"]
 	path = elisp/borg/llama
 	url = https://git.sr.ht/~tarsius/llama
@@ -234,6 +251,7 @@
 	path = elisp/borg/vertico
 	url = https://github.com/minad/vertico
 	ignore = untracked
+    recursive-byte-compile = true
 [submodule "viewer"]
 	path = elisp/borg/viewer
 	url = https://github.com/rubikitch/viewer

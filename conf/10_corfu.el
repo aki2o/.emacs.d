@@ -1,4 +1,3 @@
-(bundle corfu :type git :url "git@github.com:minad/corfu.git" :checkout "de565e2a358eacc305420cfb590f07612ee6dfec")
 (use-package corfu
   :custom ((corfu-auto t)
            (corfu-auto-deley 0.4)
@@ -24,7 +23,6 @@
   :after corfu)
 
 
-(bundle cape :type github :pkgname "minad/cape" :branch "main")
 (use-package cape
   :init
   (with-eval-after-load 'minibuffer
@@ -34,7 +32,6 @@
   (cape-wrap-super #'cape-dabbrev #'cape-keyword))
 
 
-(bundle corfu-prescient :type github :pkgname "radian-software/prescient.el")
 (use-package corfu-prescient
   :after corfu
   :custom ((corfu-prescient-enable-filtering nil)
@@ -44,10 +41,8 @@
   (corfu-prescient-mode 1))
 
 
-(bundle kind-icon)
 (use-package kind-icon
   :after (corfu)
   :custom ((kind-icon-default-face 'corfu-default))
   :config
   (add-to-list 'corfu-margin-formatters 'kind-icon-margin-formatter))
-

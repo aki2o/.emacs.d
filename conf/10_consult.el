@@ -1,4 +1,3 @@
-(bundle consult :type git :url "git@github.com:aki2o/consult.git" :branch "fix_jump_preview")
 (use-package consult
   :custom ((consult-narrow-key (kbd "C-n"))
            (consult-preview-key (kbd "C-M-;"))

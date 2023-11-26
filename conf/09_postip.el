@@ -1,4 +1,3 @@
-(bundle pos-tip)
 (use-package pos-tip
   :defer t
   :init

@@ -166,6 +166,10 @@
 [submodule "popup"]
 	path = elisp/borg/popup
 	url = https://github.com/auto-complete/popup-el
+[submodule "pos-tip"]
+	path = elisp/borg/pos-tip
+	url = https://github.com/pitkali/pos-tip
+	ignore = untracked
 [submodule "posframe"]
 	path = elisp/borg/posframe
 	url = https://github.com/tumashu/posframe

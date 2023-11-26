@@ -108,7 +108,6 @@
 ;;   :after (shell))
 
 
-(bundle ansi-color)
 (use-package ansi-color
   :commands ansi-color-for-comint-mode-on
   :defer t)

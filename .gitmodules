@@ -86,6 +86,10 @@
 	path = elisp/borg/gntp
 	url = https://github.com/tekai/gntp.el
 	ignore = untracked
+[submodule "goto-chg"]
+	path = elisp/borg/goto-chg
+	url = https://github.com/emacs-evil/goto-chg
+	ignore = untracked
 [submodule "grep-a-lot"]
 	path = elisp/borg/grep-a-lot
 	url = https://github.com/ZungBang/emacs-grep-a-lot
@@ -135,6 +139,10 @@
 	path = elisp/borg/orderless
 	url = https://github.com/oantolin/orderless
 	ignore = untracked
+[submodule "point-undo"]
+	path = elisp/borg/point-undo
+	url = git@github.com:emacsmirror/point-undo.git
+	ignore = untracked
 [submodule "popup"]
 	path = elisp/borg/popup
 	url = https://github.com/auto-complete/popup-el
@@ -145,6 +153,10 @@
 [submodule "prescient"]
 	path = elisp/borg/prescient
 	url = https://github.com/radian-software/prescient.el
+	ignore = untracked
+[submodule "queue"]
+	path = elisp/borg/queue
+	url = git@github.com:emacsmirror/queue.git
 	ignore = untracked
 [submodule "rg"]
 	path = elisp/borg/rg
@@ -167,6 +179,10 @@
 [submodule "treepy"]
 	path = elisp/borg/treepy
 	url = git@github.com:volrath/treepy.el.git
+[submodule "undo-tree"]
+	path = elisp/borg/undo-tree
+	url = https://gitlab.com/tsc25/undo-tree
+	ignore = untracked
 [submodule "use-package"]
 	path = elisp/borg/use-package
 	url = git@github.com:jwiegley/use-package.git

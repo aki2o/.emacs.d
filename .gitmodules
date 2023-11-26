@@ -16,9 +16,6 @@
 [submodule "diff-hl"]
 	path = elisp/borg/diff-hl
 	url = git@github.com:dgutov/diff-hl.git
-[submodule "sqlite3"]
-	path = elisp/borg/sqlite3
-	url = git@github.com:pekingduck/emacs-sqlite3-api.git
 [submodule "emacsql"]
 	path = elisp/borg/emacsql
 	url = git@github.com:magit/emacsql.git
@@ -28,12 +25,18 @@
 [submodule "git-modes"]
 	path = elisp/borg/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "init-loader"]
+	path = elisp/borg/init-loader
+	url = https://github.com/emacs-jp/init-loader
 [submodule "llama"]
 	path = elisp/borg/llama
 	url = https://git.sr.ht/~tarsius/llama
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
+[submodule "sqlite3"]
+	path = elisp/borg/sqlite3
+	url = git@github.com:pekingduck/emacs-sqlite3-api.git
 [submodule "transient"]
 	path = elisp/borg/transient
 	url = git@github.com:magit/transient.git
@@ -46,6 +49,3 @@
 [submodule "with-editor"]
 	path = elisp/borg/with-editor
 	url = git@github.com:magit/with-editor.git
-[submodule "init-loader"]
-	path = elisp/borg/init-loader
-	url = https://github.com/emacs-jp/init-loader

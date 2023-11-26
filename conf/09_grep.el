@@ -32,34 +32,16 @@
     (grep cmd)))
 
 
-(bundle igrep)
-(use-package igrep
-  :after (grep)
-  :config
-  ;; lgrepを使い、UTF-8で出力
-  (igrep-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -Ou8"))
-  (igrep-find-define lgrep (igrep-use-zgrep nil) (igrep-regex-option "-n -Ou8"))
-  ;; (igrep-define grep (igrep-use-zgrep nil) (igrep-regex-option "-n"))
-  ;; (igrep-find-define grep (igrep-use-zgrep nil) (igrep-regex-option "-n"))
-  )
-
-
-(bundle grep-a-lot)
 (use-package grep-a-lot
-  :after (grep)
-  :config
-  ;; (grep-a-lot-setup-keys)
-  (grep-a-lot-advise igrep))
+  :after (grep))
 
 
-(bundle wgrep :type github :pkgname "mhayashi1120/Emacs-wgrep")
 (use-package wgrep
   :custom ((wgrep-enable-key "e")
            (wgrep-auto-save-buffer t))
   :after (grep))
 
 
-(bundle ag)
 (use-package ag
   :defer t
   :commands (~ag pophint-thing:just-~ag)
@@ -79,13 +61,11 @@
   (call-interactively (if current-prefix-arg 'ag-regexp 'ag)))
 
 
-(bundle wgrep-ag :type github :pkgname "mhayashi1120/Emacs-wgrep")
 (use-package wgrep-ag
   :after (ag)
   :hook (ag-mode . wgrep-setup))
 
 
-(bundle rg)
 (use-package rg
   :defer t)
 

@@ -1,3 +1,7 @@
+[submodule "ag"]
+	path = elisp/borg/ag
+	url = https://github.com/Wilfred/ag.el
+	ignore = untracked
 [submodule "alert"]
 	path = elisp/borg/alert
 	url = https://github.com/jwiegley/alert
@@ -82,6 +86,10 @@
 	path = elisp/borg/gntp
 	url = https://github.com/tekai/gntp.el
 	ignore = untracked
+[submodule "grep-a-lot"]
+	path = elisp/borg/grep-a-lot
+	url = https://github.com/ZungBang/emacs-grep-a-lot
+	ignore = untracked
 [submodule "hexrgb"]
 	path = elisp/borg/hexrgb
 	url = git@github.com:emacsmirror/hexrgb.git
@@ -138,6 +146,10 @@
 	path = elisp/borg/prescient
 	url = https://github.com/radian-software/prescient.el
 	ignore = untracked
+[submodule "rg"]
+	path = elisp/borg/rg
+	url = https://github.com/dajva/rg.el
+	ignore = untracked
 [submodule "s"]
 	path = elisp/borg/s
 	url = https://github.com/magnars/s.el
@@ -165,6 +177,10 @@
 [submodule "viewer"]
 	path = elisp/borg/viewer
 	url = https://github.com/rubikitch/viewer
+	ignore = untracked
+[submodule "wgrep"]
+	path = elisp/borg/wgrep
+	url = https://github.com/mhayashi1120/Emacs-wgrep
 	ignore = untracked
 [submodule "which-key"]
 	path = elisp/borg/which-key

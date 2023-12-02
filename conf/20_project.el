@@ -1,4 +1,3 @@
-(bundle! projectile)
 (use-package projectile)
 
 (setq projectile-keymap-prefix nil)
@@ -214,7 +213,6 @@ to invalidate."
                (propertize project-root 'face 'font-lock-keyword-face)))))
 
 
-(bundle editorconfig)
 (use-package editorconfig
   :defer t
   :hook ((prog-mode . editorconfig-mode)))

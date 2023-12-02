@@ -1,4 +1,3 @@
-(bundle owdriver :type git :url "git@github.com:aki2o/owdriver.git" :branch "follow_up_pophint_update")
 (use-package owdriver
   :custom ((owdriver-next-window-function '~owdriver-next-window))
   :config
@@ -42,4 +41,3 @@
              (not (eq w owdriver--window)))
         w
       (owdriver-find-next-window reverse))))
-

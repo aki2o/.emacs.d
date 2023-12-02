@@ -88,6 +88,10 @@
 	path = elisp/borg/e2wm-direx
 	url = https://github.com/aki2o/e2wm-direx
 	ignore = untracked
+[submodule "e2wm-perspb"]
+	path = elisp/borg/e2wm-perspb
+	url = https://github.com/aki2o/e2wm-perspb
+	ignore = untracked
 [submodule "e2wm-sww"]
 	path = elisp/borg/e2wm-sww
 	url = https://github.com/aki2o/e2wm-sww
@@ -95,6 +99,10 @@
 [submodule "e2wm-term"]
 	path = elisp/borg/e2wm-term
 	url = https://github.com/aki2o/e2wm-term
+	ignore = untracked
+[submodule "editorconfig"]
+	path = elisp/borg/editorconfig
+	url = https://github.com/editorconfig/editorconfig-emacs
 	ignore = untracked
 [submodule "elmine"]
 	path = elisp/borg/elmine
@@ -214,6 +222,14 @@
 	path = elisp/borg/orderless
 	url = https://github.com/oantolin/orderless
 	ignore = untracked
+[submodule "owdriver"]
+	path = elisp/borg/owdriver
+	url = https://github.com/aki2o/owdriver
+	ignore = untracked
+[submodule "persp-mode"]
+	path = elisp/borg/persp-mode
+	url = https://github.com/Bad-ptr/persp-mode.el
+	ignore = untracked
 [submodule "point-undo"]
 	path = elisp/borg/point-undo
 	url = git@github.com:emacsmirror/point-undo.git
@@ -236,6 +252,10 @@
 [submodule "prescient"]
 	path = elisp/borg/prescient
 	url = https://github.com/radian-software/prescient.el
+	ignore = untracked
+[submodule "projectile"]
+	path = elisp/borg/projectile
+	url = https://github.com/bbatsov/projectile
 	ignore = untracked
 [submodule "queue"]
 	path = elisp/borg/queue

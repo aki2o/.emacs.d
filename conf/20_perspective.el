@@ -1,4 +1,3 @@
-(bundle persp-mode)
 (use-package persp-mode
   :defer t
   :commands (persp-switch-to-buffer)
@@ -117,7 +116,6 @@
       (switch-to-buffer buffer-or-name norecord force-same-window))))
 
 
-(bundle e2wm-perspb :type github :pkgname "aki2o/e2wm-perspb")
 (use-package e2wm-perspb
   :after (e2wm)
   :config

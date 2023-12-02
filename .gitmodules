@@ -88,6 +88,14 @@
 	path = elisp/borg/e2wm-direx
 	url = https://github.com/aki2o/e2wm-direx
 	ignore = untracked
+[submodule "e2wm-sww"]
+	path = elisp/borg/e2wm-sww
+	url = https://github.com/aki2o/e2wm-sww
+	ignore = untracked
+[submodule "e2wm-term"]
+	path = elisp/borg/e2wm-term
+	url = https://github.com/aki2o/e2wm-term
+	ignore = untracked
 [submodule "elmine"]
 	path = elisp/borg/elmine
 	url = https://github.com/leoc/elmine

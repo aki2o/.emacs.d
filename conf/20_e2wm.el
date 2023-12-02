@@ -1,5 +1,4 @@
 (unbind-key "M-m")
-(bundle e2wm)
 (use-package e2wm
   :defer t
   :custom ((e2wm:c-max-history-num 100))
@@ -220,7 +219,6 @@
   )
 
 
-(bundle e2wm-sww)
 (use-package e2wm-sww
   :after (e2wm))
 
@@ -273,7 +271,6 @@
   )
 
 
-(bundle e2wm-term)
 (use-package e2wm-term
   :defer t
   :config
@@ -285,4 +282,3 @@
   (add-to-list 'e2wm-term:shell-password-prompt-regexps "^Confirm +Vault +password: +")
   (add-to-list 'e2wm-term:shell-password-prompt-regexps "^SUDO +password: +")
   (add-to-list 'e2wm-term:shell-password-prompt-regexps "^SSH +password: +"))
-

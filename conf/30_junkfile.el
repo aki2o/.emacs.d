@@ -1,4 +1,3 @@
-(bundle open-junk-file)
 (use-package open-junk-file
   :defer t
   :commands (open-junk-file)

@@ -145,6 +145,10 @@
 	path = elisp/borg/flex-autopair
 	url = https://github.com/uk-ar/flex-autopair
 	ignore = untracked
+[submodule "flycheck"]
+	path = elisp/borg/flycheck
+	url = https://github.com/flycheck/flycheck
+	ignore = untracked
 [submodule "fuzzy"]
 	path = elisp/borg/fuzzy
 	url = https://github.com/auto-complete/fuzzy-el
@@ -247,6 +251,10 @@
 [submodule "nerd-icons"]
 	path = elisp/borg/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
+	ignore = untracked
+[submodule "open-junk-file"]
+	path = elisp/borg/open-junk-file
+	url = https://github.com/rubikitch/open-junk-file
 	ignore = untracked
 [submodule "openai"]
 	path = elisp/borg/openai

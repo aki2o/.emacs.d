@@ -51,9 +51,6 @@
 [submodule "dash"]
 	path = elisp/borg/dash
 	url = git@github.com:magnars/dash.el.git
-[submodule "dash-functional"]
-	path = elisp/borg/dash-functional
-	url = git@github.com:aki2o/.emacs.d.git
 [submodule "deferred"]
 	path = elisp/borg/deferred
 	url = https://github.com/kiwanami/emacs-deferred

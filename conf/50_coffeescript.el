@@ -1,4 +1,3 @@
-(bundle coffee-mode)
 (use-package coffee-mode
   :defer t
   :init
@@ -13,4 +12,3 @@
 
   (~add-setup-hook-after-load 'mmask 'coffee-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'coffee-mode))))
-

@@ -29,6 +29,10 @@
 [submodule "closql"]
 	path = elisp/borg/closql
 	url = git@github.com:magit/closql.git
+[submodule "coffee-mode"]
+	path = elisp/borg/coffee-mode
+	url = https://github.com/defunkt/coffee-mode
+	ignore = untracked
 [submodule "color-moccur"]
 	path = elisp/borg/color-moccur
 	url = https://github.com/myuhe/color-moccur.el
@@ -51,6 +55,9 @@
 	ignore = untracked
 	load-path = .
 	load-path = extensions
+[submodule "csv-mode"]
+	path = elisp/borg/csv-mode
+	url = git@github.com:emacsmirror/csv-mode.git
 [submodule "ctable"]
 	path = elisp/borg/ctable
 	url = https://github.com/kiwanami/emacs-ctable
@@ -115,6 +122,10 @@
 	path = elisp/borg/editorconfig
 	url = https://github.com/editorconfig/editorconfig-emacs
 	ignore = untracked
+[submodule "eldoc-extension"]
+	path = elisp/borg/eldoc-extension
+	url = git@github.com:emacsmirror/eldoc-extension.git
+	ignore = untracked
 [submodule "elmine"]
 	path = elisp/borg/elmine
 	url = https://github.com/leoc/elmine
@@ -158,6 +169,14 @@
 [submodule "gntp"]
 	path = elisp/borg/gntp
 	url = https://github.com/tekai/gntp.el
+	ignore = untracked
+[submodule "go-mode"]
+	path = elisp/borg/go-mode
+	url = https://github.com/dominikh/go-mode.el
+	ignore = untracked
+[submodule "gom-mode"]
+	path = elisp/borg/gom-mode
+	url = https://github.com/emacsorphanage/gom-mode
 	ignore = untracked
 [submodule "google-translate"]
 	path = elisp/borg/google-translate
@@ -306,6 +325,10 @@
 	path = elisp/borg/projectile
 	url = https://github.com/bbatsov/projectile
 	ignore = untracked
+[submodule "protobuf-mode"]
+	path = elisp/borg/protobuf-mode
+	url = git@github.com:emacsmirror/protobuf-mode.git
+	ignore = untracked
 [submodule "queue"]
 	path = elisp/borg/queue
 	url = git@github.com:emacsmirror/queue.git
@@ -329,6 +352,10 @@
 [submodule "s"]
 	path = elisp/borg/s
 	url = https://github.com/magnars/s.el
+	ignore = untracked
+[submodule "scss-mode"]
+	path = elisp/borg/scss-mode
+	url = https://github.com/antonj/scss-mode
 	ignore = untracked
 [submodule "sequential-command"]
 	path = elisp/borg/sequential-command

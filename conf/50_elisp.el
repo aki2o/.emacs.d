@@ -48,7 +48,6 @@
       (flycheck-mode 0))))
 
 
-(bundle eldoc-extension)
 (use-package eldoc-extension
   :defer t
   :init
@@ -65,7 +64,6 @@
   :defer t)
 
 
-(bundle log4e)
 (use-package log4e
   :defer t
   :init

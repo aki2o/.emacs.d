@@ -18,7 +18,6 @@
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'css-mode))))
 
 
-(bundle scss-mode)
 (use-package scss-mode
   :defer t
   :config

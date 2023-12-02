@@ -1,4 +1,3 @@
-(bundle go-mode)
 (use-package go-mode
   :defer t
   :config
@@ -18,12 +17,9 @@
   )
 
 
-(bundle protobuf-mode)
 (use-package protobuf-mode
   :defer t)
 
 
-(bundle gom-mode)
 (use-package gom-mode
   :defer t)
-

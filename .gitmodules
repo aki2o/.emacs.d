@@ -201,6 +201,7 @@
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
+	ignore = untracked
 [submodule "magit-popup"]
 	path = elisp/borg/magit-popup
 	url = https://github.com/magit/magit-popup

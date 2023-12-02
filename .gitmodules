@@ -55,6 +55,10 @@
 	path = elisp/borg/ctable
 	url = https://github.com/kiwanami/emacs-ctable
 	ignore = untracked
+[submodule "dap-mode"]
+	path = elisp/borg/dap-mode
+	url = https://github.com/emacs-lsp/dap-mode
+	ignore = untracked
 [submodule "dash"]
 	path = elisp/borg/dash
 	url = git@github.com:magnars/dash.el.git
@@ -198,6 +202,13 @@
 	path = elisp/borg/log4e
 	url = https://github.com/aki2o/log4e
 	ignore = untracked
+[submodule "lsp-docker"]
+	path = elisp/borg/lsp-docker
+	url = https://github.com/emacs-lsp/lsp-docker
+	ignore = untracked
+[submodule "lsp-mode"]
+	path = elisp/borg/lsp-mode
+	url = https://github.com/emacs-lsp/lsp-mode
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
@@ -372,6 +383,10 @@
 [submodule "with-editor"]
 	path = elisp/borg/with-editor
 	url = git@github.com:magit/with-editor.git
+[submodule "yaml"]
+	path = elisp/borg/yaml
+	url = https://github.com/zkry/yaml.el
+	ignore = untracked
 [submodule "yaol"]
 	path = elisp/borg/yaol
 	url = https://github.com/aki2o/yaol-el

@@ -1,4 +1,3 @@
-(bundle yasnippet)
 (use-package yasnippet
   :defer t
   :commands (yas-visit-snippet-file

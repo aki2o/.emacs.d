@@ -1,4 +1,3 @@
-(bundle lsp-mode)
 (use-package lsp-mode
   :custom ((lsp-keymap-prefix "C-x l")
            (lsp-signature-render-documentation nil)
@@ -40,7 +39,6 @@
     (cape-wrap-buster orig)))
 
 
-(bundle lsp-ui)
 (use-package lsp-ui
   :after (lsp-mode)
   :custom ((lsp-ui-sideline-enable nil)
@@ -109,7 +107,6 @@
         (pop-to-buffer (current-buffer))))))
 
 
-(bundle lsp-docker)
 (use-package lsp-docker
   :after (lsp-mode))
 

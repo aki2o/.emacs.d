@@ -159,6 +159,10 @@
 	path = elisp/borg/gntp
 	url = https://github.com/tekai/gntp.el
 	ignore = untracked
+[submodule "google-translate"]
+	path = elisp/borg/google-translate
+	url = https://github.com/atykhonov/google-translate
+	ignore = untracked
 [submodule "goto-chg"]
 	path = elisp/borg/goto-chg
 	url = https://github.com/emacs-evil/goto-chg
@@ -213,6 +217,10 @@
 [submodule "lsp-mode"]
 	path = elisp/borg/lsp-mode
 	url = https://github.com/emacs-lsp/lsp-mode
+[submodule "lsp-ui"]
+	path = elisp/borg/lsp-ui
+	url = https://github.com/emacs-lsp/lsp-ui
+	ignore = untracked
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
@@ -398,6 +406,10 @@
 [submodule "yaol"]
 	path = elisp/borg/yaol
 	url = https://github.com/aki2o/yaol-el
+	ignore = untracked
+[submodule "yasnippet"]
+	path = elisp/borg/yasnippet
+	url = https://github.com/joaotavora/yasnippet
 	ignore = untracked
 [submodule "yaxception"]
 	path = elisp/borg/yaxception

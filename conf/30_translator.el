@@ -1,4 +1,3 @@
-(bundle google-translate)
 (use-package google-translate
   :defer t
   :commands (google-translate-translate ~google-translate-dwim)

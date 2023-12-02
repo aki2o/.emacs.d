@@ -12,6 +12,10 @@
 [submodule "auto-compile"]
 	path = elisp/borg/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
+[submodule "avy"]
+	path = elisp/borg/avy
+	url = https://github.com/abo-abo/avy
+	ignore = untracked
 [submodule "borg"]
 	path = elisp/borg/borg
 	url = git@github.com:emacscollective/borg.git
@@ -61,6 +65,10 @@
 	path = elisp/borg/diminish
 	url = https://github.com/myrjola/diminish.el
 	ignore = untracked
+[submodule "direx"]
+	path = elisp/borg/direx
+	url = https://github.com/emacsorphanage/direx
+	ignore = untracked
 [submodule "doom-modeline"]
 	path = elisp/borg/doom-modeline
 	url = https://github.com/seagle0128/doom-modeline
@@ -69,6 +77,10 @@
 	path = elisp/borg/dropdown-list
 	url = git@github.com:emacsmirror/dropdown-list.git
 	ignore = untracked
+[submodule "e2wm"]
+	path = elisp/borg/e2wm
+	url = https://github.com/kiwanami/emacs-window-manager
+	ignore = untracked
 [submodule "elmine"]
 	path = elisp/borg/elmine
 	url = https://github.com/leoc/elmine
@@ -76,6 +88,10 @@
 [submodule "emacsql"]
 	path = elisp/borg/emacsql
 	url = git@github.com:magit/emacsql.git
+[submodule "embark"]
+	path = elisp/borg/embark
+	url = https://github.com/oantolin/embark
+	ignore = untracked
 [submodule "epkg"]
 	path = elisp/borg/epkg
 	url = git@github.com:emacscollective/epkg.git
@@ -186,6 +202,10 @@
 	path = elisp/borg/point-undo
 	url = git@github.com:emacsmirror/point-undo.git
 	ignore = untracked
+[submodule "pophint"]
+	path = elisp/borg/pophint
+	url = https://github.com/aki2o/emacs-pophint
+	ignore = untracked
 [submodule "popup"]
 	path = elisp/borg/popup
 	url = https://github.com/auto-complete/popup-el
@@ -269,6 +289,10 @@
 [submodule "which-key-posframe"]
 	path = elisp/borg/which-key-posframe
 	url = https://github.com/emacsorphanage/which-key-posframe
+	ignore = untracked
+[submodule "window-layout"]
+	path = elisp/borg/window-layout
+	url = https://github.com/kiwanami/emacs-window-layout
 	ignore = untracked
 [submodule "with-editor"]
 	path = elisp/borg/with-editor

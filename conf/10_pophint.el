@@ -1,7 +1,3 @@
-(bundle pophint :type git :url "git@github.com:aki2o/emacs-pophint.git" :branch "refactor_for_emacs_28"
-  (make-directory-autoloads default-directory "pophint-autoloads.el")
-  (kill-buffer (get-buffer "pophint-autoloads.el")))
-(require 'pophint-autoloads)
 (setq pophint:popup-chars "hjklyuiopnmgfdatre;")
 (setq pophint:popup-max-tips 1000)
 (setq pophint:switch-direction-p nil)

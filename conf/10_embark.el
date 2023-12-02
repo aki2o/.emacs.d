@@ -1,4 +1,3 @@
-(bundle embark)
 (use-package embark
   :after (vertico)
   :init
@@ -47,7 +46,5 @@
     (embark-act arg)))
 
 
-(bundle embark-consult :type github :pkgname "oantolin/embark")
 (use-package embark-consult
   :after (embark consult))
-

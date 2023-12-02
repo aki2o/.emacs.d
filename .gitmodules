@@ -23,6 +23,9 @@
 	path = elisp/borg/cape
 	url = https://github.com/minad/cape
 	ignore = untracked
+[submodule "chatgpt"]
+	path = elisp/borg/chatgpt
+	url = git@github.com:emacs-openai/chatgpt.git
 [submodule "closql"]
 	path = elisp/borg/closql
 	url = git@github.com:magit/closql.git
@@ -37,6 +40,10 @@
 [submodule "consult"]
 	path = elisp/borg/consult
 	url = https://github.com/minad/consult
+	ignore = untracked
+[submodule "copilot"]
+	path = elisp/borg/copilot
+	url = git@github.com:zerolfx/copilot.el.git
 	ignore = untracked
 [submodule "corfu"]
 	path = elisp/borg/corfu
@@ -160,6 +167,10 @@
 	path = elisp/borg/highlight-symbol
 	url = https://github.com/nschum/highlight-symbol.el
 	ignore = untracked
+[submodule "ht"]
+	path = elisp/borg/ht
+	url = https://github.com/Wilfred/ht.el
+	ignore = untracked
 [submodule "hydra"]
 	path = elisp/borg/hydra
 	url = https://github.com/abo-abo/hydra
@@ -190,9 +201,16 @@
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git
+[submodule "magit-popup"]
+	path = elisp/borg/magit-popup
+	url = https://github.com/magit/magit-popup
 [submodule "marginalia"]
 	path = elisp/borg/marginalia
 	url = https://github.com/minad/marginalia
+	ignore = untracked
+[submodule "markdown-mode"]
+	path = elisp/borg/markdown-mode
+	url = https://github.com/jrblevin/markdown-mode
 	ignore = untracked
 [submodule "migemo"]
 	path = elisp/borg/migemo
@@ -218,6 +236,9 @@
 	path = elisp/borg/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
 	ignore = untracked
+[submodule "openai"]
+	path = elisp/borg/openai
+	url = git@github.com:emacs-openai/openai.git
 [submodule "orderless"]
 	path = elisp/borg/orderless
 	url = https://github.com/oantolin/orderless
@@ -269,6 +290,10 @@
 	path = elisp/borg/redo+
 	url = git@github.com:emacsmirror/redo-plus.git
 	ignore = untracked
+[submodule "request"]
+	path = elisp/borg/request
+	url = https://github.com/tkf/emacs-request
+	ignore = untracked
 [submodule "rg"]
 	path = elisp/borg/rg
 	url = https://github.com/dajva/rg.el
@@ -285,13 +310,24 @@
 	path = elisp/borg/shrink-path
 	url = https://gitlab.com/bennya/shrink-path.el
 	ignore = untracked
+[submodule "spinner"]
+	path = elisp/borg/spinner
+	url = https://github.com/Malabarba/spinner.el
+	ignore = untracked
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3
 	url = git@github.com:pekingduck/emacs-sqlite3-api.git
 	ignore = untracked
+[submodule "tablist"]
+	path = elisp/borg/tablist
+	url = git@github.com:politza/tablist.git
 [submodule "tail"]
 	path = elisp/borg/tail
 	url = https://github.com/emacsorphanage/tail
+	ignore = untracked
+[submodule "tblui"]
+	path = elisp/borg/tblui
+	url = https://github.com/Yuki-Inoue/tblui.el
 	ignore = untracked
 [submodule "transient"]
 	path = elisp/borg/transient

@@ -51,6 +51,7 @@
 [submodule "dash"]
 	path = elisp/borg/dash
 	url = git@github.com:magnars/dash.el.git
+	ignore = untracked
 [submodule "deferred"]
 	path = elisp/borg/deferred
 	url = https://github.com/kiwanami/emacs-deferred
@@ -58,13 +59,18 @@
 [submodule "diff-hl"]
 	path = elisp/borg/diff-hl
 	url = git@github.com:dgutov/diff-hl.git
+	ignore = untracked
 [submodule "diminish"]
 	path = elisp/borg/diminish
 	url = https://github.com/myrjola/diminish.el
 	ignore = untracked
 [submodule "direx"]
 	path = elisp/borg/direx
-	url = https://github.com/emacsorphanage/direx
+	url = git@github.com:aki2o/direx-el.git
+	ignore = untracked
+[submodule "direx-grep"]
+	path = elisp/borg/direx-grep
+	url = https://github.com/aki2o/direx-grep
 	ignore = untracked
 [submodule "doom-modeline"]
 	path = elisp/borg/doom-modeline
@@ -77,6 +83,10 @@
 [submodule "e2wm"]
 	path = elisp/borg/e2wm
 	url = https://github.com/kiwanami/emacs-window-manager
+	ignore = untracked
+[submodule "e2wm-direx"]
+	path = elisp/borg/e2wm-direx
+	url = https://github.com/aki2o/e2wm-direx
 	ignore = untracked
 [submodule "elmine"]
 	path = elisp/borg/elmine
@@ -145,6 +155,7 @@
 [submodule "init-loader"]
 	path = elisp/borg/init-loader
 	url = https://github.com/emacs-jp/init-loader
+	ignore = untracked
 [submodule "kind-icon"]
 	path = elisp/borg/kind-icon
 	url = https://github.com/jdtsmith/kind-icon
@@ -249,6 +260,7 @@
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3
 	url = git@github.com:pekingduck/emacs-sqlite3-api.git
+	ignore = untracked
 [submodule "tail"]
 	path = elisp/borg/tail
 	url = https://github.com/emacsorphanage/tail
@@ -259,6 +271,7 @@
 [submodule "treepy"]
 	path = elisp/borg/treepy
 	url = git@github.com:volrath/treepy.el.git
+	ignore = untracked
 [submodule "undo-tree"]
 	path = elisp/borg/undo-tree
 	url = https://gitlab.com/tsc25/undo-tree

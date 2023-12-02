@@ -1,4 +1,3 @@
-(bundle direx :type git :url "git@github.com:aki2o/direx-el.git" :branch "feature-not-merged")
 (use-package direx
   :defer t
   :functions (direx:direx-mode)
@@ -41,7 +40,6 @@
              (direx:jump-to-directory-other-window)))))
 
 
-(bundle direx-grep)
 (use-package direx-grep
   :after (direx)
   :config
@@ -51,7 +49,5 @@
   (define-key direx:direx-mode-map (kbd "A") 'direx-grep:show-all-item-at-point))
 
 
-(bundle e2wm-direx)
 (use-package e2wm-direx
   :after (e2wm))
-

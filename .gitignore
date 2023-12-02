@@ -7,6 +7,7 @@
 /*
 !/.gitignore
 !/*.el
+!/Makefile
 
 !/conf/
 !/elisp/

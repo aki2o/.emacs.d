@@ -1,4 +1,3 @@
-(bundle ruby-mode)
 (use-package ruby-mode
   :defer t
   :custom ((ruby-indent-level 2)
@@ -91,14 +90,12 @@
                          (shell-quote-argument keyword))))
 
 
-(bundle ruby-block)
 (use-package ruby-block
   :defer t
   :custom ((ruby-block-highlight-toggle t))
   :hook (ruby-mode . ruby-block-mode))
 
 
-(bundle ruby-end)
 (use-package ruby-end
   :defer t
   :hook (ruby-mode . ruby-end-mode)
@@ -106,7 +103,6 @@
   (unbind-key (read-kbd-macro ruby-end-expand-ret-key) ruby-end-mode-map))
 
 
-(bundle inf-ruby)
 (use-package inf-ruby
   :defer t
   :custom ((inf-ruby-default-implementation "pry")
@@ -117,7 +113,6 @@
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on t))
 
 
-(bundle projectile-rails)
 (use-package projectile-rails
   :defer t
   :hook (projectile-mode . projectile-rails-on)
@@ -191,7 +186,6 @@
 ;;   (docker-projectile-rails:activate))
 
 
-(bundle rspec-mode)
 (use-package rspec-mode
   :after (ruby-mode)
   :init
@@ -239,15 +233,10 @@
                          (substring spec-path (length request-spec-root))))))))))
 
 
-(bundle yard-mode)
 (use-package yard-mode
   :defer t
   :hook (ruby-mode . yard-mode))
 
 
-(bundle rake)
 (use-package rake
   :defer t)
-
-
-(bundle rbs-mode)

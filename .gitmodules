@@ -160,6 +160,10 @@
 	path = elisp/borg/fill-column-indicator
 	url = https://github.com/alpaker/fill-column-indicator
 	ignore = untracked
+[submodule "findr"]
+	path = elisp/borg/findr
+	url = https://github.com/emacsorphanage/findr
+	ignore = untracked
 [submodule "flex-autopair"]
 	path = elisp/borg/flex-autopair
 	url = https://github.com/uk-ar/flex-autopair
@@ -233,6 +237,14 @@
 [submodule "inertial-scroll"]
 	path = elisp/borg/inertial-scroll
 	url = https://github.com/kiwanami/emacs-inertial-scroll
+	ignore = untracked
+[submodule "inf-ruby"]
+	path = elisp/borg/inf-ruby
+	url = https://github.com/nonsequitur/inf-ruby
+	ignore = untracked
+[submodule "inflections"]
+	path = elisp/borg/inflections
+	url = git@github.com:eschulte/jump.el.git
 	ignore = untracked
 [submodule "init-loader"]
 	path = elisp/borg/init-loader
@@ -392,6 +404,10 @@
 	path = elisp/borg/projectile
 	url = https://github.com/bbatsov/projectile
 	ignore = untracked
+[submodule "projectile-rails"]
+	path = elisp/borg/projectile-rails
+	url = https://github.com/asok/projectile-rails
+	ignore = untracked
 [submodule "protobuf-mode"]
 	path = elisp/borg/protobuf-mode
 	url = git@github.com:emacsmirror/protobuf-mode.git
@@ -403,6 +419,14 @@
 [submodule "queue"]
 	path = elisp/borg/queue
 	url = git@github.com:emacsmirror/queue.git
+	ignore = untracked
+[submodule "rake"]
+	path = elisp/borg/rake
+	url = https://github.com/asok/rake
+	ignore = untracked
+[submodule "rbs-mode"]
+	path = elisp/borg/rbs-mode
+	url = https://github.com/ybiquitous/rbs-mode
 	ignore = untracked
 [submodule "recentf-ext"]
 	path = elisp/borg/recentf-ext
@@ -424,6 +448,16 @@
 	path = elisp/borg/rjsx-mode
 	url = https://github.com/felipeochoa/rjsx-mode
 	ignore = untracked
+[submodule "rspec-mode"]
+	path = elisp/borg/rspec-mode
+	url = https://github.com/pezra/rspec-mode
+[submodule "ruby-block"]
+	path = elisp/borg/ruby-block
+	url = git@github.com:emacsmirror/ruby-block.git
+	ignore = untracked
+[submodule "ruby-end"]
+	path = elisp/borg/ruby-end
+	url = https://github.com/rejeep/ruby-end.el
 [submodule "s"]
 	path = elisp/borg/s
 	url = https://github.com/magnars/s.el
@@ -534,6 +568,10 @@
 [submodule "yaol"]
 	path = elisp/borg/yaol
 	url = https://github.com/aki2o/yaol-el
+	ignore = untracked
+[submodule "yard-mode"]
+	path = elisp/borg/yard-mode
+	url = https://github.com/pd/yard-mode.el
 	ignore = untracked
 [submodule "yasnippet"]
 	path = elisp/borg/yasnippet

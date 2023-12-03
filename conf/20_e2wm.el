@@ -1,3 +1,11 @@
+;; e2wm を動かすため。修正したい
+(defvar display-buffer-function 'display-buffer-use-some-frame)
+
+(defun ~display-buffer (buf alist)
+  (funcall display-buffer-function buf alist))
+
+(setq display-buffer-base-action '((~display-buffer)))
+
 (unbind-key "M-m")
 (use-package e2wm
   :defer t

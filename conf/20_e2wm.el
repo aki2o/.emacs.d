@@ -43,33 +43,6 @@
 
   ;; 既存パースペクティブ定義カスタマイズ
 
-  ;; code
-  (setq e2wm:c-code-recipe
-        '(| (:left-max-size 40)
-            (- (:upper-size-ratio 0.7)
-               tree history)
-            (- (:lower-max-size 150)
-               (| (:right-max-size 45)
-                  main
-                  (- sww outline))
-               sub)))
-
-  (setq e2wm:c-code-winfo
-        '((:name main)
-          (:name tree    :plugin direx)
-          (:name history :plugin perspb)
-          (:name outline :plugin files :sww sww)
-          (:name outline :plugin imenu :sww sww :sww-label "IMenu" :sww-default t)
-          (:name outline :plugin pkgex4pl :sww sww :sww-label "PlTree")
-          (:name sww     :plugin sww)
-          (:name sub     :buffer "*info*" :default-hide t)))
-
-  ;; array
-  (setq e2wm:c-array-font-decrease 2)
-  (setq e2wm:c-array-smart-buffers-functions
-        '(e2wm:dp-array-get-same-mode-buffers-if-not-recordable))
-  (setq e2wm:c-array-summary-size-ratio 0.01)
-
   ;; pgkex4pl
   (setq e2wm-pkgex4pl:sync-interval 2)
   (add-hook 'cperl-mode-hook

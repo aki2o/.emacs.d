@@ -102,6 +102,10 @@
 	path = elisp/borg/direx-grep
 	url = https://github.com/aki2o/direx-grep
 	ignore = untracked
+[submodule "dockerfile-mode"]
+	path = elisp/borg/dockerfile-mode
+	url = https://github.com/spotify/dockerfile-mode
+	ignore = untracked
 [submodule "doom-modeline"]
 	path = elisp/borg/doom-modeline
 	url = https://github.com/seagle0128/doom-modeline
@@ -109,6 +113,10 @@
 [submodule "dropdown-list"]
 	path = elisp/borg/dropdown-list
 	url = git@github.com:emacsmirror/dropdown-list.git
+	ignore = untracked
+[submodule "dsvn"]
+	path = elisp/borg/dsvn
+	url = git@github.com:emacsmirror/dsvn.git
 	ignore = untracked
 [submodule "e2wm"]
 	path = elisp/borg/e2wm
@@ -191,9 +199,19 @@
 	path = elisp/borg/genrnc
 	url = https://github.com/aki2o/emacs-genrnc
 	ignore = untracked
+[submodule "ghub"]
+	path = elisp/borg/ghub
+	url = https://github.com/magit/ghub
+[submodule "git-gutter"]
+	path = elisp/borg/git-gutter
+	url = https://github.com/emacsorphanage/git-gutter
 [submodule "git-modes"]
 	path = elisp/borg/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "github-browse-file"]
+	path = elisp/borg/github-browse-file
+	url = https://github.com/ozanmakes/github-browse-file
+	ignore = untracked
 [submodule "gntp"]
 	path = elisp/borg/gntp
 	url = https://github.com/tekai/gntp.el

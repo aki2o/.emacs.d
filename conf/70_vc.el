@@ -10,7 +10,6 @@
 
 
 ;; SVN
-(bundle dsvn)
 (use-package dsvn
   :defer t
   :commands (svn-status svn-update))
@@ -18,12 +17,10 @@
 
 ;; Git
 (setenv "GIT_PAGER" "")
-(bundle git-modes)
 (use-package git-modes
   :defer t)
 
 
-(bundle magit)
 (use-package magit
   :after (persp-mode)
   :config
@@ -44,12 +41,10 @@
   ;;   (add-to-list 'completion-at-point-functions 'cape-emoji t))
   )
 
-(bundle magit-section)
 (use-package magit-section
   :after (magit))
 
 
-(bundle git-gutter)
 (use-package git-gutter
   :defer t
   :config
@@ -59,11 +54,9 @@
    '(git-gutter:diff-option "-w")))
 
 
-(bundle ghub)
 (use-package ghub :defer t)
 
 
-(bundle github-browse-file)
 (use-package github-browse-file
   :defer t
   :config
@@ -71,7 +64,6 @@
 
 
 ;; e2wm
-(bundle e2wm)
 (use-package e2wm-vcs
   :defer t
   :config

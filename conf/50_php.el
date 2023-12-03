@@ -1,4 +1,3 @@
-(bundle php-mode)
 (use-package php-mode
   :defer t
   :init
@@ -7,7 +6,6 @@
     (mmask-regist-extension-with-icase 'php-mode "phtml" "inc")))
   
 
-(bundle php-eldoc)
 (use-package php-eldoc
   :after (php-mode)
   :config

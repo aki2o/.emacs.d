@@ -303,6 +303,10 @@
 	path = elisp/borg/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
 	ignore = untracked
+[submodule "mayu-mode"]
+	path = elisp/borg/mayu-mode
+	url = git@github.com:byplayer/yamy.git
+	ignore = untracked
 [submodule "migemo"]
 	path = elisp/borg/migemo
 	url = https://github.com/emacs-jp/migemo
@@ -350,6 +354,13 @@
 	path = elisp/borg/pfuture
 	url = https://github.com/Alexander-Miller/pfuture
 	ignore = untracked
+[submodule "php-eldoc"]
+	path = elisp/borg/php-eldoc
+	url = https://github.com/sabof/php-eldoc
+	ignore = untracked
+[submodule "php-mode"]
+	path = elisp/borg/php-mode
+	url = https://github.com/emacs-php/php-mode
 [submodule "point-undo"]
 	path = elisp/borg/point-undo
 	url = git@github.com:emacsmirror/point-undo.git

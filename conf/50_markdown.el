@@ -1,4 +1,3 @@
-(bundle markdown-mode)
 (use-package markdown-mode
   :defer t
   :config
@@ -19,4 +18,3 @@
                                     "\\`/" "" (replace-regexp-in-string "\\\\" "/" tmpfile)))))
     (shell-command cmd nil nil)
     (browse-url url t)))
-

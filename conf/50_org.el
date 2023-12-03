@@ -34,21 +34,19 @@
     (pophint-config:set-tag-jump-command org-open-at-point)))
 
 
-(bundle org-linkany)
-(use-package org-linkany
-  :after (org)
-  :custom ((org-linkany/preferred-backend 'anything)
-           (org-linkany/browse-function '~browse-url-externally)))
+;; (use-package org-linkany
+;;   :after (org)
+;;   :custom ((org-linkany/preferred-backend 'anything)
+;;            (org-linkany/browse-function '~browse-url-externally)))
 
 
-(use-package org-link-github-wiki
-  :after (org))
+;; (use-package org-link-github-wiki
+;;   :after (org))
 
 
-(bundle org-link-travis)
-(use-package org-link-travis
-  :after (org)
-  :custom ((org-link-travis/user-name "aki2o")))
+;; (use-package org-link-travis
+;;   :after (org)
+;;   :custom ((org-link-travis/user-name "aki2o")))
 
 
 (use-package ox
@@ -91,7 +89,6 @@
   )
 
 
-;; (bundle org-gcal)
 ;; (use-package org-gcal
 ;;   :defer t
 ;;   :after org

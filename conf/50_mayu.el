@@ -1,4 +1,3 @@
-(bundle byplayer/yamy :name mayu-mode)
 (use-package mayu-mode
   :defer t
   :init

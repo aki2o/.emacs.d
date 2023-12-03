@@ -127,7 +127,7 @@
     (let* ((wm (e2wm:pst-get-wm))
            ;; (active-wname (wlf:get-window-name wm (selected-window))))
            )
-      (loop for wname in '(sub diff tree)
+      (loop for wname in '(sub diff)
             ;; for winfo = (wlf:get-winfo wname (wlf:wset-winfo-list wm))
             ;; for defhide = (wlf:window-option-get winfo :default-hide)
             if (ignore-errors (window-live-p (wlf:get-window wm wname)))
@@ -221,7 +221,7 @@
         '((:name left)
           (:name right)
           (:name history :plugin perspb :sww sww :sww-label "Buf" :sww-default t)
-          (:name history :plugin direx :sww sww :sww-label "Tree")
+          ;; (:name history :plugin direx :sww sww :sww-label "Tree")
           (:name sww :plugin sww)
           (:name sub :default-hide t)))
 

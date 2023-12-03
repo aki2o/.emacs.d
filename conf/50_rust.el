@@ -1,4 +1,3 @@
-(bundle rust-mode)
 (use-package rust-mode
   :defer t
   :custom ((rust-format-on-save t)
@@ -10,8 +9,6 @@
     (lsp-deferred)))
 
 
-(bundle cargo)
 (use-package cargo
   :defer t
   :hook (rust-mode . cargo-minor-mode))
-

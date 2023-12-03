@@ -31,6 +31,10 @@
 	path = elisp/borg/cape
 	url = https://github.com/minad/cape
 	ignore = untracked
+[submodule "cargo"]
+	path = elisp/borg/cargo
+	url = https://github.com/kwrooijen/cargo.el
+	ignore = untracked
 [submodule "chatgpt"]
 	path = elisp/borg/chatgpt
 	url = git@github.com:emacs-openai/chatgpt.git
@@ -126,6 +130,10 @@
 	path = elisp/borg/e2wm-term
 	url = https://github.com/aki2o/e2wm-term
 	ignore = untracked
+[submodule "edit-indirect"]
+	path = elisp/borg/edit-indirect
+	url = https://github.com/Fanael/edit-indirect
+	ignore = untracked
 [submodule "editorconfig"]
 	path = elisp/borg/editorconfig
 	url = https://github.com/editorconfig/editorconfig-emacs
@@ -217,6 +225,10 @@
 [submodule "haml-mode"]
 	path = elisp/borg/haml-mode
 	url = https://github.com/nex3/haml-mode
+	ignore = untracked
+[submodule "hcl-mode"]
+	path = elisp/borg/hcl-mode
+	url = https://github.com/hcl-emacs/hcl-mode
 	ignore = untracked
 [submodule "hexrgb"]
 	path = elisp/borg/hexrgb
@@ -322,6 +334,10 @@
 [submodule "migemo"]
 	path = elisp/borg/migemo
 	url = https://github.com/emacs-jp/migemo
+	ignore = untracked
+[submodule "mmm-mode"]
+	path = elisp/borg/mmm-mode
+	url = https://github.com/dgutov/mmm-mode
 	ignore = untracked
 [submodule "moccur-edit"]
 	path = elisp/borg/moccur-edit
@@ -458,6 +474,9 @@
 [submodule "ruby-end"]
 	path = elisp/borg/ruby-end
 	url = https://github.com/rejeep/ruby-end.el
+[submodule "rust-mode"]
+	path = elisp/borg/rust-mode
+	url = https://github.com/rust-lang/rust-mode
 [submodule "s"]
 	path = elisp/borg/s
 	url = https://github.com/magnars/s.el
@@ -486,9 +505,17 @@
 	path = elisp/borg/spinner
 	url = https://github.com/Malabarba/spinner.el
 	ignore = untracked
+[submodule "sql-indent"]
+	path = elisp/borg/sql-indent
+	url = https://github.com/bsvingen/sql-indent
+	ignore = untracked
 [submodule "sqlite3"]
 	path = elisp/borg/sqlite3
 	url = git@github.com:pekingduck/emacs-sqlite3-api.git
+	ignore = untracked
+[submodule "ssass-mode"]
+	path = elisp/borg/ssass-mode
+	url = https://github.com/AdamNiederer/ssass-mode
 	ignore = untracked
 [submodule "tablist"]
 	path = elisp/borg/tablist
@@ -500,6 +527,10 @@
 [submodule "tblui"]
 	path = elisp/borg/tblui
 	url = https://github.com/Yuki-Inoue/tblui.el
+	ignore = untracked
+[submodule "terraform-mode"]
+	path = elisp/borg/terraform-mode
+	url = https://github.com/hcl-emacs/terraform-mode
 	ignore = untracked
 [submodule "tide"]
 	path = elisp/borg/tide
@@ -539,6 +570,14 @@
 	path = elisp/borg/viewer
 	url = https://github.com/rubikitch/viewer
 	ignore = untracked
+[submodule "vue-html-mode"]
+	path = elisp/borg/vue-html-mode
+	url = https://github.com/AdamNiederer/vue-html-mode
+	ignore = untracked
+[submodule "vue-mode"]
+	path = elisp/borg/vue-mode
+	url = https://github.com/AdamNiederer/vue-mode
+	ignore = untracked
 [submodule "web-mode"]
 	path = elisp/borg/web-mode
 	url = https://github.com/fxbois/web-mode
@@ -564,6 +603,10 @@
 [submodule "yaml"]
 	path = elisp/borg/yaml
 	url = https://github.com/zkry/yaml.el
+	ignore = untracked
+[submodule "yaml-mode"]
+	path = elisp/borg/yaml-mode
+	url = https://github.com/yoshiki/yaml-mode
 	ignore = untracked
 [submodule "yaol"]
 	path = elisp/borg/yaol

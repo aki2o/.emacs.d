@@ -1,12 +1,10 @@
 ;; eslint と連携させて実行するには
 ;; npm i -g prettier prettier-eslint eslint eslint-config-prettier eslint-plugin-prettier
-(bundle prettier-js)
 (use-package prettier-js
   :defer t
   :commands (prettier-js))
 
 
-(bundle add-node-modules-path)
 (use-package add-node-modules-path
   :defer t
   :init
@@ -14,7 +12,6 @@
     (add-hook h 'add-node-modules-path t)))
 
 
-(bundle rjsx-mode)
 (use-package rjsx-mode
   :defer t
   ;; :init
@@ -27,7 +24,6 @@
     (setq ~tidy-code-current-function '~typescript-tidy-dwim)))
 
 
-(bundle js2-mode)
 (use-package js2-mode
   :defer t
   :init
@@ -43,7 +39,6 @@
   )
 
 
-(bundle json-mode)
 (use-package json-mode
   :defer t
   :init
@@ -56,7 +51,6 @@
     (setq ~tidy-code-current-function '~typescript-tidy-dwim)))
 
 
-(bundle typescript-mode)
 (use-package typescript-mode
   :defer t
   :custom ((typescript-indent-level 2))
@@ -104,7 +98,6 @@
          (error "Can't ~typescript-tidy-dwim"))))
 
 
-(bundle tide)
 (use-package tide
   :custom ((tide-format-options '(:indentSize 2 :tabSize 2))))
 
@@ -118,7 +111,6 @@
   )
 
 
-(bundle web-mode)
 (use-package web-mode
   :defer t
   :custom ((web-mode-code-indent-offset 2)
@@ -144,4 +136,3 @@
   (~add-setup-hook-after-load 'flycheck 'web-mode
     (~typescript-flycheck-select-dwim))
   )
-

@@ -32,22 +32,17 @@
   (add-to-list 'rng-schema-locating-files (concat user-emacs-directory "schema/schemas.xml")))
 
 
-(bundle genrnc :type github :pkgname "aki2o/emacs-genrnc")
 (use-package genrnc
   :after (rng-loc))
 
 
-(bundle slim-mode)
 (use-package slim-mode
   :defer t)
 
 
-(bundle haml-mode)
 (use-package haml-mode
   :defer t)
 
 
-(bundle pug-mode)
 (use-package pug-mode
   :defer t)
-

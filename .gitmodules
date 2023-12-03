@@ -1,3 +1,7 @@
+[submodule "add-node-modules-path"]
+	path = elisp/borg/add-node-modules-path
+	url = https://github.com/codesuki/add-node-modules-path
+	ignore = untracked
 [submodule "ag"]
 	path = elisp/borg/ag
 	url = https://github.com/Wilfred/ag.el
@@ -12,6 +16,10 @@
 [submodule "auto-compile"]
 	path = elisp/borg/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
+[submodule "autodisass-java-bytecode"]
+	path = elisp/borg/autodisass-java-bytecode
+	url = https://github.com/gbalats/autodisass-java-bytecode
+	ignore = untracked
 [submodule "avy"]
 	path = elisp/borg/avy
 	url = https://github.com/abo-abo/avy
@@ -160,9 +168,17 @@
 	path = elisp/borg/flycheck
 	url = https://github.com/flycheck/flycheck
 	ignore = untracked
+[submodule "flycheck-kotlin"]
+	path = elisp/borg/flycheck-kotlin
+	url = https://github.com/whirm/flycheck-kotlin
+	ignore = untracked
 [submodule "fuzzy"]
 	path = elisp/borg/fuzzy
 	url = https://github.com/auto-complete/fuzzy-el
+[submodule "genrnc"]
+	path = elisp/borg/genrnc
+	url = https://github.com/aki2o/emacs-genrnc
+	ignore = untracked
 [submodule "git-modes"]
 	path = elisp/borg/git-modes
 	url = git@github.com:magit/git-modes.git
@@ -178,6 +194,10 @@
 	path = elisp/borg/gom-mode
 	url = https://github.com/emacsorphanage/gom-mode
 	ignore = untracked
+[submodule "google-c-style"]
+	path = elisp/borg/google-c-style
+	url = https://github.com/google/styleguide
+	ignore = untracked
 [submodule "google-translate"]
 	path = elisp/borg/google-translate
 	url = https://github.com/atykhonov/google-translate
@@ -189,6 +209,10 @@
 [submodule "grep-a-lot"]
 	path = elisp/borg/grep-a-lot
 	url = https://github.com/ZungBang/emacs-grep-a-lot
+	ignore = untracked
+[submodule "haml-mode"]
+	path = elisp/borg/haml-mode
+	url = https://github.com/nex3/haml-mode
 	ignore = untracked
 [submodule "hexrgb"]
 	path = elisp/borg/hexrgb
@@ -214,9 +238,25 @@
 	path = elisp/borg/init-loader
 	url = https://github.com/emacs-jp/init-loader
 	ignore = untracked
+[submodule "js2-mode"]
+	path = elisp/borg/js2-mode
+	url = https://github.com/mooz/js2-mode
+	ignore = untracked
+[submodule "json-mode"]
+	path = elisp/borg/json-mode
+	url = https://github.com/json-emacs/json-mode
+	ignore = untracked
+[submodule "json-snatcher"]
+	path = elisp/borg/json-snatcher
+	url = https://github.com/Sterlingg/json-snatcher
+	ignore = untracked
 [submodule "kind-icon"]
 	path = elisp/borg/kind-icon
 	url = https://github.com/jdtsmith/kind-icon
+	ignore = untracked
+[submodule "kotlin-mode"]
+	path = elisp/borg/kotlin-mode
+	url = https://github.com/Emacs-Kotlin-Mode-Maintainers/kotlin-mode
 	ignore = untracked
 [submodule "libgit"]
 	path = elisp/borg/libgit
@@ -233,9 +273,17 @@
 	path = elisp/borg/lsp-docker
 	url = https://github.com/emacs-lsp/lsp-docker
 	ignore = untracked
+[submodule "lsp-java"]
+	path = elisp/borg/lsp-java
+	url = https://github.com/emacs-lsp/lsp-java
+	ignore = untracked
 [submodule "lsp-mode"]
 	path = elisp/borg/lsp-mode
 	url = https://github.com/emacs-lsp/lsp-mode
+[submodule "lsp-treemacs"]
+	path = elisp/borg/lsp-treemacs
+	url = https://github.com/emacs-lsp/lsp-treemacs
+	ignore = untracked
 [submodule "lsp-ui"]
 	path = elisp/borg/lsp-ui
 	url = https://github.com/emacs-lsp/lsp-ui
@@ -298,6 +346,10 @@
 	path = elisp/borg/persp-mode
 	url = https://github.com/Bad-ptr/persp-mode.el
 	ignore = untracked
+[submodule "pfuture"]
+	path = elisp/borg/pfuture
+	url = https://github.com/Alexander-Miller/pfuture
+	ignore = untracked
 [submodule "point-undo"]
 	path = elisp/borg/point-undo
 	url = git@github.com:emacsmirror/point-undo.git
@@ -321,6 +373,10 @@
 	path = elisp/borg/prescient
 	url = https://github.com/radian-software/prescient.el
 	ignore = untracked
+[submodule "prettier-js"]
+	path = elisp/borg/prettier-js
+	url = https://github.com/prettier/prettier-emacs
+	ignore = untracked
 [submodule "projectile"]
 	path = elisp/borg/projectile
 	url = https://github.com/bbatsov/projectile
@@ -328,6 +384,10 @@
 [submodule "protobuf-mode"]
 	path = elisp/borg/protobuf-mode
 	url = git@github.com:emacsmirror/protobuf-mode.git
+	ignore = untracked
+[submodule "pug-mode"]
+	path = elisp/borg/pug-mode
+	url = https://github.com/hlissner/emacs-pug-mode
 	ignore = untracked
 [submodule "queue"]
 	path = elisp/borg/queue
@@ -349,9 +409,17 @@
 	path = elisp/borg/rg
 	url = https://github.com/dajva/rg.el
 	ignore = untracked
+[submodule "rjsx-mode"]
+	path = elisp/borg/rjsx-mode
+	url = https://github.com/felipeochoa/rjsx-mode
+	ignore = untracked
 [submodule "s"]
 	path = elisp/borg/s
 	url = https://github.com/magnars/s.el
+	ignore = untracked
+[submodule "scala-mode"]
+	path = elisp/borg/scala-mode
+	url = https://github.com/hvesalai/emacs-scala-mode
 	ignore = untracked
 [submodule "scss-mode"]
 	path = elisp/borg/scss-mode
@@ -364,6 +432,10 @@
 [submodule "shrink-path"]
 	path = elisp/borg/shrink-path
 	url = https://gitlab.com/bennya/shrink-path.el
+	ignore = untracked
+[submodule "slim-mode"]
+	path = elisp/borg/slim-mode
+	url = https://github.com/slim-template/emacs-slim
 	ignore = untracked
 [submodule "spinner"]
 	path = elisp/borg/spinner
@@ -384,12 +456,26 @@
 	path = elisp/borg/tblui
 	url = https://github.com/Yuki-Inoue/tblui.el
 	ignore = untracked
+[submodule "tide"]
+	path = elisp/borg/tide
+	url = https://github.com/ananthakumaran/tide
+	ignore = untracked
 [submodule "transient"]
 	path = elisp/borg/transient
 	url = git@github.com:magit/transient.git
+[submodule "treemacs"]
+	path = elisp/borg/treemacs
+	url = https://github.com/Alexander-Miller/treemacs
+	load-path = src/elisp
+	load-path = src/extra
+	ignore = untracked
 [submodule "treepy"]
 	path = elisp/borg/treepy
 	url = git@github.com:volrath/treepy.el.git
+	ignore = untracked
+[submodule "typescript-mode"]
+	path = elisp/borg/typescript-mode
+	url = https://github.com/emacs-typescript/typescript.el
 	ignore = untracked
 [submodule "undo-tree"]
 	path = elisp/borg/undo-tree
@@ -407,6 +493,10 @@
 [submodule "viewer"]
 	path = elisp/borg/viewer
 	url = https://github.com/rubikitch/viewer
+	ignore = untracked
+[submodule "web-mode"]
+	path = elisp/borg/web-mode
+	url = https://github.com/fxbois/web-mode
 	ignore = untracked
 [submodule "wgrep"]
 	path = elisp/borg/wgrep

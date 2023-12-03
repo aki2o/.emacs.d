@@ -1,15 +1,12 @@
-(bundle autodisass-java-bytecode)
 (use-package autodisass-java-bytecode
   :defer t)
 
 
-(bundle google-c-style)
 (use-package google-c-style
   :defer t
   :commands (google-set-c-style))
 
 
-;; (bundle meghanada)
 ;; (use-package meghanada
 ;;   :defer t
 ;;   :custom ((meghanada-server-remote-debug nil)
@@ -62,12 +59,9 @@
 
 
 ;; エラーになったので一旦コメントアウト
-;; (bundle realgud)
 ;; (use-package realgud
 ;;   :after (meghanada))
 
-
-(bundle lsp-java)
 
 (use-package java-mode
   :defer t
@@ -76,7 +70,6 @@
     (add-hook 'java-mode-hook 'lsp-deferred t)))
 
 
-(bundle scala-mode)
 (use-package scala-mode
   :defer t
   :init
@@ -93,7 +86,6 @@
                                                       ,(mmask-get-regexp-sexp 'scala-mode))))))
 
 
-(bundle kotlin-mode)
 (use-package kotlin-mode
   :defer t
   :config
@@ -115,7 +107,5 @@
       (setq lsp-completion-enable nil))))
 
 
-(bundle flycheck-kotlin)
 (use-package flycheck-kotlin
   :after (kotlin-mode))
-

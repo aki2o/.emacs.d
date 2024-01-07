@@ -1,15 +1,13 @@
 ;; http://www.kaoriya.net/software/cmigemo
 (use-package migemo
-  :defer t
-  :init
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "--emacs" "-i" "\a"))
-  (setq migemo-dictionary (expand-file-name "/usr/local/share/migemo/utf-8/migemo-dict"))
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-use-pattern-alist t)
-  (setq migemo-use-frequent-pattern-alist t)
-  (setq migemo-pattern-alist-length 1000)
-  (setq migemo-coding-system 'utf-8-unix)
-  (load-library "migemo")
+  :custom ((migemo-command "cmigemo")
+           (migemo-options '("-q" "--emacs"))
+           (migemo-dictionary (expand-file-name "/usr/local/share/migemo/utf-8/migemo-dict"))
+           (migemo-user-dictionary nil)
+           (migemo-regex-dictionary nil)
+           (migemo-use-pattern-alist t)
+           (migemo-use-frequent-pattern-alist t)
+           (migemo-pattern-alist-length 1000)
+           (migemo-coding-system 'utf-8-unix))
+  :config
   (migemo-init))

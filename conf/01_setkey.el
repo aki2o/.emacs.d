@@ -73,7 +73,7 @@
     (:key "C-M-y"     :cmd pophint:do-rangeyank           :jack t :kind edit)
     (:key "C-r"       :cmd query-replace                  :jack t :kind edit)
     (:key "C-S-r"     :cmd query-replace-regexp           :jack t :kind edit)
-    (:key "M-r"       :cmd toggle-read-only               :jack t :kind edit)
+    (:key "M-r"       :cmd read-only-mode                 :jack t :kind edit)
     (:key "C-M-r"     :cmd ~view-toggle-next-activate     :jack t :kind edit)
     (:key "C-z"       :cmd keyboard-escape-quit           :jack t :kind edit) ; C-gの弱い版
     (:key "C-M-z"     :cmd keyboard-quit                  :jack t :kind edit) ; C-g

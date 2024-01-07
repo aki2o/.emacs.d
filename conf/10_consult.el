@@ -1,6 +1,6 @@
 (use-package consult
-  :custom ((consult-narrow-key (kbd "C-n"))
-           (consult-preview-key (kbd "C-M-;"))
+  :custom ((consult-narrow-key "C-n")
+           (consult-preview-key "C-M-;")
            (consult-preview-raw-size 1048576)
            (consult-async-min-input 5))
 

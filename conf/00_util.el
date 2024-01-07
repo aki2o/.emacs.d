@@ -320,6 +320,15 @@
   (interactive)
   (message (mapconcat 'identity (~git-diff-path-list (current-buffer)) "\n")))
 
+(defun ~echo-current-sexp-macro-expand ()
+  (interactive)
+  (let ((lisp (macroexpand (elisp--preceding-sexp))))
+    (with-current-buffer-window
+        "*Macro Expansion*" nil nil
+      (pp lisp)
+      (emacs-lisp-mode)
+      (read-only-mode))))
+
 ;; case
 (defun ~case-upper ()
   (interactive)
@@ -372,4 +381,3 @@
                          (replace-regexp-in-string ~tramp-path-regexp "/sudo:" file)
                        (concat "/sudo::" file))))
     (find-alternate-file tramp-path)))
-

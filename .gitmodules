@@ -150,6 +150,10 @@
 	path = elisp/borg/eldoc-extension
 	url = git@github.com:emacsmirror/eldoc-extension.git
 	ignore = untracked
+[submodule "elisp-test"]
+	path = elisp/borg/elisp-test
+	url = https://github.com/aki2o/elisp-test.git
+	ignore = untracked
 [submodule "elmine"]
 	path = elisp/borg/elmine
 	url = https://github.com/leoc/elmine

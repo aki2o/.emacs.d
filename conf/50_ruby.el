@@ -6,7 +6,7 @@
            (ruby-deep-indent-paren-style nil))
   :init
   (with-eval-after-load 'mmask
-    (mmask-regist-name 'ruby-mode "Gemfile" "Rakefile" "Guardfile" "Capfile" "Vagrantfile")
+    (mmask-regist-name 'ruby-mode "Gemfile" "Rakefile" "Guardfile" "Capfile" "Vagrantfile" ".Brewfile")
     (mmask-regist-extension-with-icase 'ruby-mode "rake" "ru" "gemspec" "ruby"))
 
   :config

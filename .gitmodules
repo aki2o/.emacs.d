@@ -367,18 +367,6 @@
 	path = elisp/borg/moccur-edit
 	url = git@github.com:emacsattic/moccur-edit.git
 	ignore = untracked
-[submodule "mozc"]
-	path = elisp/borg/mozc
-	url = git@github.com:emacsmirror/mozc.git
-	ignore = untracked
-[submodule "mozc-el-extensions"]
-	path = elisp/borg/mozc-el-extensions
-	url = git@github.com:iRi-E/mozc-el-extensions.git
-	ignore = untracked
-[submodule "mozc-popup"]
-	path = elisp/borg/mozc-popup
-	url = https://github.com/d5884/mozc-popup
-	ignore = untracked
 [submodule "nerd-icons"]
 	path = elisp/borg/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el

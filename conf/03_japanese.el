@@ -39,39 +39,3 @@
     (interactive)
     (call-process "osascript" nil t nil "-e" "tell application \"System Events\" to key code 102"))
   (add-hook 'focus-in-hook '~send-eisuu-key))
-
-
-;; Mozc
-(use-package mozc
-  :defer t
-  :custom ((mozc-leim-title "[あ]")
-           (mozc-helper-program-name "mozc_emacs_helper"))
-  :hook (mozc-mode . ~send-eisuu-key)
-  :init
-  (setq default-input-method "japanese-mozc")
-  :config
-  (with-eval-after-load 'helm
-    (define-key mozc-mode-map (kbd "M-x") 'helm-M-x)
-    (add-hook 'helm-minibuffer-set-up-hook '~deactivate-input-method t)))
-
-
-(use-package mozc-popup
-  :if window-system
-  :after mozc
-  :init
-  (use-package popup :defer t)
-  :config
-  (setq mozc-candidate-style 'popup))
-
-
-(use-package mozc-cursor-color
-  :after mozc
-  :config
-  (setq mozc-cursor-color-alist
-        '((direct . "white")
-          (read-only . "hot pink")
-          (hiragana . "cyan")
-          (full-katakana . "cyan")
-          (half-ascii . "cyan")
-          (full-ascii . "cyan")
-          (half-katakana . "cyan"))))

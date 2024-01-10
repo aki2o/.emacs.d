@@ -22,8 +22,8 @@
 (bind-key* "<henkan>" '~activate-input-method)
 (bind-key* "<muhenkan>" '~deactivate-input-method)
 
-;; (add-hook 'input-method-activate-hook (lambda() (set-cursor-color "red")) t)
-;; (add-hook 'input-method-inactivate-hook (lambda() (set-cursor-color "white")) t)
+(add-hook 'input-method-activate-hook (lambda() (set-cursor-color "cyan")) t)
+(add-hook 'input-method-deactivate-hook (lambda() (set-cursor-color "white")) t)
 
 ;; 全角スペースの表示
 (setq whitespace-style '(tabs spaces space-mark))

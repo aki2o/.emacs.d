@@ -29,7 +29,7 @@
   (add-to-list 'vertico-repeat-filter 'read-directory-name t)
   (add-to-list 'vertico-repeat-filter 'read-buffer t)
   
-  (advice-add 'vertico-repeat-last :around '~vertico-let-current-session))
+  (advice-add 'vertico-repeat--run :around '~vertico-let-current-session))
 
 ;; (define-key vertico-map (kbd "C-S-j") 'vertico-scroll-up)
 ;; (define-key vertico-map (kbd "C-S-k") 'vertico-scroll-down)
@@ -65,8 +65,7 @@
 (defvar ~vertico-current-session nil)
 
 (defun ~vertico-let-current-session (orig &rest args)
-  (let ((~vertico-current-session (or (car args)
-                                      (car vertico-repeat-history))))
+  (let ((~vertico-current-session (car args)))
     (apply orig args)))
 
 ;; vertico終了時に選択していた候補の情報が異なる毎に履歴は作らないようにする

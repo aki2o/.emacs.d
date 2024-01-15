@@ -20,7 +20,7 @@
 (defun ~docker-context-p (buf)
   (let* ((filepath (expand-file-name (buffer-file-name buf))))
     (cond
-     ((string-prefix-p (concat (expand-file-name "~/") "dev/mf") filepath)
-      t)
+     ;; ((string-prefix-p (concat (expand-file-name "~/") "dev/mf") filepath)
+     ;;  t)
      (t
       nil))))

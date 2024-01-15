@@ -63,13 +63,13 @@
 
   :config
   (~add-setup-hook 'typescript-mode
-    (setq ~tidy-code-current-function '~typescript-tidy-dwim))
+    (setq ~tidy-code-current-function '~typescript-tidy-dwim)
+    ;; npm i -g typescript-language-server typescript が必要
+    (when (function 'lsp)
+      (lsp-deferred)))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode)))
-
-  (~add-setup-hook-for-load 'tide 'typescript-mode
-    (~tide-setup))
 
   (~add-setup-hook-after-load 'flycheck 'typescript-mode
     (~typescript-flycheck-select-dwim))
@@ -98,19 +98,6 @@
          (error "Can't ~typescript-tidy-dwim"))))
 
 
-(use-package tide
-  :custom ((tide-format-options '(:indentSize 2 :tabSize 2))))
-
-(defun ~tide-setup ()
-  (tide-setup)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1)
-  (setq ~find-definition-function 'tide-jump-to-definition)
-  (setq ~find-references-function 'tide-references)
-  ;; (add-hook 'before-save-hook 'tide-format-before-save)
-  )
-
-
 (use-package web-mode
   :defer t
   :custom ((web-mode-code-indent-offset 2)
@@ -128,10 +115,10 @@
   :config
   (~add-setup-hook 'web-mode
     (when (string-equal "tsx" (file-name-extension buffer-file-name))
-      (setq ~tidy-code-current-function '~typescript-tidy-dwim)))
-
-  (~add-setup-hook-for-load 'tide 'web-mode
-    (~tide-setup))
+      (setq ~tidy-code-current-function '~typescript-tidy-dwim)
+      ;; npm i -g typescript-language-server typescript が必要
+      (when (function 'lsp)
+        (lsp-deferred))))
 
   (~add-setup-hook-after-load 'flycheck 'web-mode
     (~typescript-flycheck-select-dwim))

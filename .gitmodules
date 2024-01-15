@@ -27,6 +27,9 @@
 [submodule "borg"]
 	path = elisp/borg/borg
 	url = git@github.com:emacscollective/borg.git
+[submodule "bui"]
+	path = elisp/borg/bui
+	url = https://github.com/alezost/bui.el
 [submodule "cape"]
 	path = elisp/borg/cape
 	url = https://github.com/minad/cape
@@ -543,10 +546,6 @@
 [submodule "terraform-mode"]
 	path = elisp/borg/terraform-mode
 	url = https://github.com/hcl-emacs/terraform-mode
-	ignore = untracked
-[submodule "tide"]
-	path = elisp/borg/tide
-	url = https://github.com/ananthakumaran/tide
 	ignore = untracked
 [submodule "transient"]
 	path = elisp/borg/transient

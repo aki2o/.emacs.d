@@ -26,7 +26,6 @@
   (advice-add 'register-preview :override 'consult-register-window)
 
   (setq xref-show-xrefs-function 'consult-xref)
-  (setq xref-show-definitions-function 'consult-xref)
 
   :config
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") 'consult-narrow-help)

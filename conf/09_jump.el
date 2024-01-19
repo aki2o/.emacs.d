@@ -1,3 +1,7 @@
+(setq kill-ring-max 600)
+(setq mark-ring-max 64)
+(setq global-mark-ring-max 512)
+
 (setq xref-after-jump-hook '(recenter ~pulse-momentary))
 
 (setq find-function-recenter-line nil)

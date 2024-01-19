@@ -148,9 +148,4 @@
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq read-process-output-max (* 1024 1024)) ; 1MB
 
-(setq kill-ring-max 300)
-
-(setq mark-ring-max 16)
-(setq global-mark-ring-max 256)
-
 (setq register-preview-delay 0.5)

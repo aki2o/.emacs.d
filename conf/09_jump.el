@@ -15,8 +15,3 @@
 (use-package goto-chg
   :defer t
   :commands (goto-last-change goto-last-change-reverse))
-
-
-(when (fboundp '~tags-be-find-tag-command)
-  (~tags-be-find-tag-command find-function)
-  (~tags-be-find-tag-command find-variable))

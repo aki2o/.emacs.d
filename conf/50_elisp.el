@@ -8,16 +8,18 @@
   (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode)))
 
 (~add-setup-hook 'emacs-lisp-mode
-  (setq ~find-definition-function '~find-tag-elisp)
-  (setq ~popup-document-frame-function '~popup-tip-elisp-symbol-help))
+  (setq ~find-definition-function '~elisp-find-definition)
+  (setq ~popup-document-frame-function '~elisp-popup-document))
 
 (with-eval-after-load 'pophint-autoloads
-  (pophint-tags:advice-command ~find-tag-elisp))
+  (pophint-tags:advice-command ~elisp-find-definition))
 
 (~add-setup-hook-after-load 'flycheck 'emacs-lisp-mode
-  (~disable-flycheck-in-emacs-conf-file-buffer))
+  (~elisp-disable-flycheck-in-conf))
 
-(defun ~find-tag-elisp ()
+(add-to-list 'find-function-after-hook 'xref--push-markers t)
+
+(defun ~elisp-find-definition ()
   (interactive)
   (let* ((sym (symbol-at-point)))
     (cond ((functionp sym)
@@ -27,7 +29,7 @@
           (t
            (message "Can't specify symbol at point for find tag")))))
 
-(defun ~popup-tip-elisp-symbol-help ()
+(defun ~elisp-popup-document ()
   (interactive)
   (let* ((sym (symbol-at-point))
          (doc (ignore-errors
@@ -37,7 +39,7 @@
       (setq doc "** Can't specify symbol at point for popup help! **"))
     (pos-tip-show doc)))
 
-(defun ~disable-flycheck-in-emacs-conf-file-buffer ()
+(defun ~elisp-disable-flycheck-in-conf ()
   (let ((confdir (expand-file-name (concat user-emacs-directory "conf")))
         (bufpath (buffer-file-name)))
     (when (and bufpath

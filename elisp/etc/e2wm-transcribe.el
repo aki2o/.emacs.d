@@ -81,6 +81,8 @@
 (defvar e2wm-transcribe:right-buffers nil)
 (defvar e2wm-transcribe:next-target-left-p nil)
 
+(defvar e2wm-transcribe:inhibit-sub-display nil)
+(defvar e2wm-transcribe:right-select-p nil)
 
 (defsubst e2wm-transcribe:active-p ()
   (and (e2wm:managed-p)
@@ -140,7 +142,7 @@
     t)
    ((memq buf e2wm-transcribe:right-buffers)
     (e2wm:with-advice
-     (e2wm:pst-buffer-set 'right buf t))
+     (e2wm:pst-buffer-set 'right buf t e2wm-transcribe:right-select-p))
     t)
    ((e2wm-transcribe:handled-buffer-p buf)
     (e2wm:with-advice
@@ -148,9 +150,9 @@
          (progn
            (e2wm:pst-buffer-set 'left buf t t)
            (setq e2wm-transcribe:next-target-left-p nil))
-       (e2wm:pst-buffer-set 'right buf t)))
+       (e2wm:pst-buffer-set 'right buf t e2wm-transcribe:right-select-p)))
     t)
-   (t
+   ((not e2wm-transcribe:inhibit-sub-display)
     (e2wm:dp-two-popup-sub buf)
     t)))
 
@@ -199,6 +201,40 @@
          (when (member buf e2wm-transcribe:left-buffers)
            (setq e2wm-transcribe:left-buffers
                  (delete buf e2wm-transcribe:left-buffers))))))))
+
+
+(defun e2wm-transcribe--find-function-selecting-right (orig &rest args)
+  (let ((e2wm-transcribe:right-select-p t))
+    (save-selected-window
+      (apply orig args))))
+
+(advice-add 'find-function-do-it :around 'e2wm-transcribe--find-function-selecting-right)
+
+(with-eval-after-load 'xref
+  ;; `xref-pop-to-location' don't consider a case that not in current window after `switch-to-buffer'.
+  ;; So making `xref--goto-char' run selecting the window.
+  (defun e2wm-transcribe--xref--goto-char (orig &rest args)
+    (with-selected-window (get-buffer-window (marker-buffer (nth 0 args)))
+      (apply orig args)))
+
+  (advice-add 'xref--goto-char :around 'e2wm-transcribe--xref--goto-char))
+
+
+(with-eval-after-load 'consult
+  ;; consult don't consider a case that not in the window after `consult--buffer-display'.
+  (defun e2wm-transcribe--consult-buffer-display (buf &optional action)
+    (switch-to-buffer buf action)
+    (select-window (get-buffer-window buf)))
+
+  (setq consult--buffer-display 'e2wm-transcribe--consult-buffer-display)
+
+  ;; Once sub window is shown during consult, it will stay until consult is finished.
+  ;; It makes user feel corrupting the window layout. So inhibiting sub window during consult.
+  (defun e2wm-transcribe--consult-inhibiting-sub-display (orig &rest args)
+    (let ((e2wm-transcribe:inhibit-sub-display t))
+      (apply orig args)))
+
+  (advice-add 'consult--read :around 'e2wm-transcribe--consult-inhibiting-sub-display))
 
 
 (provide 'e2wm-transcribe)

@@ -30,7 +30,7 @@
   :config
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") 'consult-narrow-help)
 
-  (setq consult-after-jump-hook '(~pulse-momentary))
+  (add-to-list 'consult-after-jump-hook '~pulse-momentary t)
 
   (advice-add 'consult-yank-from-kill-ring :after '~consult-update-current-kill-to)
 

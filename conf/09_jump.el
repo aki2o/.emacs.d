@@ -1,4 +1,7 @@
-(setq xref-after-jump-hook '(~pulse-momentary))
+(setq xref-after-jump-hook '(recenter ~pulse-momentary))
+
+(setq find-function-recenter-line nil)
+
 
 (use-package point-undo
   :defer t

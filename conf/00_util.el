@@ -64,7 +64,6 @@
 
 (defun ~pulse-momentary ()
   (with-selected-window (get-buffer-window (current-buffer))
-    (recenter)
     (lexical-let* ((vbeg (save-excursion (beginning-of-visual-line) (point)))
                    (vend (save-excursion (end-of-visual-line) (point)))
                    (end (line-end-position))

@@ -202,31 +202,39 @@
            (setq e2wm-transcribe:left-buffers
                  (delete buf e2wm-transcribe:left-buffers))))))))
 
-
-(defun e2wm-transcribe--find-function-selecting-right (orig &rest args)
+(defun e2wm-transcribe--wrap-selecting-right (orig &rest args)
   (let ((e2wm-transcribe:right-select-p t))
     (save-selected-window
       (apply orig args))))
 
-(advice-add 'find-function-do-it :around 'e2wm-transcribe--find-function-selecting-right)
+
+;; `find-function-do-it' don't consider a case that not in current window after `switch-to-buffer'.
+(advice-add 'find-function-do-it :around 'e2wm-transcribe--wrap-selecting-right)
 
 (with-eval-after-load 'xref
   ;; `xref-pop-to-location' don't consider a case that not in current window after `switch-to-buffer'.
-  ;; So making `xref--goto-char' run selecting the window.
-  (defun e2wm-transcribe--xref--goto-char (orig &rest args)
-    (with-selected-window (get-buffer-window (marker-buffer (nth 0 args)))
-      (apply orig args)))
-
-  (advice-add 'xref--goto-char :around 'e2wm-transcribe--xref--goto-char))
+  (advice-add 'xref-pop-to-location :around 'e2wm-transcribe--wrap-selecting-right))
 
 
 (with-eval-after-load 'consult
-  ;; consult don't consider a case that not in the window after `consult--buffer-display'.
-  (defun e2wm-transcribe--consult-buffer-display (buf &optional action)
-    (switch-to-buffer buf action)
-    (select-window (get-buffer-window buf)))
+  ;; consult don't consider a case that not in the window when `consult-after-jump-hook'.
+  ;; So making sure to select the window.
+  (defun e2wm-transcribe--consult-jump-selecting-right ()
+    (let* ((e2wm-transcribe:right-select-p t)
+           (buf (current-buffer))
+           (pt (point))
+           (w (get-buffer-window buf)))
+      (when (not (window-live-p w))
+        (pop-to-buffer buf)
+        (select-window (get-buffer-window buf)))
+      (set-window-point (get-buffer-window buf) pt)))
 
-  (setq consult--buffer-display 'e2wm-transcribe--consult-buffer-display)
+  (add-to-list 'consult-after-jump-hook 'e2wm-transcribe--consult-jump-selecting-right)
+
+  (defun e2wm-transcribe--consult-jump-keeping-left (&rest args)
+    (e2wm:pst-window-select-main))
+
+  (advice-add 'consult--jump :after 'e2wm-transcribe--consult-jump-keeping-left)
 
   ;; Once sub window is shown during consult, it will stay until consult is finished.
   ;; It makes user feel corrupting the window layout. So inhibiting sub window during consult.

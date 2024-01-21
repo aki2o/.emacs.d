@@ -1,7 +1,9 @@
 (use-package lsp-mode
-  :custom ((lsp-keymap-prefix "C-x l")
-           (lsp-signature-render-documentation nil)
-           (lsp-signature-auto-activate t)
+  :custom ((lsp-keymap-prefix "C-x ;")
+           (lsp-signature-function 'lsp-signature-posframe)
+           (lsp-signature-render-documentation t)
+           (lsp-signature-auto-activate nil)
+           (lsp-signature-doc-lines 1000)
            (lsp-inhibit-message t)
            (lsp-message-project-root-warning t)
            (lsp-print-io nil)
@@ -30,11 +32,11 @@
   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-overrides)) '(substring))
 
   (~add-setup-hook 'lsp-after-initialize
-    (setq ~lsp-initialized t))
+    (setq ~lsp-initialized t)
+    (setq ~dwim-at-point-function '~lsp-hydra/body))
 
   (~add-setup-hook-after-load 'which-key 'lsp-mode
-    (lsp-enable-which-key-integration))
-  )
+    (lsp-enable-which-key-integration)))
 
 (defvar ~lsp-initialized nil)
 (make-variable-buffer-local '~lsp-initialized)
@@ -42,6 +44,19 @@
 (defun ~lsp-completion-at-point (orig &rest args)
   (when ~lsp-initialized
     (cape-wrap-buster orig)))
+
+(defhydra ~lsp-hydra (:exit t)
+  "lsp"
+  ("a" xref-find-apropos)
+  ("i" lsp-find-implementation)
+  ("t" lsp-find-type-definition)
+  ("d" lsp-find-declaration)
+  (";" lsp-toggle-signature-auto-activate)
+  ("m" lsp-rename)
+  ("h" lsp-organize-imports)
+  ("r" lsp-workspace-restart)
+  ("q" lsp-workspace-shutdown)
+  ("?" lsp-describe-session))
 
 
 (use-package lsp-ui
@@ -57,11 +72,16 @@
            (lsp-ui-doc-alignment 'frame)
            (lsp-ui-doc-border "white")
            (lsp-ui-doc-max-width 150)
-           (lsp-ui-doc-max-height 50)
+           (lsp-ui-doc-max-height 1000)
            (lsp-ui-imenu-enable nil))
   :hook   ((lsp-mode . lsp-ui-mode)
            (lsp-ui-doc-frame . ~lsp-ui-doc-frame-setup))
   :config
+  (~add-setup-hook 'lsp-ui-mode
+    (setq ~popup-document-frame-function '~lsp-ui-doc-show)
+    (setq ~popup-document-buffer-function '~lsp-ui-doc-dump-on-my-frame)
+    (setq ~focus-document-frame-function 'lsp-ui-doc-focus-frame))
+
   (custom-set-faces
    '(lsp-ui-doc-background ((t :background "gray30"))))
 
@@ -69,48 +89,51 @@
         (append lsp-ui-doc-frame-parameters '((cursor-type . hbar)
                                               (cursor-color . "white"))))
 
-  (defun ~lsp-ui-doc-frame-setup (frame window)
-    (with-selected-window window
-      (with-selected-frame frame
-        (local-set-key (kbd "C-:") 'lsp-ui-doc-unfocus-frame)
-        (local-set-key (kbd "C-M-:") '~lsp-ui-doc-dump-on-doc-frame))))
+  (with-eval-after-load 'lsp-ui-doc
+    (advice-add #'keyboard-escape-quit :before #'lsp-ui-doc--hide-frame)))
 
-  (defun ~lsp-ui-doc-show ()
-    (interactive)
-    (let ((lsp-ui-doc-delay 0.1))
-      (lsp-signature-activate)
-      (lsp-ui-doc-show)))
+(defun ~lsp-ui-doc-frame-setup (frame window)
+  (with-selected-window window
+    (with-selected-frame frame
+      (local-set-key (kbd "C-:") 'lsp-ui-doc-unfocus-frame)
+      (local-set-key (kbd "C-M-:") '~lsp-ui-doc-dump-on-doc-frame))))
 
-  (defun ~lsp-ui-doc-dump-on-my-frame ()
-    (interactive)
-    (~lsp-ui-doc-dump (selected-frame)))
+(defun ~lsp-ui-doc-show ()
+  (interactive)
+  (let ((lsp-ui-doc-delay 0.1))
+    (lsp-ui-doc-show)))
 
-  (defun ~lsp-ui-doc-dump-on-doc-frame ()
-    (interactive)
-    (~lsp-ui-doc-dump (frame-parent (selected-frame))))
+(defun ~lsp-ui-doc-dump-on-my-frame ()
+  (interactive)
+  (~lsp-ui-doc-dump (selected-frame)))
 
-  (defun ~lsp-ui-doc-dump (frame)
-    (let* ((lsp-ui-doc-use-childframe nil)
-           (symbol (with-selected-frame frame
-                     (thing-at-point 'symbol t)))
-           (hover (with-selected-frame frame
-                    (lsp-request "textDocument/hover" (lsp--text-document-position-params))))
-           (bounds (with-selected-frame frame
-                     (or (bounds-of-thing-at-point 'symbol) (cons (point) (1+ (point))))))
-           (buffname (format "*~lsp-ui-doc %s*" symbol)))
-      (lsp-ui-doc--render-buffer
-       (-some->> (gethash "contents" hover)
-         lsp-ui-doc--extract
-         (replace-regexp-in-string "\r" ""))
-       symbol)
-      (when (get-buffer buffname)
-        (kill-buffer buffname))
-      (with-current-buffer (lsp-ui-doc--make-buffer-name)
-        (setq cursor-type 'hbar)
-        (setq buffer-read-only t)
-        (set-buffer-modified-p nil)
-        (rename-buffer buffname)
-        (pop-to-buffer (current-buffer))))))
+(defun ~lsp-ui-doc-dump-on-doc-frame ()
+  (interactive)
+  (~lsp-ui-doc-dump (frame-parent (selected-frame))))
+
+(defun ~lsp-ui-doc-dump (frame)
+  (let* ((lsp-ui-doc-use-childframe nil)
+         (symbol (with-selected-frame frame
+                   (thing-at-point 'symbol t)))
+         (hover (with-selected-frame frame
+                  (lsp-request "textDocument/hover" (lsp--text-document-position-params))))
+         (bounds (with-selected-frame frame
+                   (or (bounds-of-thing-at-point 'symbol) (cons (point) (1+ (point))))))
+         (buffname (format "*~lsp-ui-doc %s*" symbol)))
+    (lsp-ui-doc--hide-frame)
+    (lsp-ui-doc--render-buffer
+     (-some->> (gethash "contents" hover)
+       lsp-ui-doc--extract
+       (replace-regexp-in-string "\r" ""))
+     symbol)
+    (when (get-buffer buffname)
+      (kill-buffer buffname))
+    (with-current-buffer (lsp-ui-doc--make-buffer-name)
+      (setq cursor-type 'hbar)
+      (setq buffer-read-only t)
+      (set-buffer-modified-p nil)
+      (rename-buffer buffname)
+      (pop-to-buffer (current-buffer)))))
 
 
 (use-package lsp-docker

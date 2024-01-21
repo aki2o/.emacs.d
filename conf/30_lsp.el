@@ -1,7 +1,7 @@
 (use-package lsp-mode
   :custom ((lsp-keymap-prefix "C-x l")
            (lsp-signature-render-documentation nil)
-           (lsp-signature-auto-activate nil)
+           (lsp-signature-auto-activate t)
            (lsp-inhibit-message t)
            (lsp-message-project-root-warning t)
            (lsp-print-io nil)
@@ -17,6 +17,11 @@
            (lsp-warn-no-matched-clients t))
   :defer t
   :config
+  (unbind-key "C-S-SPC" lsp-mode-map)
+
+  (bind-keys :map lsp-signature-mode-map
+             ([remap keyboard-escape-quit] . lsp-signature-stop))
+
   (make-variable-buffer-local 'lsp-enabled-clients)
   (make-variable-buffer-local 'lsp-completion-enable)
 
@@ -73,6 +78,7 @@
   (defun ~lsp-ui-doc-show ()
     (interactive)
     (let ((lsp-ui-doc-delay 0.1))
+      (lsp-signature-activate)
       (lsp-ui-doc-show)))
 
   (defun ~lsp-ui-doc-dump-on-my-frame ()

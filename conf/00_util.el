@@ -69,7 +69,7 @@
                    (end (line-end-position))
                    (ov (make-overlay vbeg (if (= vend end) (1+ end) vend))))
       (overlay-put ov 'face 'highlight)
-      (run-with-idle-timer 0.5 nil (lambda () (when ov (delete-overlay ov)))))))
+      (run-with-idle-timer 1 nil (lambda () (when ov (delete-overlay ov)))))))
 
 (cl-defmacro ~call-interactively-any-of (&rest commands)
   `(call-interactively (cl-loop for c in ',commands if (commandp c) return c)))
@@ -150,26 +150,32 @@
   (call-interactively ~pop-marker-stack-function))
 
 ;; reference
-(defvar ~popup-document-frame-function '~lsp-ui-doc-show)
+(defvar ~popup-document-frame-function nil)
 (make-variable-buffer-local '~popup-document-frame-function)
 
 (defun ~popup-document-frame ()
   (interactive)
-  (call-interactively ~popup-document-frame-function))
+  (if (commandp ~popup-document-frame-function)
+      (call-interactively ~popup-document-frame-function)
+    (error "No ~popup-document-frame-function")))
 
-(defvar ~popup-document-buffer-function '~lsp-ui-doc-dump-on-my-frame)
+(defvar ~popup-document-buffer-function nil)
 (make-variable-buffer-local '~popup-document-buffer-function)
 
 (defun ~popup-document-buffer ()
   (interactive)
-  (call-interactively ~popup-document-buffer-function))
+  (if (commandp ~popup-document-buffer-function)
+      (call-interactively ~popup-document-buffer-function)
+    (error "No ~popup-document-buffer-function")))
 
-(defvar ~focus-document-frame-function 'lsp-ui-doc-focus-frame)
+(defvar ~focus-document-frame-function nil)
 (make-variable-buffer-local '~focus-document-frame-function)
 
 (defun ~focus-document-frame ()
   (interactive)
-  (call-interactively ~focus-document-frame-function))
+  (if (commandp ~focus-document-frame-function)
+      (call-interactively ~focus-document-frame-function)
+    (error "No ~focus-document-frame-function")))
 
 (defvar ~dwim-at-point-function nil)
 (make-variable-buffer-local '~dwim-at-point-function)
@@ -181,6 +187,7 @@
     (error "No ~dwim-at-point-function")))
 
 (defvar ~action-at-point-function nil)
+(make-variable-buffer-local '~action-at-point-function)
 
 (defun ~action-at-point ()
   (interactive)

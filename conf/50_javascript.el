@@ -65,7 +65,7 @@
   (~add-setup-hook 'typescript-mode
     (setq ~tidy-code-current-function '~typescript-tidy-dwim)
     ;; npm i -g typescript-language-server typescript が必要
-    (when (function 'lsp)
+    (when (functionp 'lsp)
       (lsp-deferred)))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
@@ -117,7 +117,7 @@
     (when (string-equal "tsx" (file-name-extension buffer-file-name))
       (setq ~tidy-code-current-function '~typescript-tidy-dwim)
       ;; npm i -g typescript-language-server typescript が必要
-      (when (function 'lsp)
+      (when (functionp 'lsp)
         (lsp-deferred))))
 
   (~add-setup-hook-after-load 'flycheck 'web-mode

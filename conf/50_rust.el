@@ -3,10 +3,11 @@
   :custom ((rust-format-on-save t)
            (rust-indent-offset 2))
   :config
-  (~add-setup-hook-after-load 'lsp-mode 'rust-mode
+  (~add-setup-hook 'rust-mode
     (setq lsp-rust-server 'rust-analyzer)
     (setq lsp-rust-analyzer-server-command '("rust-analyzer"))
-    (lsp-deferred)))
+    (when (functionp 'lsp)
+      (lsp-deferred))))
 
 
 (use-package cargo

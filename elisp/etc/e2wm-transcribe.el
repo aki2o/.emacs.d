@@ -77,10 +77,6 @@
 (defvar e2wm:c-transcribe-recipe e2wm:c-two-recipe)
 (defvar e2wm:c-transcribe-winfo e2wm:c-two-winfo)
 
-(defvar e2wm-transcribe:left-buffers nil)
-(defvar e2wm-transcribe:right-buffers nil)
-(defvar e2wm-transcribe:next-target-left-p nil)
-
 (defvar e2wm-transcribe:inhibit-sub-display nil)
 (defvar e2wm-transcribe:right-select-p nil)
 
@@ -113,17 +109,13 @@
     (wlf:set-buffer wm 'left buf)
     (wlf:set-buffer wm 'right (e2wm:history-get-prev buf))
     
-    (ad-enable-advice 'wlf:set-buffer 'after 'e2wm-transcribe:record-buffer)
-    (ad-activate 'wlf:set-buffer)
-    
     (setq e2wm-transcribe:left-buffers nil)
     (setq e2wm-transcribe:right-buffers nil)
 
     wm))
 
 (defun e2wm:dp-transcribe-leave (wm)
-  (ad-disable-advice 'wlf:set-buffer 'after 'e2wm-transcribe:record-buffer)
-  (ad-activate 'wlf:set-buffer))
+  )
 
 (defun e2wm:dp-transcribe-switch (buf)
   (e2wm:message "#DP TRANSCRIBE switch : %s" buf)
@@ -132,25 +124,9 @@
 (defun e2wm:dp-transcribe-popup (buf)
   (e2wm:message "#DP TRANSCRIBE popup : %s" buf)
   (cond
-   ((eql (wlf:get-buffer (e2wm:pst-get-wm) 'left) buf)
-    (e2wm:with-advice
-     (e2wm:pst-buffer-set 'right buf t))
-    t)
-   ((memq buf e2wm-transcribe:left-buffers)
-    (e2wm:with-advice
-     (e2wm:pst-buffer-set 'left buf t t))
-    t)
-   ((memq buf e2wm-transcribe:right-buffers)
-    (e2wm:with-advice
-     (e2wm:pst-buffer-set 'right buf t e2wm-transcribe:right-select-p))
-    t)
    ((e2wm-transcribe:handled-buffer-p buf)
     (e2wm:with-advice
-     (if e2wm-transcribe:next-target-left-p
-         (progn
-           (e2wm:pst-buffer-set 'left buf t t)
-           (setq e2wm-transcribe:next-target-left-p nil))
-       (e2wm:pst-buffer-set 'right buf t e2wm-transcribe:right-select-p)))
+     (e2wm:pst-buffer-set 'right buf t e2wm-transcribe:right-select-p))
     t)
    ((not e2wm-transcribe:inhibit-sub-display)
     (e2wm:dp-two-popup-sub buf)
@@ -163,44 +139,13 @@
 (defvar e2wm:dp-transcribe-minor-mode-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map e2wm:dp-two-minor-mode-map)
-    (e2wm:add-keymap
-     map
-     '(("prefix L" . e2wm-transcribe:next-buffer-into-left-window-command)
-       ("prefix R" . e2wm-transcribe:current-buffer-into-right-window-command))
-     e2wm:prefix-key)
     map))
-
-(defun e2wm-transcribe:next-buffer-into-left-window-command ()
-  (interactive)
-  (setq e2wm-transcribe:next-target-left-p t)
-  (message "[E2WM] Next buffer will be shown on left window."))
-
-(defun e2wm-transcribe:current-buffer-into-right-window-command ()
-  (interactive)
-  (let ((buf (current-buffer)))
-    (cl-pushnew buf e2wm-transcribe:right-buffers)
-    (switch-to-buffer buf)))
 
 ;;;###autoload
 (defun e2wm-transcribe:dp ()
   (interactive)
   (e2wm:pst-change 'transcribe))
 
-
-(defadvice wlf:set-buffer (after e2wm-transcribe:record-buffer disable)
-  (when (e2wm-transcribe:active-p)
-    (let ((wname (ad-get-arg 1))
-          (buf (ad-get-arg 2)))
-      (cl-case wname
-        (left
-         (cl-pushnew buf e2wm-transcribe:left-buffers)
-         (when (member buf e2wm-transcribe:right-buffers)
-           (setq e2wm-transcribe:right-buffers
-                 (delete buf e2wm-transcribe:right-buffers))))
-        (right
-         (when (member buf e2wm-transcribe:left-buffers)
-           (setq e2wm-transcribe:left-buffers
-                 (delete buf e2wm-transcribe:left-buffers))))))))
 
 (defun e2wm-transcribe--wrap-selecting-right (orig &rest args)
   (let ((e2wm-transcribe:right-select-p t))

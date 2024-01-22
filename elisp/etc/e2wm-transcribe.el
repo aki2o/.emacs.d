@@ -226,8 +226,9 @@
            (w (get-buffer-window buf)))
       (when (not (window-live-p w))
         (pop-to-buffer buf)
-        (select-window (get-buffer-window buf)))
-      (set-window-point (get-buffer-window buf) pt)))
+        (setq w (get-buffer-window buf)))
+      (select-window w)
+      (set-window-point w pt)))
 
   (add-to-list 'consult-after-jump-hook 'e2wm-transcribe--consult-jump-selecting-right)
 

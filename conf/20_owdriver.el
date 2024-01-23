@@ -22,14 +22,21 @@
   (with-eval-after-load 'sequential-command
     (add-to-list 'owdriver-keep-driving-commands 'seq-beginning-of-line t)
     ;; yaol
+    (owdriver-define-command seq-yaol-heads)
+    (owdriver-define-command seq-yaol-current-heads)
     (add-to-list 'owdriver-keep-driving-commands 'seq-yaol-heads t)
     (add-to-list 'owdriver-keep-driving-commands 'seq-yaol-current-heads t))
 
   (with-eval-after-load 'pophint-autoloads
     (add-to-list 'owdriver-keep-driving-commands 'pophint:do-yaol-head t))
 
-  (with-eval-after-load 'yaol
-    (add-to-list 'owdriver-keep-driving-command-prefixes "yaol-" t))
+  (owdriver-define-command yaol-fold-clear-current)
+  (owdriver-define-command yaol-fold-clear-all)
+  (owdriver-define-command yaol-up-head)
+  (owdriver-define-command yaol-next-sibling-head)
+  (owdriver-define-command yaol-previous-sibling-head)
+  (owdriver-define-command yaol-down-head)
+  (add-to-list 'owdriver-keep-driving-command-prefixes "yaol-" t)
   )
 
 (defun ~owdriver-next-window (reverse)

@@ -29,11 +29,12 @@
   :custom ((hydra-hint-display-type 'posframe))
   :config
   (require 'posframe)
-  (defvar ~hydra-help-delay 1.5)
   (plist-put hydra-posframe-show-params :poshandler 'posframe-poshandler-window-bottom-left-corner)
   (plist-put hydra-posframe-show-params :background-color "gray30")
   (plist-put hydra-posframe-show-params :internal-border-color "gray30")
   (plist-put hydra-posframe-show-params :internal-border-width 10))
+
+(defvar ~hydra-help-delay 1.5)
 
 
 (use-package which-key

@@ -18,10 +18,10 @@
     (:key "M-S-l"   :cmd ~scroll-left              :jack t)
     (:key "C-j"     :cmd next-line                 :jack t)
     (:key "C-k"     :cmd previous-line             :jack t)
-    (:key "C-S-j"   :cmd ~scroll-up                :jack t)
-    (:key "C-S-k"   :cmd ~scroll-down              :jack t)
-    (:key "<next>"  :cmd ~scroll-up                :jack t)
-    (:key "<prior>" :cmd ~scroll-down              :jack t)
+    (:key "C-S-j"   :cmd scroll-up-command         :jack t)
+    (:key "C-S-k"   :cmd scroll-down-command       :jack t)
+    (:key "<next>"  :cmd scroll-up-command         :jack t)
+    (:key "<prior>" :cmd scroll-down-command       :jack t)
     (:key "M-j"     :cmd ~end-of-block             :jack t)
     (:key "M-k"     :cmd ~beginning-of-block       :jack t)
     (:key "C-M-j"   :cmd ~pophint:forward          :jack t)
@@ -43,17 +43,19 @@
     (:key "M-b"     :cmd next-error                :jack t)
     (:key "M-S-b"   :cmd previous-error            :jack t)
     ;; 表示
-    (:key "C-p"     :cmd seq-recenter                            :jack t)
-    (:key "C-S-z"   :cmd delete-other-windows                    :jack t)
-    (:key "M-z"     :cmd delete-window                           :jack t)
-    (:key "H-h"     :cmd owdriver-do-scroll-right                :jack t)
-    (:key "H-j"     :cmd owdriver-do-~scroll-up                  :jack t)
-    (:key "H-k"     :cmd owdriver-do-~scroll-down                :jack t)
-    (:key "H-l"     :cmd owdriver-do-scroll-left                 :jack t)
-    (:key "H-M-h"   :cmd owdriver-do-scroll-right-on-next-window :jack t)
-    (:key "H-M-j"   :cmd owdriver-do-~scroll-up-on-next-window   :jack t)
-    (:key "H-M-k"   :cmd owdriver-do-~scroll-down-on-next-window :jack t)
-    (:key "H-M-l"   :cmd owdriver-do-scroll-left-on-next-window  :jack t)
+    (:key "C-p"     :cmd seq-recenter                                   :jack t)
+    (:key "C-S-z"   :cmd delete-other-windows                           :jack t)
+    (:key "M-z"     :cmd delete-window                                  :jack t)
+    (:key "H-h"     :cmd owdriver-do-scroll-right                       :jack t)
+    (:key "H-j"     :cmd owdriver-do-scroll-up-command                  :jack t)
+    (:key "H-k"     :cmd owdriver-do-scroll-down-command                :jack t)
+    (:key "H-l"     :cmd owdriver-do-scroll-left                        :jack t)
+    (:key "H-M-h"   :cmd owdriver-do-scroll-right-on-next-window        :jack t)
+    (:key "H-M-j"   :cmd owdriver-do-scroll-up-command-on-next-window   :jack t)
+    (:key "H-M-k"   :cmd owdriver-do-scroll-down-command-on-next-window :jack t)
+    (:key "H-M-l"   :cmd owdriver-do-scroll-left-on-next-window         :jack t)
+    (:key "M-o"     :cmd yaol-config-hydra/body                         :jack t)
+    (:key "H-o"     :cmd yaol-config-hydra-other-window/body            :jack t)
     (:key "C-|"     :cmd ~split-window-horizontally-and-select)
     (:key "C--"     :cmd ~split-window-vertically-and-select)
     ;; 編集
@@ -515,67 +517,6 @@ _R_: reload
    ("e" ~yas-expand-oneshot-snippet)
    ("E" ~yas-expand-oneshot-snippet-with-region)
    ("t" yas-minor-mode)))
-
-
-;;;;;;;;;;;;;
-;; Outline
-
-(global-set-key
- (kbd "M-o")
- (defhydra ~hydra-outline (:hint nil :idle ~hydra-help-delay
-                                 :post (yaol-fold-clear-all))
-   "
-^Toggle^                      ^Move^
-^^^^^^--------------------------------------------
-_s_: cycle headings           _h_: go to parent
-_f_: cycle current headings   _j_: go to next
-_c_: show current             _k_: go to prev
-_a_: show all                 _l_: go to child
-^ ^                           _J_: scroll up
-^ ^                           _K_: scroll down
-^ ^                           _;_: pophint
-"
-   ("s" seq-yaol-heads)
-   ("f" seq-yaol-current-heads)
-   ("c" yaol-fold-clear-current)
-   ("a" yaol-fold-clear-all)
-   ("h" yaol-up-head)
-   ("j" yaol-next-sibling-head)
-   ("k" yaol-previous-sibling-head)
-   ("l" yaol-down-head)
-   ("J" ~scroll-up)
-   ("K" ~scroll-down)
-   (";" pophint:do-yaol-head)
-   ("q" nil "quit")))
-
-(global-set-key
- (kbd "H-o")
- (defhydra ~hydra-outline-other-window (:hint nil :idle ~hydra-help-delay
-                                              :post (owdriver-do-yaol-fold-clear-all))
-   "
-^Toggle^                      ^Move^              ^Window^
-^^^^^^---------------------------------------------------------------
-_s_: cycle headings           _h_: go to parent   _n_: next window
-_f_: cycle current headings   _j_: go to next
-_c_: show current             _k_: go to prev
-_a_: show all                 _l_: go to child
-^ ^                           _J_: scroll up
-^ ^                           _K_: scroll down
-^ ^                           _;_: pophint
-"
-   ("s" owdriver-do-seq-yaol-heads)
-   ("f" owdriver-do-seq-yaol-current-heads)
-   ("c" owdriver-do-yaol-fold-clear-current)
-   ("a" owdriver-do-yaol-fold-clear-all)
-   ("h" owdriver-do-yaol-up-head)
-   ("j" owdriver-do-yaol-next-sibling-head)
-   ("k" owdriver-do-yaol-previous-sibling-head)
-   ("l" owdriver-do-yaol-down-head)
-   ("J" owdriver-do-~scroll-up)
-   ("K" owdriver-do-~scroll-down)
-   (";" owdriver-do-pophint:do-yaol-head)
-   ("n" owdriver-next-window)
-   ("q" nil "quit")))
 
 
 ;;;;;;;;;;;;;;

@@ -196,14 +196,6 @@
     (error "No ~action-at-point-function")))
 
 ;; scroll
-(defun ~scroll-down ()
-  (interactive)
-  (~call-interactively-any-of inertias-down scroll-down-command))
-
-(defun ~scroll-up ()
-  (interactive)
-  (~call-interactively-any-of inertias-up scroll-up-command))
-
 (defun ~scroll-left ()
   (interactive)
   (scroll-left 10 t))

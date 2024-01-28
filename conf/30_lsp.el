@@ -45,15 +45,20 @@
   (when ~lsp-initialized
     (cape-wrap-buster orig)))
 
-(defhydra ~lsp-hydra (:exit t)
-  "lsp"
+(defhydra ~lsp-hydra (:exit t :hint nil)
+  "
+_a_: find apropos          _m_: rename            _r_: restart
+_i_: find implementation   _h_: organize imports  _q_: shutdown
+_t_: find type definition  _;_: toggle signature  _?_: describe session
+_d_: find declaration
+"
   ("a" xref-find-apropos)
   ("i" lsp-find-implementation)
   ("t" lsp-find-type-definition)
   ("d" lsp-find-declaration)
-  (";" lsp-toggle-signature-auto-activate)
   ("m" lsp-rename)
   ("h" lsp-organize-imports)
+  (";" lsp-toggle-signature-auto-activate)
   ("r" lsp-workspace-restart)
   ("q" lsp-workspace-shutdown)
   ("?" lsp-describe-session))
@@ -120,6 +125,8 @@
          (bounds (with-selected-frame frame
                    (or (bounds-of-thing-at-point 'symbol) (cons (point) (1+ (point))))))
          (buffname (format "*~lsp-ui-doc %s*" symbol)))
+    (when (not hover)
+      (error "There is no contents to hover!"))
     (lsp-ui-doc--hide-frame)
     (lsp-ui-doc--render-buffer
      (-some->> (gethash "contents" hover)

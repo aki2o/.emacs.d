@@ -232,11 +232,11 @@
  (kbd "H-s")
  (defhydra ~hydra-search (:hint nil :exit t :idle ~hydra-help-delay)
    "
-_I_: hydra isearch _i_: by hint
-_g_: hydra grep    _o_: other window
-_m_: hydra moccur  _f_: find name
-_a_: hydra ag      _w_: by www
-_r_: hydra rg      _s_: swiper
+_I_: hydra isearch   _i_: by hint
+_g_: hydra grep      _o_: other window
+_m_: hydra moccur    _f_: find name
+_a_: hydra ag        _w_: by www
+_r_: hydra rg        _s_: swiper
 "
    ("I" ~hydra-isearch/body)
    ("g" ~hydra-grep/body)
@@ -334,12 +334,12 @@ _r_: hydra rg      _s_: swiper
 
 (defhydra ~hydra-projectile-rails-other (:exit t :hint nil :idle ~hydra-help-delay)
   "
-_c_: find controller  _@_: find mailer
-_m_: find modle       _l_: find locale
-_v_: find view        _i_: find initializer
-_j_: find javascript  _b_: find job
-_s_: find stylesheet  _a_: find migration
-_h_: find helper      _e_: find environment
+_c_: find controller   _@_: find mailer
+_m_: find modle        _l_: find locale
+_v_: find view         _i_: find initializer
+_j_: find javascript   _b_: find job
+_s_: find stylesheet   _a_: find migration
+_h_: find helper       _e_: find environment
 _p_: find spec
 _t_: find test
 _u_: find fixture
@@ -362,15 +362,15 @@ _u_: find fixture
 
 (defhydra ~hydra-projectile-rails (:exit t :hint nil :idle ~hydra-help-delay)
   "
-_c_: find controller  _C-c_: find current controller  _@_: find mailer
-_m_: find model       _C-m_: find current model       _l_: find locale
-_v_: find view        _C-v_: find current view        _i_: find initializer
-_j_: find javascript  _C-j_: find current javascript  _b_: find job
-_s_: find stylesheet  _C-s_: find current stylesheet  _a_: find migration
-_h_: find helper      _C-h_: find current helper      _e_: find environment
-_p_: find spec        _C-p_: find current spec
-_t_: find test        _C-t_: find current test        _x_: hydra manage
-_u_: find fixture     _C-u_: find current fixture     _g_: hydra goto
+_c_: find controller   _C-c_: find current controller   _@_: find mailer
+_m_: find model        _C-m_: find current model        _l_: find locale
+_v_: find view         _C-v_: find current view         _i_: find initializer
+_j_: find javascript   _C-j_: find current javascript   _b_: find job
+_s_: find stylesheet   _C-s_: find current stylesheet   _a_: find migration
+_h_: find helper       _C-h_: find current helper       _e_: find environment
+_p_: find spec         _C-p_: find current spec
+_t_: find test         _C-t_: find current test         _x_: hydra manage
+_u_: find fixture      _C-u_: find current fixture      _g_: hydra goto
 "
   ("c"   projectile-rails-find-controller)
   ("C-c" projectile-rails-find-current-controller)
@@ -423,13 +423,13 @@ _u_: find fixture     _C-u_: find current fixture     _g_: hydra goto
   (kbd "M-p")
   (defhydra ~hydra-projectile (:exit t :hint nil :idle ~hydra-help-delay)
     "
-_f_: find file   _d_: find dir   _b_: switch buffer  _t_: find test
-_F_: hydra file  _D_: hydra dir  _B_: hydra buffer   _T_: hydra test
+_f_: find file    _d_: find dir    _b_: switch buffer   _t_: find test
+_F_: hydra file   _D_: hydra dir   _B_: hydra buffer    _T_: hydra test
 
-_s_: hydra search   _x_: hydra shell  _m_: hydra manage  _^_: root dir
-_o_: other project  _r_: hydra rails
+_s_: hydra search    _x_: hydra shell   _m_: hydra manage   _^_: root dir
+_o_: other project   _r_: hydra rails
 
-_c_: invalidate cache  _z_: cache current file  _p_: browse dirty projects
+_c_: invalidate cache   _z_: cache current file   _p_: browse dirty projects
 "
     ("f" projectile-find-file)
     ("F" ~hydra-projectile-file/body)

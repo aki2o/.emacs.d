@@ -4,7 +4,8 @@
            ("C-h"   . isearch-del-char)
            ("C-l"   . isearch-yank-char)
            ("C-n"   . isearch-ring-advance)
-           ("C-p"   . isearch-ring-retreat))
+           ("C-p"   . isearch-ring-retreat)
+           ([remap keyboard-escape-quit] . isearch-abort))
 
 ;; リージョン選択されたテキストが検索文字列としてあらかじめ設定された状態でisearch
 (defadvice isearch-mode (around

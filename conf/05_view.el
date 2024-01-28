@@ -56,6 +56,7 @@
            (view-mode-by-default-regexp (rx-to-string
                                          `(or (and "." (or "log" "gz") eos)
                                               (and "/gems/")
+                                              (and "/node_modules/")
                                               (and bos ,(expand-file-name (concat user-emacs-directory "elisp/")))))))
   :config
   (viewer-change-modeline-color-setup)

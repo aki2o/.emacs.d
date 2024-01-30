@@ -17,7 +17,10 @@
 (~add-setup-hook-after-load 'flycheck 'emacs-lisp-mode
   (~elisp-disable-flycheck-in-conf))
 
+(autoload 'xref--push-markers "xref")
 (add-to-list 'find-function-after-hook 'xref--push-markers t)
+(add-to-list 'find-function-after-hook 'recenter t)
+(add-to-list 'find-function-after-hook '~pulse-momentary t)
 
 (defun ~elisp-find-definition ()
   (interactive)

@@ -76,7 +76,9 @@
     (slim-mode             . "Sl")
     (js2-mode              . "Js")
     (coffee-mode           . "Cf")
-    (markdown-mode         . "Md")))
+    (markdown-mode         . "Md")
+    (typescript-mode       . "Ts")
+    (graphql-mode          . "Gql")))
 
 (defun ~setup-mode-line ()
   (interactive)

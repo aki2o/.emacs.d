@@ -56,13 +56,16 @@
   :custom ((typescript-indent-level 2))
   :init
   (with-eval-after-load 'mmask
-    (mmask-regist-extension-with-icase 'typescript-mode "ts"))
+    (mmask-regist-extension-with-icase 'typescript-mode "ts")
+    (mmask-regist-extension-with-icase 'typescript-mode "tsx"))
 
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-eslint 'typescript-mode))
 
   :config
   (~add-setup-hook 'typescript-mode
+    (when (string-match-p "\\.tsx\\'" (buffer-name))
+      (~run-deferred (current-buffer) (poly-tsx-mode)))
     (setq ~tidy-code-current-function '~typescript-tidy-dwim)
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp 'lsp)
@@ -75,6 +78,28 @@
     (~typescript-flycheck-select-dwim))
 
   (add-hook 'typescript-mode-hook 'eldoc-mode t)
+
+  (define-hostmode poly-ts-hostmode :mode 'typescript-mode)
+
+  (define-innermode poly-ts-gql-innermode
+    :mode 'graphql-mode
+    :head-matcher (rx (and (or "gql" "graphql") "`"))
+    :tail-matcher "`"
+    :head-mode 'host
+    :tail-mode 'host
+    :fallback-mode 'host)
+
+  (define-innermode poly-ts-css-innermode
+    :mode 'css-mode
+    :head-matcher (rx (and (or "styled" "css") (? (+ (any "." "(" ")" "<" ">" alnum))) "`"))
+    :tail-matcher "`"
+    :head-mode 'host
+    :tail-mode 'host
+    :fallback-mode 'host)
+
+  (define-polymode poly-tsx-mode
+    :hostmode 'poly-ts-hostmode
+    :innermodes '(poly-ts-gql-innermode poly-ts-css-innermode))
   )
 
 (defun ~typescript-flycheck-select-dwim ()
@@ -96,30 +121,3 @@
          (~dockerize-shell-command (format "$(npm bin)/eslint --fix %s" (shell-quote-argument (~projectile-relative-path (current-buffer))))))
         (t
          (error "Can't ~typescript-tidy-dwim"))))
-
-
-(use-package web-mode
-  :defer t
-  :custom ((web-mode-code-indent-offset 2)
-           (web-mode-markup-indent-offset 2)
-           (web-mode-attr-indent-offset 2)
-           (web-mode-css-indent-offset 2))
-  :init
-  (with-eval-after-load 'mmask
-    (mmask-regist-extension-with-icase 'web-mode "tsx"))
-
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-eslint 'web-mode)
-    (flycheck-add-mode 'typescript-tslint 'web-mode))
-
-  :config
-  (~add-setup-hook 'web-mode
-    (when (string-equal "tsx" (file-name-extension buffer-file-name))
-      (setq ~tidy-code-current-function '~typescript-tidy-dwim)
-      ;; npm i -g typescript-language-server typescript が必要
-      (when (functionp 'lsp)
-        (lsp-deferred))))
-
-  (~add-setup-hook-after-load 'flycheck 'web-mode
-    (~typescript-flycheck-select-dwim))
-  )

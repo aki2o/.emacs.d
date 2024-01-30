@@ -79,6 +79,7 @@
 
 (defvar e2wm-transcribe:inhibit-sub-display nil)
 (defvar e2wm-transcribe:right-select-p nil)
+(defvar e2wm-transcribe:next-left-p nil)
 
 (defsubst e2wm-transcribe:active-p ()
   (and (e2wm:managed-p)
@@ -126,7 +127,10 @@
   (cond
    ((e2wm-transcribe:handled-buffer-p buf)
     (e2wm:with-advice
-     (e2wm:pst-buffer-set 'right buf t e2wm-transcribe:right-select-p))
+     (if e2wm-transcribe:next-left-p
+         (e2wm:pst-buffer-set 'left buf t t)
+       (e2wm:pst-buffer-set 'right buf t e2wm-transcribe:right-select-p)))
+    (setq e2wm-transcribe:next-left-p nil)
     t)
    ((not e2wm-transcribe:inhibit-sub-display)
     (e2wm:dp-two-popup-sub buf)

@@ -243,6 +243,9 @@
 	path = elisp/borg/goto-chg
 	url = https://github.com/emacs-evil/goto-chg
 	ignore = untracked
+[submodule "graphql-mode"]
+	path = elisp/borg/graphql-mode
+	url = https://github.com/davazp/graphql-mode
 [submodule "grep-a-lot"]
 	path = elisp/borg/grep-a-lot
 	url = https://github.com/ZungBang/emacs-grep-a-lot
@@ -408,6 +411,9 @@
 	path = elisp/borg/point-undo
 	url = git@github.com:emacsmirror/point-undo.git
 	ignore = untracked
+[submodule "polymode"]
+	path = elisp/borg/polymode
+	url = https://github.com/polymode/polymode
 [submodule "pophint"]
 	path = elisp/borg/pophint
 	url = https://github.com/aki2o/emacs-pophint

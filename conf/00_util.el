@@ -71,6 +71,14 @@
       (overlay-put ov 'face 'highlight)
       (run-with-idle-timer 1 nil (lambda () (when ov (delete-overlay ov)))))))
 
+(cl-defmacro ~run-deferred (buffer &rest body)
+  (declare (indent 1))
+  `(progn
+     (lexical-let ((buf ,buffer))
+       (run-with-idle-timer 1 nil (lambda ()
+                                    (when (buffer-live-p buf)
+                                      (with-current-buffer buf ,@body)))))))
+
 (cl-defmacro ~call-interactively-any-of (&rest commands)
   `(call-interactively (cl-loop for c in ',commands if (commandp c) return c)))
 

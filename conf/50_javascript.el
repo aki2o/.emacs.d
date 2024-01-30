@@ -83,7 +83,7 @@
 
   (define-innermode poly-ts-gql-innermode
     :mode 'graphql-mode
-    :head-matcher (rx (and (or "gql" "graphql") "`"))
+    :head-matcher (rx (and (or "gql" "graphql") (? "(") "`"))
     :tail-matcher "`"
     :head-mode 'host
     :tail-mode 'host

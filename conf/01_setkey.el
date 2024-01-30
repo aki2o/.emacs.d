@@ -277,11 +277,6 @@ _r_: hydra rg        _s_: swiper
   ("A" projectile-project-buffers-other-buffer "other")
   ("i" projectile-ibuffer "ibuffer"))
 
-(defhydra ~hydra-projectile-test (:exit t :hint nil)
-  ("o" projectile-find-implementation-or-test-other-window "to other window")
-  ("t" projectile-toggle-between-implementation-and-test "toggle")
-  ("x" projectile-test-project "run"))
-
 (defhydra ~hydra-projectile-search-rails (:exit t :hint nil :idle ~hydra-help-delay)
   ("v" ~projectile-rails-ag-current-partial-view "ag current partial view"))
 
@@ -438,7 +433,7 @@ _c_: invalidate cache   _z_: cache current file   _p_: browse dirty projects
     ("b" projectile-switch-to-buffer)
     ("B" ~hydra-projectile-buffer/body)
     ("t" projectile-find-test-file)
-    ("T" ~hydra-projectile-test/body)
+    ("T" projectile-toggle-between-implementation-and-test)
     ("s" ~hydra-projectile-search/body)
     ("x" ~hydra-projectile-shell/body)
     ("m" ~hydra-projectile-manage/body)

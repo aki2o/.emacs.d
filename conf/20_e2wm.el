@@ -76,47 +76,6 @@
       (setq e2wm:prev-selected-buffer nil)))
 
   
-  ;; タグジャンプとかでハイライトさせたい
-  (defvar ~e2wm:highlight-current-line-overlay nil)
-  
-  (defmacro ~e2wm:highlight-current-line-after (command wname)
-    (declare (indent 0))
-    `(defadvice ,command (after ~e2wm:highlight-current-line activate)
-       (when (e2wm:managed-p)
-         (e2wm:aif (wlf:get-window (e2wm:pst-get-wm) ',wname)
-             (with-selected-window it
-               (let ((start (point-at-bol))
-                     (end (1+ (point-at-eol))))
-                 (if (not ~e2wm:highlight-current-line-overlay)
-                     (setq ~e2wm:highlight-current-line-overlay (make-overlay start end))
-                   (move-overlay ~e2wm:highlight-current-line-overlay start end))
-                 (overlay-put ~e2wm:highlight-current-line-overlay 'face 'highlight)
-                 (run-with-idle-timer
-                  0.5
-                  nil
-                  '(lambda ()
-                     (when ~e2wm:highlight-current-line-overlay
-                       (delete-overlay ~e2wm:highlight-current-line-overlay)
-                       (setq ~e2wm:highlight-current-line-overlay nil))))))))))
-  
-  ;; e2wm有効な場合に画面更新がされない機能のための対処
-  (defmacro ~e2wm:window-update-ize (command)
-    (declare (indent 0))
-    `(defadvice ,command (after ~e2wm:window-update activate)
-       (when (e2wm:managed-p)
-         (dolist (wnd (window-list))
-           (let ((pt (with-current-buffer (window-buffer wnd)
-                       (point))))
-             (when (not (= (window-point wnd) pt))
-               (set-window-point wnd pt)))))))
-
-  (~e2wm:highlight-current-line-after ~find-definition right)
-  (~e2wm:highlight-current-line-after ~find-references right)
-  (~e2wm:window-update-ize ~pop-marker-stack)
-  (~e2wm:window-update-ize ~find-definition)
-  (~e2wm:window-update-ize ~find-references)
-
-
   ;; コマンド
   (defun ~e2wm:restart-management (&optional pstset)
     (interactive)

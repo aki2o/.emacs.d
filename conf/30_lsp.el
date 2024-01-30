@@ -31,7 +31,7 @@
 
   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-overrides)) '(substring))
 
-  (~add-setup-hook 'lsp-after-initialize
+  (~add-setup-hook 'lsp-mode
     (setq ~lsp-initialized t)
     (setq ~dwim-at-point-function '~lsp-hydra/body))
 

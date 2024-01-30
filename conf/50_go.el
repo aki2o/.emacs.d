@@ -4,10 +4,10 @@
   (~add-setup-hook 'go-mode
     (setq-local tab-width 2)
 
-    (when (functionp 'lsp)
+    (when (functionp '~lsp-deferred)
       (add-hook 'before-save-hook 'lsp-format-buffer t t)
       (add-hook 'before-save-hook 'lsp-organize-imports t t)
-      (lsp-deferred)))
+      (~lsp-deferred)))
 
   (~add-setup-hook-after-load 'mmask 'go-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'go-mode)))

@@ -6,8 +6,8 @@
   (~add-setup-hook 'rust-mode
     (setq lsp-rust-server 'rust-analyzer)
     (setq lsp-rust-analyzer-server-command '("rust-analyzer"))
-    (when (functionp 'lsp)
-      (lsp-deferred))))
+    (when (functionp '~lsp-deferred)
+      (~lsp-deferred))))
 
 
 (use-package cargo

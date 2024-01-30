@@ -30,8 +30,8 @@
 
     (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function)
 
-    (when (functionp 'lsp)
-      (lsp-deferred)
+    (when (functionp '~lsp-deferred)
+      (~lsp-deferred)
       (setq lsp-completion-enable nil)
       (add-to-list 'lsp-enabled-clients 'ruby-ls)))
 

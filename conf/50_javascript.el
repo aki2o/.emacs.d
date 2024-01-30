@@ -68,8 +68,8 @@
       (~run-deferred (current-buffer) (poly-tsx-mode)))
     (setq ~tidy-code-current-function '~typescript-tidy-dwim)
     ;; npm i -g typescript-language-server typescript が必要
-    (when (functionp 'lsp)
-      (lsp-deferred)))
+    (when (functionp '~lsp-deferred)
+      (~lsp-deferred)))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode)))

@@ -67,7 +67,7 @@
   :defer t
   :config
   (when (functionp 'lsp)
-    (add-hook 'java-mode-hook 'lsp-deferred t)))
+    (add-hook 'java-mode-hook '~lsp-deferred t)))
 
 
 (use-package scala-mode
@@ -101,9 +101,9 @@
     :name kotest-core)
 
   (~add-setup-hook 'kotlin-mode
-    (when (functionp 'lsp)
+    (when (functionp '~lsp-deferred)
       ;; 不安定なので、一旦コメントアウト
-      ;; (lsp-deferred)
+      ;; (~lsp-deferred)
       (setq lsp-completion-enable nil))))
 
 

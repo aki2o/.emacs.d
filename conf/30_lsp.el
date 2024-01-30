@@ -36,7 +36,14 @@
     (setq ~dwim-at-point-function '~lsp-hydra/body))
 
   (~add-setup-hook-after-load 'which-key 'lsp-mode
-    (lsp-enable-which-key-integration)))
+    (lsp-enable-which-key-integration))
+
+  (with-eval-after-load 'web-mode
+    (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset))))
+
+(defun ~lsp-deferred ()
+  (interactive)
+  (~run-deferred (current-buffer) (lsp)))
 
 (defvar ~lsp-initialized nil)
 (make-variable-buffer-local '~lsp-initialized)

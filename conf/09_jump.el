@@ -3,6 +3,7 @@
 (setq global-mark-ring-max 512)
 
 (setq xref-after-jump-hook '(recenter ~pulse-momentary))
+(setq xref-after-return-hook '(recenter ~pulse-momentary))
 
 (setq find-function-recenter-line nil)
 

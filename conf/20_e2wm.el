@@ -156,6 +156,23 @@
     "[internal] If `buf' is completion buffer, return not nil."
     (and (bufferp buf) (buffer-live-p buf) (string-match "\\*Completions\\*" (buffer-name buf))))
 
+  ;; 同じバッファを開いている場合の考慮を追加
+  (defun e2wm:dp-two-swap-buffers-command ()
+    (interactive)
+    (let ((left  (e2wm:pst-buffer-get 'left))
+          (right (e2wm:pst-buffer-get 'right))
+          (wm    (e2wm:pst-get-wm)))
+      (cond ((eql left right)
+             (let ((lpt (window-point (wlf:get-window wm 'left)))
+                   (rpt (window-point (wlf:get-window wm 'right))))
+               (set-window-point (wlf:get-window wm 'left) rpt)
+               (set-window-point (wlf:get-window wm 'right) lpt)))
+            (t
+             (e2wm:pst-buffer-set 'left  right)
+             (e2wm:pst-buffer-set 'right left)
+             (e2wm:dp-two-update-history-list)))))
+
+
   )
 
 

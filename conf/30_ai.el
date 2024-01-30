@@ -1,6 +1,7 @@
 (use-package copilot
   :defer t
-  :custom ((copilot-idle-delay 3))
+  :custom ((copilot-idle-delay 3)
+           (copilot-max-char 300000))
   :hook ((prog-mode . copilot-mode))
 
   :config

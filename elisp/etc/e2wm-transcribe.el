@@ -162,7 +162,9 @@
 
 (with-eval-after-load 'xref
   ;; `xref-pop-to-location' don't consider a case that not in current window after `switch-to-buffer'.
-  (advice-add 'xref-pop-to-location :around 'e2wm-transcribe--wrap-selecting-right))
+  (advice-add 'xref-pop-to-location :around 'e2wm-transcribe--wrap-selecting-right)
+  (advice-add 'xref-go-back :around 'e2wm-transcribe--wrap-selecting-right)
+  (advice-add 'xref-go-forward :around 'e2wm-transcribe--wrap-selecting-right))
 
 
 (with-eval-after-load 'consult

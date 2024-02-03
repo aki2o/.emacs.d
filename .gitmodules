@@ -246,6 +246,7 @@
 [submodule "graphql-mode"]
 	path = elisp/borg/graphql-mode
 	url = https://github.com/davazp/graphql-mode
+	ignore = untracked
 [submodule "grep-a-lot"]
 	path = elisp/borg/grep-a-lot
 	url = https://github.com/ZungBang/emacs-grep-a-lot

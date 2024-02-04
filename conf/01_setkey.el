@@ -156,6 +156,7 @@
   "echo"
   ("p" ~echo-file-path "path")
   ("f" ~echo-face-at-point "face")
+  ("a" ~echo-properties-at-point "properties")
   ("g" ~echo-git-diff-file-path-list "git diff path list"))
 
 (defhydra ~hydra-text ()

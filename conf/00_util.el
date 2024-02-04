@@ -321,6 +321,10 @@
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
 
+(defun ~echo-properties-at-point ()
+  (interactive)
+  (message "%s" (text-properties-at (point))))
+
 (defun ~echo-git-diff-file-path-list ()
   (interactive)
   (message (mapconcat 'identity (~git-diff-path-list (current-buffer)) "\n")))

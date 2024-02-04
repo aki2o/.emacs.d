@@ -27,10 +27,13 @@
 (use-package cape
   :init
   (with-eval-after-load 'minibuffer
-    (add-to-list 'completion-at-point-functions '~completion-at-point-function)))
+    (add-to-list 'completion-at-point-functions '~completion-at-point)))
 
-(defun ~completion-at-point-function ()
-  (cape-wrap-super #'cape-dabbrev #'cape-keyword))
+(defvar ~completion-at-point-functions '(cape-dabbrev cape-keyword))
+(make-variable-buffer-local '~completion-at-point-functions)
+
+(defun ~completion-at-point ()
+  (apply 'cape-wrap-super ~completion-at-point-functions))
 
 
 (use-package corfu-prescient

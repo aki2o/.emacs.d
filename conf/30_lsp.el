@@ -32,7 +32,8 @@
   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-overrides)) '(substring))
 
   (~add-setup-hook 'lsp-mode
-    (setq ~lsp-initialized t)
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults)) '(orderless))
+    (add-to-list '~completion-at-point-functions '~lsp-completion)
     (setq ~dwim-at-point-function '~lsp-hydra/body))
 
   (~add-setup-hook-after-load 'which-key 'lsp-mode
@@ -43,14 +44,15 @@
 
 (defun ~lsp-deferred ()
   (interactive)
-  (~run-deferred (current-buffer) (lsp)))
+  (when (buffer-file-name)
+    (~run-deferred (current-buffer) (lsp))))
 
-(defvar ~lsp-initialized nil)
-(make-variable-buffer-local '~lsp-initialized)
+(defun ~lsp-completion ()
+  (cape-wrap-buster 'lsp-completion-at-point))
 
+;; lsp-completion-at-point が実行されると、候補が無くてもそこで補完が終ってしまうので、 ~completion-at-point-functions に登録してそっちを使う
 (defun ~lsp-completion-at-point (orig &rest args)
-  (when ~lsp-initialized
-    (cape-wrap-buster orig)))
+  (~completion-at-point-function))
 
 (defhydra ~lsp-hydra (:exit t :hint nil)
   "

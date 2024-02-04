@@ -21,30 +21,25 @@
 
 (use-package chatblade
   :defer t
+  :init
+  (with-eval-after-load 'exec-path-from-shell
+    (exec-path-from-shell-copy-envs '("OPENAI_API_KEY")))
   :custom ((chatblade-prompt-alist '((rust-mode . "rust")
                                      (typescript-mode . "ts")
                                      (emacs-lisp-mode . "elisp")))
            (chatblade-query-template-alist '(("comp" . "req:comp ```\n%s\n```")
-                                             ("samp" . "req:samp %s")
+                                             ("samp" . ~chatblade-make-samp-query)
                                              ("ref"  . ~chatblade-make-ref-query)
                                              ("err"  . ~chatblade-make-err-query)
                                              ("bug"  . ~chatblade-make-bug-query)
                                              ("ask"  . "Can you figure out what this codes do? ```\n%s\n```")
                                              ("doc"  . "Please write a document for this codes ```\n%s\n```")))
+           (chatblade-start-function-alist '(("ref" . ~chatblade-open-reference)))
            (chatblade-prompt-template-function '~chatblade-make-prompt-template)))
 
-(defun ~chatblade-make-prompt-template ()
-  (mapconcat
-   'identidy
-   '(
-     "Please act as an assistant of %s programming and be compliant with the following rules."
-     "- A word \"codes\" means %s codes."
-     "- Any codes must be surrounded by ```."
-     "- If my message starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
-     "- If my message starts with \"req:comp\", reply only codes that's predicted to follow on the given codes without any other informations."
-     "- If my message starts with \"req:ref\", reply only a url of a referenct that corresponds to the given message without any other informations."
-     )
-   "\n"))
+(defun ~chatblade-make-samp-query ()
+  (let ((text (read-string "Input the behaviour: " nil nil (~dwim-thing-at-point))))
+    (format "req:samp %s" text)))
 
 (defun ~chatblade-make-ref-query ()
   (let ((thing (read-string "Input the thing: " nil nil (word-at-point))))
@@ -63,6 +58,25 @@
             (format "This codes looks having a bug that %s." message)
             "Can you figure out how to fix?")))
 
+(defun ~chatblade-open-reference (query)
+  (let ((res (chatblade-request query :with-prompt t)))
+    (if (s-starts-with? "http" res)
+        (browse-url res)
+      (chatblade-open-interactive query))))
+
+(defun ~chatblade-make-prompt-template (thing)
+  (mapconcat
+   'identity
+   `(
+     ,(format "Please act as an assistant of %s programming and be compliant with the following rules." thing)
+     ,(format "- A word \"codes\" means %s codes." thing)
+     "- If my message starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
+     "- If my message starts with \"req:comp\", reply only codes that's predicted to follow on the given codes without any other informations."
+     "- If my message starts with \"req:ref\", reply only a url of a referenct that corresponds to the given message without any other informations."
+     )
+   "\n"))
+
+(require 'chatblade)
 
 ;; (use-package openai
 ;;   :defer t

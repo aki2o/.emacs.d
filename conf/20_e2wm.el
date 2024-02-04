@@ -29,10 +29,14 @@
   ;; ドキュメント的に扱いたいバッファ
   (setq ~e2wm:regexp-doc-buff
         (rx-to-string `(and bos "*" (or "Help" "info" "eww" "w3m" "Woman " "Man "
-                                        "perldoc " "plsense help" "~lsp-ui-doc " "ChatGPT:"))))
+                                        "perldoc " "plsense help" "~lsp-ui-doc "
+                                        "ChatGPT:" "chatblade "))))
+  (setq ~e2wm:doc-buff-modes '(chatblade-mode))
   (setq e2wm:c-document-buffer-p
         (lambda (buf)
-          (string-match ~e2wm:regexp-doc-buff (buffer-name buf))))
+          (or (string-match ~e2wm:regexp-doc-buff (buffer-name buf))
+              (with-current-buffer buf (derived-mode-p 'prog-mode))
+              (member (buffer-local-value 'major-mode buf) ~e2wm:doc-buff-modes))))
 
   ;; バッファ履歴にドキュメントも含める
   (setq e2wm:c-recordable-buffer-p

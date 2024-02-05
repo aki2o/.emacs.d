@@ -47,12 +47,17 @@
   (when (buffer-file-name)
     (~run-deferred (current-buffer) (lsp))))
 
+(defvar ~lsp-completion-running-p nil)
+
 (defun ~lsp-completion ()
-  (cape-wrap-buster 'lsp-completion-at-point))
+  (let ((~lsp-completion-running-p t))
+    (cape-wrap-buster 'lsp-completion-at-point)))
 
 ;; lsp-completion-at-point が実行されると、候補が無くてもそこで補完が終ってしまうので、 ~completion-at-point-functions に登録してそっちを使う
 (defun ~lsp-completion-at-point (orig &rest args)
-  (~completion-at-point-function))
+  (if ~lsp-completion-running-p
+      (apply orig args)
+    (~completion-at-point)))
 
 (defhydra ~lsp-hydra (:exit t :hint nil)
   "

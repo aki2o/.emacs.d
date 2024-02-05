@@ -1,8 +1,8 @@
 (use-package embark
   :after (vertico)
   :init
-  (add-hook 'find-file-hook '~embark-setup-dwim t)
-  (add-hook 'minibuffer-setup-hook '~embark-setup-act t)
+  (add-hook 'find-file-hook '~embark-setup t)
+  (add-hook 'minibuffer-setup-hook '~embark-setup t)
   :config
   (with-eval-after-load 'which-key
     (setq embark-indicators '(~embark-which-key-indicator)))
@@ -12,11 +12,7 @@
     (define-key vertico-map (kbd "<tab>") '~embark-act-with-completing-read))
   )
 
-(defun ~embark-setup-dwim ()
-  (setq ~dwim-at-point-function 'embark-dwim)
-  (setq ~action-at-point-function 'embark-act))
-
-(defun ~embark-setup-act ()
+(defun ~embark-setup ()
   (setq ~dwim-at-point-function 'embark-act))
 
 (defun ~embark-which-key-indicator ()

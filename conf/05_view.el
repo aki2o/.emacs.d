@@ -57,6 +57,7 @@
                                          `(or (and "." (or "log" "gz") eos)
                                               (and "/gems/")
                                               (and "/node_modules/")
+                                              (and "/lisp/")
                                               (and bos ,(expand-file-name (concat user-emacs-directory "elisp/")))))))
   :config
   (viewer-change-modeline-color-setup)

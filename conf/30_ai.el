@@ -27,7 +27,7 @@
   :custom ((chatblade-prompt-alist '((rust-mode . "rust")
                                      (typescript-mode . "ts")
                                      (emacs-lisp-mode . "elisp")))
-           (chatblade-query-template-alist '(("comp" . "req:comp ```\n%s\n```")
+           (chatblade-query-template-alist '(("comp" . "req:comp %s")
                                              ("samp" . ~chatblade-make-samp-query)
                                              ("ref"  . ~chatblade-make-ref-query)
                                              ("err"  . ~chatblade-make-err-query)
@@ -58,7 +58,8 @@
             (format "This codes looks having a bug that %s." message)
             "Can you figure out how to fix?")))
 
-(defun ~chatblade-open-reference (query)
+(defun ~chatblade-open-document (query)
+  (interactive (list (~chatblade-make-ref-query)))
   (let ((res (chatblade-request query :with-prompt t)))
     (if (s-starts-with? "http" res)
         (browse-url res)
@@ -75,6 +76,17 @@
      "- If my message starts with \"req:ref\", reply only a url of a referenct that corresponds to the given message without any other informations."
      )
    "\n"))
+
+(defhydra ~chatblade-hydra (:exit t)
+  "Chatblade"
+  ("s" chatblade-start "start")
+  ("b" chatblade-switch-to-buffer "buffer")
+  ("d" ~chatblade-open-document "docment")
+  ("r" chatblade-resume "resume")
+  ("f" chatblade-find-prompt-file "find prompt")
+  ("e" chatblade-update-prompt-file "update prompt"))
+
+(setq-default ~action-at-point-function '~chatblade-hydra/body)
 
 (require 'chatblade)
 

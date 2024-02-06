@@ -11,8 +11,9 @@
 
   :config
   (~add-setup-hook 'typescript-mode
-    (when (string-match-p "\\.tsx\\'" (buffer-name))
-      (~run-deferred (current-buffer) (poly-tsx-mode)))
+    ;; 開くのが遅くなってそうなので、一旦やめ
+    ;; (when (string-match-p "\\.tsx\\'" (buffer-name))
+    ;;   (~run-deferred (current-buffer) (poly-tsx-mode)))
     (setq ~tidy-code-current-function '~typescript-tidy-dwim)
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)

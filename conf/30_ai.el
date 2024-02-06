@@ -35,7 +35,11 @@
                                              ("ask"  . "Can you figure out what this codes do? ```\n%s\n```")
                                              ("doc"  . "Please write a document for this codes ```\n%s\n```")))
            (chatblade-start-function-alist '(("ref" . ~chatblade-open-reference)))
-           (chatblade-prompt-template-function '~chatblade-make-prompt-template)))
+           (chatblade-prompt-template-function '~chatblade-make-prompt-template))
+  :config
+  (~add-setup-hook 'chatblade-mode
+    (setq-local truncate-lines nil)
+    (setq-local truncate-partial-width-windows nil)))
 
 (defun ~chatblade-make-samp-query ()
   (let ((text (read-string "Input the behaviour: " nil nil (~dwim-thing-at-point))))

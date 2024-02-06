@@ -40,7 +40,14 @@
     (lsp-enable-which-key-integration))
 
   (with-eval-after-load 'web-mode
-    (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset))))
+    (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset)))
+
+  (with-eval-after-load 'lsp-completion
+    ;; 補完した後に、後続の文字を消されてしまうことがあって、ここでやっているっぽいので、一旦何もしないようにしてみてる
+    (defun lsp-completion--exit-fn (&rest args)
+      nil))
+  )
+
 
 (defun ~lsp-deferred ()
   (interactive)

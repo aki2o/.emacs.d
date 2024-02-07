@@ -32,6 +32,7 @@
                                              ("ref"  . ~chatblade-make-ref-query)
                                              ("err"  . ~chatblade-make-err-query)
                                              ("bug"  . ~chatblade-make-bug-query)
+                                             ("ggl"  . ~chatblade-make-ggl-query)
                                              ("ask"  . "Can you figure out what this codes do? ```\n%s\n```")
                                              ("doc"  . "Please write a document for this codes ```\n%s\n```")))
            (chatblade-start-function-alist '(("ref" . ~chatblade-open-reference)))
@@ -42,12 +43,16 @@
     (setq-local truncate-partial-width-windows nil)))
 
 (defun ~chatblade-make-samp-query ()
-  (let ((text (read-string "Input the behaviour: " nil nil (~dwim-thing-at-point))))
-    (format "req:samp %s" text)))
+  (let ((text (read-string "Input the behaviour: ")))
+    (concat "req:samp " text " %s")))
 
 (defun ~chatblade-make-ref-query ()
   (let ((thing (read-string "Input the thing: " nil nil (word-at-point))))
     (format "req:ref %s" thing)))
+
+(defun ~chatblade-make-ggl-query ()
+  (let ((text (read-string "Input the description: ")))
+    (concat "req:ggl " text " %s")))
 
 (defun ~chatblade-make-err-query ()
   (let ((message (read-string "Input the error: ")))
@@ -57,14 +62,14 @@
             "How can I fix?")))
 
 (defun ~chatblade-make-bug-query ()
-  (let ((message (read-string "Input the bug: ")))
+  (let ((message (read-string "Input the bug detail: ")))
     (concat "```\n%s\n```\n"
             (format "This codes looks having a bug that %s." message)
             "Can you figure out how to fix?")))
 
 (defun ~chatblade-open-document (query)
   (interactive (list (~chatblade-make-ref-query)))
-  (let ((res (chatblade-request query :with-prompt t)))
+  (let ((res (chatblade-request query)))
     (if (s-starts-with? "http" res)
         (browse-url res)
       (chatblade-open-interactive query))))
@@ -76,8 +81,9 @@
      ,(format "Please act as an assistant of %s programming and be compliant with the following rules." thing)
      ,(format "- A word \"codes\" means %s codes." thing)
      "- If my message starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
-     "- If my message starts with \"req:comp\", reply only codes that's predicted to follow on the given codes without any other informations."
-     "- If my message starts with \"req:ref\", reply only a url of a referenct that corresponds to the given message without any other informations."
+     "- If my message starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
+     "- If my message starts with \"req:ref\", reply only a url of official document that corresponds to the given message without any other informations."
+     "- If my message starts with \"req:ggl\", reply only a list of url and the short summary that's useful for this case without any other informations."
      )
    "\n"))
 

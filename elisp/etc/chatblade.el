@@ -56,6 +56,11 @@ If not set, it will be `chatblade-open-interactive'."
   :type '(repeat string)
   :group 'chatblade)
 
+(defcustom chatblade-input-fold-threshold 80
+  "Threshold to fold input."
+  :type 'integer
+  :group 'chatblade)
+
 (defcustom chatblade-send-input-by-newline-p t
   "Whether to send input by typing <return>.
 Typing S-<return> means
@@ -80,7 +85,7 @@ Typing S-<return> means
   (let* ((prompt (cl-loop while mode
                           for prompt = (assoc-default mode chatblade-prompt-alist)
                           if prompt return prompt
-                          else do (setq mode (derived-mode-parent mode))))
+                          else do (setq mode (get mode 'derived-mode-parent))))
          (file (when prompt (expand-file-name prompt chatblade-config-directory))))
     (when (and file (not (file-exists-p file)))
       (error "Not found prompt file : %s" file))
@@ -119,8 +124,10 @@ Typing S-<return> means
                                               "*chatblade *"))
     (chatblade-mode)
     (let* ((session (chatblade--new-session template-name)))
-      (insert query "\n\n")
+      (insert query "\n")
       (font-lock-append-text-property (point-min) (point) 'font-lock-face 'font-lock-comment-face)
+      (set-marker comint-last-input-start (point-min))
+      (set-marker comint-last-input-end (point))
       (apply #'make-comint-in-buffer
              "chatblade"
              (current-buffer)
@@ -138,14 +145,32 @@ Typing S-<return> means
     (when query (setq args `(,@args ,query)))
     `(,@prompt ,@session ,@chatblade-default-arguments ,@args)))
 
-(defun chatblade--create-overlay (beg end)
+(defun chatblade--fold-input (beg end)
   (let ((ov (make-overlay beg end)))
     (overlay-put ov 'creator 'chatblade)
     (overlay-put ov 'isearch-open-invisible 'chatblade--isearch-open-invisible)
     (overlay-put ov 'isearch-open-invisible-temporary 'chatblade--isearch-open-invisible-temporary)
-    (overlay-put ov 'invisible t)
-    (overlay-put ov 'before-string (propertize "..." 'face 'font-lock-comment-face))
+    (chatblade--input-fold-close ov)
     ov))
+
+(defun chatblade--input-fold-close (ov)
+  (overlay-put ov 'invisible t)
+  (overlay-put ov 'before-string (propertize "..." 'face 'font-lock-comment-face)))
+
+(defun chatblade--input-fold-open (ov)
+  (overlay-put ov 'invisible nil)
+  (overlay-put ov 'before-string nil))
+
+(defun chatblade--input-fold-close-p (ov)
+  (overlay-get ov 'invisible))
+
+(defun chatblade--input-fold-at (pt)
+  (let ((pt (save-excursion
+              (goto-char pt)
+              (- (pos-eol) 1))))
+    (-find (lambda (ov)
+             (eq (overlay-get ov 'creator) 'chatblade))
+           (overlays-at pt))))
 
 (defun chatblade--isearch-open-invisible (ov)
   (delete-overlay ov))
@@ -154,16 +179,17 @@ Typing S-<return> means
   (overlay-put ov 'invisible (if hide-p 'yaol nil)))
 
 (defun chatblade--make-up-input-region (_string)
-  (let ((beg (marker-position comint-last-input-start))
-        (end (marker-position comint-last-input-end)))
+  (let* ((beg (marker-position comint-last-input-start))
+         (end (marker-position comint-last-input-end))
+         (end (if (eq (char-before end) ?\n) (- end 1) end))
+         (inhibit-read-only t))
     (font-lock-append-text-property beg end 'font-lock-face 'font-lock-comment-face)
     (save-excursion
       (goto-char beg)
-      (if (> (pos-eol) (+ (point) 50))
-          (forward-char 50)
-        (goto-char (pos-eol)))
-      (when (> end (point))
-        (chatblade--create-overlay (point) end)))))
+      (forward-char chatblade-input-fold-threshold)
+      (when (and (> end (point))
+                 (not (chatblade--input-fold-at (point))))
+        (chatblade--fold-input (point) end)))))
 
 (defun chatblade--make-up-output-region (_string)
   (let ((inhibit-read-only t))
@@ -205,8 +231,9 @@ Typing S-<return> means
 ;;;###autoload
 (cl-defun chatblade-request (query &key prompt session (omit-query t))
   (let* ((prompt (if prompt prompt (chatblade--resolve-prompt-by major-mode)))
-         (args (if omit-query `(,@args "--only") args))
+         (args (if omit-query '("--only") '()))
          (args (apply 'chatblade--make-arguments query prompt session args)))
+    (message "DEBUG chatblade-request : %s" args)
     (shell-command-to-string (mapconcat 'shell-quote-argument `(,chatblade-executable-path ,@args) " "))))
 
 (define-hostmode poly-chatblade-hostmode :mode 'chatblade-mode)
@@ -229,6 +256,7 @@ Based on `comint-mode-map'."
   :parent comint-mode-map
   "C-m"        #'chatblade-maybe-send-input
   "S-<return>" #'chatblade-maybe-insert-newline
+  "<tab>"      #'chatblade-toggle-current-input-fold
   "C-c C-c"    #'comint-send-input
   "C-c C-r"    #'chatblade-resume-current
   "C-c C-d"    #'chatblade-describe-current-session)
@@ -251,6 +279,14 @@ Based on `comint-mode-map'."
 (defun chatblade-maybe-insert-newline ()
   (interactive)
   (if chatblade-send-input-by-newline-p (insert "\n") (comint-send-input)))
+
+(defun chatblade-toggle-current-input-fold ()
+  (interactive)
+  (let ((ov (chatblade--input-fold-at (point))))
+    (when ov
+      (if (chatblade--input-fold-close-p ov)
+          (chatblade--input-fold-open ov)
+        (chatblade--input-fold-close ov)))))
 
 (defun chatblade-resume-current ()
   (interactive)

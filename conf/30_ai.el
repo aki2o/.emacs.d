@@ -32,6 +32,7 @@
                                              ("sample code"                                . ~chatblade-make-samp-query)
                                              ("open reference url"                         . ~chatblade-make-ref-query)
                                              ("url list for current buffer/region"         . ~chatblade-make-ggl-query)
+                                             ("fix syntax of current buffer/region"        . "req:lint %s")
                                              ("fix error caused by current buffer/region"  . ~chatblade-make-err-query)
                                              ("find bug in current buffer/region"          . ~chatblade-make-bug-query)
                                              ("what's current buffer/region"               . "Can you figure out what this codes do? ```\n%s\n```")
@@ -85,6 +86,7 @@
      ,(format "- A word \"codes\" means %s codes." thing)
      "- If my message starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
      "- If my message starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
+     "- If my message starts with \"req:lint\", reply only codes that's right for the given codes without any other informations."
      "- If my message starts with \"req:ref\", reply only a url of official document that corresponds to the given message without any other informations."
      "- If my message starts with \"req:ggl\", reply only a list of url and the short summary that lools useful for this case without any other informations."
      "- If my message starts with else, reply normally."

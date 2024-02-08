@@ -21,7 +21,11 @@
     ;; 開くのが遅くなってそうなので、一旦やめ
     ;; (when (string-match-p "\\.tsx\\'" (buffer-name))
     ;;   (~run-deferred (current-buffer) (poly-tsx-mode)))
-    (setq ~tidy-code-current-function '~typescript-tidy-dwim)
+
+    (setq my:lint-executable (if (projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))
+                                 "npx tslint --fix"
+                               "npx eslint --fix"))
+
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       (~lsp-deferred)))
@@ -63,16 +67,3 @@
          (flycheck-select-checker 'typescript-tslint))
         ((executable-find "eslint")
          (flycheck-select-checker 'javascript-eslint))))
-
-;; npm i -g @typescript-eslint/eslint-plugin が必要
-(defun ~typescript-tidy-dwim ()
-  (interactive)
-  (cond ((not (string= (shell-command-to-string "npm ls --parseable --depth 0 prettier | grep prettier") ""))
-         (prettier-js))
-        ((and (functionp 'projectile-project-root)
-              (projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root))))
-         (~dockerize-shell-command (format "$(npm bin)/tslint --fix %s" (shell-quote-argument (~projectile-relative-path (current-buffer))))))
-        ((functionp '~projectile-relative-path)
-         (~dockerize-shell-command (format "$(npm bin)/eslint --fix %s" (shell-quote-argument (~projectile-relative-path (current-buffer))))))
-        (t
-         (error "Can't ~typescript-tidy-dwim"))))

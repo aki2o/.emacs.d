@@ -31,7 +31,7 @@
     (local-set-key (kbd "C-c h") 'cperl-perldoc)
     (local-set-key (kbd "C-j") nil)
 
-    (setq ~tidy-code-current-function '~perltidy-apply))
+    (setq ~lint-current-function '~perltidy-apply))
 
   (~add-setup-hook-after-load 'mmask 'cperl-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'perl-mode))))

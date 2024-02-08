@@ -7,4 +7,4 @@
   :config
   (~add-setup-hook 'json-mode
     (setq-local js-indent-level 2)
-    (setq ~tidy-code-current-function '~typescript-tidy-dwim)))
+    (setq my:lint-executable "$(npm bin)/eslint --fix")))

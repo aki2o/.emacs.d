@@ -23,8 +23,7 @@
     ;; (remove-hook 'before-save-hook 'ruby-mode-set-encoding) ; encodingを自動挿入しないようにする
     (define-key ruby-mode-map (kbd "C-c e") '~ruby-mode-set-encoding)
 
-    (setq ~tidy-code-current-function '~ruby-rubocop-apply-to-current)
-    (setq ~tidy-code-diff-files-function '~ruby-rubocop-apply-to-diff-files)
+    (setq my:lint-executable "bundle exec rubocop -a")
 
     (electric-indent-local-mode 0)
 
@@ -71,17 +70,6 @@
 (defun ~ruby-mode-set-encoding ()
   (interactive)
   (ruby-mode-set-encoding))
-
-(defun ~ruby-rubocop-apply (&rest path)
-  (~dockerize-shell-command (format "bundle exec rubocop -a %s" (mapconcat 'shell-quote-argument path " "))))
-
-(defun ~ruby-rubocop-apply-to-current ()
-  (interactive)
-  (~ruby-rubocop-apply (~projectile-relative-path (current-buffer))))
-
-(defun ~ruby-rubocop-apply-to-diff-files ()
-  (interactive)
-  (apply '~ruby-rubocop-apply (~git-diff-path-list (current-buffer))))
 
 (defun ~ruby-rails-show-routes (keyword)
   (interactive

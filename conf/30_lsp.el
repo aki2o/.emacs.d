@@ -14,6 +14,7 @@
            (lsp-response-timeout 5)
            (lsp-enable-snippet nil)
            (lsp-headerline-breadcrumb-enable nil)
+           (lsp-semantic-tokens-enable nil)
            (lsp-idle-delay 0.5)
            (lsp-completion-provider :none)
            (lsp-warn-no-matched-clients t))

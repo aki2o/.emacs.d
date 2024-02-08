@@ -260,8 +260,11 @@
 (cl-defun my:lint-default (&optional (file (~projectile-relative-path (current-buffer))))
   (when (not my:lint-executable)
     (error "Can't lint code : not set my:lint-executable"))
-  (let* ((default-directory (projectile-project-root)))
-    (~dockerize-shell-command (format "%s %s" my:lint-executable (shell-quote-argument file)))))
+  (let* ((default-directory (projectile-project-root))
+         (cmd (if (functionp my:lint-executable)
+                  (funcall my:lint-executable file)
+                my:lint-executable)))
+    (~dockerize-shell-command (format "%s %s" cmd (shell-quote-argument file)))))
 
 (defun my:lint-diff-files-default ()
   (cl-loop for file in (~git-diff-path-list (current-buffer))

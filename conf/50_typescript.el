@@ -2,9 +2,16 @@
   :defer t
   :custom ((typescript-indent-level 2))
   :init
-  (with-eval-after-load 'mmask
-    (mmask-regist-extension-with-icase 'typescript-mode "ts")
-    (mmask-regist-extension-with-icase 'typescript-mode "tsx"))
+  ;; (with-eval-after-load 'mmask
+  ;;   (mmask-regist-extension-with-icase 'typescript-mode "ts")
+  ;;   (mmask-regist-extension-with-icase 'typescript-mode "tsx"))
+
+  (define-derived-mode typescript-tsx-mode typescript-mode "TSX")
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+
+  (with-eval-after-load 'tree-sitter
+    (tree-sitter-require 'tsx)
+    (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-eslint 'typescript-mode))
@@ -27,9 +34,9 @@
 
   (add-hook 'typescript-mode-hook 'eldoc-mode t)
 
-  (define-hostmode poly-ts-hostmode :mode 'typescript-mode)
+  (define-hostmode poly-tsx-hostmode :mode 'typescript-tsx-mode)
 
-  (define-innermode poly-ts-gql-innermode
+  (define-innermode poly-tsx-gql-innermode
     :mode 'graphql-mode
     :head-matcher (rx (and (or "gql" "graphql") (? "(") "`"))
     :tail-matcher "`"
@@ -37,7 +44,7 @@
     :tail-mode 'host
     :fallback-mode 'host)
 
-  (define-innermode poly-ts-css-innermode
+  (define-innermode poly-tsx-css-innermode
     :mode 'css-mode
     :head-matcher (rx (and (or "styled" "css") (? (+ (any "." "(" ")" "<" ">" alnum))) "`"))
     :tail-matcher "`"
@@ -46,8 +53,8 @@
     :fallback-mode 'host)
 
   (define-polymode poly-tsx-mode
-    :hostmode 'poly-ts-hostmode
-    :innermodes '(poly-ts-gql-innermode poly-ts-css-innermode))
+    :hostmode 'poly-tsx-hostmode
+    :innermodes '(poly-tsx-gql-innermode poly-tsx-css-innermode))
   )
 
 (defun ~typescript-flycheck-select-dwim ()

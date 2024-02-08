@@ -557,6 +557,14 @@
 [submodule "transient"]
 	path = elisp/borg/transient
 	url = git@github.com:magit/transient.git
+[submodule "tree-sitter"]
+	path = elisp/borg/tree-sitter
+	url = https://github.com/emacs-tree-sitter/elisp-tree-sitter
+	load-path = core
+	load-path = lisp
+[submodule "tree-sitter-langs"]
+	path = elisp/borg/tree-sitter-langs
+	url = https://github.com/emacs-tree-sitter/tree-sitter-langs
 [submodule "treemacs"]
 	path = elisp/borg/treemacs
 	url = https://github.com/Alexander-Miller/treemacs
@@ -567,6 +575,9 @@
 	path = elisp/borg/treepy
 	url = git@github.com:volrath/treepy.el.git
 	ignore = untracked
+[submodule "treesit-auto"]
+	path = elisp/borg/treesit-auto
+	url = https://github.com/renzmann/treesit-auto
 [submodule "typescript-mode"]
 	path = elisp/borg/typescript-mode
 	url = https://github.com/emacs-typescript/typescript.el

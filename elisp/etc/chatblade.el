@@ -36,7 +36,8 @@ If not set, it will be `chatblade-open-interactive'."
   :group 'chatblade)
 
 (defcustom chatblade-fenced-code-mode-alist '(("lisp"  . emacs-lisp-mode)
-                                              ("elisp" . emacs-lisp-mode))
+                                              ("elisp" . emacs-lisp-mode)
+                                              ("tsx"   . typescript-mode))
   "Alist of the language name and the corresponding major mode."
   :type '(alist :key-type string :value-type symbol)
   :group 'chatblade)
@@ -99,7 +100,7 @@ Typing S-<return> means
   (if (= (length chatblade-query-template-alist) 0)
       (read-string "Input query template: ")
     (let* ((list (mapcar 'car chatblade-query-template-alist)))
-      (completing-read "Select template or input directly: " list nil nil nil nil))))
+      (completing-read "Select template or input here: " list nil nil nil nil))))
 
 (defun chatblade--get-sessions ()
   (let ((string (shell-command-to-string (mapconcat 'identity `(,chatblade-executable-path "--session-list") " "))))

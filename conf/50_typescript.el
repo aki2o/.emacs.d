@@ -23,8 +23,8 @@
     ;;   (~run-deferred (current-buffer) (poly-tsx-mode)))
 
     (setq my:lint-executable (if (projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))
-                                 "npx tslint --fix"
-                               "npx eslint --fix"))
+                                 "npm exec tslint --fix"
+                               "npm exec eslint --fix"))
 
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)

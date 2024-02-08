@@ -24,18 +24,19 @@
   :init
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-envs '("OPENAI_API_KEY")))
-  :custom ((chatblade-prompt-alist '((rust-mode . "rust")
-                                     (typescript-mode . "ts")
-                                     (emacs-lisp-mode . "elisp")))
-           (chatblade-query-template-alist '(("comp" . "req:comp %s")
-                                             ("samp" . ~chatblade-make-samp-query)
-                                             ("ref"  . ~chatblade-make-ref-query)
-                                             ("err"  . ~chatblade-make-err-query)
-                                             ("bug"  . ~chatblade-make-bug-query)
-                                             ("ggl"  . ~chatblade-make-ggl-query)
-                                             ("ask"  . "Can you figure out what this codes do? ```\n%s\n```")
-                                             ("doc"  . "Please write a document for this codes ```\n%s\n```")))
-           (chatblade-start-function-alist '(("ref" . ~chatblade-open-reference)))
+  :custom ((chatblade-prompt-alist '((rust-mode           . "rust")
+                                     (typescript-mode     . "ts")
+                                     (typescript-tsx-mode . "ts")
+                                     (emacs-lisp-mode     . "elisp")))
+           (chatblade-query-template-alist '(("completion to follow current buffer/region" . "req:comp %s")
+                                             ("sample code"                                . ~chatblade-make-samp-query)
+                                             ("open reference url"                         . ~chatblade-make-ref-query)
+                                             ("url list for current buffer/region"         . ~chatblade-make-ggl-query)
+                                             ("fix error caused by current buffer/region"  . ~chatblade-make-err-query)
+                                             ("find bug in current buffer/region"          . ~chatblade-make-bug-query)
+                                             ("what's current buffer/region"               . "Can you figure out what this codes do? ```\n%s\n```")
+                                             ("write document for current buffer/region"   . "Please write a document for this codes ```\n%s\n```")))
+           (chatblade-start-function-alist '(("open reference url" . ~chatblade-open-reference)))
            (chatblade-prompt-template-function '~chatblade-make-prompt-template))
   :config
   (~add-setup-hook 'chatblade-mode
@@ -43,8 +44,10 @@
     (setq-local truncate-partial-width-windows nil)))
 
 (defun ~chatblade-make-samp-query ()
-  (let ((text (read-string "Input the behaviour: ")))
-    (concat "req:samp " text " %s")))
+  (let* ((default (when (use-region-p)
+                    (buffer-substring-no-properties (region-beginning) (region-end))))
+         (text (read-string "Input the behaviour (default is current region): " nil nil default)))
+    (concat "req:samp " text)))
 
 (defun ~chatblade-make-ref-query ()
   (let ((thing (read-string "Input the thing: " nil nil (word-at-point))))
@@ -57,8 +60,8 @@
 (defun ~chatblade-make-err-query ()
   (let ((message (read-string "Input the error: ")))
     (concat "```\n%s\n```\n"
-            "I got the following error from this codes.\n"
-            (format "```\n%s\n```\n" message)
+            "I got the following error from this codes.\n\n"
+            message "\n\n"
             "How can I fix?")))
 
 (defun ~chatblade-make-bug-query ()
@@ -83,7 +86,8 @@
      "- If my message starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
      "- If my message starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
      "- If my message starts with \"req:ref\", reply only a url of official document that corresponds to the given message without any other informations."
-     "- If my message starts with \"req:ggl\", reply only a list of url and the short summary that's useful for this case without any other informations."
+     "- If my message starts with \"req:ggl\", reply only a list of url and the short summary that lools useful for this case without any other informations."
+     "- If my message starts with else, reply normally."
      )
    "\n"))
 

@@ -434,10 +434,6 @@
 	path = elisp/borg/prescient
 	url = https://github.com/radian-software/prescient.el
 	ignore = untracked
-[submodule "prettier-js"]
-	path = elisp/borg/prettier-js
-	url = https://github.com/prettier/prettier-emacs
-	ignore = untracked
 [submodule "projectile"]
 	path = elisp/borg/projectile
 	url = https://github.com/bbatsov/projectile

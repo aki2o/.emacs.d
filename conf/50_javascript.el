@@ -1,10 +1,3 @@
-;; eslint と連携させて実行するには
-;; npm i -g prettier prettier-eslint eslint eslint-config-prettier eslint-plugin-prettier
-(use-package prettier-js
-  :defer t
-  :commands (prettier-js))
-
-
 (use-package add-node-modules-path
   :defer t
   :init

@@ -3,7 +3,6 @@
 (require 's)
 (require 'dash)
 (require 'polymode)
-(require 'markdown-mode)
 
 (defgroup chatblade nil
   "Chatblade client for Emacs."
@@ -52,9 +51,20 @@ If not set, it will be `chatblade-open-interactive'."
   :type 'function
   :group 'chatblade)
 
-(defcustom chatblade-default-arguments '("--raw" "--no-format")
+(defcustom chatblade-default-arguments '("--raw" "--no-format" "--stream")
   "Default arguments to pass to chatblade."
   :type '(repeat string)
+  :group 'chatblade)
+
+(defcustom chatblade-default-model nil
+  "Default model to use.
+For detail, see <https://github.com/npiv/chatblade?tab=readme-ov-file#help>"
+  :type 'string
+  :group 'chatblade)
+
+(defcustom chatblade-default-switched-model "4t"
+  "Default model to be applied on `chatblade-switch-model'."
+  :type 'string
   :group 'chatblade)
 
 (defcustom chatblade-input-fold-threshold 80
@@ -79,6 +89,7 @@ Typing S-<return> means
 
 (defvar chatblade--query nil)
 (defvar chatblade--session nil)
+(defvar chatblade--model nil)
 (defvar chatblade--prompt-name nil)
 (defvar chatblade--template-name nil)
 
@@ -119,30 +130,83 @@ Typing S-<return> means
          (answer (completing-read "Select buffer: " cands nil t nil nil)))
     (-find (lambda (x) (string= (buffer-local-value 'chatblade--query x) answer)) buffers)))
 
-(defun chatblade--new-buffer (query &optional template-name)
+(defun chatblade--interactive-prompt-p ()
+  (save-excursion
+    (goto-char (pos-bol))
+    (re-search-forward chatblade-interactive-prompt-regexp (pos-eol) t)))
+
+(defun chatblade--goto-latest-interactive-prompt-beginning ()
+  (goto-char (point-max))
+  (while (not (chatblade--interactive-prompt-p))
+    (forward-line -1))
+  (goto-char (pos-bol)))
+
+(defun chatblade--resume-filter (proc string)
+  (with-current-buffer (process-buffer proc)
+    (let ((inhibit-read-only t))
+      (chatblade--goto-latest-interactive-prompt-beginning)
+      (forward-char -1)
+      (insert string)
+      (when (chatblade--interactive-prompt-p)
+        (delete-region (point-min) (pos-eol))
+        (insert (format "Resumed with %s!" (or chatblade--model "model not specified")))
+        (goto-char (point-max))
+        (set-process-filter proc 'comint-output-filter)
+        (set-process-sentinel proc #'chatblade--quit)))))
+
+(defun chatblade--resume-start (proc event)
+  (let ((buf (process-buffer proc)))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (let* ((inhibit-read-only t)
+               (session (buffer-local-value 'chatblade--session (current-buffer)))
+               (model (buffer-local-value 'chatblade--model (current-buffer)))
+               (args (chatblade--make-arguments nil nil session model "--interactive" "--only")))
+          (chatblade--goto-latest-interactive-prompt-beginning)
+          (narrow-to-region (point) (point-max))
+          (insert "Resuming...\n\n")
+          (goto-char (point-max))
+          (apply #'make-comint-in-buffer "chatblade" (current-buffer) chatblade-executable-path nil args)
+          (set-process-filter (get-buffer-process (current-buffer)) 'chatblade--resume-filter))))))
+
+(defun chatblade--quit (proc event)
+  (let ((buf (process-buffer proc)))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (let ((inhibit-read-only t))
+          (insert (format "\nProcess %s %s\n" proc event))))
+      (kill-buffer buf))))
+
+(defun chatblade--resume-buffer (buffer)
+  (let ((proc (get-buffer-process buffer)))
+    (when proc
+      (set-process-sentinel proc #'chatblade--resume-start)
+      (comint-simple-send proc "quit"))))
+
+(defun chatblade--new-buffer (query)
   (with-current-buffer (generate-new-buffer (if chatblade--template-name
                                                 (format "*chatblade %s*" chatblade--template-name)
                                               "*chatblade *"))
     (chatblade-mode)
-    (let* ((session (chatblade--new-session template-name)))
+    (let* ((session (chatblade--new-session chatblade--template-name))
+           (args (chatblade--make-arguments query chatblade--prompt-name session chatblade--model "--interactive" "--only")))
       (insert query "\n")
       (font-lock-append-text-property (point-min) (point) 'font-lock-face 'font-lock-comment-face)
       (set-marker comint-last-input-start (point-min))
       (set-marker comint-last-input-end (point))
-      (apply #'make-comint-in-buffer
-             "chatblade"
-             (current-buffer)
-             chatblade-executable-path
-             nil
-             (chatblade--make-arguments query chatblade--prompt-name session "--interactive" "--only"))
+      (apply #'make-comint-in-buffer "chatblade" (current-buffer) chatblade-executable-path nil args)
       (setq-local chatblade--query query)
       (setq-local chatblade--session session)
+      (setq-local chatblade--model chatblade--model)
       (setq-local chatblade--prompt-name chatblade--prompt-name)
+      (let ((proc (get-buffer-process (current-buffer))))
+        (when proc (set-process-sentinel proc #'chatblade--quit)))
       (current-buffer))))
 
-(defun chatblade--make-arguments (query prompt session &rest args)
+(defun chatblade--make-arguments (query prompt session model &rest args)
   (let* ((prompt (when prompt (list "--prompt-file" prompt)))
-         (session (when session (list "--session" session))))
+         (session (when session (list "--session" session)))
+         (model (when model (list "--chat-gpt" model))))
     (when query (setq args `(,@args ,query)))
     `(,@prompt ,@session ,@chatblade-default-arguments ,@args)))
 
@@ -196,10 +260,8 @@ Typing S-<return> means
   (let ((inhibit-read-only t))
     (save-excursion
       (goto-char (point-max))
-      (forward-line -1)
-      (when (re-search-forward chatblade-interactive-prompt-regexp (point-max) t)
+      (when (chatblade--interactive-prompt-p)
         (font-lock-append-text-property (match-beginning 0) (match-end 0) 'font-lock-face 'comint-highlight-prompt)
-        (goto-char (match-beginning 0))
         (goto-char (pos-bol))
         (insert "\n")))))
 
@@ -233,7 +295,7 @@ Typing S-<return> means
 (cl-defun chatblade-request (query &key prompt session (omit-query t))
   (let* ((prompt (if prompt prompt (chatblade--resolve-prompt-by major-mode)))
          (args (if omit-query '("--only") '()))
-         (args (apply 'chatblade--make-arguments query prompt session args)))
+         (args (apply 'chatblade--make-arguments query prompt session chatblade-default-model args)))
     (message "DEBUG chatblade-request : %s" args)
     (shell-command-to-string (mapconcat 'shell-quote-argument `(,chatblade-executable-path ,@args) " "))))
 
@@ -259,7 +321,7 @@ Based on `comint-mode-map'."
   "S-<return>" #'chatblade-maybe-insert-newline
   "<tab>"      #'chatblade-toggle-current-input-fold
   "C-c C-c"    #'comint-send-input
-  "C-c C-r"    #'chatblade-resume-current
+  "C-c C-r"    #'chatblade-switch-model
   "C-c C-d"    #'chatblade-describe-current-session)
 
 (define-derived-mode chatblade-mode comint-mode "Chat"
@@ -289,9 +351,15 @@ Based on `comint-mode-map'."
           (chatblade--input-fold-open ov)
         (chatblade--input-fold-close ov)))))
 
-(defun chatblade-resume-current ()
+(defun chatblade-switch-model ()
   (interactive)
-  (chatblade-resume (current-buffer)))
+  (let* ((model chatblade-default-switched-model)
+         (model (if (string= model chatblade--model) chatblade-default-model model))
+         (model (if current-prefix-arg
+                    (read-string (format "Model (%s): " model) nil nil model)
+                  model)))
+    (setq-local chatblade--model model)
+    (chatblade--resume-buffer (current-buffer))))
 
 (defun chatblade-describe-current-session ()
   (interactive)
@@ -308,25 +376,6 @@ Based on `comint-mode-map'."
      (with-current-buffer (generate-new-buffer "*chatblade:session*")
        (insert (chatblade-request "--token" :prompt prompt :session session :omit-query nil))
        (current-buffer)))))
-
-;;;###autoload
-(defun chatblade-resume (buffer)
-  (interactive (list (chatblade--select-buffer)))
-  (if (comint-check-proc buffer)
-      (chatblade-switch-to-buffer buffer)
-    (with-current-buffer buffer
-      (goto-char (point-max))
-      (let* ((session (buffer-local-value 'chatblade--session (current-buffer)))
-             (prompt (buffer-local-value 'chatblade--prompt-name (current-buffer)))
-             (proc (apply 'start-process
-                          "chatblade"
-                          (current-buffer)
-                          chatblade-executable-path
-                          (chatblade--make-arguments nil prompt session "--interactive" "--only"))))
-        (insert "Resumed!\n\n")
-        (set-marker (process-mark proc) (point))))
-    (when (not (eql buffer (current-buffer)))
-      (switch-to-buffer-other-window buffer))))
 
 ;;;###autoload
 (defun chatblade-start (prompt-name template-name)

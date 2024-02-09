@@ -1,5 +1,7 @@
-(define-key minibuffer-local-map (kbd "C-M-p") 'previous-matching-history-element)
-(define-key minibuffer-local-map (kbd "C-M-n") 'next-matching-history-element)
+(bind-keys :map minibuffer-local-map
+           ([remap keyboard-escape-quit] . exit-minibuffer)
+           ("C-M-p" . previous-matching-history-element)
+           ("C-M-n" . next-matching-history-element))
 
 
 (use-package vertico

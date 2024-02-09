@@ -10,9 +10,7 @@
 (defun ~activate-input-method ()
   (interactive)
   (when (not current-input-method)
-    (activate-input-method
-     ;; (or (car input-method-history) default-input-method))
-     default-input-method)))
+    (activate-input-method (or (car input-method-history) default-input-method))))
 
 (defun ~deactivate-input-method ()
   (interactive)
@@ -39,3 +37,20 @@
     (interactive)
     (call-process "osascript" nil t nil "-e" "tell application \"System Events\" to key code 102"))
   (add-hook 'focus-in-hook '~send-eisuu-key))
+
+
+(use-package skk
+  :defer t
+  :custom ((skk-previous-candidate-keys '("S-SPC" "x"))
+           (skk-show-candidates-nth-henkan-char 2)
+           (skk-henkan-number-to-display-candidates 15)
+           (skk-henkan-show-candidates-keys '(?h ?j ?k ?l ?y ?u ?i ?o ?p ?n ?m ?g ?f ?d ?a ?t ?r ?e)))
+  :init
+  (setq default-input-method "japanese-skk")
+  :config
+  (add-to-list 'skk-quit-commands 'keyboard-escape-quit))
+
+(use-package ddskk-posframe
+  :after 'skk
+  :config
+  (ddskk-posframe-mode +1))

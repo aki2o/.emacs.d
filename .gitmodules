@@ -85,6 +85,12 @@
 	path = elisp/borg/dash
 	url = git@github.com:magnars/dash.el.git
 	ignore = untracked
+[submodule "ddskk"]
+	path = elisp/borg/ddskk
+	url = https://github.com/skk-dev/ddskk
+[submodule "ddskk-posframe"]
+	path = elisp/borg/ddskk-posframe
+	url = https://github.com/conao3/ddskk-posframe.el
 [submodule "deferred"]
 	path = elisp/borg/deferred
 	url = https://github.com/kiwanami/emacs-deferred

@@ -20,7 +20,7 @@
   :type 'string
   :group 'chatblade)
 
-(defcustom chatblade-prompt-alist '()
+(defcustom chatblade-prompt-name-alist '()
   "Alist of major mode and their corresponding prompt file name."
   :type '(alist :key-type symbol :value-type string)
   :group 'chatblade)
@@ -105,17 +105,23 @@ Typing S-<return> means
 (defvar chatblade--prompt-name nil)
 (defvar chatblade--template-name nil)
 
-(defun chatblade--resolve-prompt-by (mode)
-  (let* ((prompt (cl-loop while mode
-                          for prompt = (assoc-default mode chatblade-prompt-alist)
-                          if prompt return prompt
-                          else do (setq mode (get mode 'derived-mode-parent))))
-         (file (when prompt (expand-file-name prompt chatblade-config-directory))))
+(defun chatblade--resolve-prompt-name-by-session (session)
+  (let* ((re (rx-to-string `(and bos ,chatblade-session-prefix "-")))
+         (v (replace-regexp-in-string re "" session))
+         (v (nth 0 (split-string v "-"))))
+    (if (string= v "nothing") nil v)))
+
+(defun chatblade--resolve-prompt-name-by-mode (mode)
+  (let* ((prompt-name (cl-loop while mode
+                               for p = (assoc-default mode chatblade-prompt-name-alist)
+                               if p return p
+                               else do (setq mode (get mode 'derived-mode-parent))))
+         (file (when prompt-name (expand-file-name prompt-name chatblade-config-directory))))
     (when (and file (not (file-exists-p file)))
       (error "Not found prompt file : %s" file))
-    prompt))
+    prompt-name))
 
-(cl-defun chatblade--select-prompt (prompt &key require-match default)
+(cl-defun chatblade--select-prompt-name (prompt &key require-match default)
   (let ((list (-filter (lambda (x) (not (s-starts-with? "." x))) (directory-files chatblade-config-directory))))
     (completing-read (or prompt "Select prompt file: ") list nil require-match nil nil default)))
 
@@ -148,8 +154,13 @@ Typing S-<return> means
                     (> updated-at threshold-at))))
               entries))))
 
-(defun chatblade--select-session-file ()
+(defun chatblade--select-session-file (prompt-name)
   (let* ((files (chatblade--session-files :outdated nil))
+         (files (-filter
+                 (lambda (f)
+                   (let ((p (chatblade--resolve-prompt-name-by-session (chatblade--session-from f))))
+                     (or (not p) (string= p prompt-name))))
+                 files))
          (alist (-map
                  (lambda (f)
                    (let* ((conversations (chatblade--extract-conversations-from f))
@@ -164,8 +175,11 @@ Typing S-<return> means
 (defun chatblade--session-from (session-file)
   (file-name-sans-extension (file-name-nondirectory session-file)))
 
-(defun chatblade--new-session ()
-  (format "%s-%s" chatblade-session-prefix (format-time-string "%Y%m%d-%H%M%S")))
+(defun chatblade--new-session (prompt-name)
+  (format "%s-%s-%s"
+          chatblade-session-prefix
+          (or prompt-name "nothing")
+          (format-time-string "%Y%m%d%H%M%S")))
 
 (defun chatblade--select-buffer ()
   (let* ((buffers (-filter (lambda (x) (eq (buffer-local-value 'major-mode x) 'chatblade-mode)) (buffer-list)))
@@ -186,7 +200,7 @@ Typing S-<return> means
 
 (defun chatblade--update-mode-name ()
   (let ((model (buffer-local-value 'chatblade--model (current-buffer))))
-    (setq mode-name format("Chat[%s]" (or model "NaN")))))
+    (setq mode-name (format "Chat[%s]" (or model "-")))))
 
 (defun chatblade--insert-reply (text)
   (insert text "\n\n"))
@@ -238,10 +252,10 @@ Typing S-<return> means
       (with-current-buffer buf
         (let* ((inhibit-read-only t)
                (query (buffer-local-value 'chatblade--query (current-buffer)))
-               (prompt (buffer-local-value 'chatblade--prompt-name (current-buffer)))
-               (session (chatblade--new-session))
+               (prompt-name (buffer-local-value 'chatblade--prompt-name (current-buffer)))
+               (session (chatblade--new-session prompt-name))
                (model (buffer-local-value 'chatblade--model (current-buffer)))
-               (args (chatblade--make-arguments query prompt session model "--interactive" "--only")))
+               (args (chatblade--make-arguments query prompt-name session model "--interactive" "--only")))
           (erase-buffer)
           (chatblade--insert-query query)
           (chatblade--update-mode-name)
@@ -263,17 +277,16 @@ Typing S-<return> means
       (set-process-sentinel proc sentinel)
       (comint-simple-send proc "quit"))))
 
-(defun chatblade--new-buffer (&optional name)
-  (let* ((name (or name
-                   (replace-regexp-in-string (rx (+ blank)) "-" chatblade--template-name)))
+(defun chatblade--new-buffer (prompt-name name)
+  (let* ((name (replace-regexp-in-string (rx (+ (not (any "a-z" "A-Z" "0-9")))) "" name))
          (name (truncate-string-to-width name chatblade-buffer-name-truncate-width nil nil "…")))
-    (with-current-buffer (generate-new-buffer (format "*chatblade %s*" name))
+    (with-current-buffer (generate-new-buffer (format "*chatblade:%s %s*" prompt-name name))
       (chatblade-mode)
       (current-buffer))))
 
 (defun chatblade--start-buffer (query)
-  (with-current-buffer (chatblade--new-buffer)
-    (let* ((session (chatblade--new-session))
+  (with-current-buffer (chatblade--new-buffer chatblade--prompt-name chatblade--template-name)
+    (let* ((session (chatblade--new-session chatblade--prompt-name))
            (args (chatblade--make-arguments query chatblade--prompt-name session chatblade--model "--interactive" "--only")))
       (setq-local chatblade--query query)
       (setq-local chatblade--session session)
@@ -286,12 +299,12 @@ Typing S-<return> means
         (when proc (set-process-sentinel proc #'chatblade--quit)))
       (current-buffer))))
 
-(defun chatblade--make-arguments (query prompt session model &rest args)
-  (let* ((prompt (when prompt (list "--prompt-file" prompt)))
+(defun chatblade--make-arguments (query prompt-name session model &rest args)
+  (let* ((prompt-name (when prompt-name (list "--prompt-file" prompt-name)))
          (session (when session (list "--session" session)))
          (model (when model (list "--chat-gpt" model))))
     (when query (setq args `(,@args ,query)))
-    `(,@prompt ,@session ,@chatblade-default-arguments ,@args)))
+    `(,@prompt-name ,@session ,@chatblade-default-arguments ,@args)))
 
 (defun chatblade--fold-input (beg end)
   (let ((ov (make-overlay beg end)))
@@ -375,10 +388,10 @@ Typing S-<return> means
   (switch-to-buffer-other-window (chatblade--start-buffer query)))
 
 ;;;###autoload
-(cl-defun chatblade-request (query &key prompt session (omit-query t))
-  (let* ((prompt (if prompt prompt (chatblade--resolve-prompt-by major-mode)))
+(cl-defun chatblade-request (query &key prompt-name session (omit-query t))
+  (let* ((prompt-name (if prompt-name prompt-name (chatblade--resolve-prompt-name-by-mode major-mode)))
          (args (if omit-query '("--only") '()))
-         (args (apply 'chatblade--make-arguments query prompt session chatblade-default-model args)))
+         (args (apply 'chatblade--make-arguments query prompt-name session chatblade-default-model args)))
     (message "[Chatblade] call : %s" args)
     (shell-command-to-string (mapconcat 'shell-quote-argument `(,chatblade-executable-path ,@args) " "))))
 
@@ -468,7 +481,7 @@ Based on `comint-mode-map'."
 
 ;;;###autoload
 (defun chatblade-start (prompt-name)
-  (interactive (list (if current-prefix-arg nil (chatblade--resolve-prompt-by major-mode))))
+  (interactive (list (if current-prefix-arg nil (chatblade--resolve-prompt-name-by-mode major-mode))))
   (let* ((template-name (chatblade--select-query-template))
          (template (or (assoc-default template-name chatblade-query-template-alist)
                        template-name))
@@ -491,21 +504,22 @@ Based on `comint-mode-map'."
   (switch-to-buffer-other-window buffer))
 
 ;;;###autoload
-(defun chatblade-resume (model)
-  (interactive (list (if current-prefix-arg
-                         chatblade-default-model
-                       chatblade-default-switched-model)))
-  (let* ((session-file (chatblade--select-session-file))
+(defun chatblade-resume (prompt-name model)
+  (interactive (list (if current-prefix-arg nil (chatblade--resolve-prompt-name-by-mode major-mode))
+                     (if current-prefix-arg chatblade-default-model chatblade-default-switched-model)))
+  (let* ((session-file (chatblade--select-session-file prompt-name))
          (conversations (chatblade--extract-conversations-from session-file))
          (session (chatblade--session-from session-file))
          (query (plist-get
                  (-find (lambda (c) (string= (plist-get c :role) "user")) conversations)
                  :content))
+         (prompt-name (chatblade--resolve-prompt-name-by-session session))
          (args (chatblade--make-arguments nil nil session model "--interactive" "--only")))
-    (with-current-buffer (chatblade--new-buffer query)
+    (with-current-buffer (chatblade--new-buffer prompt-name query)
       (setq-local chatblade--query query)
       (setq-local chatblade--session session)
       (setq-local chatblade--model model)
+      (setq-local chatblade--prompt-name prompt-name)
       (dolist (c conversations)
         (let ((content (plist-get c :content)))
           (case (plist-get c :role)
@@ -532,7 +546,7 @@ Based on `comint-mode-map'."
    (let* ((default-name (replace-regexp-in-string "-mode\\'" "" (symbol-name major-mode)))
           (default-thing (mapconcat 's-capitalize (split-string default-name "-") " ")))
      (list (read-string (format "What do you make a prompt for? (%s) " default-thing) nil nil default-thing)
-           (chatblade--select-prompt
+           (chatblade--select-prompt-name
             (format "Select or input prompt file name to save (%s): " default-name)
             :require-match nil
             :default default-name))))

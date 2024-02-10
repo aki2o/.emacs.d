@@ -11,7 +11,10 @@
 (use-package tree-sitter
   :init
   (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+  :config
+  (custom-set-faces
+   '(tree-sitter-hl-face:property ((t (:inherit font-lock-keyword-face))))))
 
 (use-package tree-sitter-langs
   :after tree-sitter)

@@ -3,6 +3,7 @@
 (require 's)
 (require 'dash)
 (require 'polymode)
+(require 'yaml-mode)
 
 (defgroup chatblade nil
   "Chatblade client for Emacs."
@@ -67,8 +68,18 @@ For detail, see <https://github.com/npiv/chatblade?tab=readme-ov-file#help>"
   :type 'string
   :group 'chatblade)
 
+(defcustom chatblade-session-outdated-dates 3
+  "The number of days to consider the session outdated."
+  :type 'integer
+  :group 'chatblade)
+
 (defcustom chatblade-input-fold-threshold 80
   "Threshold to fold input."
+  :type 'integer
+  :group 'chatblade)
+
+(defcustom chatblade-buffer-name-truncate-width 40
+  "Width to truncate buffer name."
   :type 'integer
   :group 'chatblade)
 
@@ -113,16 +124,23 @@ Typing S-<return> means
     (let* ((list (mapcar 'car chatblade-query-template-alist)))
       (completing-read "Select template or input here: " list nil nil nil nil))))
 
-(defun chatblade--get-sessions ()
-  (let ((string (shell-command-to-string (mapconcat 'identity `(,chatblade-executable-path "--session-list") " "))))
-    (-filter (lambda (x) (s-starts-with? chatblade-session-prefix x)) (split-string (s-trim string) "\n"))))
+(defun chatblade--session-files (&key outdated)
+  (let* ((last (chatblade-request "--session-path" :session "last" :omit-query nil))
+         (dir (file-name-directory last))
+         (entries (directory-files-and-attributes dir t chatblade-session-prefix))
+         (now (time-convert (current-time) 'integer))
+         (threshold-at (- now (* 60 60 24 chatblade-session-outdated-dates))))
+    (-map
+     (lambda (e) (nth 0 e))
+     (-filter (lambda (e)
+                (let ((updated-at (time-convert (nth 6 e) 'integer)))
+                  (if outdated
+                      (< updated-at threshold-at)
+                    (> updated-at threshold-at))))
+              entries))))
 
-(defun chatblade--new-session (template-name)
-  (let* ((prefix (if template-name
-                     (concat chatblade-session-prefix "-" template-name)
-                   chatblade-session-prefix))
-         (now (format-time-string "%Y%m%d-%H%M%S")))
-    (format "%s-%s" prefix now)))
+(defun chatblade--new-session ()
+  (format "%s-%s" chatblade-session-prefix (format-time-string "%Y%m%d-%H%M%S")))
 
 (defun chatblade--select-buffer ()
   (let* ((buffers (-filter (lambda (x) (eq (buffer-local-value 'major-mode x) 'chatblade-mode)) (buffer-list)))
@@ -149,8 +167,10 @@ Typing S-<return> means
       (insert string)
       (when (chatblade--interactive-prompt-p)
         (delete-region (point-min) (pos-eol))
+        (widen)
         (insert (format "Resumed with %s!" (or chatblade--model "model not specified")))
         (goto-char (point-max))
+        (chatblade--update-mode-name)
         (set-process-filter proc 'comint-output-filter)
         (set-process-sentinel proc #'chatblade--quit)))))
 
@@ -174,8 +194,8 @@ Typing S-<return> means
     (when (buffer-live-p buf)
       (with-current-buffer buf
         (let ((inhibit-read-only t))
-          (insert (format "\nProcess %s %s\n" proc event))))
-      (kill-buffer buf))))
+          (insert (format "\nProcess %s %s\n" proc event)))
+        (rename-buffer (concat " " (buffer-name)))))))
 
 (defun chatblade--resume-buffer (buffer)
   (let ((proc (get-buffer-process buffer)))
@@ -183,12 +203,20 @@ Typing S-<return> means
       (set-process-sentinel proc #'chatblade--resume-start)
       (comint-simple-send proc "quit"))))
 
-(defun chatblade--new-buffer (query)
-  (with-current-buffer (generate-new-buffer (if chatblade--template-name
-                                                (format "*chatblade %s*" chatblade--template-name)
-                                              "*chatblade *"))
-    (chatblade-mode)
-    (let* ((session (chatblade--new-session chatblade--template-name))
+(defun chatblade--update-mode-name ()
+  (let ((model (buffer-local-value 'chatblade--model (current-buffer))))
+    (setq mode-name format("Chat[%s]" (or model "NaN")))))
+
+(defun chatblade--new-buffer ()
+  (let* ((name (replace-regexp-in-string (rx (+ blank)) "-" chatblade--template-name))
+         (name (truncate-string-to-width name chatblade-buffer-name-truncate-width nil nil "…")))
+    (with-current-buffer (generate-new-buffer (format "*chatblade %s*" name))
+      (chatblade-mode)
+      (current-buffer))))
+
+(defun chatblade--start-buffer (query)
+  (with-current-buffer (chatblade--new-buffer)
+    (let* ((session (chatblade--new-session))
            (args (chatblade--make-arguments query chatblade--prompt-name session chatblade--model "--interactive" "--only")))
       (insert query "\n")
       (font-lock-append-text-property (point-min) (point) 'font-lock-face 'font-lock-comment-face)
@@ -199,6 +227,7 @@ Typing S-<return> means
       (setq-local chatblade--session session)
       (setq-local chatblade--model chatblade--model)
       (setq-local chatblade--prompt-name chatblade--prompt-name)
+      (chatblade--update-mode-name)
       (let ((proc (get-buffer-process (current-buffer))))
         (when proc (set-process-sentinel proc #'chatblade--quit)))
       (current-buffer))))
@@ -289,14 +318,14 @@ Typing S-<return> means
 
 ;;;###autoload
 (defun chatblade-open-interactive (query)
-  (switch-to-buffer-other-window (chatblade--new-buffer query)))
+  (switch-to-buffer-other-window (chatblade--start-buffer query)))
 
 ;;;###autoload
 (cl-defun chatblade-request (query &key prompt session (omit-query t))
   (let* ((prompt (if prompt prompt (chatblade--resolve-prompt-by major-mode)))
          (args (if omit-query '("--only") '()))
          (args (apply 'chatblade--make-arguments query prompt session chatblade-default-model args)))
-    (message "DEBUG chatblade-request : %s" args)
+    (message "[Chatblade] call : %s" args)
     (shell-command-to-string (mapconcat 'shell-quote-argument `(,chatblade-executable-path ,@args) " "))))
 
 (define-hostmode poly-chatblade-hostmode :mode 'chatblade-mode)
@@ -324,7 +353,7 @@ Based on `comint-mode-map'."
   "C-c C-r"    #'chatblade-switch-model
   "C-c C-d"    #'chatblade-describe-current-session)
 
-(define-derived-mode chatblade-mode comint-mode "Chat"
+(define-derived-mode chatblade-mode comint-mode "Chat[?]"
   "Major mode to communicate with chatblade.
 \\{chatblade-mode-map}"
   (setq-local comint-prompt-read-only nil)
@@ -368,20 +397,20 @@ Based on `comint-mode-map'."
 ;;;###autoload
 (defun chatblade-describe-session (buffer)
   (interactive (list (chatblade--select-buffer)))
-  (let ((session (buffer-local-value 'chatblade--session buffer))
-        (prompt (buffer-local-value 'chatblade--prompt-name buffer)))
+  (let ((session (buffer-local-value 'chatblade--session buffer)))
     (when (not session)
       (error "Not found chatblade--session in %s" buffer))
     (pop-to-buffer
      (with-current-buffer (generate-new-buffer "*chatblade:session*")
-       (insert (chatblade-request "--token" :prompt prompt :session session :omit-query nil))
+       (insert (chatblade-request "--session-dump" :session session :omit-query nil))
+       (yaml-mode)
        (current-buffer)))))
 
 ;;;###autoload
-(defun chatblade-start (prompt-name template-name)
-  (interactive (list (chatblade--resolve-prompt-by major-mode)
-                     (chatblade--select-query-template)))
-  (let* ((template (or (assoc-default template-name chatblade-query-template-alist)
+(defun chatblade-start (prompt-name)
+  (interactive (list (if current-prefix-arg nil (chatblade--resolve-prompt-by major-mode))))
+  (let* ((template-name (chatblade--select-query-template))
+         (template (or (assoc-default template-name chatblade-query-template-alist)
                        template-name))
          (template (if (functionp template) (funcall template) template))
          (performer (or (assoc-default template-name chatblade-start-function-alist)
@@ -392,7 +421,7 @@ Based on `comint-mode-map'."
          (query (-reduce-from (lambda (q f) (funcall f q)) query chatblade-query-filter-functions))
          (query (substring-no-properties query))
          (chatblade--prompt-name prompt-name)
-         (chatblade--template-name (if (eql template template-name) nil template-name)))
+         (chatblade--template-name template-name))
     (deactivate-mark)
     (funcall performer (format template query))))
 
@@ -402,9 +431,11 @@ Based on `comint-mode-map'."
   (switch-to-buffer-other-window buffer))
 
 ;;;###autoload
-(defun chatblade-clear-sessions ()
+(defun chatblade-clear-outdated-sessions ()
   (interactive)
-  )
+  (dolist (file (chatblade--session-files :outdated t))
+    (delete-file file)
+    (message "[Chatblade] delete session : %s" file)))
 
 ;;;###autoload
 (defun chatblade-update-prompt-file (thing name)

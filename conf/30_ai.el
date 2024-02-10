@@ -24,61 +24,67 @@
   :init
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-envs '("OPENAI_API_KEY")))
-  :custom ((chatblade-prompt-alist '((rust-mode           . "rust")
+  :custom ((chatblade-default-model "4t")
+           (chatblade-default-switched-model "4")
+           (chatblade-prompt-alist '((rust-mode           . "rust")
                                      (typescript-mode     . "ts")
                                      (typescript-tsx-mode . "ts")
                                      (emacs-lisp-mode     . "elisp")))
-           (chatblade-query-template-alist '(("completion to follow current buffer/region" . "req:comp %s")
-                                             ("sample code"                                . ~chatblade-make-samp-query)
-                                             ("open reference url"                         . ~chatblade-make-ref-query)
-                                             ("url list for current buffer/region"         . ~chatblade-make-ggl-query)
-                                             ("fix syntax of current buffer/region"        . "req:lint %s")
-                                             ("fix error caused by current buffer/region"  . ~chatblade-make-err-query)
-                                             ("find bug in current buffer/region"          . ~chatblade-make-bug-query)
-                                             ("what's current buffer/region"               . "Can you figure out what this codes do? ```\n%s\n```")
-                                             ("write document for current buffer/region"   . "Please write a document for this codes ```\n%s\n```")))
-           (chatblade-start-function-alist '(("open reference url" . ~chatblade-open-reference)))
-           (chatblade-prompt-template-function '~chatblade-make-prompt-template))
+           (chatblade-query-template-alist '(("completion to follow curr buf/reg" . "req:comp %s")
+                                             ("sample code"                       . my:chatblade-make-samp-query)
+                                             ("open reference url"                . my:chatblade-make-ref-query)
+                                             ("url list for curr buf/reg"         . my:chatblade-make-ggl-query)
+                                             ("fix syntax of curr buf/reg"        . "req:lint %s")
+                                             ("fix error caused by curr buf/reg"  . my:chatblade-make-err-query)
+                                             ("find bug in curr buf/reg"          . my:chatblade-make-bug-query)
+                                             ("what's curr buf/reg"               . "Can you figure out what this codes do? ```\n%s\n```")
+                                             ("write document for curr buf/reg"   . "Please write a document for this codes ```\n%s\n```")))
+           (chatblade-start-function-alist '(("open reference url" . my:chatblade-open-reference)))
+           (chatblade-prompt-template-function 'my:chatblade-make-prompt-template))
   :config
   (~add-setup-hook 'chatblade-mode
     (setq-local truncate-lines nil)
     (setq-local truncate-partial-width-windows nil)))
 
-(defun ~chatblade-make-samp-query ()
+(defun my:chatblade-make-samp-query ()
   (let* ((default (when (use-region-p)
                     (buffer-substring-no-properties (region-beginning) (region-end))))
          (text (read-string "Input the behaviour (default is current region): " nil nil default)))
     (concat "req:samp " text)))
 
-(defun ~chatblade-make-ref-query ()
+(defun my:chatblade-make-ref-query ()
   (let ((thing (read-string "Input the thing: " nil nil (word-at-point))))
     (format "req:ref %s" thing)))
 
-(defun ~chatblade-make-ggl-query ()
+(defun my:chatblade-make-ggl-query ()
   (let ((text (read-string "Input the description: ")))
     (concat "req:ggl " text " %s")))
 
-(defun ~chatblade-make-err-query ()
+(defun my:chatblade-make-err-query ()
   (let ((message (read-string "Input the error: ")))
     (concat "```\n%s\n```\n"
             "I got the following error from this codes.\n\n"
             message "\n\n"
             "How can I fix?")))
 
-(defun ~chatblade-make-bug-query ()
+(defun my:chatblade-make-bug-query ()
   (let ((message (read-string "Input the bug detail: ")))
     (concat "```\n%s\n```\n"
             (format "This codes looks having a bug that %s." message)
             "Can you figure out how to fix?")))
 
-(defun ~chatblade-open-document (query)
-  (interactive (list (~chatblade-make-ref-query)))
+(defun my:chatblade-open-document (query)
+  (interactive (list (my:chatblade-make-ref-query)))
   (let ((res (chatblade-request query)))
     (if (s-starts-with? "http" res)
         (browse-url res)
       (chatblade-open-interactive query))))
 
-(defun ~chatblade-make-prompt-template (thing)
+(defun my:chatblade-start-without-prompt ()
+  (interactive)
+  (chatblade-start nil))
+
+(defun my:chatblade-make-prompt-template (thing)
   (mapconcat
    'identity
    `(
@@ -93,16 +99,17 @@
      )
    "\n"))
 
-(defhydra ~chatblade-hydra (:exit t)
+(defhydra my:chatblade-hydra (:exit t)
   "Chatblade"
   ("s" chatblade-start "start")
-  ("b" chatblade-switch-to-buffer "buffer")
-  ("d" ~chatblade-open-document "docment")
-  ("r" chatblade-resume "resume")
+  ("g" my:chatblade-start-without-prompt "start without prompt")
+  ("b" chatblade-switch-to-buffer "list buffer")
+  ("d" my:chatblade-open-document "docment")
+  ;; ("r" chatblade-resume "resume")
   ("f" chatblade-find-prompt-file "find prompt")
   ("e" chatblade-update-prompt-file "update prompt"))
 
-(setq-default ~action-at-point-function '~chatblade-hydra/body)
+(setq-default ~action-at-point-function 'my:chatblade-hydra/body)
 
 (require 'chatblade)
 

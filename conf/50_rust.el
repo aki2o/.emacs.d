@@ -1,3 +1,5 @@
+(add-to-list '~browse-internal-url-list "https://docs.rs/")
+
 (use-package rust-mode
   :defer t
   :custom ((rust-format-on-save t)

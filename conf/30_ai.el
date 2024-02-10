@@ -26,20 +26,20 @@
     (exec-path-from-shell-copy-envs '("OPENAI_API_KEY")))
   :custom ((chatblade-default-model "4t")
            (chatblade-default-switched-model "4")
-           (chatblade-prompt-alist '((rust-mode           . "rust")
-                                     (typescript-mode     . "ts")
-                                     (typescript-tsx-mode . "ts")
-                                     (emacs-lisp-mode     . "elisp")))
-           (chatblade-query-template-alist '(("completion to follow curr buf/reg" . "req:comp %s")
-                                             ("sample code"                       . my:chatblade-make-samp-query)
-                                             ("open reference url"                . my:chatblade-make-ref-query)
-                                             ("url list for curr buf/reg"         . my:chatblade-make-ggl-query)
-                                             ("fix syntax of curr buf/reg"        . "req:lint %s")
-                                             ("fix error caused by curr buf/reg"  . my:chatblade-make-err-query)
-                                             ("find bug in curr buf/reg"          . my:chatblade-make-bug-query)
-                                             ("what's curr buf/reg"               . "Can you figure out what this codes do? ```\n%s\n```")
-                                             ("write document for curr buf/reg"   . "Please write a document for this codes ```\n%s\n```")))
-           (chatblade-start-function-alist '(("open reference url" . my:chatblade-open-reference)))
+           (chatblade-prompt-name-alist '((rust-mode           . "rust")
+                                          (typescript-mode     . "ts")
+                                          (typescript-tsx-mode . "ts")
+                                          (emacs-lisp-mode     . "elisp")))
+           (chatblade-query-template-alist '(("completion for curr buf/reg"      . "req:comp %s")
+                                             ("sample code"                      . my:chatblade-make-samp-query)
+                                             ("open document url"                . my:chatblade-make-doc-query)
+                                             ("url list for curr buf/reg"        . my:chatblade-make-ggl-query)
+                                             ("fix syntax of curr buf/reg"       . "req:lint %s")
+                                             ("fix error caused by curr buf/reg" . my:chatblade-make-err-query)
+                                             ("find bug in curr buf/reg"         . my:chatblade-make-bug-query)
+                                             ("what's curr buf/reg"              . "Can you figure out what this codes do? ```\n%s\n```")
+                                             ("write document for curr buf/reg"  . "Please write a document for this codes ```\n%s\n```")))
+           (chatblade-start-function-alist '(("open document url" . my:chatblade-open-document)))
            (chatblade-prompt-template-function 'my:chatblade-make-prompt-template))
   :config
   (~add-setup-hook 'chatblade-mode
@@ -49,12 +49,13 @@
 (defun my:chatblade-make-samp-query ()
   (let* ((default (when (use-region-p)
                     (buffer-substring-no-properties (region-beginning) (region-end))))
-         (text (read-string "Input the behaviour (default is current region): " nil nil default)))
+         (text (read-string "Input the behaviour (active region): " nil nil default)))
     (concat "req:samp " text)))
 
-(defun my:chatblade-make-ref-query ()
-  (let ((thing (read-string "Input the thing: " nil nil (word-at-point))))
-    (format "req:ref %s" thing)))
+(defun my:chatblade-make-doc-query ()
+  (let* ((default (thing-at-point))
+         (thing (read-string (format "Input the thing (%s): " default) nil nil default)))
+    (format "req:doc %s" thing)))
 
 (defun my:chatblade-make-ggl-query ()
   (let ((text (read-string "Input the description: ")))
@@ -88,14 +89,14 @@
   (mapconcat
    'identity
    `(
-     ,(format "Please act as an assistant of %s programming and be compliant with the following rules." thing)
+     ,(format "Please act as assistant of %s programming and be compliant with the following rules." thing)
      ,(format "- A word \"codes\" means %s codes." thing)
-     "- If my message starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
-     "- If my message starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
-     "- If my message starts with \"req:lint\", reply only codes that's right for the given codes without any other informations."
-     "- If my message starts with \"req:ref\", reply only a url of official document that corresponds to the given message without any other informations."
-     "- If my message starts with \"req:ggl\", reply only a list of url and the short summary that lools useful for this case without any other informations."
-     "- If my message starts with else, reply normally."
+     "- If my words starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
+     "- If my words starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
+     "- If my words starts with \"req:lint\", reply only codes that's right for the given codes without any other informations."
+     "- If my words starts with \"req:doc\", reply only a url of official document that corresponds to the given message without any other informations."
+     "- If my words starts with \"req:ggl\", reply only a list of url and the short summary that lools useful for this case without any other informations."
+     "- If my words starts with other, reply normally."
      )
    "\n"))
 
@@ -104,8 +105,8 @@
   ("s" chatblade-start "start")
   ("g" my:chatblade-start-without-prompt "start without prompt")
   ("b" chatblade-switch-to-buffer "list buffer")
-  ("d" my:chatblade-open-document "docment")
-  ;; ("r" chatblade-resume "resume")
+  ("d" my:chatblade-open-document "request document")
+  ("r" chatblade-resume "resume")
   ("f" chatblade-find-prompt-file "find prompt")
   ("e" chatblade-update-prompt-file "update prompt"))
 

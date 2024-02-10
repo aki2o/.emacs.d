@@ -30,7 +30,7 @@
   (setq ~e2wm:regexp-doc-buff
         (rx-to-string `(and bos "*" (or "Help" "info" "eww" "w3m" "Woman " "Man "
                                         "perldoc " "plsense help" "~lsp-ui-doc "
-                                        "ChatGPT:" "chatblade "))))
+                                        "ChatGPT:" "chatblade:"))))
   (setq ~e2wm:doc-buff-modes '(chatblade-mode))
   (setq e2wm:c-document-buffer-p
         (lambda (buf)

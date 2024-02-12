@@ -53,7 +53,7 @@
     (concat "req:samp " text)))
 
 (defun my:chatblade-make-doc-query ()
-  (let* ((default (thing-at-point))
+  (let* ((default (thing-at-point 'symbol t))
          (thing (read-string (format "Input the thing (%s): " default) nil nil default)))
     (format "req:doc %s" thing)))
 
@@ -75,7 +75,6 @@
             "Can you figure out how to fix?")))
 
 (defun my:chatblade-open-document (query)
-  (interactive (list (my:chatblade-make-ref-query)))
   (let ((res (chatblade-request query)))
     (if (s-starts-with? "http" res)
         (browse-url res)
@@ -105,7 +104,6 @@
   ("s" chatblade-start "start")
   ("g" my:chatblade-start-without-prompt "start without prompt")
   ("b" chatblade-switch-to-buffer "list buffer")
-  ("d" my:chatblade-open-document "request document")
   ("r" chatblade-resume "resume")
   ("f" chatblade-find-prompt-file "find prompt")
   ("e" chatblade-update-prompt-file "update prompt"))

@@ -1,4 +1,5 @@
 (add-to-list '~browse-internal-url-list "https://docs.rs/")
+(add-to-list '~browse-internal-url-list "https://doc.rust-lang.org")
 
 (use-package rust-mode
   :defer t

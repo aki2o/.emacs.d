@@ -12,14 +12,13 @@
   (owdriver-config-default)
 
   (owdriver-add-keymap [remap 'delete-other-windows] 'owdriver-quit)
-  (owdriver-add-keymap [remap 'delete-window] 'owdriver-focus-window)
+  (owdriver-add-keymap [remap 'delete-window] 'owdriver-release)
 
   (owdriver-define-command ~imenu)
   (owdriver-define-command isearch-forward)
 
   (with-eval-after-load 'sequential-command
-    (add-to-list 'owdriver-keep-driving-commands 'seq-beginning-of-line t)
-    )
+    (add-to-list 'owdriver-keep-driving-commands 'seq-beginning-of-line t))
 
   (with-eval-after-load 'pophint-autoloads
     (add-to-list 'owdriver-keep-driving-commands 'pophint:do-yaol-head t))

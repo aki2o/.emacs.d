@@ -109,7 +109,7 @@ Typing S-<return> means
   (let* ((re (rx-to-string `(and bos ,chatblade-session-prefix "-")))
          (v (replace-regexp-in-string re "" session))
          (v (nth 0 (split-string v "-"))))
-    (if (string= v "nothing") nil v)))
+    (if (string= v "any") nil v)))
 
 (defun chatblade--resolve-prompt-name-by-mode (mode)
   (let* ((prompt-name (cl-loop while mode
@@ -178,7 +178,7 @@ Typing S-<return> means
 (defun chatblade--new-session (prompt-name)
   (format "%s-%s-%s"
           chatblade-session-prefix
-          (or prompt-name "nothing")
+          (or prompt-name "any")
           (format-time-string "%Y%m%d%H%M%S")))
 
 (defun chatblade--select-buffer ()
@@ -279,13 +279,14 @@ Typing S-<return> means
 
 (defun chatblade--new-buffer (prompt-name name)
   (let* ((name (replace-regexp-in-string (rx (+ (not (any "a-z" "A-Z" "0-9")))) "" name))
-         (name (truncate-string-to-width name chatblade-buffer-name-truncate-width nil nil "…")))
-    (with-current-buffer (generate-new-buffer (format "*chatblade:%s %s*" prompt-name name))
+         (name (truncate-string-to-width name chatblade-buffer-name-truncate-width nil nil "…"))
+         (buf-name (format "*chatblade:%s %s*" (or prompt-name "any") name)))
+    (with-current-buffer (generate-new-buffer buf-name)
       (chatblade-mode)
       (current-buffer))))
 
 (defun chatblade--start-buffer (query)
-  (with-current-buffer (chatblade--new-buffer chatblade--prompt-name chatblade--template-name)
+  (with-current-buffer (chatblade--new-buffer chatblade--prompt-name (or chatblade--template-name query))
     (let* ((session (chatblade--new-session chatblade--prompt-name))
            (args (chatblade--make-arguments query chatblade--prompt-name session chatblade--model "--interactive" "--only")))
       (setq-local chatblade--query query)
@@ -493,6 +494,7 @@ Based on `comint-mode-map'."
                   (buffer-substring (point-min) (point))))
          (query (-reduce-from (lambda (q f) (funcall f q)) query chatblade-query-filter-functions))
          (query (substring-no-properties query))
+         (chatblade--model chatblade-default-model)
          (chatblade--prompt-name prompt-name)
          (chatblade--template-name template-name))
     (deactivate-mark)

@@ -21,11 +21,8 @@
     ;; 開くのが遅くなってそうなので、一旦やめ
     ;; (when (string-match-p "\\.tsx\\'" (buffer-name))
     ;;   (~run-deferred (current-buffer) (poly-tsx-mode)))
-
-    (setq my:lint-executable (if (projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root)))
-                                 "npm exec tslint --fix"
-                               "npm exec eslint --fix"))
-
+    (setq my:lint-executable (my:js-resolve-lint-executable))
+    (tsi-typescript-mode 1)
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       (~lsp-deferred)))

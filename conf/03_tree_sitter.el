@@ -18,3 +18,6 @@
 
 (use-package tree-sitter-langs
   :after tree-sitter)
+
+(use-package tsi
+  :defer t)

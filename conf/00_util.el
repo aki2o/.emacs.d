@@ -258,6 +258,7 @@
 (make-variable-buffer-local 'my:lint-executable)
 
 (cl-defun my:lint-default (&optional (file (~projectile-relative-path (current-buffer))))
+  (interactive)
   (when (not my:lint-executable)
     (error "Can't lint code : not set my:lint-executable"))
   (let* ((default-directory (projectile-project-root))
@@ -267,6 +268,7 @@
     (~dockerize-shell-command (format "%s %s" cmd (shell-quote-argument file)))))
 
 (defun my:lint-diff-files-default ()
+  (interactive)
   (cl-loop for file in (~git-diff-path-list (current-buffer))
            do (my:lint-default file)))
 
@@ -275,18 +277,18 @@
 
 (defun ~lint-current ()
   (interactive)
-  (if ~lint-current-function
+  (if (commandp ~lint-current-function)
       (call-interactively ~lint-current-function)
-    (error "Can't lint code : not set ~lint-current-function")))
+    (error "No ~lint-current-function")))
 
 (defvar ~lint-diff-files-function 'my:lint-diff-files-default)
 (make-variable-buffer-local '~lint-diff-files-function)
 
 (defun ~lint-diff-files ()
   (interactive)
-  (if ~lint-diff-files-function
+  (if (commandp ~lint-diff-files-function)
       (call-interactively ~lint-diff-files-function)
-    (error "Can't lint code : not set ~lint-diff-files-function")))
+    (error "No ~lint-diff-files-function")))
 
 (defun ~set-mark-only ()
   (interactive)

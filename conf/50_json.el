@@ -7,4 +7,5 @@
   :config
   (~add-setup-hook 'json-mode
     (setq-local js-indent-level 2)
-    (setq my:lint-executable "npm exec eslint --fix")))
+    (setq my:lint-executable (my:js-resolve-lint-executable))
+    (tsi-json-mode 1)))

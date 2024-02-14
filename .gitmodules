@@ -257,6 +257,9 @@
 	path = elisp/borg/grep-a-lot
 	url = https://github.com/ZungBang/emacs-grep-a-lot
 	ignore = untracked
+[submodule "grizzl"]
+	path = elisp/borg/grizzl
+	url = https://github.com/grizzl/grizzl
 [submodule "haml-mode"]
 	path = elisp/borg/haml-mode
 	url = https://github.com/nex3/haml-mode
@@ -281,6 +284,10 @@
 	path = elisp/borg/hydra
 	url = https://github.com/abo-abo/hydra
 	ignore = untracked
+[submodule "import-js"]
+	path = elisp/borg/import-js
+	url = https://github.com/Galooshi/emacs-import-js
+	load-path = plugin
 [submodule "inertial-scroll"]
 	path = elisp/borg/inertial-scroll
 	url = https://github.com/kiwanami/emacs-inertial-scroll

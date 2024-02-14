@@ -22,8 +22,6 @@
   (advice-add 'next-history-element :around '~vertico-scroll-up)
   (advice-add 'previous-history-element :around '~vertico-scroll-down))
 
-(add-to-list 'load-path (concat (file-name-directory (locate-library "vertico")) "extensions"))
-
 (use-package vertico-repeat
   :config
   (add-to-list 'vertico-repeat-transformers '~vertico-repeat-transform-session-candidate t)

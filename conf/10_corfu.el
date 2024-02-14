@@ -26,8 +26,6 @@
 
 (add-hook 'minibuffer-setup-hook #'my:corfu-enable-in-minibuffer)
 
-(add-to-list 'load-path (concat (file-name-directory (locate-library "corfu")) "extensions"))
-
 (use-package corfu-popupinfo
   :after corfu
   :custom ((corfu-popupinfo-delay '(1.0 . 0.5))

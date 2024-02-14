@@ -580,6 +580,9 @@
 [submodule "treesit-auto"]
 	path = elisp/borg/treesit-auto
 	url = https://github.com/renzmann/treesit-auto
+[submodule "tsi"]
+	path = elisp/borg/tsi
+	url = git@github.com:orzechowskid/tsi.el.git
 [submodule "typescript-mode"]
 	path = elisp/borg/typescript-mode
 	url = https://github.com/emacs-typescript/typescript.el

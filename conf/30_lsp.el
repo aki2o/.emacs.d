@@ -67,6 +67,8 @@
       (apply orig args)
     (~completion-at-point)))
 
+(my:defun-localized-command lsp-organize-imports 'lsp-organize-imports)
+
 (defhydra ~lsp-hydra (:exit t :hint nil)
   "
 _a_: find apropos          _m_: rename            _r_: restart
@@ -79,7 +81,7 @@ _d_: find declaration
   ("t" lsp-find-type-definition)
   ("d" lsp-find-declaration)
   ("m" lsp-rename)
-  ("h" lsp-organize-imports)
+  ("h" ~lsp-organize-imports)
   (";" lsp-toggle-signature-auto-activate)
   ("r" lsp-workspace-restart)
   ("q" lsp-workspace-shutdown)

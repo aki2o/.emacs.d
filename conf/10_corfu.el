@@ -3,7 +3,7 @@
            (corfu-auto-deley 0.4)
            (corfu-auto-prefix 4)
            (corfu-preview-current nil)
-           (corfu-preselect-first t)
+           (corfu-preselect 'first)
            (corfu-quit-at-boundary 'separator)
            (corfu-quit-no-match nil))
   :hook ((corfu-mode . corfu-popupinfo-mode))
@@ -18,10 +18,21 @@
              ([remap keyboard-escape-quit] . corfu-quit))
   )
 
+(defun my:corfu-enable-in-minibuffer ()
+  (when (local-variable-p 'completion-at-point-functions)
+    (setq-local corfu-echo-delay nil)
+    (setq-local corfu-popupinfo-delay nil)
+    (corfu-mode 1)))
+
+(add-hook 'minibuffer-setup-hook #'my:corfu-enable-in-minibuffer)
+
 (add-to-list 'load-path (concat (file-name-directory (locate-library "corfu")) "extensions"))
 
 (use-package corfu-popupinfo
-  :after corfu)
+  :after corfu
+  :custom ((corfu-popupinfo-delay '(1.0 . 0.5))
+           (corfu-popupinfo-max-width 120)
+           (corfu-popupinfo-max-height 20)))
 
 
 (use-package cape

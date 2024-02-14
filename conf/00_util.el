@@ -105,6 +105,19 @@
        (defun ,f () ,@body)
        (add-hook ',h ',f t))))
 
+(cl-defmacro my:defun-localized-command (name &optional default)
+  (declare (indent 1))
+  (let ((v (intern (format "~%s-function" name)))
+        (f (intern (format "~%s" name))))
+    `(progn
+       (defvar ,v ,default)
+       (make-variable-buffer-local ',v)
+       (defun ,f ()
+         (interactive)
+         (if (commandp ,v)
+             (call-interactively ,v)
+           (error ,(format "No %s" 'v)))))))
+
 
 ;;;;;;;;;;;;;
 ;; Command
@@ -135,72 +148,16 @@
   (interactive)
   (xref-find-references (xref-backend-identifier-at-point (xref-find-backend))))
 
-(defvar ~find-definition-function '~xref-find-definitions)
-(make-variable-buffer-local '~find-definition-function)
-
-(defun ~find-definition ()
-  (interactive)
-  (call-interactively ~find-definition-function))
-
-(defvar ~find-references-function '~xref-find-references)
-(make-variable-buffer-local '~find-references-function)
-
-(defun ~find-references ()
-  (interactive)
-  (call-interactively ~find-references-function))
-
-(defvar ~pop-marker-stack-function 'xref-pop-marker-stack)
-(make-variable-buffer-local '~pop-marker-stack-function)
-
-(defun ~pop-marker-stack ()
-  (interactive)
-  (call-interactively ~pop-marker-stack-function))
+(my:defun-localized-command find-definition '~xref-find-definitions)
+(my:defun-localized-command find-references '~xref-find-references)
+(my:defun-localized-command pop-marker-stack 'xref-pop-marker-stack)
 
 ;; reference
-(defvar ~popup-document-frame-function nil)
-(make-variable-buffer-local '~popup-document-frame-function)
-
-(defun ~popup-document-frame ()
-  (interactive)
-  (if (commandp ~popup-document-frame-function)
-      (call-interactively ~popup-document-frame-function)
-    (error "No ~popup-document-frame-function")))
-
-(defvar ~popup-document-buffer-function nil)
-(make-variable-buffer-local '~popup-document-buffer-function)
-
-(defun ~popup-document-buffer ()
-  (interactive)
-  (if (commandp ~popup-document-buffer-function)
-      (call-interactively ~popup-document-buffer-function)
-    (error "No ~popup-document-buffer-function")))
-
-(defvar ~focus-document-frame-function nil)
-(make-variable-buffer-local '~focus-document-frame-function)
-
-(defun ~focus-document-frame ()
-  (interactive)
-  (if (commandp ~focus-document-frame-function)
-      (call-interactively ~focus-document-frame-function)
-    (error "No ~focus-document-frame-function")))
-
-(defvar ~dwim-at-point-function nil)
-(make-variable-buffer-local '~dwim-at-point-function)
-
-(defun ~dwim-at-point ()
-  (interactive)
-  (if (commandp ~dwim-at-point-function)
-      (call-interactively ~dwim-at-point-function)
-    (error "No ~dwim-at-point-function")))
-
-(defvar ~action-at-point-function nil)
-(make-variable-buffer-local '~action-at-point-function)
-
-(defun ~action-at-point ()
-  (interactive)
-  (if (commandp ~action-at-point-function)
-      (call-interactively ~action-at-point-function)
-    (error "No ~action-at-point-function")))
+(my:defun-localized-command popup-document-frame)
+(my:defun-localized-command popup-document-buffer)
+(my:defun-localized-command focus-document-frame)
+(my:defun-localized-command dwim-at-point)
+(my:defun-localized-command action-at-point)
 
 ;; scroll
 (defun ~scroll-left ()
@@ -272,23 +229,8 @@
   (cl-loop for file in (~git-diff-path-list (current-buffer))
            do (my:lint-default file)))
 
-(defvar ~lint-current-function 'my:lint-default)
-(make-variable-buffer-local '~lint-current-function)
-
-(defun ~lint-current ()
-  (interactive)
-  (if (commandp ~lint-current-function)
-      (call-interactively ~lint-current-function)
-    (error "No ~lint-current-function")))
-
-(defvar ~lint-diff-files-function 'my:lint-diff-files-default)
-(make-variable-buffer-local '~lint-diff-files-function)
-
-(defun ~lint-diff-files ()
-  (interactive)
-  (if (commandp ~lint-diff-files-function)
-      (call-interactively ~lint-diff-files-function)
-    (error "No ~lint-diff-files-function")))
+(my:defun-localized-command lint-current 'my:lint-default)
+(my:defun-localized-command lint-diff-files 'my:lint-diff-files-default)
 
 (defun ~set-mark-only ()
   (interactive)

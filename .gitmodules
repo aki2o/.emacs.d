@@ -88,6 +88,7 @@
 [submodule "ddskk"]
 	path = elisp/borg/ddskk
 	url = https://github.com/skk-dev/ddskk
+	ignore = untracked
 [submodule "ddskk-posframe"]
 	path = elisp/borg/ddskk-posframe
 	url = https://github.com/conao3/ddskk-posframe.el
@@ -260,6 +261,7 @@
 [submodule "grizzl"]
 	path = elisp/borg/grizzl
 	url = https://github.com/grizzl/grizzl
+	ignore = untracked
 [submodule "haml-mode"]
 	path = elisp/borg/haml-mode
 	url = https://github.com/nex3/haml-mode
@@ -288,6 +290,7 @@
 	path = elisp/borg/import-js
 	url = https://github.com/Galooshi/emacs-import-js
 	load-path = plugin
+	ignore = untracked
 [submodule "inertial-scroll"]
 	path = elisp/borg/inertial-scroll
 	url = https://github.com/kiwanami/emacs-inertial-scroll
@@ -571,9 +574,11 @@
 	url = https://github.com/emacs-tree-sitter/elisp-tree-sitter
 	load-path = core
 	load-path = lisp
+	ignore = untracked
 [submodule "tree-sitter-langs"]
 	path = elisp/borg/tree-sitter-langs
 	url = https://github.com/emacs-tree-sitter/tree-sitter-langs
+	ignore = untracked
 [submodule "treemacs"]
 	path = elisp/borg/treemacs
 	url = https://github.com/Alexander-Miller/treemacs
@@ -590,6 +595,7 @@
 [submodule "tsi"]
 	path = elisp/borg/tsi
 	url = git@github.com:orzechowskid/tsi.el.git
+	ignore = untracked
 [submodule "typescript-mode"]
 	path = elisp/borg/typescript-mode
 	url = https://github.com/emacs-typescript/typescript.el

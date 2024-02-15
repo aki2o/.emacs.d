@@ -47,8 +47,12 @@
 
 ;; npm i -g import-js が必要
 (use-package import-js
-  :defer t)
+  :defer t
+  :init
+  (autoload 'import-js-check-daemon "import-js"))
 
 (defun my:import-js-run ()
-  (when (not import-js-process)
+  (when (catch 'import-js-daemon
+          (import-js-check-daemon)
+          nil)
     (run-import-js)))

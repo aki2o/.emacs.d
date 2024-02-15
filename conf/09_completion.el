@@ -1,5 +1,5 @@
 (bind-keys :map minibuffer-local-map
-           ([remap keyboard-escape-quit] . exit-minibuffer)
+           ([remap keyboard-escape-quit] . minibuffer-keyboard-quit)
            ("C-M-p" . previous-matching-history-element)
            ("C-M-n" . next-matching-history-element))
 

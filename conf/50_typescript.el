@@ -23,7 +23,7 @@
   :config
   (~add-setup-hook 'typescript-mode
     (when (string-match-p "\\.tsx\\'" (buffer-name))
-      (~run-deferred (current-buffer) 5 (poly-tsx-mode)))
+      (~run-deferred (current-buffer) 5 (poly-tsx-mode 1)))
     (setq my:lint-executable (my:js-resolve-lint-executable))
     (tsi-typescript-mode 1)
     ;; npm i -g typescript-language-server typescript が必要

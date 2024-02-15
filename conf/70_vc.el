@@ -42,9 +42,11 @@
   :after (magit))
 
 (defun my:git-dirties ()
-  (with-temp-buffer
-    (projectile-run-shell-command-in-root "git status --short --untracked-files=no" (current-buffer))
-    (split-string (s-trim (buffer-string)) "\n")))
+  (-filter
+   (lambda (x) (not (string= x "")))
+   (with-temp-buffer
+     (projectile-run-shell-command-in-root "git status --short --untracked-files=no" (current-buffer))
+     (split-string (buffer-string) "\n"))))
 
 (defun my:git-dirty-p ()
   (> (length (my:git-dirties)) 0))
@@ -67,7 +69,7 @@
     (when choice
       (magit-stash-pop (assoc-default choice stashes)))))
 
-(defun my:git-pull (remote branch)
+(defun my:git-pull (remote &optional branch)
   (let ((cmd (format "git pull --rebase %s%s" remote (if branch (concat " " branch) ""))))
     (message "%s ..." cmd)
     (projectile-run-shell-command-in-root cmd)))

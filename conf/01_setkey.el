@@ -551,15 +551,21 @@ _R_: reload
   ("t" magit-blame-cycle-style "cycle style")
   ("q" nil "quit"))
 
+
 (defhydra ~hydra-git (:exit t :idle ~hydra-help-delay)
   "git"
   ("d" magit-diff-buffer-file "diff")
   ("l" magit-log-buffer-file "log")
-  ("L" counsel-git-log "log with counsel")
   ("a" vc-annotate "annotate")
   ("b" ~hydra-git-blame/body "blame")
-  ("B" github-browse-file-blame "browse blame")
-  ("o" github-browse-file "browse file"))
+  ("p" my:git-pull-current-branch "pull")
+  ("f" my:git-fetch "fetch")
+  ("m" my:git-merge "merge")
+  ("c" my:git-checkout "checkout")
+  ("n" my:git-new-branch "new branch")
+  ("P" my:git-stash-pop "pop stash")
+  ("o" github-browse-file "browse file")
+  ("B" github-browse-file-blame "browse blame"))
 
 (defhydra ~hydra-git-gutter (:pre (when (not (ignore-errors git-gutter-mode)) (git-gutter-mode +1))
                                   :post (when git-gutter-mode (git-gutter-mode -1))

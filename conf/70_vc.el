@@ -1,14 +1,3 @@
-(defun ~vc-minor-mode ()
-  (interactive)
-  (let ((file (expand-file-name (buffer-file-name))))
-    (cond ((string-match ~tramp-path-regexp file)
-           (message "Can't start mode : This is a tramp buffer"))
-          ((~file-exist-in-tree-p file ".git" t)
-           (git-gutter-mode))
-          (t
-           (message "Can't start mode : Not found available mode for this buffer")))))
-
-
 ;; SVN
 (use-package dsvn
   :defer t
@@ -17,6 +6,8 @@
 
 ;; Git
 (setenv "GIT_PAGER" "")
+
+
 (use-package git-modes
   :defer t)
 
@@ -35,15 +26,92 @@
     (bind-keys :map with-editor-mode-map
                ("C-c <up>" . with-editor-cancel)))
 
-  ;; Emacs29以降だった
-  ;; (~add-setup-hook-after-load 'cape 'git-commit-mode
-  ;;   (make-local-variable 'completion-at-point-functions)
-  ;;   (add-to-list 'completion-at-point-functions 'cape-emoji t))
+  (~add-setup-hook 'git-commit-mode
+    (add-to-list '~completion-at-point-functions 'cape-emoji t))
+
+  ;; 入力しても On <branch>: を付けるようにしてる
+  (defun magit-stash-read-message ()
+    (let* ((prompt (format "Stash message (default: On%s:%s): " (magit--ellipsis) (magit--ellipsis)))
+           (message (read-string prompt nil nil nil)))
+      (format "On %s: %s"
+              (or (magit-get-current-branch) "(no branch)")
+              (or message (magit-rev-format "%h %s")))))
   )
 
 (use-package magit-section
   :after (magit))
 
+(defun my:git-dirties ()
+  (with-temp-buffer
+    (projectile-run-shell-command-in-root "git status --short --untracked-files=no" (current-buffer))
+    (split-string (s-trim (buffer-string)) "\n")))
+
+(defun my:git-dirty-p ()
+  (> (length (my:git-dirties)) 0))
+
+(cl-defun my:git-stash-pop-for (branch &key first)
+  (let* ((stashes (mapcar (lambda (c)
+                            (pcase-let ((`(,rev ,msg) (split-string c "\0")))
+                              (cons msg rev)))
+                          (magit-list-stashes "%gd%x00%s")))
+         (stashes (if branch
+                      (-filter (lambda (x)
+                                 (s-starts-with? (format "On %s: " branch) (car x)))
+                               stashes)
+                    stashes))
+         (choices (mapcar 'car stashes))
+         (choice (when choices
+                   (if first
+                       (nth 0 choices)
+                     (magit-completing-read "Pop stash: " choices nil t nil nil)))))
+    (when choice
+      (magit-stash-pop (assoc-default choice stashes)))))
+
+(defun my:git-pull (remote branch)
+  (let ((cmd (format "git pull --rebase %s%s" remote (if branch (concat " " branch) ""))))
+    (message "%s ..." cmd)
+    (projectile-run-shell-command-in-root cmd)))
+
+(defun my:git-pull-current-branch (remote)
+  (interactive (list (if current-prefix-arg (magit-read-remote "Remote: ") "origin")))
+  (my:git-pull remote))
+
+(defun my:git-fetch (remote)
+  (interactive (list (if current-prefix-arg (magit-read-remote "Remote: ") "--all")))
+  (let ((cmd (format "git fetch --prune %s" remote)))
+    (message "%s ..." cmd)
+    (projectile-run-shell-command-in-root cmd)))
+
+(defun my:git-merge (branch remote)
+  (interactive (list (magit-read-branch "Merge: ")
+                     (if current-prefix-arg (magit-read-remote "Remote: ") "origin")))
+  (let ((curr-branch (magit-get-current-branch))
+        (stashed (when (my:git-dirty-p)
+                   (call-interactively 'magit-stash-both)
+                   t)))
+    (magit-call-git "checkout" branch)
+    (my:git-pull-current-branch remote)
+    (magit-call-git "checkout" curr-branch)
+    (magit-call-git "merge" (magit-merge-arguments) branch)
+    (when stashed (my:git-stash-pop-for curr-branch :first t))))
+
+(defun my:git-checkout (branch)
+  (interactive (list (magit-read-branch "Checkout: ")))
+  (when (my:git-dirty-p) (call-interactively 'magit-stash-both))
+  (magit-call-git "checkout" (magit-branch-arguments) branch)
+  (~persp-switch-to-current-branch)
+  (my:git-stash-pop-for (magit-get-current-branch)))
+
+(defun my:git-new-branch (branch start-point)
+  (interactive (magit-branch-read-args "Create and checkout branch"))
+  (when (my:git-dirty-p) (call-interactively 'magit-stash-both))
+  (magit-call-git "checkout" (magit-branch-arguments) "-b" branch start-point)
+  (~persp-switch-to-current-branch))
+
+(defun my:git-stash-pop ()
+  (interactive)
+  (let ((branch (if current-prefix-arg nil (magit-get-current-branch))))
+    (my:git-stash-pop-for branch)))
 
 (use-package git-gutter
   :defer t

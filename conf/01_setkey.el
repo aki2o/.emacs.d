@@ -420,7 +420,7 @@ _u_: find fixture      _C-u_: find current fixture      _g_: hydra goto
   (defhydra ~hydra-projectile (:exit t :hint nil :idle ~hydra-help-delay)
     "
 _f_: find file    _d_: find dir    _b_: switch buffer   _t_: find test
-_F_: hydra file   _D_: hydra dir   _B_: hydra buffer    _T_: hydra test
+_F_: hydra file   _D_: hydra dir   _B_: hydra buffer    _T_: switch test/impl
 
 _s_: hydra search    _x_: hydra shell   _m_: hydra manage   _^_: root dir
 _o_: other project   _r_: hydra rails

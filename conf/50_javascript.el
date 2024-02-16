@@ -42,7 +42,8 @@
 
   (~add-setup-hook-after-load 'mmask 'js2-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'js2-mode)))
-  )
+
+  (my:import-js-run))
 
 
 ;; npm i -g import-js が必要

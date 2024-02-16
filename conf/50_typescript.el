@@ -29,7 +29,6 @@
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       (setq ~lsp-organize-imports-function 'import-js-fix) ; lsp-organize-imports-my-ts が動いてなさそうなので、一旦こっちを使ってみてる
-      (my:import-js-run)
       (~lsp-deferred)))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
@@ -61,7 +60,8 @@
   (define-polymode poly-tsx-mode
     :hostmode 'poly-tsx-hostmode
     :innermodes '(poly-tsx-gql-innermode poly-tsx-css-innermode))
-  )
+
+  (my:import-js-run))
 
 (defun ~typescript-flycheck-select-dwim ()
   (cond ((and (functionp 'projectile-project-root)

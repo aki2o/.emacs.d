@@ -53,7 +53,7 @@
 (defun ~lsp-deferred ()
   (interactive)
   (when (buffer-file-name)
-    (~run-deferred (current-buffer) 3 (lsp-deferred))))
+    (~run-deferred (current-buffer) 5 (lsp-deferred))))
 
 (defvar ~lsp-completion-running-p nil)
 

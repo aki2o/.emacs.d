@@ -1,7 +1,33 @@
-(defun ~setup-theme ()
-  ;; https://naokton.hatenablog.com/entry/2020/07/20/065700
-  (setq custom--inhibit-theme-enable nil)
+(global-font-lock-mode t)
+;; (setq-default transient-mark-mode t)
+(transient-mark-mode t)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(scroll-bar-mode 0)
+(line-number-mode t)
+(column-number-mode t)
+(fringe-mode 1) ;; フリンジ(左右の折り返し表示領域)はいらない
+(blink-cursor-mode 1)
 
+(setq-default fill-column 120)
+(setq truncate-lines t) ;; 通常時、折り返さない
+(setq truncate-partial-width-windows t) ;; 縦分割で行は折り返さない
+(setq w32-hide-mouse-on-key t) ;; マウスを消す
+(setq w32-hide-mouse-timeout 5000)
+(setq cursor-in-non-selected-windows nil) ;; アクティブでないバッファではカーソルを出さない
+(setq custom--inhibit-theme-enable nil) ;; https://naokton.hatenablog.com/entry/2020/07/20/065700
+
+(bind-key* "<f3>" 'global-hl-line-mode)
+(bind-key* "<f11>" 'global-display-fill-column-indicator-mode)
+(bind-key* "<f12>" 'global-display-line-numbers-mode)
+
+;; 現在行のハイライト
+(use-package hl-line
+  :config
+  (set-face-background 'hl-line "gray20"))
+
+(defun my:theme-setup ()
+  (interactive)
   (load-theme 'deeper-blue t)
   (custom-theme-set-faces
    'deeper-blue
@@ -11,24 +37,16 @@
    '(mode-line              ((t (:foreground "powder blue" :background "DeepSkyBlue4"))))
    '(mode-line-inactive     ((t (:foreground "gray50" :background "gray15"))))
    '(cursor                 ((t (:background "white")))))
-  )
 
-(~setup-theme)
+  (set-frame-parameter (selected-frame) 'alpha '(85 . 60)) ;; 透明度
+  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+  (set-frame-parameter (selected-frame) 'cursor-type 'hbar)
+  (set-frame-parameter (selected-frame) 'cursor-color "white"))
 
-(defadvice new-frame (after ~setup-theme activate)
-  (~setup-theme))
+(my:theme-setup)
 
-
-;; 初期インストール時に (all-the-icons-install-fonts) をやる必要があるっぽい
-(use-package all-the-icons
-  :custom ((inhibit-compacting-font-caches t)
-           (all-the-icons-scale-factor 1.2)
-           (all-the-icons-default-adjust -0.2))
-  :config
-  (let ((value (assoc-default 'help-mode all-the-icons-mode-icon-alist)))
-    (setq all-the-icons-mode-icon-alist
-          (delq (assoc 'fundamental-mode all-the-icons-mode-icon-alist) all-the-icons-mode-icon-alist))
-    (add-to-list 'all-the-icons-mode-icon-alist `(fundamental-mode  ,@value) t)))
+(defadvice new-frame (after my:theme-setup activate)
+  (my:theme-setup))
 
 
 (use-package doom-modeline
@@ -85,7 +103,7 @@
     (typescript-mode       . "Ts")
     (graphql-mode          . "Gql")))
 
-(defun ~setup-mode-line ()
+(defun my:mode-line-setup ()
   (interactive)
   (let ((new-mstr (assoc-default major-mode ~mode-alist))
         (mode-indexes (mapcar 'car ~mode-alist)))
@@ -104,4 +122,4 @@
                   (> (length (memq (car a) mode-indexes))
                      (length (memq (car b) mode-indexes))))))))
 
-(add-hook 'after-change-major-mode-hook '~setup-mode-line)
+(add-hook 'after-change-major-mode-hook 'my:mode-line-setup)

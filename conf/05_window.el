@@ -1,3 +1,7 @@
+(setq windmove-wrap-around t) ;; 反対側のウィンドウにいけるように
+(setq resize-mini-windows t) ;; ミニバッファのサイズ変更するか
+
+
 (use-package owdriver
   :custom ((owdriver-next-window-function '~owdriver-next-window))
   :config

@@ -1,3 +1,7 @@
+(setq scroll-step 1) ;; 一行ずつスクロール
+(setq scroll-preserve-screen-position t) ;; 画面をページアップ、ページダウンするときにカーソルを固定
+
+
 (use-package inertial-scroll
   :custom ((inertias-initial-velocity 60.0))
   :config

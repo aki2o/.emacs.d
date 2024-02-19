@@ -1,9 +1,9 @@
 ;;; 日本語環境設定
 (set-language-environment "Japanese")
 (set-default-coding-systems 'utf-8-unix)
-;; (prefer-coding-system 'utf-8-unix)
 ;; (set-terminal-coding-system 'euc-japan)
 (set-buffer-file-coding-system 'utf-8-unix)
+(prefer-coding-system 'utf-8-unix)
 
 (setenv "LC_ALL" "ja_JP.UTF-8")
 

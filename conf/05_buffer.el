@@ -1,5 +1,6 @@
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (setq uniquify-ignore-buffers-re "\s*\*[^\*]+\*\s*")
+(setq enable-recursive-minibuffers t) ;; ミニバッファを再帰的に呼び出せるようにする
 
 
 (use-package ibuffer
@@ -15,4 +16,3 @@
     (split-window-horizontally))
   (other-window 1)
   (ibuffer))
-

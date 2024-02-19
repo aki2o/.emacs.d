@@ -8,6 +8,7 @@
   (setq moccur-grep-default-mask (mmask-get-regexp-string 'emacs-lisp-mode)))
 
 (~add-setup-hook 'emacs-lisp-mode
+  (setq-local fill-column 80)
   (setq ~find-definition-function '~elisp-find-definition)
   (setq ~popup-document-frame-function '~elisp-popup-document))
 
@@ -74,3 +75,17 @@
   :init
   ;; (define-key emacs-lisp-mode-map (kbd "C-\\") 'log4e:insert-start-log-quickly)
   )
+
+
+;; もう不要な気がするから、一旦コメントアウト
+;; (use-package auto-async-byte-compile
+;;   :defer t
+;;   :commands (enable-auto-async-byte-compile-mode)
+;;   :hook (emacs-lisp-mode . enable-auto-async-byte-compile-mode)
+;;   :init
+;;   (setq auto-async-byte-compile-exclude-files-regexp
+;;         (rx-to-string `(and (or "/.emacs.d/init.el"
+;;                                 "/.emacs.d/initf.el"
+;;                                 "/.emacs.d/conf/"
+;;                                 "/.emacs.d/junk/"
+;;                                 "/.emacs.d/test/")))))

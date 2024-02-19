@@ -1,5 +1,4 @@
 (global-font-lock-mode t)
-;; (setq-default transient-mark-mode t)
 (transient-mark-mode t)
 (tool-bar-mode 0)
 (menu-bar-mode 0)

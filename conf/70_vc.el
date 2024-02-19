@@ -76,7 +76,12 @@
 
 (defun my:git-pull-current-branch (remote)
   (interactive (list (if current-prefix-arg (magit-read-remote "Remote: ") "origin")))
-  (my:git-pull remote))
+  (let ((curr-branch (magit-get-current-branch))
+        (stashed (when (my:git-dirty-p)
+                   (call-interactively 'magit-stash-both)
+                   t)))
+    (my:git-pull remote)
+    (when stashed (my:git-stash-pop-for curr-branch :first t))))
 
 (defun my:git-fetch (remote)
   (interactive (list (if current-prefix-arg (magit-read-remote "Remote: ") "--all")))
@@ -114,6 +119,7 @@
   (interactive)
   (let ((branch (if current-prefix-arg nil (magit-get-current-branch))))
     (my:git-stash-pop-for branch)))
+
 
 (use-package git-gutter
   :defer t

@@ -393,7 +393,6 @@ Typing S-<return> means
   (let* ((prompt-name (if prompt-name prompt-name (chatblade--resolve-prompt-name-by-mode major-mode)))
          (args (if omit-query '("--only") '()))
          (args (apply 'chatblade--make-arguments query prompt-name session chatblade-default-model args)))
-    (message "[Chatblade] call : %s" args)
     (shell-command-to-string (mapconcat 'shell-quote-argument `(,chatblade-executable-path ,@args) " "))))
 
 (define-hostmode poly-chatblade-hostmode :mode 'chatblade-mode)

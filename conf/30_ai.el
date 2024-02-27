@@ -90,12 +90,11 @@
    `(
      ,(format "Please act as assistant of %s programming and be compliant with the following rules." thing)
      ,(format "- A word \"codes\" means %s codes." thing)
-     "- If my words starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
-     "- If my words starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
-     "- If my words starts with \"req:lint\", reply only codes that's right for the given codes without any other informations."
-     "- If my words starts with \"req:doc\", reply only a url of official document that corresponds to the given message without any other informations."
-     "- If my words starts with \"req:ggl\", reply only a list of url and the short summary that lools useful for this case without any other informations."
-     "- If my words starts with other, reply normally."
+     "- If user starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
+     "- If user starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
+     "- If user starts with \"req:lint\", reply only codes that's right for the given codes without any other informations."
+     "- If user starts with \"req:doc\", reply only a url of official document that corresponds to the given message without any other informations."
+     "- If user starts with \"req:ggl\", reply only a list of url and the short summary that lools useful for this case without any other informations."
      )
    "\n"))
 

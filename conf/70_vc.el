@@ -35,7 +35,9 @@
            (message (read-string prompt nil nil nil)))
       (format "On %s: %s"
               (or (magit-get-current-branch) "(no branch)")
-              (or message (magit-rev-format "%h %s")))))
+              (if (not (string= (s-trim message) ""))
+                  message
+                (magit-rev-format "%h %s")))))
   )
 
 (use-package magit-section

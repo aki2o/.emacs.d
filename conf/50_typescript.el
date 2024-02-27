@@ -22,10 +22,10 @@
 
   :config
   (~add-setup-hook 'typescript-mode
+    (setq my:lint-executable (my:js-resolve-lint-executable))
     (when (string-match-p "\\.tsx\\'" (buffer-name))
       (~run-deferred (current-buffer) 5 (poly-tsx-mode 1)))
-    (setq my:lint-executable (my:js-resolve-lint-executable))
-    (tsi-typescript-mode 1)
+    (~run-deferred (current-buffer) 5 (tsi-typescript-mode 1))
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       (setq ~lsp-organize-imports-function 'import-js-fix) ; lsp-organize-imports-my-ts が動いてなさそうなので、一旦こっちを使ってみてる

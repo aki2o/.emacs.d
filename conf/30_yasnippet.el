@@ -8,16 +8,16 @@
              ~yas-register-oneshot-snippet
              ~yas-expand-oneshot-snippet)
   :mode (("/\\.emacs\\.d/snippets/" . snippet-mode))
+  :custom ((yas-fallback-behavior 'call-other-command)
+           ;; (yas-next-field-key "TAB")
+           (yas-indent-line 'auto) ;展開するときにインデントするか
+           (yas-wrap-around-region t) ;選択領域を$0の位置に挿入するか
+           (yas-triggers-in-field t) ;再帰的に展開するか
+           (yas-buffer-local-condition yas-not-string-or-comment-condition)
+           (yas-prompt-functions '(yas-completing-prompt))
+           ;; (yas-text-popup-function #'yas-dropdown-list-popup-for-template)
+           (yas-snippet-dirs (list (locate-user-emacs-file "snippets"))))
   :init
-  (setq yas-fallback-behavior 'call-other-command)
-  ;; (setq yas-next-field-key "TAB")
-  (setq yas-indent-line 'auto) ;展開するときにインデントするか
-  (setq yas-wrap-around-region t) ;選択領域を$0の位置に挿入するか
-  (setq yas-triggers-in-field t) ;再帰的に展開するか
-  (setq yas-prompt-functions '(yas-completing-prompt))
-  ;; (setq yas-text-popup-function #'yas-dropdown-list-popup-for-template)
-  (setq yas-snippet-dirs (list (locate-user-emacs-file "snippets")))
-
   (yas-global-mode 1)
 
   :config
@@ -25,8 +25,8 @@
   
   (add-hook 'snippet-mode-hook 'turn-on-eldoc-mode t)
 
-  (add-hook 'snippet-mode-hook '~snippet-modde-setup t)
-  (defun ~snippet-modde-setup ()
+  (add-hook 'snippet-mode-hook '~snippet-mode-setup t)
+  (defun ~snippet-mode-setup ()
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'snippet-mode)))
   
   (defun ~yas-expand-link (key)

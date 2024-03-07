@@ -2,6 +2,4 @@
 # name: mocha_before
 # key: before
 # --
-before${1:Each}(() => {
-  $0
-});
+before${1:Each}(() => $0);

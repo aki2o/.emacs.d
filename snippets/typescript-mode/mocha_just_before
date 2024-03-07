@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mocha_just_before
+# key: just
+# --
+justBeforeEach(() => $0);

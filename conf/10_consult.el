@@ -26,6 +26,9 @@
   (advice-add 'register-preview :override 'consult-register-window)
 
   (setq xref-show-xrefs-function 'consult-xref)
+  ;; xref--show-xref-buffer は xref-show-xrefs-function のデフォルトとして設定されているが、
+  ;; なぜか xref-show-definitions-buffer から直接使われてしまってる
+  (advice-add 'xref--show-xref-buffer :override 'consult-xref)
 
   :config
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") 'consult-narrow-help)

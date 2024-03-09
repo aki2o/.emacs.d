@@ -13,9 +13,6 @@
     (tree-sitter-require 'tsx)
     (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-eslint 'typescript-mode))
-
   ;; 必要なさそうなので一旦コメントアウト
   ;; ;; https://github.com/emacs-lsp/lsp-mode/issues/3317#issuecomment-1026511720
   ;; (with-eval-after-load 'lsp-mode
@@ -37,9 +34,6 @@
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode)))
-
-  (~add-setup-hook-after-load 'flycheck 'typescript-mode
-    (~typescript-flycheck-select-dwim))
 
   (add-hook 'typescript-mode-hook 'eldoc-mode t)
 
@@ -66,10 +60,3 @@
     :innermodes '(poly-tsx-gql-innermode poly-tsx-css-innermode))
 
   (my:import-js-run))
-
-(defun ~typescript-flycheck-select-dwim ()
-  (cond ((and (functionp 'projectile-project-root)
-              (projectile-file-exists-p (expand-file-name "tslint.json" (projectile-project-root))))
-         (flycheck-select-checker 'typescript-tslint))
-        ((executable-find "eslint")
-         (flycheck-select-checker 'javascript-eslint))))

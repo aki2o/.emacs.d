@@ -15,6 +15,16 @@
 ;;;;;;;;;;;;;;
 ;; Function
 
+(defun ~split-on-escapable-space (string)
+  "Split STRING on spaces, which can be escaped with backslash."
+  (mapcar
+   (lambda (piece) (replace-regexp-in-string (string 0) " " piece))
+   (split-string (replace-regexp-in-string
+                  "\\\\\\\\\\|\\\\ "
+                  (lambda (x) (if (equal x "\\ ") (string 0) x))
+                  string 'fixedcase 'literal)
+                 " +" t)))
+
 ;; 指定されたモードのauto-mode-alistに定義されているキーのリスト
 (defun ~get-mode-masks (modesym)
   (loop for pair in auto-mode-alist

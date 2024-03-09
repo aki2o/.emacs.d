@@ -131,7 +131,7 @@
 (defun ~projectile-resume ()
   (interactive)
   (let* ((session ~vertico-current-session)
-         (v (funcall orderless-component-separator (cadr session)))
+         (v (funcall '~split-on-escapable-space (cadr session)))
          (c (pop v))
          (f (intern-soft (format "projectile-%s" c)))
          (dir (pop v))

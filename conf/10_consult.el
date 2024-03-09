@@ -55,7 +55,7 @@
 (defun ~consult-resume ()
   (interactive)
   (let* ((session ~vertico-current-session)
-         (v (funcall orderless-component-separator (cadr session)))
+         (v (funcall '~split-on-escapable-space (cadr session)))
          (c (pop v))
          (f (intern-soft (format "consult-%s" c)))
          (dir (pop v))

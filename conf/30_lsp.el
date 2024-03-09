@@ -85,7 +85,6 @@ _d_: find declaration                           _?_: describe session
 (use-package lsp-ui
   :after (lsp-mode)
   :custom ((lsp-ui-sideline-enable nil)
-           (lsp-ui-flycheck-live-reporting nil)
            (lsp-ui-peek-enable nil)
            (lsp-ui-doc-enable t)
            (lsp-ui-doc-delay nil)
@@ -96,6 +95,7 @@ _d_: find declaration                           _?_: describe session
            (lsp-ui-doc-border "white")
            (lsp-ui-doc-max-width 150)
            (lsp-ui-doc-max-height 1000)
+           (lsp-ui-doc-use-webkit nil)  ; need to build with --with-xwidgets for activate it
            (lsp-ui-imenu-enable nil))
   :hook   ((lsp-mode . lsp-ui-mode)
            (lsp-ui-doc-frame . ~lsp-ui-doc-frame-setup))

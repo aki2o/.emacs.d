@@ -1,11 +1,14 @@
-(use-package projectile)
-
-(setq projectile-keymap-prefix nil)
-(setq projectile-enable-caching t)
-;; (setq projectile-completion-system 'helm)
-(setq projectile-cache-file (concat user-emacs-directory ".projectile.cache"))
-(setq projectile-known-projects-file (concat user-emacs-directory ".projectile-bookmarks.eld"))
-(setq projectile-require-project-root nil)
+;; https://docs.projectile.mx/projectile/projects.html#adding-custom-project-types
+(use-package projectile
+  :custom ((projectile-project-search-path '("~/dev/"))
+           (projectile-auto-discover nil)
+           (projectile-cache-file (concat user-emacs-directory ".projectile.cache"))
+           (projectile-known-projects-file (concat user-emacs-directory ".projectile-bookmarks.eld"))
+           (projectile-keymap-prefix nil)
+           (projectile-enable-caching t)
+           (projectile-require-project-root nil))
+  :init
+  (add-hook 'after-init-hook #'projectile-discover-projects-in-search-path))
 
 (cl-loop for e in '(".plsense" ".tern-project")
          do (add-to-list 'projectile-project-root-files-bottom-up e t))
@@ -172,45 +175,47 @@
               while dirs append dirs
               do (setq dirs (delq nil (mapcar #'parent dirs)))))))
 
-(defun projectile-project-root (&optional ignore-cache)
-  "Retrieves the root directory of a project if available.
-The current directory is assumed to be the project's root otherwise."
-  (file-truename
-   (let ((dir (file-truename default-directory)))
-     (or (--reduce-from
-          (or acc
-              (let* ((cache-key (format "%s-%s" it dir))
-                     (cache-value (when (not ignore-cache)
-                                    (gethash cache-key projectile-project-root-cache)))
-                     (value (or cache-value
-                                (puthash cache-key
-                                         (or (funcall it dir) 'no-project-root)
-                                         projectile-project-root-cache))))
-                (if (eq value 'no-project-root)
-                    nil
-                  value)))
-          nil
-          projectile-project-root-files-functions)
-         (if projectile-require-project-root
-             (error "You're not in a project")
-           default-directory)))))
+;; 何を変えたのかわからないので一旦コメントアウト
 
-(defun projectile-invalidate-cache (arg)
-  "Remove the current project's files from `projectile-projects-cache'.
+;; (defun projectile-project-root (&optional ignore-cache)
+;;   "Retrieves the root directory of a project if available.
+;; The current directory is assumed to be the project's root otherwise."
+;;   (file-truename
+;;    (let ((dir (file-truename default-directory)))
+;;      (or (--reduce-from
+;;           (or acc
+;;               (let* ((cache-key (format "%s-%s" it dir))
+;;                      (cache-value (when (not ignore-cache)
+;;                                     (gethash cache-key projectile-project-root-cache)))
+;;                      (value (or cache-value
+;;                                 (puthash cache-key
+;;                                          (or (funcall it dir) 'no-project-root)
+;;                                          projectile-project-root-cache))))
+;;                 (if (eq value 'no-project-root)
+;;                     nil
+;;                   value)))
+;;           nil
+;;           projectile-project-root-files-functions)
+;;          (if projectile-require-project-root
+;;              (error "You're not in a project")
+;;            default-directory)))))
 
-With a prefix argument ARG prompts for the name of the project whose cache
-to invalidate."
-  (interactive "P")
-  (let ((project-root
-         (if arg
-             (completing-read "Remove cache for: "
-                              (projectile-hash-keys projectile-projects-cache))
-           (projectile-project-root t))))
-    (remhash project-root projectile-projects-cache)
-    (projectile-serialize-cache)
-    (when projectile-verbose
-      (message "Invalidated Projectile cache for %s."
-               (propertize project-root 'face 'font-lock-keyword-face)))))
+;; (defun projectile-invalidate-cache (arg)
+;;   "Remove the current project's files from `projectile-projects-cache'.
+
+;; With a prefix argument ARG prompts for the name of the project whose cache
+;; to invalidate."
+;;   (interactive "P")
+;;   (let ((project-root
+;;          (if arg
+;;              (completing-read "Remove cache for: "
+;;                               (projectile-hash-keys projectile-projects-cache))
+;;            (projectile-project-root t))))
+;;     (remhash project-root projectile-projects-cache)
+;;     (projectile-serialize-cache)
+;;     (when projectile-verbose
+;;       (message "Invalidated Projectile cache for %s."
+;;                (propertize project-root 'face 'font-lock-keyword-face)))))
 
 
 (use-package editorconfig

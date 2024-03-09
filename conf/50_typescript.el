@@ -16,9 +16,10 @@
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-eslint 'typescript-mode))
 
-  ;; https://github.com/emacs-lsp/lsp-mode/issues/3317#issuecomment-1026511720
-  (with-eval-after-load 'lsp-mode
-    (lsp-make-interactive-code-action organize-imports-my-ts "source.organizeImports.ts"))
+  ;; 必要なさそうなので一旦コメントアウト
+  ;; ;; https://github.com/emacs-lsp/lsp-mode/issues/3317#issuecomment-1026511720
+  ;; (with-eval-after-load 'lsp-mode
+  ;;   (lsp-make-interactive-code-action organize-imports-my-ts "source.organizeImports.ts"))
 
   :config
   (~add-setup-hook 'typescript-mode
@@ -28,7 +29,10 @@
     (~run-deferred (current-buffer) 5 (tsi-typescript-mode 1))
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
-      (setq ~lsp-organize-imports-function 'import-js-fix) ; lsp-organize-imports-my-ts が動いてなさそうなので、一旦こっちを使ってみてる
+      ;; (setq ~lsp-organize-imports-function 'lsp-organize-imports-my-ts)
+      ;; 便利そうだけど現状困ってなくて最新の状況がわかってないのでコメントアウトしてる
+      ;; https://emacs-lsp.github.io/lsp-mode/page/lsp-eslint/
+      ;; (setq-local lsp-enabled-clients '(ts-ls eslint))
       (~lsp-deferred)))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode

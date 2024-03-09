@@ -30,9 +30,9 @@
     (add-function :before (local 'syntax-propertize-function) '~ruby-syntax-propertize-function)
 
     (when (functionp '~lsp-deferred)
-      (~lsp-deferred)
-      (setq lsp-completion-enable nil)
-      (add-to-list 'lsp-enabled-clients 'ruby-ls)))
+      (setq-local lsp-completion-enable nil)
+      (setq-local lsp-enabled-clients '(ruby-ls))
+      (~lsp-deferred)))
 
   (~add-setup-hook-after-load 'flex-autopair 'ruby-mode
     (add-to-list 'flex-autopair-pairs '(?| . ?|))

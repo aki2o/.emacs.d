@@ -1,32 +1,28 @@
 (use-package lsp-mode
+  ;; https://emacs-lsp.github.io/lsp-mode/page/settings/mode/
   :custom ((lsp-keymap-prefix "C-x ;")
-           (lsp-signature-function 'lsp-signature-posframe)
-           (lsp-signature-render-documentation t)
-           (lsp-signature-auto-activate nil)
-           (lsp-signature-doc-lines 1000)
-           (lsp-inhibit-message t)
-           (lsp-message-project-root-warning t)
-           (lsp-print-io nil)
-           (lsp-trace nil)
-           (lsp-print-performance nil)
            (lsp-auto-guess-root t)
-           (lsp-document-sync-method 'incremental)
+           (lsp-guess-root-without-session t)
+           (lsp-document-sync-method nil)
            (lsp-response-timeout 5)
+           (lsp-idle-delay 0.5)
+           (lsp-warn-no-matched-clients t)
+           (lsp-completion-provider :none)
+           (lsp-log-io nil)
+           (lsp-log-max t)
            (lsp-enable-snippet nil)
            (lsp-headerline-breadcrumb-enable nil)
            (lsp-semantic-tokens-enable nil)
-           (lsp-idle-delay 0.5)
-           (lsp-completion-provider :none)
-           (lsp-warn-no-matched-clients t))
+           (lsp-signature-function 'lsp-signature-posframe)
+           (lsp-signature-render-documentation t)
+           (lsp-signature-auto-activate nil)
+           (lsp-signature-doc-lines 1000))
   :defer t
   :config
   (unbind-key "C-S-SPC" lsp-mode-map)
 
   (bind-keys :map lsp-signature-mode-map
              ([remap keyboard-escape-quit] . lsp-signature-stop))
-
-  (make-variable-buffer-local 'lsp-enabled-clients)
-  (make-variable-buffer-local 'lsp-completion-enable)
 
   (advice-add 'lsp-completion-at-point :around '~lsp-completion-at-point)
 
@@ -43,12 +39,12 @@
   (with-eval-after-load 'web-mode
     (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-markup-indent-offset)))
 
-  (with-eval-after-load 'lsp-completion
-    ;; 補完した後に、後続の文字を消されてしまうことがあって、ここでやっているっぽいので、一旦何もしないようにしてみてる
-    (defun lsp-completion--exit-fn (&rest args)
-      nil))
+  ;; import の自動補完はここでやってるっぽいので、やっぱり有効にしてみてる
+  ;; (with-eval-after-load 'lsp-completion
+  ;;   ;; 補完した後に、後続の文字を消されてしまうことがあって、ここでやっているっぽいので、一旦何もしないようにしてみてる
+  ;;   (defun lsp-completion--exit-fn (&rest args)
+  ;;     nil))
   )
-
 
 (defun ~lsp-deferred ()
   (interactive)
@@ -73,8 +69,8 @@
   "
 _a_: find apropos          _m_: rename            _r_: restart
 _i_: find implementation   _h_: organize imports  _q_: shutdown
-_t_: find type definition  _;_: toggle signature  _?_: describe session
-_d_: find declaration
+_t_: find type definition  _;_: toggle signature  _D_: toggle logging
+_d_: find declaration                           _?_: describe session
 "
   ("a" xref-find-apropos)
   ("i" lsp-find-implementation)
@@ -85,6 +81,7 @@ _d_: find declaration
   (";" lsp-toggle-signature-auto-activate)
   ("r" lsp-workspace-restart)
   ("q" lsp-workspace-shutdown)
+  ("D" lsp-toggle-trace-io)
   ("?" lsp-describe-session))
 
 

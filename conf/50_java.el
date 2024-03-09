@@ -102,9 +102,7 @@
 
   (~add-setup-hook 'kotlin-mode
     (when (functionp '~lsp-deferred)
-      ;; 不安定なので、一旦コメントアウト
-      ;; (~lsp-deferred)
-      (setq lsp-completion-enable nil))))
+      (~lsp-deferred))))
 
 
 (use-package flycheck-kotlin

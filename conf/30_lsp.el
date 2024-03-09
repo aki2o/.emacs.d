@@ -26,10 +26,7 @@
 
   (advice-add 'lsp-completion-at-point :around '~lsp-completion-at-point)
 
-  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-overrides)) '(substring))
-
   (~add-setup-hook 'lsp-mode
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults)) '(orderless))
     (add-to-list '~completion-at-point-functions '~lsp-completion)
     (setq ~dwim-at-point-function '~lsp-hydra/body))
 

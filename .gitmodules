@@ -194,6 +194,10 @@
 	path = elisp/borg/flex-autopair
 	url = https://github.com/uk-ar/flex-autopair
 	ignore = untracked
+[submodule "flx"]
+	path = elisp/borg/flx
+	url = https://github.com/lewang/flx
+	ignore = untracked
 [submodule "flycheck"]
 	path = elisp/borg/flycheck
 	url = https://github.com/flycheck/flycheck
@@ -202,9 +206,17 @@
 	path = elisp/borg/flycheck-kotlin
 	url = https://github.com/whirm/flycheck-kotlin
 	ignore = untracked
+[submodule "fussy"]
+	path = elisp/borg/fussy
+	url = https://github.com/jojojames/fussy
+	ignore = untracked
 [submodule "fuzzy"]
 	path = elisp/borg/fuzzy
 	url = https://github.com/auto-complete/fuzzy-el
+[submodule "fzf-native"]
+	path = elisp/borg/fzf-native
+	url = https://github.com/dangduc/fzf-native
+	ignore = untracked
 [submodule "genrnc"]
 	path = elisp/borg/genrnc
 	url = https://github.com/aki2o/emacs-genrnc

@@ -3,6 +3,10 @@
            ("C-M-p" . previous-matching-history-element)
            ("C-M-n" . next-matching-history-element))
 
+(setq read-file-name-completion-ignore-case t)
+(setq read-buffer-completion-ignore-case t)
+(setq completion-ignore-case t)
+
 
 (use-package vertico
   :custom ((vertico-count 25))
@@ -74,18 +78,22 @@
   session)
 
 
+(use-package fussy
+  :custom ((fussy-max-candidate-limit 30000)
+           (fussy-score-fn 'fussy-fzf-native-score)
+           (fussy-filter-fn 'fussy-filter-default))
+  :init
+  (setq completion-styles '(fussy))
+  (add-hook 'after-init-hook 'fzf-native-load-dyn))
+
+
 (use-package orderless
   :custom ((orderless-component-separator 'orderless-escapable-split-on-space)
            (orderless-matching-styles '(orderless-regexp))
            (orderless-style-dispatchers '(~orderless-dispatcher-bang ~orderless-dispatcher-quote ~orderless-dispatcher-caret)))
   :init
-  (setq completion-styles '(orderless basic))
   (setq completion-category-overrides '((buffer (styles orderless substring))
-                                        (file (styles orderless partial-completion))))
-  (setq read-file-name-completion-ignore-case t)
-  (setq read-buffer-completion-ignore-case t)
-  (setq completion-ignore-case t)
-
+                                        (file (styles orderless substring))))
   :config
   (defun ~orderless-dispatcher-bang (pattern _index _total)
     (cond

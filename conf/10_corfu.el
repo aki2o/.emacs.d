@@ -16,7 +16,12 @@
              ("C-S-j" . corfu-next)
              ("C-S-k" . corfu-previous)
              ([remap keyboard-escape-quit] . corfu-quit))
-  )
+
+  (with-eval-after-load 'fussy
+    (advice-add 'corfu--capf-wrapper :before 'fussy-wipe-cache))
+  (~add-setup-hook-after-load 'fussy 'corfu-mode
+    (setq-local fussy-default-regex-fn 'fussy-pattern-first-letter)
+    (setq-local fussy-prefer-prefix nil)))
 
 (defun my:corfu-enable-in-minibuffer ()
   (when (local-variable-p 'completion-at-point-functions)

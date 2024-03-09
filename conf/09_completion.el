@@ -87,52 +87,6 @@
   (add-hook 'after-init-hook 'fzf-native-load-dyn))
 
 
-(use-package orderless
-  :custom ((orderless-component-separator 'orderless-escapable-split-on-space)
-           (orderless-matching-styles '(orderless-regexp))
-           (orderless-style-dispatchers '(~orderless-dispatcher-bang ~orderless-dispatcher-quote ~orderless-dispatcher-caret)))
-  :init
-  (setq completion-category-overrides '((buffer (styles orderless substring))
-                                        (file (styles orderless substring))))
-  :config
-  (defun ~orderless-dispatcher-bang (pattern _index _total)
-    (cond
-     ((equal "!" pattern)
-      '(orderless-literal . ""))
-     ((string-prefix-p "!" pattern)
-      `(orderless-without-literal . ,(substring pattern 1)))))
-
-  (defun ~orderless-dispatcher-quote (pattern _index _total)
-    (cond
-     ((equal "'" pattern)
-      '(orderless-literal . ""))
-     ((string-prefix-p "'" pattern)
-      `(orderless-literal . ,(substring pattern 1)))))
-
-  (defun ~orderless-dispatcher-caret (pattern _index _total)
-    (cond
-     ((equal "^" pattern)
-      '(orderless-literal . ""))
-     ((string-prefix-p "^" pattern)
-      `(orderless-initialism . ,(substring pattern 1)))))
-
-  (advice-add 'orderless-filter :around '~orderless-let-unmatch-filterable)
-
-  (defun ~orderless-let-unmatch-filterable (orig &rest args)
-    (let* ((all-components (funcall orderless-component-separator (nth 0 args)))
-           (not-components (cl-remove-if-not (lambda (x) (string-prefix-p "-" x)) all-components)))
-      (if (= (length not-components) 0)
-          (apply orig args)
-        (pop args)
-        (let* ((components (cl-remove-if (lambda (x) (member x not-components)) all-components))
-               (table (apply orig `(,(mapconcat 'identity components " ") ,(pop args) ,@args))))
-          (cl-loop for c in (mapcar (lambda (x) (substring x 1)) not-components)
-                   for not-table = (apply orig `(,c ,table ,@args))
-                   do (setq table (cl-remove-if (lambda (x) (member x not-table)) table))
-                   finally return table)))))
-  )
-
-
 (use-package prescient
   :defer t
   :custom ((prescient-aggressive-file-save t))

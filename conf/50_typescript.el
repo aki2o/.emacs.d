@@ -24,6 +24,7 @@
     (when (string-match-p "\\.tsx\\'" (buffer-name))
       (~run-deferred (current-buffer) 5 (poly-tsx-mode 1)))
     (~run-deferred (current-buffer) 5 (tsi-typescript-mode 1))
+    (my:js-buffer-name-smartly)
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       ;; (setq ~lsp-organize-imports-function 'lsp-organize-imports-my-ts)

@@ -11,6 +11,27 @@
                      "eslint"))))
     (format "%s exec %s --fix" command sub)))
 
+(defun my:js-buffer-name-smartly ()
+  (let* ((file (when (buffer-file-name) (~projectile-relative-path (current-buffer))))
+         (re (rx (or "/test/" "/__test__/" ".test.")))
+         (test-p (and file (string-match re file)))
+         (def-p (and file (string-match (rx ".d.") file)))
+         (dirs (when file (reverse (split-string (directory-file-name (file-name-directory file)) "/"))))
+         (dir (if (s-starts-with? "index." (file-name-nondirectory file))
+                  (pop dirs)
+                (file-name-sans-extension (file-name-nondirectory file))))
+         (path (mapconcat (lambda (x) (truncate-string-to-width x 6 nil nil t))
+                          (reverse dirs)
+                          "/"))
+         (name (concat (cond (test-p "T:")
+                             (def-p  "D:")
+                             (t      ""))
+                       dir
+                       (if (not (string= "" path)) (format "<%s>" path) ""))))
+    (when name
+      (rename-buffer name t))))
+
+
 (use-package add-node-modules-path
   :defer t
   :init

@@ -113,6 +113,8 @@
     (define-key persp-key-map (kbd "i") '~persp-add-git-diff-files))
   (require 'magit nil t))
 
-
 (use-package e2wm-perspb-rails
+  :after e2wm-perspb)
+
+(use-package e2wm-perspb-ts
   :after e2wm-perspb)

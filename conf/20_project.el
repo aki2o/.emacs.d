@@ -8,46 +8,40 @@
            (projectile-enable-caching t)
            (projectile-require-project-root nil))
   :init
-  (add-hook 'after-init-hook #'projectile-discover-projects-in-search-path))
+  (add-hook 'after-init-hook #'projectile-discover-projects-in-search-path)
+  (add-hook 'after-init-hook #'projectile-global-mode)
 
-(cl-loop for e in '(".plsense" ".tern-project")
-         do (add-to-list 'projectile-project-root-files-bottom-up e t))
-(cl-loop for e in '("Makefile.PL" "Build.PL")
-         do (add-to-list 'projectile-project-root-files e t))
-(cl-loop for e in '("group_vars")
-         do (add-to-list 'projectile-project-root-files-top-down-recurring e t))
-(cl-loop for e in '("blib")
-         do (add-to-list 'projectile-globally-ignored-directories e t))
+  :config
+  (plist-get (cdr (nth 0 projectile-project-types)) :project-file)
+
+  (setq projectile-project-root-files-bottom-up
+        `(,@projectile-project-root-files ,@projectile-project-root-files-bottom-up ".plsense" ".tern-project"))
+  (setq projectile-project-root-files-top-down-recurring
+        `(,@projectile-project-root-files-top-down-recurring "group_vars" "Makefile.PL" "Build.PL"))
+  (setq projectile-globally-ignored-directories
+        `(,@projectile-globally-ignored-directories "blib"))
+
+  ;; ディレクトリなかったら、エラーじゃなくて空リスト返して欲しい
+  (defadvice projectile-dir-files (around ~check-exists activate)
+    (if (file-directory-p (ad-get-arg 0))
+        ad-do-it
+      (setq ad-return-value nil)))
+
+  ;; ファイルが無いディレクトリがリストされるようにする
+  (defun projectile-project-dirs (project)
+    (cl-flet ((parent (x)
+                (file-name-directory (directory-file-name x))))
+      (delete-dups
+       (cl-loop with dirs = (delq nil
+                                  (mapcar #'file-name-directory (projectile-project-files project)))
+                while dirs append dirs
+                do (setq dirs (delq nil (mapcar #'parent dirs)))))))
+  )
 
 ;; よくわからないけど、動いてないから、常に有効にするので、再定義してみてる
 (define-globalized-minor-mode projectile-global-mode
   projectile-mode
   (lambda () (projectile-mode 1)))
-
-(projectile-global-mode)
-
-;; ;; プロジェクトルート探索方法
-;; (setq projectile-project-root-files-functions '(~projectile-root-bottom-up))
-
-;; (defvar ~projectile-maybe-root-selection nil)
-;; (defun ~projectile-root-bottom-up (dir &optional list)
-;;   (let ((founds (sort (cl-loop for e in (append list
-;;                                              projectile-project-root-files
-;;                                              projectile-project-root-files-bottom-up)
-;;                             for found = (projectile-locate-dominating-file dir e)
-;;                             if found collect found)
-;;                       (lambda (a b)
-;;                         (> (string-width a) (string-width b))))))
-;;     (if (and (> (length founds) 1)
-;;              ~projectile-maybe-root-selection)
-;;         (cl-loop for e in founds
-;;               if (y-or-n-p (format "Is project root '%s'?" e))
-;;               return e)
-;;       (nth 0 founds))))
-
-;; (defadvice projectile-invalidate-cache (around ~select-project-root activate)
-;;   (let ((~projectile-maybe-root-selection (when (called-interactively-p) t)))
-;;     ad-do-it))
 
 (defun ~projectile-relative-path (buffer)
   (let* ((root-path (projectile-project-root))
@@ -158,22 +152,6 @@
 
 
 ;; For p-r
-
-;; ディレクトリなかったら、エラーじゃなくて空リスト返して欲しい
-(defadvice projectile-dir-files (around ~check-exists activate)
-  (if (file-directory-p (ad-get-arg 0))
-      ad-do-it
-    (setq ad-return-value nil)))
-
-;; ファイルが無いディレクトリがリストされるようにする
-(defun projectile-project-dirs (project)
-  (cl-flet ((parent (x)
-                    (file-name-directory (directory-file-name x))))
-    (delete-dups
-     (cl-loop with dirs = (delq nil
-                                (mapcar #'file-name-directory (projectile-project-files project)))
-              while dirs append dirs
-              do (setq dirs (delq nil (mapcar #'parent dirs)))))))
 
 ;; 何を変えたのかわからないので一旦コメントアウト
 

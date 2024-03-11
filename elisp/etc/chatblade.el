@@ -490,7 +490,7 @@ Based on `comint-mode-map'."
                         'chatblade-open-interactive))
          (query (if (region-active-p)
                    (buffer-substring (region-beginning) (region-end))
-                  (buffer-substring (point-min) (point))))
+                  (buffer-substring (point-min) (pos-eol))))
          (query (-reduce-from (lambda (q f) (funcall f q)) query chatblade-query-filter-functions))
          (query (substring-no-properties query))
          (chatblade--model chatblade-default-model)

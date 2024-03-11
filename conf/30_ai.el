@@ -62,7 +62,11 @@
     (concat "req:ggl " text " %s")))
 
 (defun my:chatblade-make-err-query ()
-  (let ((message (read-string "Input the error: ")))
+  (let* ((flycheck-display-errors-function 'flycheck-help-echo-all-error-messages)
+         (errors (when flycheck-mode
+                   (flycheck-overlay-errors-at (point))))
+         (message (or (when errors (flycheck-display-errors errors))
+                      (read-string "Input the error: "))))
     (concat "```\n%s\n```\n"
             "I got the following error from this codes.\n\n"
             message "\n\n"

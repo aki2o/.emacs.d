@@ -24,8 +24,8 @@
   :init
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-envs '("OPENAI_API_KEY")))
-  :custom ((chatblade-default-model "4t")
-           (chatblade-default-switched-model "4")
+  :custom ((chatblade-default-model "4")
+           (chatblade-default-switched-model "3.5")
            (chatblade-prompt-name-alist '((rust-mode           . "rust")
                                           (typescript-mode     . "ts")
                                           (typescript-tsx-mode . "ts")
@@ -92,13 +92,13 @@
   (mapconcat
    'identity
    `(
-     ,(format "Please act as assistant of %s programming and be compliant with the following rules." thing)
-     ,(format "- A word \"codes\" means %s codes." thing)
-     "- If user starts with \"req:samp\", reply only codes that do the behavior of the given message without any other informations."
-     "- If user starts with \"req:comp\", reply only codes that you predict and should follow on the given codes without any other informations."
-     "- If user starts with \"req:lint\", reply only codes that's right for the given codes without any other informations."
-     "- If user starts with \"req:doc\", reply only a url of official document that corresponds to the given message without any other informations."
-     "- If user starts with \"req:ggl\", reply only a list of url and the short summary that lools useful for this case without any other informations."
+     ,(format "Please you act as assistant of %s programming." thing)
+     ,(format "\"codes\" means %s codes." thing)
+     "\"req:samp\" means to request only codes that do the behavior of the given message without any other informations."
+     "\"req:comp\" means to request only codes that you predict and should follow on the given codes without any other informations."
+     "\"req:lint\" means to request only codes that's right for the given codes without any other informations."
+     "\"req:doc\" means to request only a url of official document that corresponds to the given message without any other informations."
+     "\"req:ggl\" means to request only a list of url and the short summary that lools useful for this case without any other informations."
      )
    "\n"))
 
@@ -114,19 +114,3 @@
 (setq-default ~action-at-point-function 'my:chatblade-hydra/body)
 
 (require 'chatblade)
-
-;; (use-package openai
-;;   :defer t
-;;   :init
-;;   (with-eval-after-load 'exec-path-from-shell
-;;     (exec-path-from-shell-copy-envs '("OPENAI_API_KEY")))
-;;   :config
-;;   (setq openai-key (getenv "OPENAI_API_KEY")))
-
-
-;; (use-package chatgpt
-;;   :defer t
-;;   :custom ((chatgpt-max-tokens 2048)
-;;            (chatgpt-max-history 100)
-;;            (chatgpt-input-method 'minibuffer)
-;;            (chatgpt-display-tokens-info t)))

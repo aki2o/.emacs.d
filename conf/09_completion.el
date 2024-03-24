@@ -84,8 +84,15 @@
            (fussy-filter-fn 'fussy-filter-default))
   :init
   (setq completion-styles '(fussy))
-  (add-hook 'after-init-hook 'fzf-native-load-dyn))
+  (add-hook 'after-init-hook 'fzf-native-load-dyn)
+  :config
+  (advice-add 'fussy-without-tofu-char :around 'my:fussy-without-tofu-char))
 
+;; 空文字が想定できてない
+(defun my:fussy-without-tofu-char (orig &rest args)
+  (if (string= (nth 0 args) "")
+      ""
+    (apply orig args)))
 
 (use-package prescient
   :defer t

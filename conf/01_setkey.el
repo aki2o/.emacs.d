@@ -80,6 +80,7 @@
     (:key "C-z"       :cmd keyboard-escape-quit           :jack t :kind edit) ; C-gの弱い版
     (:key "C-M-z"     :cmd keyboard-quit                  :jack t :kind edit) ; C-g
     (:key "C-S-M-z"   :cmd abort-recursive-edit           :jack t :kind edit)
+    (:key "C-x C-z"   :cmd keyboard-quit                  :jack t :kind edit) ; suspend-frame だけど、使うことがなさそうなので同様に置き換えておく
     (:key "C-'"       :cmd comment-dwim                   :jack t :kind edit)
     (:key "C-\""      :cmd comment-box                    :jack t :kind edit)
     (:key "C-?"       :cmd redo                           :jack t :kind edit)

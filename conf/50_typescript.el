@@ -31,7 +31,8 @@
       ;; 便利そうだけど現状困ってなくて最新の状況がわかってないのでコメントアウトしてる
       ;; https://emacs-lsp.github.io/lsp-mode/page/lsp-eslint/
       ;; (setq-local lsp-enabled-clients '(ts-ls eslint))
-      (~lsp-deferred)))
+      (~lsp-deferred)
+      (setq my:lsp-completion-merge-to-completion-at-point-function 'my:ts-lsp-completion-merge-to-completion-at-point-p)))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode)))
@@ -61,3 +62,8 @@
     :innermodes '(poly-tsx-gql-innermode poly-tsx-css-innermode))
 
   (my:import-js-run))
+
+(defun my:ts-lsp-completion-merge-to-completion-at-point-p ()
+  (save-excursion
+    (backward-word 1)
+    (not (eq (char-before) ?.))))

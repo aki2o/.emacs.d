@@ -50,13 +50,24 @@
 
 (defvar ~lsp-completion-running-p nil)
 
+;; NOTE:
+;;   lsp-completion-at-point が実行されると、候補が無くてもそこで補完が終ってしまう
+;;   ので、 Hoge.fuga のようにLSP以外の補完が無い方が良いケースはそれで良いが、
+;;   他の補完候補も欲しいケースで ~completion-at-point-functions に登録して呼び出されるようにできるようにしてる
+(defvar my:lsp-completion-merge-to-completion-at-point-function nil)
+(make-variable-buffer-local 'my:lsp-completion-merge-to-completion-at-point-function)
+(defun ~lsp-completion-merge-to-completion-at-point-p ()
+  (and my:lsp-completion-merge-to-completion-at-point-function
+       (funcall my:lsp-completion-merge-to-completion-at-point-function)))
+
 (defun ~lsp-completion ()
   (let ((~lsp-completion-running-p t))
-    (cape-wrap-buster 'lsp-completion-at-point)))
+    (when (~lsp-completion-merge-to-completion-at-point-p)
+      (cape-wrap-buster 'lsp-completion-at-point))))
 
-;; lsp-completion-at-point が実行されると、候補が無くてもそこで補完が終ってしまうので、 ~completion-at-point-functions に登録してそっちを使う
 (defun ~lsp-completion-at-point (orig &rest args)
-  (if ~lsp-completion-running-p
+  (if (or ~lsp-completion-running-p
+          (not (~lsp-completion-merge-to-completion-at-point-p)))
       (apply orig args)
     (~completion-at-point)))
 

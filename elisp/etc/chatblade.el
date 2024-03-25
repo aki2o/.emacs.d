@@ -305,7 +305,7 @@ Typing S-<return> means
          (session (when session (list "--session" session)))
          (model (when model (list "--chat-gpt" model))))
     (when query (setq args `(,@args ,query)))
-    `(,@prompt-name ,@session ,@chatblade-default-arguments ,@args)))
+    `(,@model ,@prompt-name ,@session ,@chatblade-default-arguments ,@args)))
 
 (defun chatblade--fold-input (beg end)
   (let ((ov (make-overlay beg end)))
@@ -507,7 +507,7 @@ Based on `comint-mode-map'."
 ;;;###autoload
 (defun chatblade-resume (prompt-name model)
   (interactive (list (if current-prefix-arg nil (chatblade--resolve-prompt-name-by-mode major-mode))
-                     (if current-prefix-arg chatblade-default-model chatblade-default-switched-model)))
+                     (if current-prefix-arg chatblade-default-switched-model chatblade-default-model)))
   (let* ((session-file (chatblade--select-session-file prompt-name))
          (conversations (chatblade--extract-conversations-from session-file))
          (session (chatblade--session-from session-file))

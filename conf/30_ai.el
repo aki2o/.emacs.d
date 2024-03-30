@@ -30,11 +30,11 @@
                                           (typescript-mode     . "ts")
                                           (typescript-tsx-mode . "ts")
                                           (emacs-lisp-mode     . "elisp")))
-           (chatblade-query-template-alist '(("completion for curr buf/reg"      . "req:comp %s")
+           (chatblade-query-template-alist '(("completion for curr buf/reg"      . "/comp %s")
                                              ("sample code"                      . my:chatblade-make-samp-query)
                                              ("open document url"                . my:chatblade-make-doc-query)
                                              ("url list for curr buf/reg"        . my:chatblade-make-ggl-query)
-                                             ("fix syntax of curr buf/reg"       . "req:lint %s")
+                                             ("fix syntax of curr buf/reg"       . "/lint %s")
                                              ("fix error caused by curr buf/reg" . my:chatblade-make-err-query)
                                              ("find bug in curr buf/reg"         . my:chatblade-make-bug-query)
                                              ("what's curr buf/reg"              . "Can you figure out what this codes do? ```\n%s\n```")
@@ -50,16 +50,16 @@
   (let* ((default (when (use-region-p)
                     (buffer-substring-no-properties (region-beginning) (region-end))))
          (text (read-string "Input the behaviour (active region): " nil nil default)))
-    (concat "req:samp " text)))
+    (concat "/samp " text)))
 
 (defun my:chatblade-make-doc-query ()
   (let* ((default (thing-at-point 'symbol t))
          (thing (read-string (format "Input the thing (%s): " default) nil nil default)))
-    (format "req:doc %s" thing)))
+    (format "/doc %s" thing)))
 
 (defun my:chatblade-make-ggl-query ()
   (let ((text (read-string "Input the description: ")))
-    (concat "req:ggl " text " %s")))
+    (concat "/ggl " text " %s")))
 
 (defun my:chatblade-make-err-query ()
   (let* ((flycheck-display-errors-function 'flycheck-help-echo-all-error-messages)
@@ -94,11 +94,11 @@
    `(
      ,(format "Please you act as assistant of %s programming." thing)
      ,(format "\"codes\" means %s codes." thing)
-     "\"req:samp\" means to request only codes that do the behavior of the given message without any other informations."
-     "\"req:comp\" means to request only codes that you predict and should follow on the given codes without any other informations."
-     "\"req:lint\" means to request only codes that's right for the given codes without any other informations."
-     "\"req:doc\" means to request only a url of official document that corresponds to the given message without any other informations."
-     "\"req:ggl\" means to request only a list of url and the short summary that lools useful for this case without any other informations."
+     "Starting with \"/samp\" means to request only codes that do the behavior of the given message without any other informations."
+     "Starting with \"/comp\" means to request only codes that you predict and should follow on the given codes without any other informations."
+     "Starting with \"/lint\" means to request only codes that's right for the given codes without any other informations."
+     "Starting with \"/doc\" means to request only a url of official api reference that corresponds to the given message without any other informations."
+     "Starting with \"/ggl\" means to request only a list of url and the short summary that looks useful without any other informations."
      )
    "\n"))
 

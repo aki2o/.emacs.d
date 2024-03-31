@@ -16,12 +16,7 @@
   (define-key persp-key-map (kbd "S") 'persp-frame-switch)
   (define-key persp-key-map (kbd "K") '~persp-remove-all-buffers)
 
-  (add-to-list 'persp-before-deactivate-functions '~persp-save-state t)
-
-  (with-eval-after-load 'e2wm
-    (add-to-list 'persp-before-deactivate-functions '~persp-save-e2wm-pst t)
-    (add-to-list 'persp-activated-functions '~persp-load-e2wm-pst t))
-  )
+  (add-to-list 'persp-before-deactivate-functions '~persp-save-state t))
   
 ;; パースペクティブ選択で、関係ないhistoryのリストが出てきてウザイので無効にする
 (defun ~persp-interactive-completion-function (prompt collection &optional predicate require-match initial hist default inherit-input-method)
@@ -61,21 +56,6 @@
     (dolist (buf (persp-buffer-list))
       (when (not (eql buf currbuf))
         (persp-remove-buffer buf)))))
-
-;; パースペクティブに対応したpstに切り替わるようにする
-(defun ~persp-save-e2wm-pst (frame-or-window)
-  (let ((persp (cl-case frame-or-window
-                 (frame  (get-frame-persp))
-                 (window (get-window-persp)))))
-    (set-persp-parameter 'e2wm-pst (e2wm:pst-get-instance) persp)))
-
-(defun ~persp-load-e2wm-pst (frame-or-window)
-  (let* ((persp (cl-case frame-or-window
-                  (frame  (get-frame-persp))
-                  (window (get-window-persp))))
-         (pst (persp-parameter 'e2wm-pst persp)))
-    (when (e2wm:$pst-p pst)
-      (e2wm:pst-change (e2wm:$pst-name pst)))))
 
 ;; p-r
 

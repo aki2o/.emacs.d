@@ -18,6 +18,37 @@
 
   (add-to-list 'copilot-major-mode-alist '("enh-ruby" . "ruby")))
 
+(defun my:copilot-notify-project-files ()
+  (interactive)
+  (let* ((root (projectile-project-root))
+         (files (if root
+                    (projectile-project-files root)
+                  (error "You're not in project.")))
+         ;; (completion-styles '(basic partial-completion))
+         (input (completing-read "Select (or filter by M-RET): " files))
+         (files (if (member input files)
+                    (list input)
+                  (-reduce-from
+                   (lambda (list s)
+                     (seq-filter (lambda (x) (string-match-p s x)) list))
+                   files
+                   (split-string input "\s+")))))
+    (dolist (file files)
+      (my:run-deferred-with (expand-file-name file root) 1
+        (my:copilot-notify it)))))
+
+(defun my:copilot-notify (file)
+  (let* ((persp-add-buffer-on-find-file nil)
+         (buf (find-file-noselect file)))
+    (when (not (-contains-p copilot--opened-buffers buf))
+      (with-current-buffer buf
+        (copilot--notify 'textDocument/didOpen
+                         (list :textDocument (list :uri (copilot--get-uri)
+                                                   :languageId (copilot--get-language-id)
+                                                   :version copilot--doc-version
+                                                   :text (copilot--get-source)))))
+      (add-to-list 'copilot--opened-buffers buf))))
+
 
 (use-package chatblade
   :defer t

@@ -28,9 +28,6 @@
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       ;; (setq ~lsp-organize-imports-function 'lsp-organize-imports-my-ts)
-      ;; 便利そうだけど現状困ってなくて最新の状況がわかってないのでコメントアウトしてる
-      ;; https://emacs-lsp.github.io/lsp-mode/page/lsp-eslint/
-      ;; (setq-local lsp-enabled-clients '(ts-ls eslint))
       (~lsp-deferred)
       (setq my:lsp-completion-merge-to-completion-at-point-function 'my:ts-lsp-completion-merge-to-completion-at-point-p)))
 

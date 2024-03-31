@@ -125,11 +125,13 @@
    `(
      ,(format "Please you act as assistant of %s programming." thing)
      ,(format "\"codes\" means %s codes." thing)
-     "Starting with \"/samp\" means to request only codes that do the behavior of the given message without any other informations."
-     "Starting with \"/comp\" means to request only codes that you predict and should follow on the given codes without any other informations."
-     "Starting with \"/lint\" means to request only codes that's right for the given codes without any other informations."
-     "Starting with \"/doc\" means to request only a url of official api reference that corresponds to the given message without any other informations."
-     "Starting with \"/ggl\" means to request only a list of url and the short summary that looks useful without any other informations."
+     "If I start with \"/\", the word has special meaning."
+     "Here is the list of it and their means."
+     "- \"/samp\" is requesting only codes that do the behavior of the given message without any other informations."
+     "- \"/comp\" is requesting only codes that you predict and should follow on the given codes without any other informations."
+     "- \"/lint\" is requesting only codes that's right for the given codes without any other informations."
+     "- \"/doc\" is requesting only a url of official api reference that corresponds to the given message without any other informations."
+     "- \"/ggl\" is requesting only a list of url and the short summary that looks useful to the conversation without any other informations."
      )
    "\n"))
 

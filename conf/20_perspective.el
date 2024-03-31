@@ -106,7 +106,7 @@
             for f in (split-string (shell-command-to-string (format "git diff --name-only %s" branch)) "\n")
             for path = (concat root f)
             if (file-regular-p path)
-            do (progn
+            do (my:run-deferred-with path 1
                  (persp-add-buffer (find-file-noselect path))
                  (message "added perspective entry : %s" f))))
 

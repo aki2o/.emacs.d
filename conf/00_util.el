@@ -80,13 +80,21 @@
     (overlay-put ov 'face 'highlight)
     (run-with-timer 2 nil `(lambda () (when ,ov (delete-overlay ,ov))))))
 
-(cl-defmacro ~run-deferred (buffer seconds &rest body)
+(cl-defmacro ~run-deferred-in (buffer seconds &rest body)
   (declare (indent 2))
   `(lexical-let ((buf ,buffer)
                  (body ',body))
      (run-with-idle-timer ,seconds nil `(lambda ()
                                           (when (buffer-live-p ,buf)
                                             (with-current-buffer ,buf ,@body))))))
+
+(cl-defmacro my:run-deferred-with (it seconds &rest body)
+  (declare (indent 2))
+  `(lexical-let ((it ,it)
+                 (body ',body))
+     (run-with-idle-timer ,seconds nil `(lambda ()
+                                          (let ((it ,it))
+                                            ,@body)))))
 
 (cl-defmacro ~call-interactively-any-of (&rest commands)
   `(call-interactively (cl-loop for c in ',commands if (commandp c) return c)))

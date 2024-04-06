@@ -541,45 +541,66 @@ _R_: reload
 
 (defhydra ~hydra-git-blame (:pre (when (not magit-blame-mode) (magit-blame))
                                  :post (when magit-blame-mode (magit-blame-quit))
-                                 :foreign-keys run)
-  "git blame"
-  ("j" magit-blame-next-chunk "next chunk")
-  ("k" magit-blame-previous-chunk "prev chunk")
-  ("J" magit-blame-next-chunk-same-commit "next same commit chunk")
-  ("K" magit-blame-previous-chunk-same-commit "prev same commit chunk")
-  ("o" magit-blame-visit-file "visit file")
-  ("O" magit-blame-visit-other-file "visit other file")
-  ("h" magit-blame-copy-hash "copy commit hash")
-  ("t" magit-blame-cycle-style "cycle style")
+                                 :foreign-keys run
+                                 :hint nil)
+  "
+^Move^                        ^Action^
+^^^^-----------------------------------------------
+_j_: next chunk               _h_: copy commit hash
+_k_: prev chunk               _o_: visit file
+_J_: next same commit chunk   _t_: cycle style
+_K_: prev same commit chunk
+"
+  ("j" magit-blame-next-chunk)
+  ("k" magit-blame-previous-chunk)
+  ("J" magit-blame-next-chunk-same-commit)
+  ("K" magit-blame-previous-chunk-same-commit)
+  ("h" magit-blame-copy-hash)
+  ("o" magit-blame-visit-other-file)
+  ("t" magit-blame-cycle-style)
   ("q" nil "quit"))
 
 
-(defhydra ~hydra-git (:exit t :idle ~hydra-help-delay)
-  "git"
-  ("d" magit-diff-buffer-file "diff")
-  ("l" magit-log-buffer-file "log")
-  ("a" vc-annotate "annotate")
-  ("b" ~hydra-git-blame/body "blame")
-  ("p" my:git-pull-current-branch "pull")
-  ("f" my:git-fetch "fetch")
-  ("m" my:git-merge "merge")
-  ("c" my:git-checkout "checkout")
-  ("n" my:git-new-branch "new branch")
-  ("P" my:git-stash-pop "pop stash")
-  ("o" github-browse-file "browse file")
-  ("B" github-browse-file-blame "browse blame"))
+(defhydra ~hydra-git (:exit t :hint nil :idle ~hydra-help-delay)
+  "
+^Explore^       ^Switch^              ^Update^     ^Github^
+^^^^^^^^------------------------------------------------------------
+_d_: diff       _c_: checkout         _p_: pull    _o_: browse file
+_l_: log        _n_: new branch       _f_: fetch   _B_: browse blame
+_a_: annotate   _r_: pop curr stash   _m_: merge
+_b_: blame      _R_: pop all stash
+"
+  ("d" magit-diff-buffer-file)
+  ("l" magit-log-buffer-file)
+  ("a" vc-annotate)
+  ("b" ~hydra-git-blame/body)
+  ("c" my:git-checkout)
+  ("n" my:git-new-branch)
+  ("r" my:git-stash-pop-from-current)
+  ("R" my:git-stash-pop-from-all)
+  ("p" my:git-pull-current-branch)
+  ("f" my:git-fetch)
+  ("m" my:git-merge)
+  ("o" github-browse-file)
+  ("B" github-browse-file-blame))
 
 (defhydra ~hydra-git-gutter (:pre (when (not (ignore-errors git-gutter-mode)) (git-gutter-mode +1))
                                   :post (when git-gutter-mode (git-gutter-mode -1))
                                   :foreign-keys run
+                                  :hint nil
                                   :idle ~hydra-help-delay)
-  "git gutter"
-  ("e" git-gutter "show gutter")
-  ("j" git-gutter:next-hunk "next hunk")
-  ("k" git-gutter:previous-hunk "prev hunk")
-  ("p" git-gutter:popup-hunk "popup hunk")
-  ("s" git-gutter:stage-hunk "stage hunk")
-  ("r" git-gutter:revert-hunk "revert hunk")
+  "
+^Move^           ^Show^             ^Action^
+^^^^^^----------------------------------------------
+_j_: next hunk   _p_: popup hunk    _s_: stage hunk
+_k_: prev hunk   _e_: show gutter   _r_: revert hunk
+"
+  ("j" git-gutter:next-hunk)
+  ("k" git-gutter:previous-hunk)
+  ("p" git-gutter:popup-hunk)
+  ("e" git-gutter)
+  ("s" git-gutter:stage-hunk)
+  ("r" git-gutter:revert-hunk)
   ("q" nil "quit"))
 
 

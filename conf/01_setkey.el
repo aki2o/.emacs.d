@@ -173,6 +173,7 @@
    ("c" ~case-capitalize-from-snake "capitalize from snake")
    ("C" ~case-capitalize "capitalize")
    ("s" ~case-snake "snake")
+   ("k" ~case-kebab "kebab")
    ("q" nil "quit"))
 
 (global-unset-key (kbd "M-u"))

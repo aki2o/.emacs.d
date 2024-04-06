@@ -340,6 +340,10 @@
   (interactive)
   (~case-invoke 's-snake-case))
 
+(defun ~case-kebab ()
+  (interactive)
+  (~case-invoke 's-dashed-words))
+
 ;; window
 (defun ~window-resizer ()
   (interactive)

@@ -117,10 +117,13 @@
   (magit-call-git "checkout" (magit-branch-arguments) "-b" branch start-point)
   (~persp-switch-to-current-branch))
 
-(defun my:git-stash-pop ()
+(defun my:git-stash-pop-from-current ()
   (interactive)
-  (let ((branch (if current-prefix-arg nil (magit-get-current-branch))))
-    (my:git-stash-pop-for branch)))
+  (my:git-stash-pop-for (magit-get-current-branch)))
+
+(defun my:git-stash-pop-from-all ()
+  (interactive)
+  (my:git-stash-pop-for nil))
 
 
 (use-package git-gutter

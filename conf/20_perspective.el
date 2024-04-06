@@ -82,13 +82,13 @@
     (defun ~persp-add-git-diff-files (branch)
       (interactive
        (list (completing-read "Base: " (magit-list-local-branch-names) nil t nil '())))
-      (loop with root = (projectile-project-root)
+      (loop with root = (locate-dominating-file default-directory ".git")
             for f in (split-string (shell-command-to-string (format "git diff --name-only %s" branch)) "\n")
-            for path = (concat root f)
+            for path = (expand-file-name f root)
             if (file-regular-p path)
             do (my:run-deferred-with path 1
-                 (persp-add-buffer (find-file-noselect path))
-                 (message "added perspective entry : %s" f))))
+                 (persp-add-buffer (find-file-noselect it))
+                 (message "added perspective entry : %s" it))))
 
     (define-key persp-key-map (kbd "i") '~persp-add-git-diff-files))
   (require 'magit nil t))

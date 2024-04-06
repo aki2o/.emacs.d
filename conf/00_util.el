@@ -80,6 +80,29 @@
     (overlay-put ov 'face 'highlight)
     (run-with-timer 2 nil `(lambda () (when ,ov (delete-overlay ,ov))))))
 
+(cl-defun my:filtering-read (list &key
+                                  (prompt "Select by RET or Filter by M-RET: ")
+                                  (printer 'identity)
+                                  (matcher 'string-match-p))
+  (let* (;;(completion-styles '(basic partial-completion))
+         (alist (mapcar (lambda (x)
+                          `(,(funcall printer x) . ,x))
+                        list))
+         (query (completing-read prompt (mapcar 'car alist) nil nil nil nil ""))
+         (exact (assoc-default query alist)))
+    (cond (exact
+           (list exact))
+          ((string= query "")
+           list)
+          (t
+           (mapcar 'cdr (-reduce-from
+                         (lambda (this-alist s)
+                           (seq-filter (lambda (x)
+                                         (funcall matcher s (car x)))
+                                       this-alist))
+                         alist
+                         (split-string query "\s+")))))))
+
 (cl-defmacro ~run-deferred-in (buffer seconds &rest body)
   (declare (indent 2))
   `(lexical-let ((buf ,buffer)

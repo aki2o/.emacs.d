@@ -23,17 +23,8 @@
   (let* ((root (projectile-project-root))
          (files (if root
                     (projectile-project-files root)
-                  (error "You're not in project.")))
-         ;; (completion-styles '(basic partial-completion))
-         (input (completing-read "Select (or filter by M-RET): " files))
-         (files (if (member input files)
-                    (list input)
-                  (-reduce-from
-                   (lambda (list s)
-                     (seq-filter (lambda (x) (string-match-p s x)) list))
-                   files
-                   (split-string input "\s+")))))
-    (dolist (file files)
+                  (error "You're not in project."))))
+    (dolist (file (my:filtering-read files))
       (my:run-deferred-with (expand-file-name file root) 1
         (my:copilot-notify it)))))
 

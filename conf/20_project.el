@@ -1,3 +1,7 @@
+;; disable bind for project.el
+(unbind-key "C-x p")
+
+
 ;; https://docs.projectile.mx/projectile/projects.html#adding-custom-project-types
 (use-package projectile
   :custom ((projectile-project-search-path '("~/dev/"))

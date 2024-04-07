@@ -5,6 +5,8 @@
 (require 'polymode)
 (require 'yaml-mode)
 (require 'yaml)
+(require 'bufloat)
+(require 'markdown-mode)
 
 (defgroup chatblade nil
   "Chatblade client for Emacs."
@@ -129,7 +131,7 @@ Typing S-<return> means
   (if (= (length chatblade-query-template-alist) 0)
       (read-string "Input query template: ")
     (let* ((list (mapcar 'car chatblade-query-template-alist)))
-      (completing-read "Select template or input here: " list nil nil nil nil))))
+      (completing-read "Select template or input here: " list nil t nil nil))))
 
 (defun chatblade--extract-conversations-from (session-file)
   (let* ((text (with-temp-buffer
@@ -479,25 +481,84 @@ Based on `comint-mode-map'."
        (yaml-mode)
        (current-buffer)))))
 
+(defvar-keymap chatblade-query-mode-map
+  :doc "Mode map used for `chatblade-query-mode'.
+Based on `markdown-mode-map'."
+  :parent markdown-mode-map
+  "C-x C-f" #'chatblade-query-insert-file)
+
+(define-derived-mode chatblade-query-mode markdown-mode "Chat"
+  "")
+
+(defun chatblade-query-insert-file ()
+  (interactive)
+  (let* ((root (projectile-acquire-root))
+         (file (projectile-completing-read "Insert file: " (projectile-project-files root))))
+    (insert "```\n")
+    (insert-file-contents (expand-file-name file root))
+    (insert "```\n")))
+
+(defun chatblade--make-query-buffer ()
+  (with-current-buffer (get-buffer-create " *chatblade:query*")
+    (erase-buffer)
+    (chatblade-query-mode)
+    (current-buffer)))
+
+(defun chatblade--start (buffer)
+  (let* ((prompt-name (buffer-local-value 'chatblade--prompt-name buffer))
+         (template-name (buffer-local-value 'chatblade--template-name buffer))
+         (performer (or (assoc-default template-name chatblade-start-function-alist)
+                        'chatblade-open-interactive))
+         (chatblade--model chatblade-default-model)
+         (chatblade--prompt-name prompt-name)
+         (chatblade--template-name template-name)
+         (query (with-current-buffer buffer
+                  (buffer-string))))
+    (funcall performer (substring-no-properties query))))
+
 ;;;###autoload
 (defun chatblade-start (prompt-name)
   (interactive (list (if current-prefix-arg nil (chatblade--resolve-prompt-name-by-mode major-mode))))
-  (let* ((template-name (chatblade--select-query-template))
-         (template (or (assoc-default template-name chatblade-query-template-alist)
-                       template-name))
-         (template (if (functionp template) (funcall template) template))
-         (performer (or (assoc-default template-name chatblade-start-function-alist)
-                        'chatblade-open-interactive))
+  (let* ((buffer (chatblade--make-query-buffer))
          (query (if (region-active-p)
-                   (buffer-substring (region-beginning) (region-end))
+                    (buffer-substring (region-beginning) (region-end))
                   (buffer-substring (point-min) (pos-eol))))
          (query (-reduce-from (lambda (q f) (funcall f q)) query chatblade-query-filter-functions))
          (query (substring-no-properties query))
-         (chatblade--model chatblade-default-model)
-         (chatblade--prompt-name prompt-name)
-         (chatblade--template-name template-name))
+         (bufloat-frame-hook `((lambda (frame buf)
+                                 (with-current-buffer buf
+                                   (let* ((template-name (chatblade--select-query-template))
+                                          (template (assoc-default template-name chatblade-query-template-alist))
+                                          (template (if (functionp template) (funcall template) template)))
+                                     (setq-local chatblade--prompt-name ,prompt-name)
+                                     (setq-local chatblade--template-name template-name)
+                                     (insert (format template ,query))))))))
     (deactivate-mark)
-    (funcall performer (format template query))))
+    (bufloat-open buffer
+                  :on-submit 'chatblade--start
+                  :header " Input Query"
+                  :activate-minibuffer t)))
+
+;; ;;;###autoload
+;; (defun chatblade-start (prompt-name)
+;;   (interactive (list (if current-prefix-arg nil (chatblade--resolve-prompt-name-by-mode major-mode))))
+;;   (let* ((template-name (chatblade--select-query-template))
+;;          (template (or (assoc-default template-name chatblade-query-template-alist)
+;;                        template-name))
+;;          (template (if (functionp template) (funcall template) template))
+;;          (template nil)
+;;          (performer (or (assoc-default template-name chatblade-start-function-alist)
+;;                         'chatblade-open-interactive))
+;;          (query (if (region-active-p)
+;;                    (buffer-substring (region-beginning) (region-end))
+;;                   (buffer-substring (point-min) (pos-eol))))
+;;          (query (-reduce-from (lambda (q f) (funcall f q)) query chatblade-query-filter-functions))
+;;          (query (substring-no-properties query))
+;;          (chatblade--model chatblade-default-model)
+;;          (chatblade--prompt-name prompt-name)
+;;          (chatblade--template-name template-name))
+;;     (deactivate-mark)
+;;     (funcall performer (format template query))))
 
 ;;;###autoload
 (defun chatblade-switch-to-buffer (buffer)

@@ -82,9 +82,9 @@ Only the `background' is used in this face."
     (name . ""))
   "Frame parameters used to create the frame.")
 
-(defvar-local bufloat--parent-vars nil
-  "Variables from the parents frame that we want to access in the child.
-Because some variables are buffer local.")
+(defvar bufloat-frame-hook nil
+  "Hooks run on child-frame opened.
+The functions receive 2 parameters: the frame and buffer.")
 
 
 ;;;;;;;;;;;;;
@@ -96,9 +96,6 @@ Because some variables are buffer local.")
   (when (not (fboundp 'display-buffer-in-child-frame))
     (error "Can't bufloat : not display-buffer-in-child-frame")))
 
-(defun bufloat--get-parent (var)
-  `(plist-get bufloat--parent-vars ,var))
-
 (defun bufloat--line-height (&optional line)
   (or (nth 2 (or (window-line-height line)
                  (and (redisplay t)
@@ -109,29 +106,23 @@ Because some variables are buffer local.")
 ;;;;;;;;;;;;
 ;; Buffer
 
-(cl-defun bufloat--render (buffer &key (header nil))
-  (let ((parent-vars (list :buffer (current-buffer)
-                           :window (get-buffer-window))))
-    (with-current-buffer buffer
-      (add-text-properties 1 (point) '(line-height 1))
-      (add-text-properties 1 (point-max) '(pointer arrow))
-      (setq bufloat--parent-vars parent-vars)
-      (setq wrap-prefix '(space :height (1) :width 1))
-      (setq line-prefix '(space :height (1) :width 1))
-      (setq-local window-min-height 1)
-      (setq-local show-trailing-whitespace nil)
-      (setq-local window-configuration-change-hook nil)
-      (when (boundp 'window-state-change-functions)
-        (setq-local window-state-change-functions nil))
-      (when (boundp 'window-state-change-hook)
-        (setq-local window-state-change-hook nil))
-      (setq-local window-size-change-functions nil)
-      (setq-local face-remapping-alist `((header-line bufloat-header)))
-      (setq header-line-format header)
-      (setq mode-line-format nil)
-      (bufloat-frame-mode 1)
-      (let ((text-scale-mode-step 1.1))
-        (text-scale-set bufloat-text-scale-level)))))
+(cl-defun bufloat--render (buffer &key (header nil) (header-face 'bufloat-header))
+  (with-current-buffer buffer
+    (add-text-properties 1 (point-max) '(pointer arrow))
+    (setq-local window-min-height 1)
+    (setq-local show-trailing-whitespace nil)
+    (setq-local window-configuration-change-hook nil)
+    (when (boundp 'window-state-change-functions)
+      (setq-local window-state-change-functions nil))
+    (when (boundp 'window-state-change-hook)
+      (setq-local window-state-change-hook nil))
+    (setq-local window-size-change-functions nil)
+    (setq-local face-remapping-alist `((header-line ,header-face)))
+    (setq header-line-format header)
+    (setq mode-line-format nil)
+    (bufloat-frame-mode 1)
+    (let ((text-scale-mode-step 1.1))
+      (text-scale-set bufloat-text-scale-level))))
 
 
 ;;;;;;;;;;;
@@ -149,11 +140,17 @@ Because some variables are buffer local.")
     (delete-frame frame)
     (bufloat--set-frame nil)))
 
-(cl-defun bufloat--make-frame-for (buffer &key (minibuffer nil))
+(cl-defun bufloat--make-frame-for (buffer &key (minibuffer nil) (on-submit nil) (on-cancel nil))
   (let* ((after-make-frame-functions nil)
          (before-make-frame-hook nil)
          (params (append bufloat-frame-parameters
-                         `((background-color . ,(face-background 'bufloat-background nil t)))
+                         `((background-color . ,(face-background 'bufloat-background nil t))
+                           (cursor-type . ,(frame-parameter nil 'cursor-type))
+                           (bufloat-orig-buffer . ,(current-buffer))
+                           (bufloat-orig-window . ,(get-buffer-window))
+                           (bufloat-frame-buffer . ,buffer)
+                           (bufloat-frame-on-submit . ,on-submit)
+                           (bufloat-frame-on-cancel . ,on-cancel))
                          (when (not minibuffer)
                            `((default-minibuffer-frame . ,(selected-frame))
                              (minibuffer . ,(minibuffer-window))
@@ -167,7 +164,6 @@ Because some variables are buffer local.")
     (when (facep 'child-frame-border)
       (set-face-background 'child-frame-border bufloat-border frame))
     (set-face-background 'fringe nil frame)
-    (run-hook-with-args 'bufloat-frame-hook frame window)
     frame))
 
 (cl-defun bufloat--move-frame (frame &key width height)
@@ -193,12 +189,12 @@ Because some variables are buffer local.")
                                 ('middle (max (- (/ frame-height 2) (/ height 2)) 10))
                                 ('bottom (max (- frame-height height char-h) 10)))))
           (frame-resize-pixelwise t)
+          ;; (inhibit-redisplay t)
           (move-frame-functions nil)
           (window-size-change-functions nil)
           (window-state-change-hook nil)
           (window-state-change-functions nil)
-          (window-configuration-change-hook nil)
-          (inhibit-redisplay t))
+          (window-configuration-change-hook nil))
     ;; Dirty way to fix unused variable in emacs 26
     (when window-state-change-functions
       window-state-change-hook)
@@ -229,33 +225,51 @@ Because some variables are buffer local.")
 ;;;;;;;;;;;;;;;;;;;
 ;; User Function
 
-(cl-defun bufloat-display (buffer &key (width bufloat-width) (height bufloat-height) (header nil) (activate-minibuffer nil))
+(cl-defun bufloat-open (buffer &key
+                               (on-submit nil)
+                               (on-cancel nil)
+                               (activate-minibuffer nil)
+                               (header nil)
+                               (header-face 'bufloat-header)
+                               (width bufloat-width)
+                               (height bufloat-height))
   (bufloat--available-p)
   (bufloat--delete-frame)
-  (bufloat--render buffer :header header)
-  (set-frame-parameter nil 'bufloat-buffer buffer)
-  (let ((frame (bufloat--make-frame-for buffer :minibuffer activate-minibuffer)))
+  (bufloat--render buffer :header header :header-face header-face)
+  (let ((frame (bufloat--make-frame-for buffer :on-submit on-submit :on-cancel on-cancel :minibuffer activate-minibuffer)))
     (bufloat--set-frame frame)
     (bufloat--move-frame frame :width width :height height)
-    (select-frame-set-input-focus frame)))
-
-(defun bufloat-close ()
-  (interactive)
-  (let ((frame (frame-parent (bufloat--get-frame))))
     (select-frame-set-input-focus frame)
-    (bufloat--delete-frame)))
+    (run-hook-with-args 'bufloat-frame-hook frame buffer)))
 
-(defun bufloat-visit-file (filename)
-  (-some->> (find-file-noselect filename)
-    (set-window-buffer (bufloat--get-parent :window))))
+(defun bufloat-close (cancel)
+  (interactive (list (when current-prefix-arg t)))
+  (let* ((frame (bufloat--get-frame))
+         (main-frame (frame-parent frame))
+         (buffer (frame-parameter frame 'bufloat-frame-buffer))
+         (on-submit (frame-parameter frame 'bufloat-frame-on-submit))
+         (on-cancel (frame-parameter frame 'bufloat-frame-on-cancel))
+         (callback (if cancel on-cancel on-submit)))
+    (select-frame-set-input-focus main-frame)
+    (bufloat--delete-frame)
+    (when (functionp callback)
+      (funcall callback buffer))
+    (when (buffer-live-p buffer)
+      (kill-buffer buffer))))
 
+(defun bufloat-cancel ()
+  (interactive)
+  (bufloat-close t))
+
+
+(defvar-keymap bufloat-frame-mode-map
+  :doc "Keymap used on `bufloat-frame-mode'."
+  "C-c C-c" #'bufloat-close
+  "C-c C-k" #'bufloat-cancel)
 
 (define-minor-mode bufloat-frame-mode
-  ""
-  :init-value nil
-  :lighter ""
-  :keymap `(("C-c C-c" . bufloat-close)
-            ("C-m" . bufloat-close)))
+  "Minor mode for bufloat frame."
+  :group 'bufloat :keymap bufloat-frame-mode-map)
 
 
 (provide 'bufloat)

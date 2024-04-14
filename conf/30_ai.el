@@ -52,63 +52,52 @@
                                           (typescript-mode     . "ts")
                                           (typescript-tsx-mode . "ts")
                                           (emacs-lisp-mode     . "elisp")))
-           (chatblade-query-template-alist '(("completion for curr buf/reg"      . "/comp %s")
-                                             ("sample code"                      . my:chatblade-make-samp-query)
-                                             ("open document url"                . my:chatblade-make-doc-query)
-                                             ("url list for curr buf/reg"        . my:chatblade-make-ggl-query)
-                                             ("fix syntax of curr buf/reg"       . "/lint %s")
-                                             ("fix error caused by curr buf/reg" . my:chatblade-make-err-query)
-                                             ("find bug in curr buf/reg"         . my:chatblade-make-bug-query)
-                                             ("what's curr buf/reg"              . "Can you figure out what this codes do? ```\n%s\n```")
-                                             ("write document for curr buf/reg"  . "Please write a document for this codes ```\n%s\n```")))
-           (chatblade-start-function-alist '(("open document url" . my:chatblade-open-document)))
            (chatblade-prompt-template-function 'my:chatblade-make-prompt-template))
   :config
   (~add-setup-hook 'chatblade-mode
     (setq-local truncate-lines nil)
     (setq-local truncate-partial-width-windows nil)))
 
-(defun my:chatblade-make-samp-query ()
-  (let* ((default (when (use-region-p)
-                    (buffer-substring-no-properties (region-beginning) (region-end))))
-         (text (read-string "Input the behaviour (active region): " nil nil default)))
-    (concat "/samp " text)))
+(defun my:chatblade-open-without-prompt ()
+  (interactive)
+  (chatblade-query-open nil))
 
-(defun my:chatblade-make-doc-query ()
-  (let* ((default (thing-at-point 'symbol t))
-         (thing (read-string (format "Input the thing (%s): " default) nil nil default)))
-    (format "/doc %s" thing)))
-
-(defun my:chatblade-make-ggl-query ()
-  (let ((text (read-string "Input the description: ")))
-    (concat "/ggl " text " %s")))
-
-(defun my:chatblade-make-err-query ()
+(defun my:chatblade-fix-error ()
+  (interactive)
   (let* ((flycheck-display-errors-function 'flycheck-help-echo-all-error-messages)
          (errors (when flycheck-mode
                    (flycheck-overlay-errors-at (point))))
          (message (or (when errors (flycheck-display-errors errors))
                       (read-string "Input the error: "))))
-    (concat "```\n%s\n```\n"
-            "I got the following error from this codes.\n\n"
-            message "\n\n"
-            "How can I fix?")))
+    (chatblade-start (concat (chatblade-region-or-buffer-string)
+                             "\nI got the following error from this codes.\n\n"
+                             message "\n\n"
+                             "How can I fix?"))))
 
-(defun my:chatblade-make-bug-query ()
-  (let ((message (read-string "Input the bug detail: ")))
-    (concat "```\n%s\n```\n"
-            (format "This codes looks having a bug that %s." message)
-            "Can you figure out how to fix?")))
-
-(defun my:chatblade-open-document (query)
-  (let ((res (chatblade-request query)))
-    (if (s-starts-with? "http" res)
-        (browse-url res)
-      (chatblade-open-interactive query))))
-
-(defun my:chatblade-start-without-prompt ()
+(defun my:chatblade-fix-bug ()
   (interactive)
-  (chatblade-start nil))
+  (let ((message (read-string "Input the bug detail: ")))
+    (chatblade-start (concat (chatblade-region-or-buffer-string)
+                             (format "\nThis codes looks having a bug that %s.\n" message)
+                             "Can you figure out how to fix?"))))
+
+(defun my:chatblade-what ()
+  (interactive)
+  (chatblade-start (concat (chatblade-region-or-buffer-string)
+                           "\nCan you figure out what this codes do?")))
+
+(defun my:chatblade-make-doc ()
+  (interactive)
+  (chatblade-start (concat (chatblade-region-or-buffer-string)
+                           "\nPlease write a document for this codes")))
+
+(defun my:chatblade-browse-document ()
+  (interactive)
+  (let* ((default (thing-at-point 'symbol t))
+         (thing (read-string (format "Input the thing (%s): " default) nil nil default))
+         (query (format "/doc %s" thing))
+         (res (chatblade-request query)))
+    (if (s-starts-with? "http" res) (browse-url res) (chatblade-start query))))
 
 (defun my:chatblade-make-prompt-template (thing)
   (mapconcat
@@ -126,14 +115,28 @@
      )
    "\n"))
 
-(defhydra my:chatblade-hydra (:exit t)
-  "Chatblade"
-  ("s" chatblade-start "start")
-  ("g" my:chatblade-start-without-prompt "start without prompt")
-  ("b" chatblade-switch-to-buffer "list buffer")
-  ("r" chatblade-resume "resume")
-  ("f" chatblade-find-prompt-file "find prompt")
-  ("e" chatblade-update-prompt-file "update prompt"))
+(defhydra my:chatblade-hydra (:exit t :hint nil)
+  "
+^Open Chat^            ^Request^         ^Config^             ^Copilot^
+^^^^^^^^-------------------------------------------------------------------------------
+_s_: start             _e_: fix error    _p_: find prompt     _n_: notify project files
+_g_: start no-prompt   _f_: fix bug      _u_: update prompt
+_b_: buffer            _w_: ask what
+_r_: resume            _d_: write doc
+                       _o_: browse doc
+"
+  ("s" chatblade-query-open)
+  ("g" my:chatblade-open-without-prompt)
+  ("b" chatblade-switch-to-buffer)
+  ("r" chatblade-resume)
+  ("e" my:chatblade-fix-error)
+  ("f" my:chatblade-fix-bug)
+  ("w" my:chatblade-what)
+  ("d" my:chatblade-make-doc)
+  ("o" my:chatblade-browse-document)
+  ("p" chatblade-find-prompt-file)
+  ("u" chatblade-update-prompt-file)
+  ("n" my:copilot-notify-project-files))
 
 (setq-default ~action-at-point-function 'my:chatblade-hydra/body)
 

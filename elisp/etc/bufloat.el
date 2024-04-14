@@ -82,7 +82,7 @@ Only the `background' is used in this face."
     (name . ""))
   "Frame parameters used to create the frame.")
 
-(defvar bufloat-frame-hook nil
+(defvar bufloat-after-open-hook nil
   "Hooks run on child-frame opened.
 The functions receive 2 parameters: the frame and buffer.")
 
@@ -147,7 +147,6 @@ The functions receive 2 parameters: the frame and buffer.")
                          `((background-color . ,(face-background 'bufloat-background nil t))
                            (cursor-type . ,(frame-parameter nil 'cursor-type))
                            (bufloat-orig-buffer . ,(current-buffer))
-                           (bufloat-orig-window . ,(get-buffer-window))
                            (bufloat-frame-buffer . ,buffer)
                            (bufloat-frame-on-submit . ,on-submit)
                            (bufloat-frame-on-cancel . ,on-cancel))
@@ -225,6 +224,21 @@ The functions receive 2 parameters: the frame and buffer.")
 ;;;;;;;;;;;;;;;;;;;
 ;; User Function
 
+(defmacro bufloat-with-original-buffer (&rest body)
+  (declare (indent 0))
+  `(let* ((frame (bufloat--get-frame))
+          (buffer (when frame
+                    (frame-parameter frame 'bufloat-orig-buffer))))
+     (if (not (buffer-live-p buffer))
+         (error "Not found bufloat frame or buffer")
+       (with-current-buffer buffer
+         ,@body))))
+
+(defun bufloat-buffer ()
+  (let* ((frame (bufloat--get-frame)))
+    (when frame
+      (frame-parameter frame 'bufloat-frame-buffer))))
+
 (cl-defun bufloat-open (buffer &key
                                (on-submit nil)
                                (on-cancel nil)
@@ -240,7 +254,7 @@ The functions receive 2 parameters: the frame and buffer.")
     (bufloat--set-frame frame)
     (bufloat--move-frame frame :width width :height height)
     (select-frame-set-input-focus frame)
-    (run-hook-with-args 'bufloat-frame-hook frame buffer)))
+    (run-hook-with-args 'bufloat-after-open-hook frame buffer)))
 
 (defun bufloat-close (cancel)
   (interactive (list (when current-prefix-arg t)))

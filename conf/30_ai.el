@@ -69,7 +69,7 @@
                    (flycheck-overlay-errors-at (point))))
          (message (or (when errors (flycheck-display-errors errors))
                       (read-string "Input the error: "))))
-    (chatblade-start (concat (chatblade-region-or-buffer-string)
+    (chatblade-start (concat (chatblade-region-string)
                              "\nI got the following error from this codes.\n\n"
                              message "\n\n"
                              "How can I fix?"))))
@@ -77,18 +77,18 @@
 (defun my:chatblade-fix-bug ()
   (interactive)
   (let ((message (read-string "Input the bug detail: ")))
-    (chatblade-start (concat (chatblade-region-or-buffer-string)
+    (chatblade-start (concat (chatblade-region-string)
                              (format "\nThis codes looks having a bug that %s.\n" message)
                              "Can you figure out how to fix?"))))
 
 (defun my:chatblade-what ()
   (interactive)
-  (chatblade-start (concat (chatblade-region-or-buffer-string)
+  (chatblade-start (concat (chatblade-region-string)
                            "\nCan you figure out what this codes do?")))
 
 (defun my:chatblade-make-doc ()
   (interactive)
-  (chatblade-start (concat (chatblade-region-or-buffer-string)
+  (chatblade-start (concat (chatblade-region-string)
                            "\nPlease write a document for this codes")))
 
 (defun my:chatblade-browse-document ()

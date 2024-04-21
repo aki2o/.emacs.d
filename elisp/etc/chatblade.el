@@ -236,7 +236,7 @@ Typing S-<return> means
 (cl-defun chatblade-query-insert-code (string &key (fold-with "code") (before nil))
   (let ((buf (bufloat-buffer)))
     (if (or (not (buffer-live-p buf))
-            (not (buffer-local-value 'major-mode buf) 'chatblade-query-mode))
+            (not (eq (buffer-local-value 'major-mode buf) 'chatblade-query-mode)))
         (error "Not chatblade query buffer alived")
       (with-current-buffer buf
         (save-excursion
@@ -248,17 +248,25 @@ Typing S-<return> means
               (chatblade--fold-input start (point) :with fold-with)))
           (insert "``` "))))))
 
-(defun chatblade-query-insert-region-or-buffer ()
+(defun chatblade-query-insert-region ()
   (interactive)
-  (let* ((string (bufloat-with-original-buffer (chatblade-region-or-buffer-string :no-wrap t)))
-         (string (substring-no-properties string))
-         (fold-with (if (region-active-p) "region" "buffer")))
-    (chatblade-query-insert-code string :fold-with fold-with)))
+  (let* ((string (bufloat-with-original-buffer (chatblade-region-string :no-wrap t))))
+    (chatblade-query-insert-code string :fold-with "region")))
+
+(defun chatblade-query-insert-buffer ()
+  (interactive)
+  (let* ((root (projectile-acquire-root))
+         (names (mapcar 'buffer-name (buffer-list)))
+         (def (bufloat-with-original-buffer (buffer-name)))
+         (name (completing-read "Insert buffer: " names nil t nil nil def))
+         (string (with-current-buffer (get-buffer name) (buffer-string))))
+    (chatblade-query-insert-code string :fold-with (buffer-name buffer) :before 'point-min)))
 
 (defun chatblade-query-insert-file ()
   (interactive)
   (let* ((root (projectile-acquire-root))
-         (file (projectile-completing-read "Insert file: " (projectile-project-files root)))
+         (files (projectile-project-files root))
+         (file (completing-read "Insert file: " files nil t))
          (fold-with (file-name-nondirectory file))
          (string (with-temp-buffer
                    (insert-file-contents (expand-file-name file root))
@@ -270,7 +278,8 @@ Typing S-<return> means
 Based on `markdown-mode-map'."
   :parent markdown-mode-map
   "<tab>"   #'chatblade-toggle-current-input-fold
-  "C-c C-i" #'chatblade-query-insert-region-or-buffer
+  "C-c C-i" #'chatblade-query-insert-region
+  "C-c C-b" #'chatblade-query-insert-buffer
   "C-c C-f" #'chatblade-query-insert-file)
 
 (define-derived-mode chatblade-query-mode markdown-mode "Query"
@@ -514,7 +523,7 @@ Based on `comint-mode-map'."
 ;; user function
 
 ;;;###autoload
-(cl-defun chatblade-region-or-buffer-string (&key no-wrap)
+(cl-defun chatblade-region-string (&key no-wrap)
   (let ((string (if (region-active-p)
                     (buffer-substring (region-beginning) (region-end))
                   (buffer-substring (point-min) (pos-eol)))))
@@ -543,10 +552,10 @@ Based on `comint-mode-map'."
                    (erase-buffer)
                    (chatblade-query-mode)
                    (current-buffer)))
-         (on-submit (lambda (buf)
-                      (bufloat-with-original-buffer (deactivate-mark))
-                      (chatblade-start (with-current-buffer buf (buffer-string)) :prompt-name prompt-name))))
-    (bufloat-open buffer :on-submit on-submmit :header " Input Query" :activate-minibuffer t)))
+         (on-submit `(lambda (buf)
+                       (deactivate-mark)
+                       (chatblade-start (with-current-buffer buf (buffer-string)) :prompt-name ,prompt-name))))
+    (bufloat-open buffer :on-submit on-submit :header " Input Query" :activate-minibuffer t)))
 
 ;;;###autoload
 (defun chatblade-describe-session (buffer)

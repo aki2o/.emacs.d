@@ -123,7 +123,7 @@ _s_: start             _e_: fix error    _p_: find prompt     _n_: notify projec
 _g_: start no-prompt   _f_: fix bug      _u_: update prompt
 _b_: buffer            _w_: ask what
 _r_: resume            _d_: write doc
-                       _o_: browse doc
+^^                     _o_: browse doc
 "
   ("s" chatblade-query-open)
   ("g" my:chatblade-open-without-prompt)

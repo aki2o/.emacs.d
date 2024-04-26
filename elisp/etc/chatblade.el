@@ -255,12 +255,11 @@ Typing S-<return> means
 
 (defun chatblade-query-insert-buffer ()
   (interactive)
-  (let* ((root (projectile-acquire-root))
-         (names (mapcar 'buffer-name (buffer-list)))
+  (let* ((names (mapcar 'buffer-name (buffer-list)))
          (def (bufloat-with-original-buffer (buffer-name)))
          (name (completing-read "Insert buffer: " names nil t nil nil def))
          (string (with-current-buffer (get-buffer name) (buffer-string))))
-    (chatblade-query-insert-code string :fold-with (buffer-name buffer) :before 'point-min)))
+    (chatblade-query-insert-code string :fold-with name :before 'point-min)))
 
 (defun chatblade-query-insert-file ()
   (interactive)

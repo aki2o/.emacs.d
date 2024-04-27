@@ -4,16 +4,17 @@
 
 ;; https://docs.projectile.mx/projectile/projects.html#adding-custom-project-types
 (use-package projectile
-  :custom ((projectile-project-search-path '("~/dev/"))
+  :custom ((projectile-project-search-path '(("~/dev/" . 3)))
            (projectile-auto-discover nil)
            (projectile-cache-file (concat user-emacs-directory ".projectile.cache"))
            (projectile-known-projects-file (concat user-emacs-directory ".projectile-bookmarks.eld"))
            (projectile-keymap-prefix nil)
            (projectile-enable-caching t)
-           (projectile-require-project-root nil))
+           (projectile-require-project-root nil)
+           (projectile-ignored-project-function 'my:projectile-ignored-project-function))
   :init
-  (add-hook 'after-init-hook #'projectile-discover-projects-in-search-path)
   (add-hook 'after-init-hook #'projectile-global-mode)
+  (add-hook 'after-init-hook #'projectile-discover-projects-in-search-path)
 
   :config
   (plist-get (cdr (nth 0 projectile-project-types)) :project-file)
@@ -41,6 +42,10 @@
                 while dirs append dirs
                 do (setq dirs (delq nil (mapcar #'parent dirs)))))))
   )
+
+(defun my:projectile-ignored-project-function (path)
+  (or (s-contains-p "/node_modules/" path)
+      (s-contains-p "/.git/" path)))
 
 ;; よくわからないけど、動いてないから、常に有効にするので、再定義してみてる
 (define-globalized-minor-mode projectile-global-mode

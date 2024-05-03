@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lvar
+# key: lvar
+# --
+lvar<${1:Promise<$2>}>().is(${3:async }() => $0);

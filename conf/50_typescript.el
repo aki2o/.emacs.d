@@ -20,6 +20,7 @@
 
   :config
   (~add-setup-hook 'typescript-mode
+    (add-to-list 'electric-pair-pairs '(?< . ?>))
     (setq my:lint-executable (my:js-resolve-lint-executable))
     (when (string-match-p "\\.tsx\\'" (buffer-name))
       (~run-deferred-in (current-buffer) 5 (poly-tsx-mode 1)))

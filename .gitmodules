@@ -187,10 +187,6 @@
 	path = elisp/borg/findr
 	url = https://github.com/emacsorphanage/findr
 	ignore = untracked
-[submodule "flex-autopair"]
-	path = elisp/borg/flex-autopair
-	url = https://github.com/uk-ar/flex-autopair
-	ignore = untracked
 [submodule "flx"]
 	path = elisp/borg/flx
 	url = https://github.com/lewang/flx

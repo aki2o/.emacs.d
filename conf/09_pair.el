@@ -4,7 +4,5 @@
 ;; (set-face-background 'show-paren-match-face "gray10")
 ;; (set-face-foreground 'show-paren-match-face "SkyBlue")
 
-
-(use-package flex-autopair
-  :config
-  (flex-autopair-mode 1))
+(electric-pair-mode 1)
+(make-variable-buffer-local 'electric-pair-pairs)

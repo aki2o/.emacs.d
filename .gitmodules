@@ -360,6 +360,9 @@
 	path = elisp/borg/lsp-ui
 	url = https://github.com/emacs-lsp/lsp-ui
 	ignore = untracked
+[submodule "lua-mode"]
+	path = elisp/borg/lua-mode
+	url = https://github.com/immerrr/lua-mode
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git

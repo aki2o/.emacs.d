@@ -4,7 +4,7 @@
 
 ;; https://docs.projectile.mx/projectile/projects.html#adding-custom-project-types
 (use-package projectile
-  :custom ((projectile-project-search-path '(("~/dev/" . 3)))
+  :custom ((projectile-project-search-path '(("~/dev/" . 4)))
            (projectile-auto-discover nil)
            (projectile-cache-file (concat user-emacs-directory ".projectile.cache"))
            (projectile-known-projects-file (concat user-emacs-directory ".projectile-bookmarks.eld"))

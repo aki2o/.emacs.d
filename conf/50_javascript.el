@@ -20,7 +20,9 @@
            (dirs (when file (reverse (split-string (directory-file-name (or (file-name-directory file) file)) "/"))))
            (dir (if (s-starts-with? "index." (file-name-nondirectory file))
                     (pop dirs)
-                  (file-name-sans-extension (file-name-nondirectory file))))
+                  (let* ((f (file-name-sans-extension (file-name-nondirectory file)))
+                         (f (s-chop-suffix ".test" f)))
+                    f)))
            (path (mapconcat (lambda (x)
                               (let* ((l (length x))
                                      (i (cond ((> l 12) 8)
@@ -63,7 +65,7 @@
   :defer t
   :init
   (with-eval-after-load 'mmask
-    (mmask-regist-extension-with-icase 'js2-mode "js" "jse" "gs" "js.erb"))
+    (mmask-regist-extension-with-icase 'js2-mode "js" "jse" "gs" "js.erb" "mjs" "cjs"))
   :config
   (~add-setup-hook 'js2-mode
     (setq js-indent-level 2)

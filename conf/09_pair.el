@@ -5,4 +5,5 @@
 ;; (set-face-foreground 'show-paren-match-face "SkyBlue")
 
 (electric-pair-mode 1)
+(setq electric-pair-delete-adjacent-pairs nil)
 (make-variable-buffer-local 'electric-pair-pairs)

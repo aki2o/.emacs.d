@@ -265,12 +265,13 @@ Typing S-<return> means
   (interactive)
   (let* ((root (projectile-acquire-root))
          (files (projectile-project-files root))
-         (file (completing-read "Insert file: " files nil t))
-         (fold-with (file-name-nondirectory file))
-         (string (with-temp-buffer
-                   (insert-file-contents (expand-file-name file root))
-                   (buffer-string))))
-    (chatblade-query-insert-code string :fold-with fold-with :before 'point-min)))
+         (files (completing-read-multiple "Insert files: " files nil t)))
+    (dolist (file files)
+      (let* ((fold-with (file-name-nondirectory file))
+             (string (with-temp-buffer
+                       (insert-file-contents (expand-file-name file root))
+                       (buffer-string))))
+        (chatblade-query-insert-code string :fold-with fold-with :before 'point-min)))))
 
 (defvar-keymap chatblade-query-mode-map
   :doc "Mode map used for `chatblade-query-mode'.
@@ -393,6 +394,8 @@ Based on `markdown-mode-map'."
       (current-buffer))))
 
 (cl-defun chatblade--start-buffer (query &key prompt-name buffer-name (model chatblade-default-model))
+  (when (eq prompt-name 'auto)
+    (setq prompt-name (chatblade--resolve-prompt-name-by-mode major-mode)))
   (with-current-buffer (chatblade--new-buffer prompt-name (or buffer-name query))
     (let* ((session (chatblade--new-session prompt-name))
            (args (chatblade--make-arguments query prompt-name session model "--interactive" "--only")))
@@ -529,7 +532,7 @@ Based on `comint-mode-map'."
     (if no-wrap string (concat "```" string "```"))))
 
 ;;;###autoload
-(cl-defun chatblade-start (query &key prompt-name buffer-name (model chatblade-default-model))
+(cl-defun chatblade-start (query &key (prompt-name 'auto) buffer-name (model chatblade-default-model))
   (switch-to-buffer-other-window
    (chatblade--start-buffer (chatblade--filter-query query) :prompt-name prompt-name :buffer-name buffer-name :model model)))
 

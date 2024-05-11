@@ -10,7 +10,8 @@
 (~add-setup-hook 'emacs-lisp-mode
   (setq-local fill-column 80)
   (setq ~find-definition-function '~elisp-find-definition)
-  (setq ~popup-document-frame-function '~elisp-popup-document))
+  (setq ~popup-document-frame-function '~elisp-popup-document)
+  (setq electric-pair-pairs (-remove (lambda (x) (eq (car x) ?')) electric-pair-pairs)))
 
 (with-eval-after-load 'pophint-autoloads
   (pophint-tags:advice-command ~elisp-find-definition))

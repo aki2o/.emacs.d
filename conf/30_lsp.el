@@ -127,10 +127,7 @@ _d_: find declaration                           _?_: describe session
 
   (setq lsp-ui-doc-frame-parameters
         (append lsp-ui-doc-frame-parameters '((cursor-type . hbar)
-                                              (cursor-color . "white"))))
-
-  (with-eval-after-load 'lsp-ui-doc
-    (advice-add #'keyboard-escape-quit :before #'lsp-ui-doc--hide-frame)))
+                                              (cursor-color . "white")))))
 
 (defun ~lsp-ui-doc-frame-setup (frame window)
   (with-selected-window window
@@ -140,8 +137,9 @@ _d_: find declaration                           _?_: describe session
 
 (defun ~lsp-ui-doc-show ()
   (interactive)
+  (lsp-ui-doc--delete-frame)
   (let ((lsp-ui-doc-delay 0.1))
-    (lsp-ui-doc-show)))
+    (lsp-ui-doc-glance)))
 
 (defun ~lsp-ui-doc-dump-on-my-frame ()
   (interactive)

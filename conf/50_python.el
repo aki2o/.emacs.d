@@ -1,3 +1,7 @@
+(~add-setup-hook 'python-mode
+  (when (functionp '~lsp-deferred)
+    (~lsp-deferred)))
+
 ;; (use-package jedi
 ;;   :defer t)
 

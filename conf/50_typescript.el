@@ -29,8 +29,7 @@
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       ;; (setq ~lsp-organize-imports-function 'lsp-organize-imports-my-ts)
-      (~lsp-deferred)
-      (setq my:lsp-completion-merge-to-completion-at-point-function 'my:ts-lsp-completion-merge-to-completion-at-point-p)))
+      (~lsp-deferred)))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode)))

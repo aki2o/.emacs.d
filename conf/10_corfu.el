@@ -43,7 +43,7 @@
   (with-eval-after-load 'minibuffer
     (add-to-list 'completion-at-point-functions '~completion-at-point)))
 
-(defvar ~completion-at-point-functions '(cape-dabbrev cape-keyword))
+(defvar ~completion-at-point-functions '(cape-dabbrev))
 (make-variable-buffer-local '~completion-at-point-functions)
 
 (defun ~completion-at-point ()

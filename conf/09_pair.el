@@ -41,15 +41,16 @@
            (let* ((char (char-after))
                   (pair (assoc-default char electric-pair-pairs))
                   (my:electric-pair-dwim-working-p t))
-             (cond (pair
-                    ;; ペア開始文字上だったら、そのペア終了の後に挿入する
-                    (forward-sexp))
-                   ((and char
-                         (string-match (rx word) (format "%c" char)))
-                    ;; 単語文字上だったら、その後に挿入する
-                    (or (when (re-search-forward (rx (or space "\n")) nil t)
-                          (backward-char 1))
-                        (goto-char (point-max)))))
+             (when (not (region-active-p))
+               (cond (pair
+                      ;; ペア開始文字上だったら、そのペア終了の後に挿入する
+                      (forward-sexp))
+                     ((and char
+                           (string-match (rx word) (format "%c" char)))
+                      ;; 単語文字上だったら、その後に挿入する
+                      (or (re-search-forward (rx word-end) (pos-eol) t)
+                          (re-search-forward (rx line-end) nil t)
+                          (goto-char (point-max))))))
              (setq my:electric-pair-dwim-done-p t)
              (setq my:electric-pair-dwim-last-arg arg)
              (apply orig args))))))

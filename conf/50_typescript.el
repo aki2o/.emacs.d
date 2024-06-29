@@ -60,8 +60,3 @@
     :innermodes '(poly-tsx-gql-innermode poly-tsx-css-innermode))
 
   (my:import-js-run))
-
-(defun my:ts-lsp-completion-merge-to-completion-at-point-p ()
-  (save-excursion
-    (backward-word 1)
-    (not (eq (char-before) ?.))))

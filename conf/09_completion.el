@@ -88,6 +88,10 @@
            (fussy-filter-fn 'fussy-filter-default))
   :init
   (setq completion-styles '(fussy))
+  (setq completion-category-defaults nil)
+  ;; (add-to-list 'completion-category-defaults '(file (styles . (substring))))
+  ;; (setq completion-category-overrides '((file (styles . (substring)))
+  ;;                                       (buffer (styles . (substring)))))
   (add-hook 'after-init-hook 'fzf-native-load-dyn)
   :config
   (advice-add 'fussy-without-tofu-char :around 'my:fussy-without-tofu-char))

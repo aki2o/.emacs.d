@@ -15,7 +15,7 @@
   :config
   (vertico-mode)
 
-  (define-key vertico-map (kbd "C-S-h") 'backward-kill-word)
+  (define-key vertico-map (kbd "C-S-h") 'my:vertico-delete-word)
   (define-key vertico-map (kbd "C-S-l") 'vertico-insert)
   (define-key vertico-map (kbd "M-j") 'vertico-next-group)
   (define-key vertico-map (kbd "M-k") 'vertico-previous-group)
@@ -25,6 +25,10 @@
   (advice-add 'vertico--setup :after '~vertico-setup)
   (advice-add 'next-history-element :around '~vertico-scroll-up)
   (advice-add 'previous-history-element :around '~vertico-scroll-down))
+
+(defun my:vertico-delete-word ()
+  (interactive)
+  (delete-region (point) (progn (forward-word -1) (point))))
 
 (use-package vertico-repeat
   :config

@@ -22,9 +22,10 @@
   (~add-setup-hook 'typescript-mode
     (add-to-list 'electric-pair-pairs '(?< . ?>))
     (setq my:lint-executable (my:js-resolve-lint-executable))
-    (when (string-match-p "\\.tsx\\'" (buffer-name))
-      (~run-deferred-in (current-buffer) 5 (poly-tsx-mode 1)))
-    (~run-deferred-in (current-buffer) 5 (tsi-typescript-mode 1))
+    ;; 重そうなので一旦コメントアウト
+    ;; (when (string-match-p "\\.tsx\\'" (buffer-name))
+    ;;   (~run-deferred-in (current-buffer) 5 (poly-tsx-mode 1)))
+    ;; (~run-deferred-in (current-buffer) 5 (tsi-typescript-mode 1))
     (my:js-buffer-name-smartly)
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)

@@ -29,3 +29,8 @@
                  (re-search-forward (rx line-end) nil t)
                  (goto-char (point-max))))))
     (apply orig args)))
+
+(add-hook 'minibuffer-setup-hook '~electric-pair-setup-for-minibuffer)
+
+(defun ~electric-pair-setup-for-minibuffer ()
+  (setq electric-pair-pairs (-remove (lambda (x) (eq (car x) ?')) electric-pair-pairs)))

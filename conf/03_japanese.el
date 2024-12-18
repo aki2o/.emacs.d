@@ -42,6 +42,8 @@
 (use-package skk
   :defer t
   :custom ((skk-previous-candidate-keys '("S-SPC" "x"))
+           (skk-save-jisyo-instantly t)
+           (skk-jisyo-save-count 5)
            (skk-show-candidates-nth-henkan-char 2)
            (skk-henkan-number-to-display-candidates 15)
            (skk-henkan-show-candidates-keys '(?h ?j ?k ?l ?y ?u ?i ?o ?p ?n ?m ?g ?f ?d ?a ?t ?r ?e)))

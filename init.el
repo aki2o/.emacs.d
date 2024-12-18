@@ -35,7 +35,8 @@
  '(git-gutter:hide-gutter t)
  '(git-gutter:lighter " GG")
  '(lsp-log-io nil nil nil "Customized with use-package lsp-mode")
- '(rspec-use-rake-flag nil))
+ '(rspec-use-rake-flag nil)
+ '(skk-jisyo-edit-user-accepts-editing t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,5 +52,6 @@
  '(pophint:match-face ((t (:background "dark slate gray" :foreground "white"))))
  '(pophint:pos-tip-face ((t (:background "black" :foreground "white"))))
  '(pophint:tip-face ((t (:background "HotPink4" :foreground "white" :bold t))))
+ '(tree-sitter-hl-face:property ((t (:inherit font-lock-keyword-face))))
  '(which-key-posframe ((t :inherit default :background "gray30")))
  '(which-key-posframe-border ((t (:inherit default :background "gray30")))))

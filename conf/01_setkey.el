@@ -172,6 +172,7 @@
    ("l" ~case-lower "lower")
    ("c" ~case-capitalize-from-snake "capitalize from snake")
    ("C" ~case-capitalize "capitalize")
+   ("a" ~case-camel "camel")
    ("s" ~case-snake "snake")
    ("k" ~case-kebab "kebab")
    ("q" nil "quit"))

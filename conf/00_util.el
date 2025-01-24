@@ -367,6 +367,10 @@
   (interactive)
   (~case-invoke 's-dashed-words))
 
+(defun ~case-camel ()
+  (interactive)
+  (~case-invoke 's-lower-camel-case))
+
 ;; window
 (defun ~window-resizer ()
   (interactive)

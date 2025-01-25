@@ -2,4 +2,4 @@
 # name: lvar
 # key: lvar
 # --
-lvar<${1:Promise<$2>}>()${3:.is(${4:async }() => $0)};
+lvar<${1:Promise<$2>}>()${3:.is($0)};

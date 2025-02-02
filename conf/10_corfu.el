@@ -1,6 +1,6 @@
 (use-package corfu
   :custom ((corfu-auto t)
-           (corfu-auto-deley 0.4)
+           (corfu-auto-delay 0.1)
            (corfu-auto-prefix 4)
            (corfu-preview-current nil)
            (corfu-preselect 'first)

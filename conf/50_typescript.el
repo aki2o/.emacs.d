@@ -19,6 +19,14 @@
   ;;   (lsp-make-interactive-code-action organize-imports-my-ts "source.organizeImports.ts"))
 
   :config
+  (bind-keys :map typescript-mode-map
+             ("C-c j" . ~ts-mode-insert-await)
+             ("C-c k" . ~ts-mode-insert-async)
+             ("C-c l" . ~ts-mode-insert-export)
+             ("C-c y" . ~ts-mode-insert-private)
+             ("C-c u" . ~ts-mode-insert-protected)
+             ("C-c i" . ~ts-mode-insert-abstract))
+
   (~add-setup-hook 'typescript-mode
     (add-to-list 'electric-pair-pairs '(?< . ?>))
     (setq my:lint-executable (my:js-resolve-lint-executable))
@@ -60,3 +68,27 @@
     :innermodes '(poly-tsx-gql-innermode poly-tsx-css-innermode))
 
   (my:import-js-run))
+
+(defun ~ts-mode-insert-await ()
+  (interactive)
+  (insert "await "))
+
+(defun ~ts-mode-insert-async ()
+  (interactive)
+  (insert "async "))
+
+(defun ~ts-mode-insert-export ()
+  (interactive)
+  (insert "export "))
+
+(defun ~ts-mode-insert-private ()
+  (interactive)
+  (insert "private "))
+
+(defun ~ts-mode-insert-protected ()
+  (interactive)
+  (insert "protected "))
+
+(defun ~ts-mode-insert-abstract ()
+  (interactive)
+  (insert "abstract "))

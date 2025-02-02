@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: for
+# key: fo
+# --
+for ($1) {$0}

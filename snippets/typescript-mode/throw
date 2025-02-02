@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: th - throw
+# key: th
+# --
+throw ${1:new ${2:Error}($0)}

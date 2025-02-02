@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: mocha_describe
-# key: describe
-# condition: 'force-in-comment
-# --
-describe('$1', () => $0);

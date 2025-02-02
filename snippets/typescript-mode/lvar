@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: lvar
-# key: lvar
+# name: lv - lvar
+# key: lv
 # --
-lvar<${1:Promise<$2>}>()${3:.is($0)};
+lvar<$1>().is($0);

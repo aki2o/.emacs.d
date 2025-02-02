@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ty - type
+# key: ty
+# --
+type $1 = $0

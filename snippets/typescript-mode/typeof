@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tf - typeof
+# key: tf
+# --
+typeof $1 === $0

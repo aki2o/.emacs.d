@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: mocha_context
-# key: context
-# --
-context('$1', () => $0);

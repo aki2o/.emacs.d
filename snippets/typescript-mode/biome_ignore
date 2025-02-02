@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: biome-ignore
+# --
+// biome-ignore ${1:format}: $0

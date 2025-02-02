@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: am - class async method
+# key: am
+# --
+async $1${2:<$3>}($4): Promise<$5> {$0}

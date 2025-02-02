@@ -22,6 +22,8 @@
 
   :config
   (define-key yas-minor-mode-map (kbd "SPC") 'yas-expand)
+  (define-key yas-keymap (kbd "C-k") 'yas-skip-and-clear-field)
+  (define-key yas-keymap (kbd "<up>") 'yas-skip-and-clear-field) ; TODO: mac で C-k を up に割り当てちゃってる
   
   (add-hook 'snippet-mode-hook 'turn-on-eldoc-mode t)
 

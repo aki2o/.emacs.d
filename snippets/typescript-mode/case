@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: ca - class async method
+# name: ca - case
 # key: ca
 # --
-async $2($3): Promise<$4> {$0}
+case $1:$0

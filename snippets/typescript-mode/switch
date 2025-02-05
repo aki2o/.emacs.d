@@ -5,5 +5,4 @@
 switch ($1) {
 $0
 default:
-$2
 }

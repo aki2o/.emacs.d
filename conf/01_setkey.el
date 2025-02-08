@@ -92,6 +92,7 @@
     (:key "C-M-n"     :cmd ~lint-diff-files               :jack t :kind edit)
     (:key "C-S-i"     :cmd toggle-input-method            :jack t :kind edit)
     (:key "C-x i"     :cmd indent-region                  :jack t :kind edit)
+    (:key "M-SPC"     :cmd completion-at-point            :jack t :kind edit)
     (:key "C-S-SPC"   :cmd ~set-mark-only                 :jack t :kind edit)
     (:key "C-x C-SPC" :cmd cua-rectangle-mark-mode        :jack t :kind edit)
     ;; 検索・参照

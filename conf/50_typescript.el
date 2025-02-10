@@ -13,6 +13,18 @@
     (tree-sitter-require 'tsx)
     (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-clients-typescript-max-ts-server-memory "8192")
+    (setq lsp-clients-typescript-preferences
+          '(:includeInlayParameterNameHints t
+                                            :includeInlayParameterNameHintsWhenArgumentMatchesName t
+                                            :includeInlayFunctionParameterTypeHints t
+                                            :includeInlayVariableTypeHints t
+                                            :includeInlayVariableTypeHintsWhenTypeMatchesName t
+                                            :includeInlayPropertyDeclarationTypeHints t
+                                            :includeInlayFunctionLikeReturnTypeHints t
+                                            :includeInlayEnumMemberValueHints t)))
+
   ;; 必要なさそうなので一旦コメントアウト
   ;; ;; https://github.com/emacs-lsp/lsp-mode/issues/3317#issuecomment-1026511720
   ;; (with-eval-after-load 'lsp-mode

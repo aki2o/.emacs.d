@@ -18,6 +18,7 @@
   (unbind-key "j" magit-status-mode-map)
   (unbind-key "C-j" magit-file-section-map)
   (unbind-key "C-j" magit-hunk-section-map)
+  (unbind-key "C-j" magit-diff-section-map)
 
   (put 'magit-log-select-mode 'magit-log-default-arguments '("-n256" "--decorate"))
   (put 'magit-log-mode 'magit-log-default-arguments '("-n256" "--decorate"))

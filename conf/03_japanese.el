@@ -39,20 +39,6 @@
   (add-hook 'focus-in-hook '~send-eisuu-key))
 
 
-(use-package skk
-  :defer t
-  :custom ((skk-previous-candidate-keys '("S-SPC" "x"))
-           (skk-save-jisyo-instantly t)
-           (skk-jisyo-save-count 5)
-           (skk-show-candidates-nth-henkan-char 2)
-           (skk-henkan-number-to-display-candidates 15)
-           (skk-henkan-show-candidates-keys '(?h ?j ?k ?l ?y ?u ?i ?o ?p ?n ?m ?g ?f ?d ?a ?t ?r ?e)))
-  :init
-  (setq default-input-method "japanese-skk")
-  :config
-  (add-to-list 'skk-quit-commands 'keyboard-escape-quit))
-
-(use-package ddskk-posframe
-  :after 'skk
-  :config
-  (ddskk-posframe-mode +1))
+;; https://qiita.com/wakamenod/items/db3ca7d16df37f4768b7
+(when (functionp 'mac-ime-toggle)
+  (bind-key* [remap toggle-input-method] 'mac-ime-toggle))

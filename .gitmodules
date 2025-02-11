@@ -325,9 +325,6 @@
 	path = elisp/borg/libgit
 	url = https://github.com/magit/libegit2
 	ignore = untracked
-[submodule "llama"]
-	path = elisp/borg/llama
-	url = https://git.sr.ht/~tarsius/llama
 [submodule "log4e"]
 	path = elisp/borg/log4e
 	url = https://github.com/aki2o/log4e

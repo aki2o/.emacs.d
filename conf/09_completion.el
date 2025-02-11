@@ -1,3 +1,5 @@
+(unbind-key "C-j" minibuffer-local-map)
+
 (bind-keys :map minibuffer-local-map
            ([remap keyboard-escape-quit] . minibuffer-keyboard-quit)
            ("C-M-p" . previous-matching-history-element)

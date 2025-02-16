@@ -1,6 +1,6 @@
 (use-package copilot
   :defer t
-  :custom ((copilot-idle-delay 3)
+  :custom ((copilot-idle-delay 15)
            (copilot-max-char 300000)
            (copilot-indent-warning-suppress t)) ; copilot--indentation-alist に登録されていない mode では tab-width が使われるらしく、そのことを知らせる警告の抑制
   :hook ((prog-mode . copilot-mode))

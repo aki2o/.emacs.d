@@ -2,6 +2,7 @@
 (setq visible-bell nil) ;; ヴィジュアルベル無効
 (setq ring-bell-function '(lambda ())) ;; ビープ音も無効
 (setq use-dialog-box nil) ;; ダイアログボックスを使わない
+(setq warning-minimum-level :error) ;; native compile 以降 Warnings バッファが頻繁に表示されてうざいので
 
 (setq message-log-max 10000) ;; ログ記録行数
 (setq history-length 1000) ;; 履歴保存数

@@ -46,8 +46,8 @@
   :init
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-envs '("OPENAI_API_KEY")))
-  :custom ((chatblade-default-model "gpt-4-turbo-preview")
-           (chatblade-default-switched-model "gpt-4")
+  :custom ((chatblade-default-model "o3-mini")
+           (chatblade-default-switched-model "gpt-4o-mini")
            (chatblade-prompt-name-alist '((rust-mode           . "rust")
                                           (typescript-mode     . "ts")
                                           (typescript-tsx-mode . "ts")

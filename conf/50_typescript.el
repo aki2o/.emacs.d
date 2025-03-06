@@ -50,7 +50,8 @@
     ;; npm i -g typescript-language-server typescript が必要
     (when (functionp '~lsp-deferred)
       ;; (setq ~lsp-organize-imports-function 'lsp-organize-imports-my-ts)
-      (~lsp-deferred)))
+      (~lsp-deferred))
+    (subword-mode 1))
 
   (~add-setup-hook-after-load 'mmask 'typescript-mode
     (setq moccur-grep-default-mask (mmask-get-regexp-string 'typescript-mode)))

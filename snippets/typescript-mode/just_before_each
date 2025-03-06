@@ -2,4 +2,4 @@
 # name: ju - just before each
 # key: ju
 # --
-justBeforeEach(() => $0);
+justBeforeEach($0);

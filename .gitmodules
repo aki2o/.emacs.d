@@ -353,6 +353,7 @@
 [submodule "lua-mode"]
 	path = elisp/borg/lua-mode
 	url = https://github.com/immerrr/lua-mode
+	ignore = untracked
 [submodule "magit"]
 	path = elisp/borg/magit
 	url = git@github.com:magit/magit.git

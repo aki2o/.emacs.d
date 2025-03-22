@@ -6,6 +6,9 @@
 	path = elisp/borg/ag
 	url = https://github.com/Wilfred/ag.el
 	ignore = untracked
+[submodule "aidermacs"]
+	path = elisp/borg/aidermacs
+	url = https://github.com/MatthewZMD/aidermacs
 [submodule "alert"]
 	path = elisp/borg/alert
 	url = https://github.com/jwiegley/alert

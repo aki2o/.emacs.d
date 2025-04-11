@@ -1,5 +1,5 @@
-(setq sh-basic-offset 4)
-(setq sh-indentation 4)
+(setq sh-basic-offset 2)
+(setq sh-indentation 2)
 
 (with-eval-after-load 'mmask
   (mmask-regist-name-regexp 'sh-mode (rx-to-string `(and bos (? ".") (or "env" "envrc") (* anything)))))

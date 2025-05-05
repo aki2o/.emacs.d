@@ -1,7 +1,7 @@
 (use-package corfu
   :custom ((corfu-auto t)
-           (corfu-auto-delay 0.3)
-           (corfu-auto-prefix 6)
+           (corfu-auto-delay 0.2)
+           (corfu-auto-prefix 5)
            (corfu-preview-current nil)
            (corfu-preselect 'first)
            (corfu-quit-at-boundary 'separator)
@@ -13,8 +13,9 @@
 
   :config
   (bind-keys :map corfu-map
-             ("C-S-j" . corfu-next)
-             ("C-S-k" . corfu-previous)
+             ("TAB" . corfu-expand)
+             ("C-l" . corfu-expand)
+             ("C-S-l" . corfu-expand)
              ([remap keyboard-escape-quit] . corfu-quit))
 
   (with-eval-after-load 'fussy
@@ -31,9 +32,10 @@
 
 (add-hook 'minibuffer-setup-hook #'my:corfu-enable-in-minibuffer)
 
+
 (use-package corfu-popupinfo
   :after corfu
-  :custom ((corfu-popupinfo-delay '(1.0 . 0.5))
+  :custom ((corfu-popupinfo-delay '(2.0 . 0.5))
            (corfu-popupinfo-max-width 120)
            (corfu-popupinfo-max-height 20)))
 

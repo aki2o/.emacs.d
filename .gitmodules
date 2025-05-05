@@ -62,7 +62,7 @@
 	ignore = untracked
 [submodule "copilot"]
 	path = elisp/borg/copilot
-	url = git@github.com:zerolfx/copilot.el.git
+	url = git@github.com:copilot-emacs/copilot.el.git
 	ignore = untracked
 [submodule "corfu"]
 	path = elisp/borg/corfu

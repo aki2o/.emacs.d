@@ -14,8 +14,6 @@
   :config
   (bind-keys :map corfu-map
              ("TAB" . corfu-expand)
-             ("C-l" . corfu-expand)
-             ("C-S-l" . corfu-expand)
              ([remap keyboard-escape-quit] . corfu-quit))
 
   (with-eval-after-load 'fussy

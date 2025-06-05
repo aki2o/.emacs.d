@@ -142,6 +142,7 @@
     ("relaod" "reload" nil :count 6)
     ("remakr" "remark" nil :count 1)
     ("reocrd" "record" nil :count 1)
+    ("reputatoins" "reputations" nil :count 1)
     ("reqeust" "request" nil :count 5)
     ("reqeusted" "requested" nil :count 1)
     ("requestd" "requested" nil :count 2)

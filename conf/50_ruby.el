@@ -5,6 +5,9 @@
            (ruby-insert-encoding-magic-comment nil)
            (ruby-deep-indent-paren-style nil))
   :init
+  (with-eval-after-load 'exec-path-from-shell
+    (exec-path-from-shell-copy-envs '("BUNDLE_RUBYGEMS__PKG__GITHUB__COM")))
+
   (with-eval-after-load 'mmask
     (mmask-regist-name 'ruby-mode "Gemfile" "Rakefile" "Guardfile" "Capfile" "Vagrantfile" ".Brewfile")
     (mmask-regist-extension-with-icase 'ruby-mode "rake" "ru" "gemspec" "ruby"))
@@ -31,7 +34,7 @@
 
     (when (functionp '~lsp-deferred)
       (setq-local lsp-completion-enable nil)
-      (setq-local lsp-enabled-clients '(ruby-ls))
+      (setq-local lsp-enabled-clients '(ruby-lsp-ls))
       (~lsp-deferred)))
 
   (~add-setup-hook-after-load 'flex-autopair 'ruby-mode

@@ -26,6 +26,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("Insurence" "Insurance" nil :count 2)
+    ("Socre" "Score" nil :count 1)
     ("Validaitons" "Validations" nil :count 1)
     ("Wofkflow" "Workflow" nil :count 1)
     ("approvied" "approved" nil :count 1)
@@ -143,7 +144,7 @@
     ("remakr" "remark" nil :count 1)
     ("reocrd" "record" nil :count 1)
     ("reputatoins" "reputations" nil :count 1)
-    ("reqeust" "request" nil :count 5)
+    ("reqeust" "request" nil :count 1)
     ("reqeusted" "requested" nil :count 1)
     ("requestd" "requested" nil :count 2)
     ("requet" "request" nil :count 2)

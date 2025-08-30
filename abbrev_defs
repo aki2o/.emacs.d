@@ -168,6 +168,7 @@
     ("tomoroow" "tomorrow" nil :count 13)
     ("transacito" "transaction" nil :count 0)
     ("transaciton" "transaction" nil :count 3)
+    ("transacitons" "transactions" nil :count 1)
     ("trasaction" "transaction" nil :count 1)
     ("udpate" "update" nil :count 1)
     ("undersocre" "underscore" nil :count 2)

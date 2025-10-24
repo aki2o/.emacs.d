@@ -21,7 +21,7 @@
   (unbind-key "C-j" magit-diff-section-map)
 
   (put 'magit-log-select-mode 'magit-log-default-arguments '("-n256" "--decorate"))
-  (put 'magit-log-mode 'magit-log-default-arguments '("-n256" "--decorate"))
+  (put 'magit-log-mode 'magit-log-default-arguments '("-n256" "--decorate" "--follow"))
 
   (with-eval-after-load 'with-editor
     (bind-keys :map with-editor-mode-map

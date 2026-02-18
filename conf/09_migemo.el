@@ -2,7 +2,7 @@
 (use-package migemo
   :custom ((migemo-command "cmigemo")
            (migemo-options '("-q" "--emacs"))
-           (migemo-dictionary (expand-file-name "/usr/local/share/migemo/utf-8/migemo-dict"))
+           (migemo-dictionary (expand-file-name "/opt/homebrew/share/migemo/utf-8/migemo-dict"))
            (migemo-user-dictionary nil)
            (migemo-regex-dictionary nil)
            (migemo-use-pattern-alist t)

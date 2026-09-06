@@ -14,6 +14,7 @@
     (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
   (with-eval-after-load 'lsp-mode
+    (add-to-list 'lsp-enabled-clients 'tsgo)
     (setq lsp-clients-typescript-max-ts-server-memory "8192")
     (setq lsp-clients-typescript-preferences
           '(:includeInlayParameterNameHints t

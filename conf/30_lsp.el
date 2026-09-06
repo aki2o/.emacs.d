@@ -41,6 +41,21 @@
   ;;   ;; 補完した後に、後続の文字を消されてしまうことがあって、ここでやっているっぽいので、一旦何もしないようにしてみてる
   ;;   (defun lsp-completion--exit-fn (&rest args)
   ;;     nil))
+
+  ;; Workaround for the following error:
+  ;;
+  ;;   LSP :: Error from the Language Server: InvalidParams: json: cannot unmarshal into Go lsproto.TextDocumentClientCapabilities
+  ;;   within "/capabilities/textDocument/inlineCompletion": null value is not allowed for field "inlineCompletion" (Invalid Parameters)
+  ;;
+  ;; see:
+  ;;   https://github.com/emacs-lsp/lsp-mode/issues/5081
+  ;;   https://github.com/khinshankhan/dotfiles/blob/4b356a6900afe63058c73464d77bcc074f97fb9e/emacs/.emacs.d/modules/tools/lsp.el#L50-L57
+  ;;
+  (defun my:lsp--fix-tsgo-inline-completion (caps)
+    (when-let* ((text-doc (alist-get 'textDocument caps)))
+      (setf (alist-get 'inlineCompletion text-doc nil 'remove) nil))
+    caps)
+  (advice-add 'lsp--client-capabilities :filter-return #'my:lsp--fix-tsgo-inline-completion)
   )
 
 (defun ~lsp-deferred ()
